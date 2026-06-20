@@ -13,17 +13,10 @@
     <div class="nav-links">
       <a href="index.html">Network</a>
       <a href="sites.html" class="active">Sites</a>
+      <a href="history.html">Shift History</a>
     </div>
-    <div class="nav-status" id="nav-refresh-status"></div>
+    <div class="nav-status" id="nav-refresh-status">Loading...</div>
   </nav>
-  <script>
-  (function updateClock(){
-    var now=new Date();
-    var ts=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
-    document.getElementById('nav-refresh-status').textContent=ts;
-    setTimeout(updateClock,1000);
-  })();
-  </script>
 
   <!-- Main Content -->
   <main class="main-content">
@@ -32,6 +25,7 @@
         <h1 class="page-title">rIXD North America</h1>
         <p class="page-subtitle">22 IXD crossbelt sorter sites — live health status</p>
       </div>
+      <div class="filter-bar" id="filter-bar"></div>
     </div>
 
     <!-- Warning banner -->
