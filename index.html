@@ -1,44 +1,26 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>IXD Insights vJun 20 2026 17:46</title>
-<meta http-equiv="refresh" content="300">
+<title>IXD Insights</title>
+<link rel="stylesheet" href="css/dashboard.css">
 <style>
-  :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#7d8590;
-        --green:#3fb950;--yellow:#d29922;--red:#f85149;--blue:#58a6ff;--orange:#ffa657;}
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;}
-  header{background:#161b22;border-bottom:1px solid #30363d;padding:12px 20px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;}
-  header h1{font-size:15px;font-weight:600;color:#58a6ff;}
-  .hbadge{background:#21262d;border:1px solid #30363d;border-radius:12px;padding:2px 8px;font-size:11px;color:#7d8590;}
-  .hbadge.live{border-color:#3fb950;color:#3fb950;}.hbadge.warn{border-color:#f85149;color:#f85149;}
-  #ts{margin-left:auto;color:#7d8590;font-size:11px;}
-  .prog-bar{height:3px;background:#30363d;position:sticky;top:49px;z-index:99;}
-  .prog-fill{height:100%;background:#58a6ff;width:0%;}
-  .main{padding:16px;max-width:1600px;margin:0 auto;}
-  .tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
-  .tab-btn{padding:5px 14px;border:1px solid #30363d;border-radius:6px;cursor:pointer;
-           background:#161b22;color:#7d8590;font-size:12px;transition:all .15s;}
-  .tab-btn.active{background:#58a6ff;border-color:#58a6ff;color:#0d1117;font-weight:600;}
-  .tab-btn:hover:not(.active){border-color:#58a6ff;color:#58a6ff;}
   table{width:100%;border-collapse:collapse;font-size:12px;}
   th{color:#7d8590;text-align:left;padding:5px 8px;font-weight:500;border-bottom:1px solid #30363d;font-size:11px;}
   td{padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;}
   tr:last-child td{border-bottom:none;} tr:hover td{background:#1c2128;}
   pre{background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:14px;font-size:11px;overflow-x:auto;line-height:1.8;color:#c9d1d9;}
   code{background:#21262d;padding:1px 5px;border-radius:3px;font-size:11px;color:#58a6ff;}
+  @keyframes dtw-blink{0%,100%{opacity:1}50%{opacity:0.4}}
 </style></head><body>
-<header>
-  <h1>&#x26A1; IXD <span style="color:#58a6ff;">INSIGHTS</span></h1>
-  <span class="hbadge live">&#x25CF; 2026-06-20 18:09:13</span>
-  <span id="ts"></span>
-</header>
-<div class="prog-bar"><div class="prog-fill" id="prog"></div></div>
-<style>@keyframes dtw-blink{0%,100%{opacity:1}50%{opacity:0.4}}</style>
-<div class="main">
-  <div class="tabs" id="main-tabs"><button id="btn-0" class="tab-btn active" onclick="goTab(0)">Network</button>
-<button id="btn-1" class="tab-btn" onclick="window.location.href='sites.html'">Sites</button>
-</div>
+<nav class="nav-bar">
+  <a href="index.html" class="nav-brand">⚡ <span>IXD</span> Insights</a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Network</a>
+    <a href="sites.html">Sites</a>
+  </div>
+  <div class="nav-status" id="ts"></div>
+</nav>
+<main class="main-content">
   <div class="tabs" id="rdu2-tabs" style="display:none;">
     <button class="tab-btn" onclick="goTab(0)" style="padding:5px 10px;">← Back</button>
     <button class="tab-btn active rdu2-sub" onclick="rdu2Sub(-1)">Overview</button>
@@ -51,7 +33,6 @@
     <button class="tab-btn rdu2-sub" onclick="rdu2Sub(6)">Sorter</button>
     <button class="tab-btn rdu2-sub" onclick="rdu2Sub(7)">Induction</button>
   </div>
-<div id="tab-0" style="display:block;">
 <div style="font-size:13px;font-weight:600;color:#e6edf3;margin:16px 0 8px;padding-bottom:5px;border-bottom:1px solid #30363d;">📊 Network Performance — Wk24 vs Wk25 (current)</div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
 <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px;margin-bottom:12px;"><h3 style="font-size:11px;color:#7d8590;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;display:flex;align-items:center;gap:6px;"><span style="width:7px;height:7px;border-radius:50%;background:#f85149;display:inline-block;"></span> Wk24 (baseline)</h3><table style="width:100%;border-collapse:collapse;font-size:12px;"><thead><tr><th style="color:#7d8590;text-align:left;padding:5px 8px;font-weight:500;border-bottom:1px solid #30363d;font-size:11px;">Site</th><th style="color:#7d8590;text-align:left;padding:5px 8px;font-weight:500;border-bottom:1px solid #30363d;font-size:11px;">FPY</th><th style="color:#7d8590;text-align:left;padding:5px 8px;font-weight:500;border-bottom:1px solid #30363d;font-size:11px;">Scan</th><th style="color:#7d8590;text-align:left;padding:5px 8px;font-weight:500;border-bottom:1px solid #30363d;font-size:11px;">MHE</th><th style="color:#7d8590;text-align:left;padding:5px 8px;font-weight:500;border-bottom:1px solid #30363d;font-size:11px;">Failed Diverts</th><th style="color:#7d8590;text-align:left;padding:5px 8px;font-weight:500;border-bottom:1px solid #30363d;font-size:11px;">Status</th></tr></thead><tbody><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">IAH3</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">18.8%</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">6.2%</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">6.3%</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">183,914</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">CRITICAL</span></td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">RDU2</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">17.2%</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">5.9%</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">7.5%</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">121,114</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">CRITICAL</span></td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">VGT2</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">19.2%</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">4.4%</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">5.91%</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">96,127</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEGRADED</span></td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">GYR3</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">?</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">4.9%</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">3.16%</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">40,657</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">MaxRecirc=128</span></td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">ORF2</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">17.9%</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">?</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">2.54%</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">91,730</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">MaxRecirc=35</span></td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">LAS1</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">?</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">?</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">?</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">?</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">MaxRecirc=30</span></td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">Avg</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">24.5%</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">2.9%</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">3.09%</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;vertical-align:top;">—</td></tr></tbody></table></div>
@@ -75,93 +56,11 @@
 <div style="margin-bottom:10px;font-size:10px;color:#7d8590;"><span style="color:#f85149;">● INTL (8)</span> &nbsp; <span style="color:#d29922;">● DEM (14)</span></div>
 <table style="width:100%;border-collapse:collapse;font-size:12px;"><thead><tr><th style="color:#7d8590;text-align:left;padding:5px 8px;font-weight:500;border-bottom:1px solid #30363d;font-size:11px;">Site</th><th style="color:#7d8590;text-align:left;padding:5px 8px;">OEM</th><th style="color:#7d8590;text-align:left;padding:5px 8px;">Region</th><th style="color:#7d8590;text-align:left;padding:5px 8px;">Scan Defect</th><th style="color:#7d8590;text-align:left;padding:5px 8px;">MHE Defect</th><th style="color:#7d8590;text-align:left;padding:5px 8px;">Carrier Avail</th></tr></thead><tbody><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">BJC1</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">West</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">FWA4</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">Central</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">GYR2</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">West</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">GYR3</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">INTL</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">West</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">IAH3</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">INTL</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">Central</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">IND9</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">Central</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">LAS1</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">INTL</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">West</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">LAX9</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">INTL</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">West</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">MCC1</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">West</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">MEM1</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">INTL</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">Central</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">MQJ1</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">Central</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">ORF2</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">INTL</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">East</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">PSP3</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">West</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">RDU2</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">INTL</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">East</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">RFD2</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">Central</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">RMN3</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">Central</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">SBD1</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">West</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">SCK4</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">West</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">SWF2</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">Northeast</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">TEB9</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">Northeast</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">TOL3</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#2d2106;color:#d29922;">DEM</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">Central</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr><tr><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">VGT2</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;"><span style="display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;background:#3b1219;color:#f85149;">INTL</span></td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">West</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td><td style="padding:5px 8px;border-bottom:1px solid #1c2128;">—</td></tr></tbody></table></div>
 </div>
-<div id="tab-1" style="display:none;">
-
-<div id="rixd-overview">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-  <div>
-    <div style="font-size:16px;font-weight:700;color:#e6edf3;">rIXD North America</div>
-    <div style="font-size:11px;color:#7d8590;">22 IXD crossbelt sorter sites — click a site for details</div>
-  </div>
-</div>
-<div id="rixd-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;"></div>
-</div>
+</main>
 <script>
-(function(){
-  fetch('data/sites.json').then(r=>r.json()).then(sites=>{
-    const grid=document.getElementById('rixd-grid');
-    if(!grid)return;
-    const cards=sites.sort((a,b)=>a.id.localeCompare(b.id)).map(s=>{
-      const oemColor=s.oem==='INTL'?'#f85149':'#f4d03f';
-      const oemBg=s.oem==='INTL'?'#f85149':'#f4d03f';
-      return `<div class="rixd-card" data-region="${s.region}" onclick="window.location.href='site.html?id=${s.id}'" style="cursor:pointer;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px;min-width:180px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='#30363d'"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:13px;font-weight:700;color:#e6edf3;">${s.id}</span><span style="background:#21262d;border:1px solid ${oemColor};color:${oemColor};padding:1px 6px;border-radius:4px;font-size:9px;font-weight:600;">${s.oem}</span></div><span id="status-${s.id}" style="color:#f85149;font-size:10px;">● DISCONNECTED</span><div style="display:flex;gap:12px;margin-top:6px;font-size:10px;color:#7d8590;"><span>${s.oem==='INTL'?'Avail':'Faults'}</span><span>${s.oem==='INTL'?'Faulted':'Jams'}</span><span>${s.oem==='INTL'?'Speed':'SD Trips'}</span></div><div style="display:flex;gap:12px;font-size:12px;font-weight:700;color:#e6edf3;" id="metrics-${s.id}"><span>—</span><span>—</span><span>—</span></div><div style="margin-top:8px;font-size:9px;color:#7d8590;" id="fresh-${s.id}">NO DATA</div></div>`;
-    });
-    grid.innerHTML=cards.join('');
-    // Fetch live data for each site
-    sites.forEach(s=>{
-      fetch('data/'+s.id+'.json').then(r=>{if(!r.ok)throw'';return r.json()}).then(d=>{
-        const statusEl=document.getElementById('status-'+s.id);
-        const metricsEl=document.getElementById('metrics-'+s.id);
-        const freshEl=document.getElementById('fresh-'+s.id);
-        if(!statusEl)return;
-        if(d.connection_status==='online'){
-          statusEl.innerHTML='<span style="color:#3fb950;">● CONNECTED</span>';
-          freshEl.style.color='#3fb950';freshEl.textContent='LIVE DATA';
-        }else if(d.connection_status==='offline'&&d._pushed_at){
-          statusEl.innerHTML='<span style="color:#f85149;">● OFFLINE</span>';
-        }
-        if(s.oem==='INTL'&&d.carriers){
-          const avail=d.carriers.availability_pct||'—';
-          const faulted=d.carriers.faulted||0;
-          const speed=d.sorter&&d.sorter.speed?d.sorter.speed.toLocaleString():'—';
-          metricsEl.innerHTML=`<span>${avail}%</span><span>${faulted}</span><span>${speed}</span>`;
-        }else if(s.oem==='DEM'&&d.trace){
-          const faults=d.trace.active_faults||0;
-          const jams=d.trace.chute_jams||0;
-          const sd=d.trace.carrier_sd_trips||0;
-          metricsEl.innerHTML=`<span>${faults}</span><span>${jams}</span><span>${sd}</span>`;
-        }
-      }).catch(()=>{});
-    });
-  });
-})();
+document.getElementById('ts').textContent = 'Last refresh: ' + new Date().toLocaleTimeString();
 </script>
-</div>
-</div>
-<script>
-function goTab(n) {
-  var tabs = document.querySelectorAll('[id^="tab-"]');
-  for (var i = 0; i < tabs.length; i++) {
-    if (tabs[i].id.match(/^tab-\d+$/)) tabs[i].style.display = 'none';
-  }
-  var btns = document.querySelectorAll('[id^="btn-"]');
-  for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
-  var target = document.getElementById('tab-' + n);
-  var btn = document.getElementById('btn-' + n);
-  if (target) target.style.display = 'block';
-  if (btn) btn.classList.add('active');
-}
-
-// DTW Detection
-(function() {
-  var now = new Date();
-  var mins = now.getHours() * 60 + now.getMinutes();
-  var inDTW = (mins >= 330 && mins < 390) || (mins >= 1050 && mins < 1110);
-  var banners = document.querySelectorAll('.dtw-banner');
-  banners.forEach(function(banner) {
-    var txt = banner.querySelector('.dtw-text');
-    if (!txt) return;
-    if (inDTW) {
-      banner.style.background = '#0d1f3a';
-      banner.style.borderColor = '#58a6ff';
-      txt.style.color = '#58a6ff';
-      txt.textContent = (mins < 720) ? '🔵 DTW 5:30-6:30am' : '🔵 DTW 5:30-6:30pm';
-    }
-  });
-})();
-
-document.getElementById('ts').textContent = 'Updated: ' + new Date().toLocaleString();
-</script>
+</body></html>
 <script>
 window.LIVE_DATA = {
   "site": "RDU2",
