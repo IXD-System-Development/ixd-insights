@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IXD Systems Dashboard — Overview</title>
+  <title>IXD Insights — Network</title>
   <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
@@ -11,7 +11,8 @@
   <nav class="nav-bar">
     <a href="index.html" class="nav-brand">⚡ <span>IXD</span> Insights</a>
     <div class="nav-links">
-      <a href="index.html" class="active">Overview</a>
+      <a href="index.html" class="active">Network</a>
+      <a href="sites.html">Sites</a>
       <a href="history.html">Shift History</a>
     </div>
     <div class="nav-status" id="nav-refresh-status">Loading...</div>
@@ -21,26 +22,102 @@
   <main class="main-content">
     <div class="page-header">
       <div>
-        <h1 class="page-title">rIXD North America</h1>
-        <p class="page-subtitle">22 IXD crossbelt sorter sites — live health status</p>
+        <h1 class="page-title">Network Performance</h1>
+        <p class="page-subtitle">INTL CB4000 fleet — weekly KPI comparison</p>
       </div>
-      <div class="filter-bar" id="filter-bar"></div>
     </div>
 
     <!-- Warning banner -->
     <div class="warn-banner hidden" id="warning-banner"></div>
 
-    <!-- Sites grid -->
-    <div class="sites-grid" id="sites-grid">
-      <div class="loading">Loading site data...</div>
+    <!-- Network KPI Grid -->
+    <div id="network-content">
+      <!-- Wk24 vs Wk25 comparison -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+
+        <!-- Wk24 Baseline -->
+        <div class="section-panel">
+          <div class="section-title"><span class="section-dot" style="background:var(--red)"></span> Wk24 (baseline)</div>
+          <table class="data-table">
+            <thead><tr><th>Site</th><th>FPY</th><th>Scan</th><th>MHE</th><th>Failed Diverts</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>IAH3</td><td><span class="badge-fault">18.8%</span></td><td><span class="badge-fault">6.2%</span></td><td><span class="badge-fault">6.3%</span></td><td>183,914</td><td><span class="badge-fault">CRITICAL</span></td></tr>
+              <tr><td>RDU2</td><td><span class="badge-fault">17.2%</span></td><td><span class="badge-fault">5.9%</span></td><td><span class="badge-fault">7.5%</span></td><td>121,114</td><td><span class="badge-fault">CRITICAL</span></td></tr>
+              <tr><td>VGT2</td><td><span class="badge-fault">19.2%</span></td><td style="color:var(--yellow)">4.4%</td><td><span class="badge-fault">5.91%</span></td><td>96,127</td><td style="color:var(--yellow)">DEGRADED</td></tr>
+              <tr><td>GYR3</td><td>?</td><td style="color:var(--yellow)">4.9%</td><td><span class="badge-fault">3.16%</span></td><td>40,657</td><td><span class="badge-fault">MaxRecirc=128</span></td></tr>
+              <tr><td>ORF2</td><td><span class="badge-fault">17.9%</span></td><td>?</td><td><span class="badge-fault">2.54%</span></td><td>91,730</td><td><span class="badge-fault">MaxRecirc=35</span></td></tr>
+              <tr><td>LAS1</td><td>?</td><td>?</td><td>?</td><td>?</td><td><span class="badge-fault">MaxRecirc=30</span></td></tr>
+              <tr><td style="color:var(--text-secondary)">Avg</td><td>24.5%</td><td>2.9%</td><td>3.09%</td><td>—</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Wk25 Current -->
+        <div class="section-panel">
+          <div class="section-title"><span class="section-dot" style="background:var(--green)"></span> Wk25 (current)</div>
+          <table class="data-table">
+            <thead><tr><th>Site</th><th>FPY</th><th>Scan</th><th>MHE</th><th>Failed Diverts</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>IAH3</td><td>?</td><td>?</td><td>?</td><td>?</td><td style="color:var(--yellow)">pending</td></tr>
+              <tr><td>RDU2</td><td><span class="badge-ok">99.7%</span></td><td style="color:var(--yellow)">3.43%</td><td><span class="badge-ok">0.31%</span></td><td>25,691</td><td><span class="badge-ok">IMPROVING</span></td></tr>
+              <tr><td>VGT2</td><td>?</td><td>?</td><td>?</td><td>?</td><td style="color:var(--yellow)">pending</td></tr>
+              <tr><td>GYR3</td><td>?</td><td>?</td><td>?</td><td>?</td><td style="color:var(--yellow)">pending</td></tr>
+              <tr><td>ORF2</td><td>?</td><td>?</td><td>?</td><td>?</td><td style="color:var(--yellow)">pending</td></tr>
+              <tr><td>LAS1</td><td>?</td><td>?</td><td>?</td><td>?</td><td style="color:var(--yellow)">pending</td></tr>
+              <tr><td style="color:var(--text-secondary)">Avg</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Scan Defect Comparison -->
+      <div class="section-panel">
+        <div class="section-title"><span class="section-dot" style="background:var(--yellow)"></span> Scan Defect % — Wk24 vs Wk25</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div>
+            <div style="font-size:10px;color:var(--text-secondary);margin-bottom:6px;font-weight:600;">Wk24</div>
+            <div class="scanner-bar-row"><span class="scanner-bar-label">IAH3</span><div class="scanner-bar-track"><div class="scanner-bar-fill red" style="width:37%"></div></div><span class="scanner-bar-value red">6.2%</span></div>
+            <div class="scanner-bar-row"><span class="scanner-bar-label">RDU2</span><div class="scanner-bar-track"><div class="scanner-bar-fill red" style="width:35%"></div></div><span class="scanner-bar-value red">5.9%</span></div>
+            <div class="scanner-bar-row"><span class="scanner-bar-label">GYR3</span><div class="scanner-bar-track"><div class="scanner-bar-fill yellow" style="width:29%"></div></div><span class="scanner-bar-value yellow">4.9%</span></div>
+            <div class="scanner-bar-row"><span class="scanner-bar-label">VGT2</span><div class="scanner-bar-track"><div class="scanner-bar-fill yellow" style="width:26%"></div></div><span class="scanner-bar-value yellow">4.4%</span></div>
+            <div class="scanner-bar-row"><span class="scanner-bar-label">Avg</span><div class="scanner-bar-track"><div class="scanner-bar-fill green" style="width:17%"></div></div><span class="scanner-bar-value green">2.9%</span></div>
+            <div class="scanner-bar-row"><span class="scanner-bar-label">Target</span><div class="scanner-bar-track"><div class="scanner-bar-fill green" style="width:18%"></div></div><span class="scanner-bar-value green">3.0%</span></div>
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--text-secondary);margin-bottom:6px;font-weight:600;">Wk25 (current)</div>
+            <div class="scanner-bar-row"><span class="scanner-bar-label">RDU2</span><div class="scanner-bar-track"><div class="scanner-bar-fill yellow" style="width:21%"></div></div><span class="scanner-bar-value yellow">3.43%</span></div>
+            <div class="scanner-bar-row"><span class="scanner-bar-label">IAH3</span><div class="scanner-bar-track"><div class="scanner-bar-fill yellow" style="width:0%"></div></div><span class="scanner-bar-value yellow">?</span></div>
+            <div class="scanner-bar-row"><span class="scanner-bar-label">VGT2</span><div class="scanner-bar-track"><div class="scanner-bar-fill yellow" style="width:0%"></div></div><span class="scanner-bar-value yellow">?</span></div>
+            <div class="scanner-bar-row"><span class="scanner-bar-label">GYR3</span><div class="scanner-bar-track"><div class="scanner-bar-fill yellow" style="width:0%"></div></div><span class="scanner-bar-value yellow">?</span></div>
+            <div class="scanner-bar-row"><span class="scanner-bar-label">Target</span><div class="scanner-bar-track"><div class="scanner-bar-fill green" style="width:18%"></div></div><span class="scanner-bar-value green">3.0%</span></div>
+          </div>
+        </div>
+        <p style="font-size:11px;color:var(--green);margin-top:8px;">&#10003; RDU2 improved 5.9% → 3.43% (MaxRecirc fix + carrier repairs)</p>
+      </div>
+
+      <!-- Sort Code Reference -->
+      <div class="section-panel">
+        <div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> Sort Code → Dashboard Bucket</div>
+        <table class="data-table">
+          <thead><tr><th>S04 Code</th><th>AWCS Name</th><th>CB4000 Root Cause</th><th>Bucket</th></tr></thead>
+          <tbody>
+            <tr><td>14</td><td>FAILED_TO_DIVERT</td><td>MCB dead / CTB fault / belt didn't fire</td><td><span class="badge-fault">MHE</span></td></tr>
+            <tr><td>12</td><td>LANE_UNAVAILABLE</td><td>Chute ALARM=0x30 (WCS-inhibited)</td><td style="color:var(--yellow)">Ops</td></tr>
+            <tr><td>5</td><td>LANE_FULL</td><td>Chute full — MDR not running</td><td style="color:var(--yellow)">Ops</td></tr>
+            <tr><td>11</td><td>MAX_RECIRC</td><td>Hit AdjGeneral.MaxRecirc limit</td><td style="color:var(--blue)">Load Bal</td></tr>
+            <tr><td>8</td><td>NO_READ</td><td>Scanner miss</td><td><span class="badge-fault">MHE</span></td></tr>
+            <tr><td>3</td><td>TRACKING_ERROR</td><td>Carrier tracking lost</td><td><span class="badge-fault">MHE</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </main>
 
   <script src="js/config.js"></script>
   <script src="js/data.js"></script>
-  <script src="js/overview.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => Overview.init());
+    document.getElementById('nav-refresh-status').textContent = 'Updated: ' + new Date().toLocaleString();
   </script>
 </body>
 </html>

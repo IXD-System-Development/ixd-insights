@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IXD Systems Dashboard — Site Detail</title>
+  <title>IXD Insights — Sites</title>
   <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
     <a href="index.html" class="nav-brand">⚡ <span>IXD</span> Insights</a>
     <div class="nav-links">
       <a href="index.html">Network</a>
-      <a href="sites.html">Sites</a>
+      <a href="sites.html" class="active">Sites</a>
       <a href="history.html">Shift History</a>
     </div>
     <div class="nav-status" id="nav-refresh-status">Loading...</div>
@@ -20,20 +20,28 @@
 
   <!-- Main Content -->
   <main class="main-content">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">rIXD North America</h1>
+        <p class="page-subtitle">22 IXD crossbelt sorter sites — live health status</p>
+      </div>
+      <div class="filter-bar" id="filter-bar"></div>
+    </div>
+
     <!-- Warning banner -->
     <div class="warn-banner hidden" id="warning-banner"></div>
 
-    <!-- Detail content rendered by JS -->
-    <div id="detail-content">
-      <div class="loading">Loading site detail...</div>
+    <!-- Sites grid -->
+    <div class="sites-grid" id="sites-grid">
+      <div class="loading">Loading site data...</div>
     </div>
   </main>
 
   <script src="js/config.js"></script>
   <script src="js/data.js"></script>
-  <script src="js/detail.js"></script>
+  <script src="js/overview.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => SiteDetail.init());
+    document.addEventListener('DOMContentLoaded', () => Overview.init());
   </script>
 </body>
 </html>
