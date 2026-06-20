@@ -14,13 +14,6 @@ const SiteDetail = (() => {
     const params = new URLSearchParams(window.location.search);
     _siteId = params.get('id');
 
-    // RDU2 uses custom dashboard page
-    if (_siteId === 'RDU2') {
-      window.location.href = 'rdu2.html';
-      return;
-    }
-
-
     if (!_siteId) {
       showNotFound();
       return;
