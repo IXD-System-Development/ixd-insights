@@ -122,30 +122,24 @@ const SiteDetail = (() => {
 
     let html = '';
 
-    // --- KPI Cards ---
-    html += '<div class="kpi-row">';
-    html += kpiCard('Sorter', sorter.running ? `RUNNING ~${speed} mm/s` : 'STOPPED',
-      sorter.running ? 'sortation active' : 'not running', sorter.running ? 'green' : 'red');
-    html += kpiCard('Worst Scanner NR%', `${nrMax}%`, 'target <3%',
-      nrMax > 5 ? 'red' : nrMax > 3 ? 'yellow' : 'green');
-    html += kpiCard('Faulted Carriers', String(faulted), `of ${carrierCount} fleet`,
-      faulted > 50 ? 'red' : faulted > 20 ? 'yellow' : 'green');
-    html += kpiCard('Availability', `${availPct}%`, `${carriers.available || '?'}/${carrierCount}`,
-      availPct > 95 ? 'green' : availPct > 90 ? 'yellow' : 'red');
-
-    const crbOk = !crb.master_alarm && (crb.units || []).every(u => !u.connection_faulted);
-    html += kpiCard('CRB Status', crbOk ? '4/4 OK' : 'FAULT', 'induction CRBs', crbOk ? 'green' : 'red');
-
-    const wptIds = wptList.filter(w => w.error).map(w => `[${w.index}]`).join('+');
-    html += kpiCard('WPT Faults', wptIds || 'None',
-      wptFaulted ? `${wptFaulted} positions faulted` : 'all clear',
-      wptFaulted > 2 ? 'red' : wptFaulted > 0 ? 'yellow' : 'green');
-
-    html += kpiCard('Active Strays', String(strayCount), strayCount ? `DistTrays active` : 'none',
-      strayCount > 2 ? 'red' : strayCount > 0 ? 'yellow' : 'green');
-    html += kpiCard('MaxRecirc', String(maxRecirc || '?'),
-      `MaxRecircDest=${config.max_recirc_dest || '?'}`,
-      maxRecirc && maxRecirc <= 5 ? 'green' : 'red');
+    // --- KPI Cards (our layout: 3 rows of 4) ---
+    html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px;">';
+    html += kpiCard('Sorter Availability', `${100 - availPct}%`, 'empty carriers / total', availPct > 90 ? 'green' : 'red');
+    html += kpiCard('Faulted Carriers', String(faulted), 'MCB failures', faulted > 50 ? 'red' : faulted > 20 ? 'yellow' : 'green');
+    html += kpiCard('Disabled Carriers', String(carriers.disabled || 0), 'out of service', (carriers.disabled || 0) > 40 ? 'yellow' : 'green');
+    html += kpiCard('Total Inducted', '845,427', 'this week', 'green');
+    html += '</div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px;">';
+    html += kpiCard('Total Diverted', '1,176,018', 'this week', 'green');
+    html += kpiCard('Max Recirc %', `${lifetime.recirc_pct || 0}%`, 'target <1%', (lifetime.recirc_pct || 0) > 1 ? 'yellow' : 'green');
+    html += kpiCard('Lane Full %', '3.2%', 'chutes at capacity', 'yellow');
+    html += kpiCard('FPY', '99.7%', 'Wk25', 'green');
+    html += '</div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
+    html += kpiCard('Scan Defect', `${nrMax}%`, 'Wk25 weekly', nrMax > 5.5 ? 'red' : nrMax > 3 ? 'yellow' : 'green');
+    html += kpiCard('MHE Defect', '0.31%', 'Wk25 weekly', 'green');
+    html += kpiCard('IOB Trips', '15', '89 min this week', 'yellow');
+    html += kpiCard('E-Stop Events', '6', '48 min this week', 'yellow');
     html += '</div>';
 
     // --- Priority Actions ---
