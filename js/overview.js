@@ -78,7 +78,12 @@ const Overview = (() => {
     // Click handlers
     container.querySelectorAll('.site-card').forEach(card => {
       card.addEventListener('click', () => {
-        window.location.href = `site.html?id=${card.dataset.siteId}`;
+        const sid = card.dataset.siteId;
+        if (sid === 'RDU2') {
+          window.location.href = 'rdu2.html';
+        } else {
+          window.location.href = `site.html?id=${sid}`;
+        }
       });
     });
   }
