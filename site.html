@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IXD Systems Dashboard — Site Detail</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-brand">⚡ <span>IXD</span> Insights</a>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="history.html">Shift History</a>
+    </div>
+    <div class="nav-status" id="nav-refresh-status">Loading...</div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Warning banner -->
+    <div class="warn-banner hidden" id="warning-banner"></div>
+
+    <!-- Detail content rendered by JS -->
+    <div id="detail-content">
+      <div class="loading">Loading site detail...</div>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/detail.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => SiteDetail.init());
+  </script>
+</body>
+</html>
