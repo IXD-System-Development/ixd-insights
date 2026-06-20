@@ -20,6 +20,14 @@
   </div>
   <div class="nav-status" id="ts"></div>
 </nav>
+<script>
+(function updateClock(){
+  var now=new Date();
+  var ts=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+  document.getElementById('ts').textContent=ts;
+  setTimeout(updateClock,1000);
+})();
+</script>
 <main class="main-content">
   <div class="tabs" id="rdu2-tabs" style="display:none;">
     <button class="tab-btn" onclick="goTab(0)" style="padding:5px 10px;">← Back</button>
@@ -58,7 +66,7 @@
 </div>
 </main>
 <script>
-document.getElementById('ts').textContent = 'Last refresh: ' + new Date().toLocaleTimeString();
+
 </script>
 </body></html>
 <script>
