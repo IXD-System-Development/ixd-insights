@@ -122,6 +122,22 @@ const SiteDetail = (() => {
 
     let html = '';
 
+    // --- RDU2 Sub-tab bar (at top) ---
+    if (_siteId === 'RDU2') {
+      html += `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border,#30363d);">
+        <button class="rdu2-stab active" onclick="rdu2SubTab(-1)">Overview</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(0)">CP Zones</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(1)">Metrics</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(2)">Shift Reports</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(3)">IXD Wiki</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(4)">Outbound</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(5)">Inbound</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(6)">Sorter</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(7)">Induction</button>
+      </div>`;
+      html += '<div id="rdu2-overview-content">';
+    }
+
     // --- KPI Cards (our layout: 3 rows of 4) ---
     html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px;">';
     html += kpiCard('Sorter Availability', `${100 - availPct}%`, 'empty carriers / total', availPct > 90 ? 'green' : 'red');
@@ -270,17 +286,8 @@ const SiteDetail = (() => {
     // ═══ RDU2 SUB-TABS (CP Zones, Metrics, Shifts, Wiki, Outbound, Inbound, Sorter, Induction) ═══
     if (_siteId === 'RDU2') {
       html += `<div style="margin-top:20px;border-top:2px solid var(--border,#30363d);padding-top:16px;">
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">
-          <button class="rdu2-stab active" onclick="rdu2SubTab(0)">CP Zones</button>
-          <button class="rdu2-stab" onclick="rdu2SubTab(1)">Metrics</button>
-          <button class="rdu2-stab" onclick="rdu2SubTab(2)">Shift Reports</button>
-          <button class="rdu2-stab" onclick="rdu2SubTab(3)">IXD Wiki</button>
-          <button class="rdu2-stab" onclick="rdu2SubTab(4)">Outbound</button>
-          <button class="rdu2-stab" onclick="rdu2SubTab(5)">Inbound</button>
-          <button class="rdu2-stab" onclick="rdu2SubTab(6)">Sorter</button>
-          <button class="rdu2-stab" onclick="rdu2SubTab(7)">Induction</button>
-        </div>
-        <div id="rdu2-st-0" class="rdu2-st-pane" style="display:block;">
+        
+        </div>\n<div id="rdu2-st-0" class="rdu2-st-pane" style="display:block;">
           <div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> CP Panel Zone Assignment</div>
           <table class="data-table"><thead><tr><th>Panel</th><th>Zone / Description</th></tr></thead><tbody>
           <tr><td>CP01</td><td>Receiving Inbound</td></tr><tr><td>CP02</td><td>Receiving North</td></tr>
@@ -468,13 +475,24 @@ const SiteDetail = (() => {
   
   // RDU2 sub-tab switcher (global)
   window.rdu2SubTab = function(n) {
+    var overview = document.getElementById('rdu2-overview-content');
     for (var i = 0; i <= 7; i++) {
       var el = document.getElementById('rdu2-st-' + i);
       if (el) el.style.display = (i === n) ? 'block' : 'none';
     }
+    if (n === -1) {
+      if (overview) overview.style.display = 'block';
+      for (var i = 0; i <= 7; i++) {
+        var el = document.getElementById('rdu2-st-' + i);
+        if (el) el.style.display = 'none';
+      }
+    } else {
+      if (overview) overview.style.display = 'none';
+    }
     document.querySelectorAll('.rdu2-stab').forEach(function(btn, idx) {
-      btn.classList.toggle('active', idx === n);
+      btn.classList.toggle('active', (n === -1 && idx === 0) || (n >= 0 && idx === n + 1));
     });
+    window.scrollTo(0, 0);
   };
 
 return { init, refresh, destroy };
