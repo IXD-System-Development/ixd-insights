@@ -41,26 +41,7 @@ const Overview = (() => {
   }
 
   function renderFilterBar() {
-    const sites = DataLayer.getSites();
-    const regions = ['all', ...new Set(sites.map(s => s.region).filter(Boolean).sort())];
-    const container = document.getElementById('filter-bar');
-    if (!container) return;
-
-    container.innerHTML = regions.map(r => {
-      const active = r === _currentRegion ? 'active' : '';
-      const label = r === 'all' ? 'All Regions' : r;
-      return `<button class="filter-btn ${active}" data-region="${r}">${label}</button>`;
-    }).join('');
-
-    container.addEventListener('click', (e) => {
-      const btn = e.target.closest('.filter-btn');
-      if (!btn) return;
-      _currentRegion = btn.dataset.region;
-      setRegionInURL(_currentRegion);
-      container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderGrid();
-    });
+    // Region filters removed — show all sites
   }
 
   async function refresh() {
