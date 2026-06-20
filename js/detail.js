@@ -19,6 +19,14 @@ const SiteDetail = (() => {
       return;
     }
 
+    
+// PATCH: Redirect RDU2 to custom page
+if (_siteId === 'RDU2') {
+    window.location.href = 'rdu2.html';
+    return;
+}
+
+
     try {
       await DataLayer.loadSites();
     } catch (e) {
