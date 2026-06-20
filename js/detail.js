@@ -75,6 +75,21 @@ const SiteDetail = (() => {
         <span class="staleness ${staleness.status}" style="margin-left:auto;">${staleness.label}</span>
       </div>`;
 
+    // RDU2 sub-tabs in header bar
+    if (_siteId === 'RDU2') {
+      html += `<div style="display:flex;gap:5px;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid var(--border,#30363d);margin-bottom:14px;">
+        <button class="rdu2-stab active" onclick="rdu2SubTab(-1)" style="font-size:11px;padding:3px 10px;">Overview</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(0)" style="font-size:11px;padding:3px 10px;">CP Zones</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(1)" style="font-size:11px;padding:3px 10px;">Metrics</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(2)" style="font-size:11px;padding:3px 10px;">Shift Reports</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(3)" style="font-size:11px;padding:3px 10px;">IXD Wiki</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(4)" style="font-size:11px;padding:3px 10px;">Outbound</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(5)" style="font-size:11px;padding:3px 10px;">Inbound</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(6)" style="font-size:11px;padding:3px 10px;">Sorter</button>
+        <button class="rdu2-stab" onclick="rdu2SubTab(7)" style="font-size:11px;padding:3px 10px;">Induction</button>
+      </div>`;
+    };
+
     if (oem === 'INTL') {
       html += renderINTL(data);
     } else if (oem === 'DEM') {
@@ -122,19 +137,8 @@ const SiteDetail = (() => {
 
     let html = '';
 
-    // --- RDU2 Sub-tab bar (at top) ---
+    // --- RDU2 overview wrapper ---
     if (_siteId === 'RDU2') {
-      html += `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border,#30363d);">
-        <button class="rdu2-stab active" onclick="rdu2SubTab(-1)">Overview</button>
-        <button class="rdu2-stab" onclick="rdu2SubTab(0)">CP Zones</button>
-        <button class="rdu2-stab" onclick="rdu2SubTab(1)">Metrics</button>
-        <button class="rdu2-stab" onclick="rdu2SubTab(2)">Shift Reports</button>
-        <button class="rdu2-stab" onclick="rdu2SubTab(3)">IXD Wiki</button>
-        <button class="rdu2-stab" onclick="rdu2SubTab(4)">Outbound</button>
-        <button class="rdu2-stab" onclick="rdu2SubTab(5)">Inbound</button>
-        <button class="rdu2-stab" onclick="rdu2SubTab(6)">Sorter</button>
-        <button class="rdu2-stab" onclick="rdu2SubTab(7)">Induction</button>
-      </div>`;
       html += '<div id="rdu2-overview-content">';
     }
 
