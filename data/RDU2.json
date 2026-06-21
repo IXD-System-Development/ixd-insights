@@ -1,24 +1,24 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-21 01:55:41",
+  "timestamp": "2026-06-21 01:56:25",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-21 01:55",
+  "_pushed_at": "2026-06-21 01:56",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2394,
+    "speed": 2404,
     "active_faults": []
   },
   "carriers": {
-    "faulted": 109,
+    "faulted": 102,
     "disabled": 36,
-    "available": 2195,
+    "available": 2202,
     "occupied": 2053,
-    "empty": 142,
-    "empty_pct": 6.1,
-    "availability_pct": 93.8
+    "empty": 149,
+    "empty_pct": 6.4,
+    "availability_pct": 94.1
   },
   "config": {
     "max_recirc": 5,
@@ -77,8 +77,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 499
     },
     {
       "index": 2,
@@ -138,7 +138,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1233
+      "carrier": 1411
     },
     {
       "index": 14,
@@ -181,7 +181,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
   ],
   "wpt_fault_counts": {
     "13": 1,
-    "1": 17,
+    "1": 18,
     "9": 1,
     "10": 2
   },
@@ -413,14 +413,14 @@
     }
   ],
   "lifetime": {
-    "sorted": 777929,
+    "sorted": 777993,
     "recirculated": 11002,
     "recirc_pct": 1.39
   },
   "weekly": {
-    "inducted": 109029,
-    "diverted": 98266,
-    "ftd_count": 10763,
+    "inducted": 109094,
+    "diverted": 98328,
+    "ftd_count": 10766,
     "ftd_pct": 9.87,
     "fpy_pct": 90.1,
     "scan_defect_pct": 6.16,
@@ -432,7 +432,7 @@
     "downtime_pct": 11.07,
     "sorter_fpy_icw": 96.6,
     "mhe_defect_icw": 2.35,
-    "jam_dpmo": 5681,
+    "jam_dpmo": 5678,
     "faulted_carriers": [
       {
         "name": "CA0624",
@@ -627,7 +627,7 @@
   },
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -637,7 +637,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "109 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "102 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
