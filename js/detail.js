@@ -77,7 +77,7 @@ const SiteDetail = (() => {
     h += `<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
       <button class="filter-btn active">Overview</button>
       <button class="filter-btn">CP Zones</button>
-      <button class="filter-btn" onclick="SiteDetail.showMetricsTab()">Metrics</button>
+      <button class="filter-btn" onclick="SiteDetail.showMetricsTab()">MHE Defect</button>
       <button class="filter-btn" onclick="SiteDetail.showShiftReport()">Shift Reports</button>
       <a href="https://w.amazon.com/bin/view/IXD-SD/SITES/RDU2" target="_blank" class="filter-btn" style="text-decoration:none;">IXD Wiki ↗</a>
       <button class="filter-btn">Outbound</button>
@@ -102,9 +102,17 @@ const SiteDetail = (() => {
     h += `<div style="display:flex;align-items:center;justify-content:center;padding:10px 20px;margin-bottom:14px;border-radius:8px;background:${bannerBg};border:1px solid ${bannerColor};">
       <span style="font-size:14px;font-weight:700;color:${bannerColor};letter-spacing:0.05em;">\u25cf ${running ? 'SORTER RUNNING' : 'SORTER STOPPED'}</span></div>`;
 
-    // Flashing fault bar for active faults
+    // DTW banner (blue flash) or fault bar (red flash)
     const activeFaults = (d.sorter || {}).active_faults || [];
-    if (activeFaults.length > 0) {
+    const inDtw = (d.sorter || {}).in_dtw || false;
+    if (inDtw && !sorter.running) {
+      h += '<div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 20px;margin-bottom:14px;border-radius:8px;background:var(--blue-bg);border:2px solid var(--blue);animation:dtw-flash 1.5s infinite;">';
+      h += '<span style="font-size:20px;">\ud83d\udee0\ufe0f</span>';
+      h += '<span style="font-size:14px;font-weight:700;color:var(--blue);letter-spacing:0.03em;">SCHEDULED DOWNTIME (DTW)</span>';
+      h += '<span style="font-size:20px;">\ud83d\udee0\ufe0f</span>';
+      h += '</div>';
+      h += '<style>@keyframes dtw-flash{0%,100%{opacity:1;border-color:var(--blue)}50%{opacity:0.6;border-color:transparent}}</style>';
+    } else if (activeFaults.length > 0) {
       h += '<div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 20px;margin-bottom:14px;border-radius:8px;background:var(--red-bg);border:2px solid var(--red);animation:fault-flash 1s infinite;">';
       h += '<span style="font-size:20px;">\u26a0\ufe0f</span>';
       h += '<span style="font-size:14px;font-weight:700;color:var(--red);letter-spacing:0.03em;">' + activeFaults.join(' \u2022 ') + '</span>';
