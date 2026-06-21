@@ -721,12 +721,16 @@ html, body {
 
 @media (max-width: 768px) {
   .main-content {
-    padding: 56px 10px 10px;
+    padding: 60px 8px 8px;
   }
   .nav-bar {
     padding: 8px 10px;
     gap: 6px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+  }
+  .nav-brand {
+    font-size: 12px;
+    gap: 4px;
   }
   .nav-brand {
     font-size: 13px;
@@ -844,5 +848,16 @@ html, body {
   pre {
     font-size: 10px;
     padding: 10px;
+  }
+  /* Fleet table: prevent header overlap on small screens */
+  .data-table th,
+  table th {
+    font-size: 9px;
+    padding: 4px 3px;
+    white-space: nowrap;
+  }
+  table td {
+    font-size: 10px;
+    padding: 4px 3px;
   }
 }
