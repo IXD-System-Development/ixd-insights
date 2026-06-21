@@ -721,10 +721,128 @@ html, body {
 
 @media (max-width: 768px) {
   .main-content {
-    padding: 56px 12px 12px;
+    padding: 56px 10px 10px;
   }
   .nav-bar {
-    padding: 0 12px;
-    gap: 12px;
+    padding: 8px 10px;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .nav-brand {
+    font-size: 13px;
+  }
+  .nav-links {
+    gap: 2px;
+  }
+  .nav-links a {
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+  .nav-status {
+    font-size: 10px;
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 4px;
+  }
+  .sites-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .site-card {
+    padding: 14px;
+  }
+  .site-card-metrics {
+    flex-wrap: wrap;
+  }
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .kpi-row {
+    flex-direction: column;
+  }
+  .kpi-card {
+    min-width: unset;
+  }
+  .detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .health-grid {
+    flex-direction: column;
+  }
+  .health-cell {
+    min-width: unset;
+  }
+  .filter-bar {
+    gap: 4px;
+  }
+  .filter-btn {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+  .section-panel {
+    padding: 12px;
+  }
+  .scanner-bar-label {
+    width: 50px;
+    font-size: 10px;
+  }
+  .scanner-bar-value {
+    width: 40px;
+    font-size: 10px;
+  }
+  /* Tabs on mobile */
+  .tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .tab-btn {
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+  }
+  /* Tables scroll horizontally on mobile */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  thead, tbody, tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  /* Make inline 2-col grids stack on mobile */
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 52px 6px 6px;
+  }
+  .nav-brand span {
+    display: none;
+  }
+  .site-card-id {
+    font-size: 14px;
+  }
+  .kpi-value {
+    font-size: 18px;
+  }
+  .detail-site-id {
+    font-size: 18px;
+  }
+  pre {
+    font-size: 10px;
+    padding: 10px;
   }
 }
