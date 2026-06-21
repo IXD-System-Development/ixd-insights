@@ -1,6 +1,6 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-20 21:32:13",
+  "timestamp": "2026-06-20 21:32:52",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
@@ -8,13 +8,13 @@
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2401
+    "speed": 2410
   },
   "carriers": {
-    "faulted": 114,
+    "faulted": 117,
     "disabled": 36,
-    "available": 2190,
-    "availability_pct": 93.6
+    "available": 2187,
+    "availability_pct": 93.5
   },
   "config": {
     "max_recirc": 5,
@@ -73,8 +73,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1722
     },
     {
       "index": 2,
@@ -134,7 +134,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 140
+      "carrier": 294
     },
     {
       "index": 14,
@@ -177,7 +177,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -337,14 +337,14 @@
     }
   ],
   "lifetime": {
-    "sorted": 751049,
-    "recirculated": 10579,
+    "sorted": 751138,
+    "recirculated": 10580,
     "recirc_pct": 1.39
   },
   "weekly": {
-    "inducted": 82695,
-    "diverted": 74566,
-    "ftd_count": 8129,
+    "inducted": 82772,
+    "diverted": 74637,
+    "ftd_count": 8135,
     "ftd_pct": 9.83,
     "fpy_pct": 90.2,
     "scan_defect_pct": 6.18,
@@ -356,7 +356,7 @@
   },
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -366,7 +366,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "114 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "117 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
