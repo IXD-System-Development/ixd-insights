@@ -102,6 +102,17 @@ const SiteDetail = (() => {
     h += `<div style="display:flex;align-items:center;justify-content:center;padding:10px 20px;margin-bottom:14px;border-radius:8px;background:${bannerBg};border:1px solid ${bannerColor};">
       <span style="font-size:14px;font-weight:700;color:${bannerColor};letter-spacing:0.05em;">\u25cf ${running ? 'SORTER RUNNING' : 'SORTER STOPPED'}</span></div>`;
 
+    // Flashing fault bar for active faults
+    const activeFaults = (d.sorter || {}).active_faults || [];
+    if (activeFaults.length > 0) {
+      h += '<div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 20px;margin-bottom:14px;border-radius:8px;background:var(--red-bg);border:2px solid var(--red);animation:fault-flash 1s infinite;">';
+      h += '<span style="font-size:20px;">\u26a0\ufe0f</span>';
+      h += '<span style="font-size:14px;font-weight:700;color:var(--red);letter-spacing:0.03em;">' + activeFaults.join(' \u2022 ') + '</span>';
+      h += '<span style="font-size:20px;">\u26a0\ufe0f</span>';
+      h += '</div>';
+      h += '<style>@keyframes fault-flash{0%,100%{opacity:1;border-color:var(--red)}50%{opacity:0.4;border-color:transparent}}</style>';
+    }
+
     // KPI Cards - 4 columns matching Benplaci layout
     h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
     h += kpi('Sorter Availability', `${carriers.empty_pct || 0}%`, 'empty carriers / total', carriers.empty_pct < 10 ? 'red' : carriers.empty_pct < 30 ? 'yellow' : 'green');
