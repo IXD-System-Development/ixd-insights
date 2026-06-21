@@ -130,12 +130,13 @@ const SiteDetail = (() => {
     h += kpi('Sorter OTE', sorterOte != null ? `${sorterOte}%` : '\u2014', 'time running / total', sorterOte != null ? (sorterOte >= 95 ? 'green' : sorterOte >= 80 ? 'yellow' : 'red') : 'yellow');
     h += kpi('Sorter OEE', sorterOee != null ? `${sorterOee}%` : '\u2014', 'availability metric', sorterOee != null ? (sorterOee >= 95 ? 'green' : sorterOee >= 80 ? 'yellow' : 'red') : 'yellow');
     h += kpi('Downtime %', downtimePct != null ? `${downtimePct}%` : '\u2014', 'weekly', downtimePct != null ? (downtimePct > 5 ? 'red' : downtimePct > 2 ? 'yellow' : 'green') : 'yellow');
-    // Locked/Disabled Chutes
+    // Chute Status
     const chutes = d.chutes || {};
     const chutesLocked = chutes.locked_out || 0;
     const chutesInhibited = chutes.inhibited || 0;
-    const chuteTotal = chutesLocked + chutesInhibited;
-    h += kpi('Locked/Inhibited Chutes', `${chuteTotal} / 144`, `${chutesLocked} locked (RME) + ${chutesInhibited} inhibited (WCS)`, chuteTotal > 30 ? 'red' : chuteTotal > 10 ? 'yellow' : 'green');
+    const chutesJammed = chutes.jammed || 0;
+    const chuteDown = chutesLocked + chutesInhibited + chutesJammed;
+    h += kpi('Chutes Down', `${chuteDown} / 144`, `${chutesLocked} No24VDC + ${chutesInhibited} MDR Not Ready + ${chutesJammed} Jammed`, chuteDown > 50 ? 'red' : chuteDown > 20 ? 'yellow' : 'green');
     h += '</div>';
 
     // PPU Health
