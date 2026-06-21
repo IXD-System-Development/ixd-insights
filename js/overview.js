@@ -148,7 +148,7 @@ const Overview = (() => {
         ${statusHtml}
         ${metricsHtml}
         <div class="staleness ${staleness.status}">
-          <span>${staleness.label}</span>
+          <span>${staleness.status === 'live' ? '\u25cf CONNECTED' : staleness.status === 'nodata' ? '\u25cf DISCONNECTED' : staleness.status === 'stale' ? '\u25cf DISCONNECTED' : '\u25cf ' + staleness.label}</span>
         </div>
       </div>`;
   }
