@@ -89,15 +89,12 @@ const SiteDetail = (() => {
     // Header
     h += `<div class="detail-header">
       <a href="sites.html" class="back-link">\u2190 Back to Fleet</a>
-      <span class="detail-site-id">${_siteId}</span>
+      <span class="detail-site-id">${_siteId}</span><img src="img/rdu2_logo.png" alt="" style="height:40px;border-radius:50%;margin-left:8px;">
       <span class="site-card-oem oem-intl">INTL</span>
       <span class="detail-connection ${running ? 'online' : 'offline'}">${running ? '\u25cf LIVE' : '\u25cf OFFLINE'}</span>
     </div>`;
 
-    h += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
-      <span>\ud83c\udfed ${_siteId} \u2014 10.8.188.183 | Wk25</span>
-      <img src="img/rdu2_logo.png" alt="RDU2" style="height:60px;border-radius:50%;opacity:0.9;">
-    </div>`;
+    h += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">\ud83c\udfed ${_siteId} \u2014 10.8.188.183 | Wk25</div>`;
 
     // Sorter banner
     const bannerColor = running ? 'var(--green)' : 'var(--red)';
