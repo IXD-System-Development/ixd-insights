@@ -252,93 +252,87 @@ const SiteDetail = (() => {
     if (!container) return;
     const result = DataLayer.getCachedData(_siteId);
     if (!result || !result.shift_report) {
-      container.innerHTML = '<div class="section-panel"><div class="section-title">Shift Report</div><p style="color:var(--text-secondary)">No shift report available yet. Reports are generated at 7am and 7pm EST.</p></div>';
+      container.innerHTML = '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> Shift Report</div><p style="color:var(--text-secondary);font-size:13px;">No shift report available yet. Reports are generated at 7am and 7pm EST.</p></div>';
       return;
     }
     const sr = result.shift_report;
     let html = `<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>`;
 
-    // Header
-    html += `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);">
-      <div><div style="font-size:16px;font-weight:700;color:var(--text-primary);">\ud83d\udccb Shift Summary Report</div>
-      <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">${esc(sr.shift_label || '')} \u2014 ${esc(sr.generated_at || '')}</div></div></div>`;
+    // Header banner
+    html += `<div style="background:var(--bg-card);border:1px solid var(--blue);border-radius:8px;padding:16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:24px;">\ud83d\udccb</span>
+      <div><div style="font-size:15px;font-weight:700;color:var(--text-primary);">Shift Summary Report</div>
+      <div style="font-size:11px;color:var(--text-secondary);">${esc(sr.shift_label || '')} \u2014 Generated ${esc(sr.generated_at || '')}</div></div></div>`;
 
-    // Parse sections from text
+    // Parse the text into sections
     const text = sr.text || '';
-    const sections = text.split('\n\n');
+    const lines = text.split('\n');
+    let sections = [];
+    let current = null;
 
-    sections.forEach(section => {
-      if (!section.trim()) return;
-      const lines = section.split('\n').filter(l => l.trim());
-      if (lines.length === 0) return;
-
-      // Detect section header (lines with emoji or all caps)
-      const firstLine = lines[0];
-      let title = '';
-      let items = [];
-      let dotColor = 'var(--blue)';
-
-      if (firstLine.includes('TOP 10') || firstLine.includes('FREQUENT')) {
-        title = 'Top 10 Most Frequent Jams';
-        dotColor = 'var(--red)';
-        items = lines.slice(1);
-      } else if (firstLine.includes('IOB')) {
-        title = 'IOB Trips';
-        dotColor = 'var(--yellow)';
-        items = lines.slice(1);
-      } else if (firstLine.includes('SORTER FAULT')) {
-        title = 'Sorter Faults';
-        dotColor = 'var(--green)';
-        items = lines.slice(1);
-      } else if (firstLine.includes('ESTOP')) {
-        title = 'E-Stop Downtime';
-        dotColor = 'var(--red)';
-        items = lines.slice(1);
-      } else if (firstLine.includes('SCANNER')) {
-        title = 'Scanner Report';
-        dotColor = 'var(--blue)';
-        items = lines.slice(1);
-      } else if (firstLine.includes('CARRIER')) {
-        title = 'Top Faulted Carriers';
-        dotColor = 'var(--orange)';
-        items = lines.slice(1);
-      } else if (firstLine.includes('INDUCTION')) {
-        title = 'Crossbelt Induction';
-        dotColor = 'var(--green)';
-        items = lines.slice(1);
-      } else if (firstLine.includes('DIVERT')) {
-        title = 'Crossbelt Diverts';
-        dotColor = 'var(--green)';
-        items = lines.slice(1);
-      } else if (firstLine.includes('SHIFT SUMMARY') || firstLine.includes('\ud83d\udd53')) {
-        return; // Skip the header section
-      } else {
-        title = firstLine.replace(/[\ud83d\udea8\u26a0\ufe0f\u2699\ufe0f\ud83d\uded1\ud83d\udcf7\ud83d\ude9a\ud83d\udce6\ud83d\udce4\ud83d\udccb\ud83d\udd53]/g, '').trim();
-        items = lines.slice(1);
-      }
-
-      if (!title && items.length === 0) return;
-
-      html += '<div class="section-panel">';
-      if (title) {
-        html += `<div class="section-title"><span class="section-dot" style="background:${dotColor}"></span> ${esc(title)}</div>`;
-      }
-      html += '<div style="font-family:var(--font-mono);font-size:12px;line-height:2;">';
-      items.forEach(item => {
-        let line = item.trim();
-        if (!line) return;
-        // Style bullet points and totals
-        let style = 'color:var(--text-primary)';
-        if (line.startsWith('\u2022') || line.includes('Total')) {
-          style = 'color:var(--text-secondary);font-weight:600';
+    lines.forEach(line => {
+      const stripped = line.trim();
+      if (!stripped) {
+        if (current && current.items.length > 0) {
+          sections.push(current);
+          current = null;
         }
-        if (line.includes('\u2705')) style = 'color:var(--green)';
-        if (line.includes('\u274c') || line.includes('FTD')) style = 'color:var(--red)';
-        if (line.includes('\u26a0')) style = 'color:var(--yellow)';
-        if (line.includes('\ud83d\udd04')) style = 'color:var(--orange)';
-        html += `<div style="${style}">${esc(line)}</div>`;
+        return;
+      }
+      // Detect section headers
+      if (stripped.includes('TOP 10 MOST FREQUENT') || stripped.includes('FREQUENT JAMS')) {
+        current = {title:'Top 10 Most Frequent Jams', icon:'\ud83d\udea8', color:'var(--red)', items:[]};
+      } else if (stripped.includes('IOB TRIPS')) {
+        current = {title:'IOB Trips', icon:'\u26a0\ufe0f', color:'var(--yellow)', items:[]};
+      } else if (stripped.includes('SORTER FAULT')) {
+        current = {title:'Sorter Faults', icon:'\u2699\ufe0f', color:'var(--green)', items:[]};
+      } else if (stripped.includes('ESTOP DOWNTIME')) {
+        current = {title:'E-Stop Downtime', icon:'\ud83d\uded1', color:'var(--red)', items:[]};
+      } else if (stripped.includes('SCANNER REPORT')) {
+        current = {title:'Scanner Report', icon:'\ud83d\udcf7', color:'var(--blue)', items:[]};
+      } else if (stripped.includes('FAULTED CARRIER')) {
+        current = {title:'Top Faulted Carriers', icon:'\ud83d\ude9a', color:'var(--orange)', items:[]};
+      } else if (stripped.includes('CROSSBELT INDUCTION') || stripped.includes('INDUCTION')) {
+        if (stripped.includes('INDUCTION') && !stripped.includes('DIVERT')) {
+          current = {title:'Crossbelt Induction', icon:'\ud83d\udce6', color:'var(--green)', items:[]};
+        }
+      } else if (stripped.includes('CROSSBELT DIVERT') || stripped.includes('DIVERTS')) {
+        current = {title:'Crossbelt Diverts', icon:'\ud83d\udce4', color:'var(--blue)', items:[]};
+      } else if (stripped.includes('SHIFT SUMMARY') || stripped.includes('Day Shift') || stripped.includes('Night Shift') || stripped.match(/^\d{4}-\d{2}-\d{2}/)) {
+        // Skip header lines
+      } else if (current) {
+        current.items.push(stripped);
+      }
+    });
+    if (current && current.items.length > 0) sections.push(current);
+
+    // Render each section as a card
+    sections.forEach(sec => {
+      html += `<div class="section-panel">`;
+      html += `<div class="section-title"><span class="section-dot" style="background:${sec.color}"></span> ${sec.icon} ${esc(sec.title)}</div>`;
+
+      sec.items.forEach(item => {
+        let bg = 'transparent';
+        let borderLeft = 'none';
+        let textColor = 'var(--text-primary)';
+        let weight = '400';
+
+        // Style based on content
+        if (item.startsWith('\u2022') || item.includes('Total')) {
+          bg = 'var(--bg-surface)';
+          weight = '600';
+          textColor = 'var(--text-secondary)';
+        }
+        if (item.includes('\u2705')) textColor = 'var(--green)';
+        if (item.includes('\u274c') || item.includes('FTD')) { textColor = 'var(--red)'; borderLeft = '3px solid var(--red)'; }
+        if (item.includes('\u26a0')) { textColor = 'var(--yellow)'; borderLeft = '3px solid var(--yellow)'; }
+        if (item.includes('\ud83d\udd04')) { textColor = 'var(--orange)'; borderLeft = '3px solid var(--orange)'; }
+        if (item.match(/^\d+\./)) borderLeft = '3px solid var(--border)';
+
+        html += `<div style="padding:6px 10px;margin-bottom:3px;border-radius:4px;font-size:12px;font-family:var(--font-mono);background:${bg};border-left:${borderLeft};color:${textColor};font-weight:${weight};">${esc(item)}</div>`;
       });
-      html += '</div></div>';
+
+      html += `</div>`;
     });
 
     container.innerHTML = html;
