@@ -6,17 +6,14 @@ const SiteDetail = (() => {
   let _siteId = null;
   let _siteMeta = null;
   let _refreshTimer = null;
-  let _currentTab = 'overview';
 
   async function init() {
     const params = new URLSearchParams(window.location.search);
     _siteId = params.get('id');
     if (!_siteId) { showError('No site ID specified.'); return; }
-
     try { await DataLayer.loadSites(); } catch(e) { showError('Failed to load sites.'); return; }
     _siteMeta = DataLayer.getSites().find(s => s.id === _siteId);
     if (!_siteMeta) { showError(`Site ${_siteId} not found.`); return; }
-
     await refresh();
     _refreshTimer = setInterval(() => { if (!document.hidden) refresh(); }, CONFIG.DETAIL_REFRESH_MS);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
@@ -37,7 +34,7 @@ const SiteDetail = (() => {
     const oem = (_siteMeta.oem || data.oem || '').toUpperCase();
     if (oem === 'INTL') container.innerHTML = renderINTL(data);
     else if (oem === 'DEM') container.innerHTML = renderDEM(data);
-    else container.innerHTML = '<div class="error-banner">Unknown OEM type.</div>';
+    else container.innerHTML = '<div class="error-banner">Unknown OEM.</div>';
   }
 
   function renderINTL(d) {
@@ -53,6 +50,7 @@ const SiteDetail = (() => {
     const strays = d.strays || [];
     const lifetime = d.lifetime || {};
     const actions = d.priority_actions || [];
+    const weekly = d.weekly || {};
     const total = d.carrier_count || 2340;
 
     const faulted = carriers.faulted || 0;
@@ -63,23 +61,29 @@ const SiteDetail = (() => {
     const availPct = carriers.availability_pct || 0;
     const maxRecirc = config.max_recirc;
     const wptFaulted = wptList.filter(w => w.error).length;
-
-    // Recirc %
-    const sorted = lifetime.sorted || 0;
-    const recirc = lifetime.recirculated || 0;
-    const recircPct = lifetime.recirc_pct || 0;
+    const recircPct = weekly.recirc_pct || lifetime.recirc_pct || 0;
+    const fpyPct = weekly.fpy_pct;
+    const scanDefect = weekly.scan_defect_pct;
+    const mheDefect = weekly.mhe_defect_pct;
+    const inducted = weekly.inducted;
+    const diverted = weekly.diverted;
 
     let h = '';
 
     // Sub-tabs
     h += `<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
-      <button class="filter-btn active" onclick="SiteDetail.switchTab('overview',this)">Overview</button>
-      <button class="filter-btn" onclick="SiteDetail.switchTab('cp-zones',this)">CP Zones</button>
-      <button class="filter-btn" onclick="SiteDetail.switchTab('metrics',this)">Metrics</button>
-      <button class="filter-btn" onclick="SiteDetail.switchTab('wiki',this)">IXD Wiki</button>
+      <button class="filter-btn active">Overview</button>
+      <button class="filter-btn">CP Zones</button>
+      <button class="filter-btn">Metrics</button>
+      <button class="filter-btn">Shift Reports</button>
+      <button class="filter-btn">IXD Wiki</button>
+      <button class="filter-btn">Outbound</button>
+      <button class="filter-btn">Inbound</button>
+      <button class="filter-btn">Sorter</button>
+      <button class="filter-btn">Induction</button>
     </div>`;
 
-    // Back link + header
+    // Header
     h += `<div class="detail-header">
       <a href="sites.html" class="back-link">\u2190 Back to Fleet</a>
       <span class="detail-site-id">${_siteId}</span>
@@ -87,27 +91,26 @@ const SiteDetail = (() => {
       <span class="detail-connection ${running ? 'online' : 'offline'}">${running ? '\u25cf LIVE' : '\u25cf OFFLINE'}</span>
     </div>`;
 
-    // Site title
-    h += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">\ud83c\udfed ${_siteId} \u2014 ${_siteMeta.region || ''} | 10.8.188.183 | Wk25</div>`;
+    h += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">\ud83c\udfed ${_siteId} \u2014 10.8.188.183 | Wk25</div>`;
 
-    // Sorter status banner
+    // Sorter banner
     const bannerColor = running ? 'var(--green)' : 'var(--red)';
-    const bannerText = running ? `\u25cf SORTER RUNNING` : '\u25cf SORTER STOPPED';
-    h += `<div style="display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 20px;margin-bottom:14px;border-radius:8px;background:${running ? 'var(--green-bg)' : 'var(--red-bg)'};border:1px solid ${bannerColor};">
-      <span style="font-size:14px;font-weight:700;color:${bannerColor};letter-spacing:0.05em;">${bannerText}</span></div>`;
+    const bannerBg = running ? 'var(--green-bg)' : 'var(--red-bg)';
+    h += `<div style="display:flex;align-items:center;justify-content:center;padding:10px 20px;margin-bottom:14px;border-radius:8px;background:${bannerBg};border:1px solid ${bannerColor};">
+      <span style="font-size:14px;font-weight:700;color:${bannerColor};letter-spacing:0.05em;">\u25cf ${running ? 'SORTER RUNNING' : 'SORTER STOPPED'}</span></div>`;
 
-    // KPI Cards — 4 columns
+    // KPI Cards - 4 columns matching Benplaci layout
     h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
-    h += kpi('Sorter Availability', `${availPct}%`, 'empty carriers / total', availPct > 90 ? 'green' : 'red');
+    h += kpi('Sorter Availability', `${availPct}%`, 'empty carriers / total', availPct < 50 ? 'red' : availPct < 90 ? 'yellow' : 'green');
     h += kpi('Faulted Carriers', String(faulted), 'MCB failures', faulted > 50 ? 'red' : faulted > 20 ? 'yellow' : 'green');
-    h += kpi('Disabled Carriers', String(disabled), 'out of service', disabled > 100 ? 'yellow' : 'green');
-    h += kpi('Total Inducted', '\u2014', 'this week', 'green');
-    h += kpi('Total Diverted', '\u2014', 'this week', 'green');
-    h += kpi('Max Recirc %', `${recircPct}%`, 'target <1%', recircPct > 1 ? 'yellow' : 'green');
+    h += kpi('Disabled Carriers', String(disabled), 'out of service', disabled > 100 ? 'red' : disabled > 50 ? 'yellow' : 'green');
+    h += kpi('Total Inducted', inducted ? Number(inducted).toLocaleString() : '\u2014', 'this week', 'green');
+    h += kpi('Total Diverted', diverted ? Number(diverted).toLocaleString() : '\u2014', 'this week', 'green');
+    h += kpi('Max Recirc %', `${recircPct}%`, 'target <1%', recircPct > 2 ? 'red' : recircPct > 1 ? 'yellow' : 'green');
     h += kpi('Lane Full %', '\u2014', 'chutes at capacity', 'yellow');
-    h += kpi('FPY', '\u2014', 'Wk25', 'green');
-    h += kpi('Scan Defect', '\u2014', 'Wk25', 'yellow');
-    h += kpi('MHE Defect', '\u2014', 'Wk25', 'green');
+    h += kpi('FPY', fpyPct != null ? `${fpyPct}%` : '\u2014', 'Wk25', fpyPct != null ? (fpyPct >= 95 ? 'green' : fpyPct >= 80 ? 'yellow' : 'red') : 'yellow');
+    h += kpi('Scan Defect', scanDefect != null ? `${scanDefect}%` : '\u2014', 'Wk25', scanDefect != null ? (scanDefect > 5.5 ? 'red' : scanDefect > 3 ? 'yellow' : 'green') : 'yellow');
+    h += kpi('MHE Defect', mheDefect != null ? `${mheDefect}%` : '\u2014', 'Wk25', mheDefect != null ? (mheDefect > 3 ? 'red' : mheDefect > 1.5 ? 'yellow' : 'green') : 'green');
     h += kpi('IOB Trips', '\u2014', 'this week', 'yellow');
     h += kpi('E-Stop Events', '\u2014', 'this week', 'yellow');
     h += '</div>';
@@ -138,14 +141,16 @@ const SiteDetail = (() => {
 
     // Discharge CRBs
     const crbUnits = crb.units || [];
-    h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--green)"></span> Discharge CRBs \u2014 Belt Confirm Receivers (1\u20134)</div>';
-    h += '<div class="health-grid">';
-    crbUnits.forEach(u => {
-      const ok = !u.connection_faulted;
-      const color = ok ? 'green' : 'red';
-      h += `<div class="health-cell ${color}"><div class="health-cell-label">CRB ${u.index}</div><div class="health-cell-value ${color}">${ok ? '\u2713 OK' : '\u2717 FAULT'}</div></div>`;
-    });
-    h += '</div></div>';
+    if (crbUnits.length > 0) {
+      h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--green)"></span> Discharge CRBs \u2014 Belt Confirm Receivers (1\u20134)</div>';
+      h += '<div class="health-grid">';
+      crbUnits.forEach(u => {
+        const ok = !u.connection_faulted;
+        const color = ok ? 'green' : 'red';
+        h += `<div class="health-cell ${color}"><div class="health-cell-label">CRB ${u.index}</div><div class="health-cell-value ${color}">${ok ? '\u2713 OK' : '\u2717 FAULT'}</div></div>`;
+      });
+      h += '</div></div>';
+    }
 
     // LSM Drive Health
     if (lsmZones.length > 0) {
@@ -236,12 +241,5 @@ const SiteDetail = (() => {
   function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
   function showError(msg) { const c = document.getElementById('detail-content'); if(c) c.innerHTML = `<div class="error-banner">${msg} <a href="sites.html" style="color:var(--blue);margin-left:8px;">\u2190 Back</a></div>`; }
 
-  function switchTab(tab, btn) {
-    _currentTab = tab;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    // For now only overview is implemented with live data
-  }
-
-  return { init, refresh, switchTab };
+  return { init, refresh };
 })();
