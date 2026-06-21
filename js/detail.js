@@ -419,14 +419,14 @@ const SiteDetail = (() => {
     html += '<div class="section-panel">';
     html += '<div class="section-title"><span class="section-dot" style="background:var(--red)"></span> Constantly Faulted Carriers (Weekly)</div>';
     if (carriers.length > 0) {
-      html += '<div style="overflow-x:auto;"><table class="data-table"><thead><tr>';
-      html += '<th>Carrier</th><th>Total</th><th>MNR</th><th>Comm</th><th>Current Limit</th><th>Cal</th><th>Clock</th>';
-      html += '</tr></thead><tbody>';
+      html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
       carriers.forEach((c, i) => {
-        const rowColor = i < 5 ? 'color:var(--red)' : i < 10 ? 'color:var(--yellow)' : '';
-        html += `<tr><td style="font-weight:700;${rowColor}">${c.name}</td><td style="font-weight:700;${rowColor}">${c.total}</td><td>${c.mnr || 0}</td><td>${c.comm || 0}</td><td>${c.current_limit || 0}</td><td>${c.cal || 0}</td><td>${c.clock || 0}</td></tr>`;
+        const bg = c.total > 500 ? 'var(--red-bg)' : c.total > 200 ? 'var(--yellow-bg)' : 'var(--bg-surface)';
+        const border = c.total > 500 ? 'var(--red)' : c.total > 200 ? 'var(--yellow)' : 'var(--border)';
+        const textColor = c.total > 500 ? 'var(--red)' : c.total > 200 ? 'var(--yellow)' : 'var(--text-primary)';
+        html += `<div style="background:${bg};border:1px solid ${border};border-radius:6px;padding:5px 10px;font-size:11px;font-family:var(--font-mono);"><span style="font-weight:700;color:${textColor};">${c.name}</span> <span style="color:var(--text-secondary);">${c.total} (MNR:${c.mnr||0} CL:${c.current_limit||0})</span></div>`;
       });
-      html += '</tbody></table></div>';
+      html += '</div>';
     } else {
       html += '<p style="color:var(--text-secondary)">No carrier fault data available.</p>';
     }
@@ -529,12 +529,14 @@ const SiteDetail = (() => {
     const topFtdChutes = weekly.top_ftd_chutes || [];
     if (topFtdChutes.length > 0) {
       html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--red)"></span> Top 10 Chutes \u2014 Failed to Divert</div>';
-      html += '<table class="data-table"><thead><tr><th>Chute</th><th>ICW ID</th><th>FTD Count</th><th>Good Diverts</th><th>Fail %</th></tr></thead><tbody>';
-      topFtdChutes.forEach((ch, i) => {
-        const color = ch.fail_pct > 80 ? 'color:var(--red);font-weight:700' : ch.fail_pct > 50 ? 'color:var(--yellow)' : '';
-        html += `<tr><td style="${color}">${ch.name}</td><td>ICW ${ch.icw_id}</td><td style="${color}">${ch.ftd.toLocaleString()}</td><td>${ch.good.toLocaleString()}</td><td style="${color}">${ch.fail_pct}%</td></tr>`;
+      html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+      topFtdChutes.forEach(ch => {
+        const bg = ch.fail_pct > 80 ? 'var(--red-bg)' : ch.fail_pct > 50 ? 'var(--yellow-bg)' : 'var(--bg-surface)';
+        const border = ch.fail_pct > 80 ? 'var(--red)' : ch.fail_pct > 50 ? 'var(--yellow)' : 'var(--border)';
+        const textColor = ch.fail_pct > 80 ? 'var(--red)' : ch.fail_pct > 50 ? 'var(--yellow)' : 'var(--text-primary)';
+        html += `<div style="background:${bg};border:1px solid ${border};border-radius:6px;padding:5px 10px;font-size:11px;font-family:var(--font-mono);"><span style="font-weight:700;color:${textColor};">${ch.name}</span> <span style="color:var(--text-secondary);">ICW ${ch.icw_id} | ${ch.ftd.toLocaleString()} FTD (${ch.fail_pct}%)</span></div>`;
       });
-      html += '</tbody></table></div>';
+      html += '</div></div>';
     }
 
     // Daily trend
