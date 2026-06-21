@@ -79,11 +79,7 @@ const Overview = (() => {
     container.querySelectorAll('.site-card').forEach(card => {
       card.addEventListener('click', () => {
         const sid = card.dataset.siteId;
-        if (sid === 'RDU2') {
-          window.location.href = 'rdu2.html';
-        } else {
-          window.location.href = `site.html?id=${sid}`;
-        }
+        window.location.href = `site.html?id=${sid}`;
       });
     });
   }
