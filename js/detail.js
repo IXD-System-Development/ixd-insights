@@ -174,6 +174,7 @@ const SiteDetail = (() => {
       const lsmFaults = lsmZones.filter(z => z.collision_detect || z.collision_avoid || z.vfd_fault).length;
       const lsmColor = lsmFaults > 0 ? 'yellow' : 'green';
       h += `<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--${lsmColor})"></span> LSM Drive Health (1\u201323)</div>`;
+      h += '<div style="margin-bottom:10px;font-size:10px;color:var(--text-secondary);display:flex;gap:16px;"><span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:4px;"></span>CD = Collision Detection</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:4px;"></span>CA = Collision Avoidance</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);margin-right:4px;"></span>VFD = Drive Fault</span></div>';
       h += '<div class="health-grid">';
       lsmZones.forEach(z => {
         const hasFault = z.collision_detect || z.collision_avoid || z.vfd_fault;
