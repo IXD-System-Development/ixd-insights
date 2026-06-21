@@ -167,11 +167,26 @@ const SiteDetail = (() => {
       lsmZones.forEach(z => {
         const hasFault = z.collision_detect || z.collision_avoid || z.vfd_fault;
         const color = hasFault ? (z.vfd_fault ? 'red' : 'yellow') : 'green';
-        let icon = '\u2713';
-        if (z.vfd_fault) icon = '\u2717 VFD';
-        else if (z.collision_detect) icon = '\u26a0 CD';
-        else if (z.collision_avoid) icon = '\u26a0 CA';
-        h += `<div class="health-cell ${color}"><div class="health-cell-label">Zone ${z.zone}</div><div class="health-cell-value ${color}">${icon}</div></div>`;
+        const cdColor = z.collision_detect ? '#f85149' : '#3fb950';
+        const caColor = z.collision_avoid ? '#f85149' : '#3fb950';
+        const vfdColor = z.vfd_fault ? '#f85149' : '#3fb950';
+        h += `<div class="health-cell ${color}">
+          <div class="health-cell-label">LSM ${String(z.zone).padStart(2,'0')}</div>
+          <div style="display:flex;flex-direction:column;gap:3px;margin-top:4px;">
+            <div style="display:flex;align-items:center;gap:4px;font-size:9px;">
+              <span style="width:8px;height:8px;border-radius:50%;background:${cdColor};display:inline-block;"></span>
+              <span style="color:var(--text-secondary);">CD</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:4px;font-size:9px;">
+              <span style="width:8px;height:8px;border-radius:50%;background:${caColor};display:inline-block;"></span>
+              <span style="color:var(--text-secondary);">CA</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:4px;font-size:9px;">
+              <span style="width:8px;height:8px;border-radius:50%;background:${vfdColor};display:inline-block;"></span>
+              <span style="color:var(--text-secondary);">VFD</span>
+            </div>
+          </div>
+        </div>`;
       });
       h += '</div></div>';
     }
