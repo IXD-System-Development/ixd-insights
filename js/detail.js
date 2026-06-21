@@ -430,6 +430,19 @@ const SiteDetail = (() => {
     }
     html += '</div>';
 
+    // Top 10 Current Limit Exceeded
+    const currentLimitCarriers = carriers.filter(c => (c.current_limit || 0) > 0).sort((a,b) => (b.current_limit||0) - (a.current_limit||0)).slice(0, 10);
+    if (currentLimitCarriers.length > 0) {
+      html += '<div class="section-panel">';
+      html += '<div class="section-title"><span class="section-dot" style="background:var(--orange)"></span> Top 10 Current Limit Exceeded (Cart Regulator Fault)</div>';
+      html += '<div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Carrier</th><th>Current Limit Faults</th><th>Total Faults</th></tr></thead><tbody>';
+      currentLimitCarriers.forEach((c, i) => {
+        const color = i < 3 ? 'color:var(--red);font-weight:700' : i < 6 ? 'color:var(--yellow)' : '';
+        html += `<tr><td style="${color}">${c.name}</td><td style="${color}">${c.current_limit}</td><td>${c.total}</td></tr>`;
+      });
+      html += '</tbody></table></div></div>';
+    }
+
     // Carrier fault legend
     html += '<div class="section-panel">';
     html += '<div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> Fault Type Legend</div>';
