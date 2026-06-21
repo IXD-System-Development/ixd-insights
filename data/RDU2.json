@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-21 11:05:31 EST",
+  "timestamp": "2026-06-21 11:06:19 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-21 11:05",
+  "_pushed_at": "2026-06-21 11:06",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2399,
+    "speed": 2400,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 88,
+    "faulted": 98,
     "disabled": 37,
-    "available": 2215,
+    "available": 2205,
     "occupied": 2053,
-    "empty": 162,
-    "empty_pct": 6.9,
-    "availability_pct": 94.7
+    "empty": 152,
+    "empty_pct": 6.5,
+    "availability_pct": 94.2
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 449
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1158
+      "carrier": 1362
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 12,
+    "1": 13,
     "13": 1,
     "10": 2
   },
@@ -418,18 +418,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 823979,
-    "recirculated": 11969,
+    "sorted": 824066,
+    "recirculated": 11973,
     "recirc_pct": 1.43
   },
   "weekly": {
-    "inducted": 22185,
-    "diverted": 6809,
-    "ftd_count": 15376,
-    "ftd_pct": 69.31,
-    "fpy_pct": 30.7,
+    "inducted": 22263,
+    "diverted": 6876,
+    "ftd_count": 15387,
+    "ftd_pct": 69.11,
+    "fpy_pct": 30.9,
     "scan_defect_pct": 6.18,
-    "mhe_defect_pct": 69.31,
+    "mhe_defect_pct": 69.11,
     "recirc_pct": 1.43,
     "lane_full_pct": 61.8,
     "sorter_ote": 88.5,
@@ -437,19 +437,19 @@
     "downtime_pct": 10.6,
     "sorter_fpy_icw": 96.7,
     "mhe_defect_icw": 2.3,
-    "jam_dpmo": 4796,
+    "jam_dpmo": 4795,
     "mhe_breakdown": {
-      "ItemScanned": 5639950,
-      "LaneFull": 2154413,
-      "CodeUsed": 1316717,
-      "Ok": 1301533,
-      "TrayspacingHorizontal": 227224,
-      "LaneBlocked": 171459,
-      "MaxRecirculation": 143576,
-      "SorterSpeedChange": 40163,
-      "LaneDisabled": 33680,
-      "NoActivation": 28717,
-      "ItemOnActivatedCarrier": 17584,
+      "ItemScanned": 5640600,
+      "LaneFull": 2154725,
+      "CodeUsed": 1316830,
+      "Ok": 1301650,
+      "TrayspacingHorizontal": 227238,
+      "LaneBlocked": 171488,
+      "MaxRecirculation": 143581,
+      "SorterSpeedChange": 40162,
+      "LaneDisabled": 33682,
+      "NoActivation": 28718,
+      "ItemOnActivatedCarrier": 17585,
       "NoAnswerFromScanner": 9920,
       "NotCodeConverted": 3,
       "LaneJammed": 2
@@ -513,11 +513,11 @@
       },
       {
         "date": "2026-06-21",
-        "ftd": 149,
-        "good": 84655,
-        "lane_full": 155623,
+        "ftd": 150,
+        "good": 84769,
+        "lane_full": 155939,
         "no_read": 0,
-        "utd": 2227
+        "utd": 2229
       }
     ],
     "top_ftd_chutes": [
@@ -793,7 +793,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -803,7 +803,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "88 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "98 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
