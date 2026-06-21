@@ -395,11 +395,11 @@ const SiteDetail = (() => {
     html += '<div class="section-title"><span class="section-dot" style="background:var(--red)"></span> Constantly Faulted Carriers (Weekly)</div>';
     if (carriers.length > 0) {
       html += '<div style="overflow-x:auto;"><table class="data-table"><thead><tr>';
-      html += '<th>Carrier</th><th>Total</th><th>MNR</th><th>Comm</th><th>Current Limit</th><th>Brush</th><th>Cal</th><th>Clock</th>';
+      html += '<th>Carrier</th><th>Total</th><th>MNR</th><th>Comm</th><th>Current Limit</th><th>Cal</th><th>Clock</th>';
       html += '</tr></thead><tbody>';
       carriers.forEach((c, i) => {
         const rowColor = i < 5 ? 'color:var(--red)' : i < 10 ? 'color:var(--yellow)' : '';
-        html += `<tr><td style="font-weight:700;${rowColor}">${c.name}</td><td style="font-weight:700;${rowColor}">${c.total}</td><td>${c.mnr || 0}</td><td>${c.comm || 0}</td><td>${c.current_limit || 0}</td><td>${c.brush || 0}</td><td>${c.cal || 0}</td><td>${c.clock || 0}</td></tr>`;
+        html += `<tr><td style="font-weight:700;${rowColor}">${c.name}</td><td style="font-weight:700;${rowColor}">${c.total}</td><td>${c.mnr || 0}</td><td>${c.comm || 0}</td><td>${c.current_limit || 0}</td><td>${c.cal || 0}</td><td>${c.clock || 0}</td></tr>`;
       });
       html += '</tbody></table></div>';
     } else {
@@ -414,7 +414,7 @@ const SiteDetail = (() => {
     html += '<tr><td style="font-weight:600;">MNR</td><td>Motor Not Running \u2014 MCB belt motor failure (most common, needs MCB replacement)</td></tr>';
     html += '<tr><td style="font-weight:600;">Comm</td><td>Communication Fault \u2014 MCB lost contact with CTB/CRB (IR window dirty or MCB board failure)</td></tr>';
     html += '<tr><td style="font-weight:600;">Current Limit</td><td>Current Limit Exceeded \u2014 Cart regulator drawing too much current (brush wear or short)</td></tr>';
-    html += '<tr><td style="font-weight:600;">Brush</td><td>Brush Collector Fault \u2014 Power collection brushes worn/damaged (P/N 447D551)</td></tr>';
+    html += '';
     html += '<tr><td style="font-weight:600;">Cal</td><td>Calibration Error \u2014 MCB calibration lost (reprogram via CCT)</td></tr>';
     html += '<tr><td style="font-weight:600;">Clock</td><td>Clock Pulse Fault \u2014 Carrier missed clock pulse sensor (timing/position error)</td></tr>';
     html += '</tbody></table></div>';
