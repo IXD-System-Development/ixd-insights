@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-21 05:08:27 EST",
+  "timestamp": "2026-06-21 05:09:12 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-21 05:08",
+  "_pushed_at": "2026-06-21 05:09",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2394,
+    "speed": 2404,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 102,
+    "faulted": 106,
     "disabled": 36,
-    "available": 2202,
+    "available": 2198,
     "occupied": 2053,
-    "empty": 149,
-    "empty_pct": 6.4,
-    "availability_pct": 94.1
+    "empty": 145,
+    "empty_pct": 6.2,
+    "availability_pct": 93.9
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": true,
-      "carrier": 1255
+      "error": false,
+      "carrier": null
     },
     {
       "index": 2,
@@ -118,8 +118,8 @@
     },
     {
       "index": 9,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 243
     },
     {
       "index": 10,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 2167
+      "carrier": 5
     },
     {
       "index": 14,
@@ -396,7 +396,7 @@
   "wpt_fault_counts": {
     "13": 1,
     "1": 70,
-    "9": 1,
+    "9": 2,
     "10": 5
   },
   "strays": [
@@ -419,18 +419,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 792965,
-    "recirculated": 11324,
+    "sorted": 793028,
+    "recirculated": 11327,
     "recirc_pct": 1.41
   },
   "weekly": {
-    "inducted": 57679,
-    "diverted": 45411,
-    "ftd_count": 12268,
-    "ftd_pct": 21.27,
+    "inducted": 57721,
+    "diverted": 45448,
+    "ftd_count": 12273,
+    "ftd_pct": 21.26,
     "fpy_pct": 78.7,
     "scan_defect_pct": 6.28,
-    "mhe_defect_pct": 21.27,
+    "mhe_defect_pct": 21.26,
     "recirc_pct": 1.41,
     "lane_full_pct": 61.7,
     "sorter_ote": 88.1,
@@ -438,19 +438,19 @@
     "downtime_pct": 10.96,
     "sorter_fpy_icw": 96.6,
     "mhe_defect_icw": 2.34,
-    "jam_dpmo": 5240,
+    "jam_dpmo": 5238,
     "mhe_breakdown": {
-      "ItemScanned": 5642209,
-      "LaneFull": 2141408,
-      "CodeUsed": 1314562,
-      "Ok": 1299508,
-      "TrayspacingHorizontal": 226624,
-      "LaneBlocked": 178806,
-      "MaxRecirculation": 146209,
+      "ItemScanned": 5642107,
+      "LaneFull": 2141447,
+      "CodeUsed": 1314597,
+      "Ok": 1299544,
+      "TrayspacingHorizontal": 226625,
+      "LaneBlocked": 178705,
+      "MaxRecirculation": 146170,
       "SorterSpeedChange": 38976,
-      "LaneDisabled": 33966,
+      "LaneDisabled": 33961,
       "NoActivation": 29281,
-      "ItemOnActivatedCarrier": 16594,
+      "ItemOnActivatedCarrier": 16595,
       "NoAnswerFromScanner": 9920,
       "NotCodeConverted": 3,
       "LaneJammed": 2
@@ -459,8 +459,8 @@
       {
         "date": "2026-06-14",
         "ftd": 2934,
-        "good": 156697,
-        "lane_full": 198974,
+        "good": 156664,
+        "lane_full": 198686,
         "no_read": 0,
         "utd": 2174
       },
@@ -515,10 +515,10 @@
       {
         "date": "2026-06-21",
         "ftd": 51,
-        "good": 41502,
-        "lane_full": 91218,
+        "good": 41566,
+        "lane_full": 91539,
         "no_read": 0,
-        "utd": 748
+        "utd": 749
       }
     ],
     "top_ftd_chutes": [
@@ -788,7 +788,7 @@
   "dtw_overshoots": [],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[13]",
+      "text": "Pull MCB carriers at WPT [9]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -798,7 +798,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "102 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "106 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
