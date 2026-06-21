@@ -1,6 +1,6 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-21 00:56:04",
+  "timestamp": "2026-06-21 00:56:45",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
@@ -8,16 +8,16 @@
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2415
+    "speed": 2392
   },
   "carriers": {
-    "faulted": 141,
+    "faulted": 149,
     "disabled": 36,
-    "available": 2163,
+    "available": 2155,
     "occupied": 2053,
-    "empty": 110,
-    "empty_pct": 4.7,
-    "availability_pct": 92.4
+    "empty": 102,
+    "empty_pct": 4.4,
+    "availability_pct": 92.1
   },
   "config": {
     "max_recirc": 5,
@@ -35,7 +35,7 @@
     },
     {
       "label": "IND3-Scn3",
-      "nr_pct": 5.32
+      "nr_pct": 5.31
     },
     {
       "label": "IND4-Scn4",
@@ -76,8 +76,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1993
     },
     {
       "index": 2,
@@ -137,7 +137,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 400
+      "carrier": 565
     },
     {
       "index": 14,
@@ -180,7 +180,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -406,26 +406,26 @@
     }
   ],
   "lifetime": {
-    "sorted": 771657,
-    "recirculated": 10888,
+    "sorted": 771755,
+    "recirculated": 10895,
     "recirc_pct": 1.39
   },
   "weekly": {
-    "inducted": 102791,
-    "diverted": 92598,
-    "ftd_count": 10193,
-    "ftd_pct": 9.92,
+    "inducted": 102869,
+    "diverted": 92671,
+    "ftd_count": 10198,
+    "ftd_pct": 9.91,
     "fpy_pct": 90.1,
     "scan_defect_pct": 6.2,
-    "mhe_defect_pct": 9.92,
+    "mhe_defect_pct": 9.91,
     "recirc_pct": 1.39,
-    "lane_full_pct": 61.8,
+    "lane_full_pct": 61.7,
     "sorter_ote": 88.1,
     "sorter_oee": 88.1,
     "downtime_pct": 11.01,
     "sorter_fpy_icw": 96.6,
     "mhe_defect_icw": 2.38,
-    "jam_dpmo": 5914,
+    "jam_dpmo": 5902,
     "iob_trips": 1,
     "iob_downtime_min": 4.6,
     "estop_events": 1,
@@ -438,7 +438,7 @@
   },
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -448,7 +448,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "141 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "149 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
