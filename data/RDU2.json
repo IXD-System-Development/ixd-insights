@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-21 16:55:47 EST",
+  "timestamp": "2026-06-21 16:56:21 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-21 16:55",
+  "_pushed_at": "2026-06-21 16:56",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2398,
+    "speed": 2412,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 132,
+    "faulted": 133,
     "disabled": 37,
-    "available": 2171,
+    "available": 2170,
     "occupied": 2053,
-    "empty": 118,
+    "empty": 117,
     "empty_pct": 5.0,
-    "availability_pct": 92.8
+    "availability_pct": 92.7
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 2281
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 704
+      "carrier": 853
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 103,
+    "1": 104,
     "13": 1,
     "10": 4,
     "9": 2
@@ -419,18 +419,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 865527,
+    "sorted": 865539,
     "recirculated": 12493,
     "recirc_pct": 1.42
   },
   "weekly": {
-    "inducted": 57429,
-    "diverted": 38554,
-    "ftd_count": 18875,
-    "ftd_pct": 32.87,
+    "inducted": 57473,
+    "diverted": 38585,
+    "ftd_count": 18888,
+    "ftd_pct": 32.86,
     "fpy_pct": 67.1,
     "scan_defect_pct": 6.37,
-    "mhe_defect_pct": 32.87,
+    "mhe_defect_pct": 32.86,
     "recirc_pct": 1.42,
     "lane_full_pct": 62.2,
     "sorter_ote": 88.7,
@@ -438,19 +438,19 @@
     "downtime_pct": 10.42,
     "sorter_fpy_icw": 96.7,
     "mhe_defect_icw": 2.26,
-    "jam_dpmo": 4299,
+    "jam_dpmo": 4298,
     "mhe_breakdown": {
-      "ItemScanned": 5663062,
-      "LaneFull": 2175941,
-      "CodeUsed": 1309754,
-      "Ok": 1294547,
-      "TrayspacingHorizontal": 229359,
-      "LaneBlocked": 177806,
-      "MaxRecirculation": 143706,
+      "ItemScanned": 5662923,
+      "LaneFull": 2175878,
+      "CodeUsed": 1309696,
+      "Ok": 1294490,
+      "TrayspacingHorizontal": 229350,
+      "LaneBlocked": 177786,
+      "MaxRecirculation": 143725,
       "SorterSpeedChange": 37588,
-      "LaneDisabled": 34041,
-      "NoActivation": 28088,
-      "ItemOnActivatedCarrier": 17261,
+      "LaneDisabled": 34043,
+      "NoActivation": 28089,
+      "ItemOnActivatedCarrier": 17262,
       "NoAnswerFromScanner": 9920,
       "NotCodeConverted": 3,
       "LaneJammed": 2
@@ -459,10 +459,10 @@
       {
         "date": "2026-06-14",
         "ftd": 1543,
-        "good": 53215,
-        "lane_full": 74334,
+        "good": 53151,
+        "lane_full": 74047,
         "no_read": 0,
-        "utd": 677
+        "utd": 675
       },
       {
         "date": "2026-06-15",
@@ -514,11 +514,11 @@
       },
       {
         "date": "2026-06-21",
-        "ftd": 249,
-        "good": 140015,
-        "lane_full": 250381,
+        "ftd": 250,
+        "good": 140025,
+        "lane_full": 250592,
         "no_read": 0,
-        "utd": 2912
+        "utd": 2915
       }
     ],
     "top_ftd_chutes": [
@@ -799,7 +799,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -809,7 +809,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "132 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "133 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
