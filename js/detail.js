@@ -104,7 +104,7 @@ const SiteDetail = (() => {
 
     // KPI Cards - 4 columns matching Benplaci layout
     h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
-    h += kpi('Sorter Availability', `${availPct}%`, 'empty carriers / total', availPct < 50 ? 'red' : availPct < 90 ? 'yellow' : 'green');
+    h += kpi('Sorter Availability', `${available} / ${total}`, 'open carriers', available < 1000 ? 'red' : available < 1800 ? 'yellow' : 'green');
     h += kpi('Faulted Carriers', String(faulted), 'MCB failures', faulted > 50 ? 'red' : faulted > 20 ? 'yellow' : 'green');
     h += kpi('Disabled Carriers', String(disabled), 'out of service', disabled > 100 ? 'red' : disabled > 50 ? 'yellow' : 'green');
     h += kpi('Total Inducted', inducted ? Number(inducted).toLocaleString() : '\u2014', 'this week', 'green');
