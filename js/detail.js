@@ -77,7 +77,7 @@ const SiteDetail = (() => {
     h += `<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
       <button class="filter-btn active">Overview</button>
       <button class="filter-btn">CP Zones</button>
-      <button class="filter-btn">Metrics</button>
+      <button class="filter-btn" onclick="SiteDetail.showMetricsTab()">Metrics</button>
       <button class="filter-btn" onclick="SiteDetail.showShiftReport()">Shift Reports</button>
       <a href="https://w.amazon.com/bin/view/IXD-SD/SITES/RDU2" target="_blank" class="filter-btn" style="text-decoration:none;">IXD Wiki ↗</a>
       <button class="filter-btn">Outbound</button>
@@ -428,5 +428,69 @@ const SiteDetail = (() => {
     container.innerHTML = html;
   }
 
-  return { init, refresh, showShiftReport, showSorterTab };
+  function showMetricsTab() {
+    const container = document.getElementById('detail-content');
+    if (!container) return;
+    const result = DataLayer.getCachedData(_siteId);
+    if (!result) { container.innerHTML = '<div class="section-panel"><p style="color:var(--text-secondary)">No data.</p></div>'; return; }
+    const weekly = result.weekly || {};
+    const breakdown = weekly.mhe_breakdown || {};
+    const daily = weekly.daily_defects || [];
+
+    let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>';
+
+    // MHE Defect Summary KPIs
+    const ok = breakdown.Ok || 0;
+    const ftd = breakdown.NoActivation || 0;
+    const laneFull = breakdown.LaneFull || 0;
+    const utd = breakdown.ItemOnActivatedCarrier || 0;
+    const noRead = breakdown.NoAnswerFromScanner || 0;
+    const maxRecirc = breakdown.MaxRecirculation || 0;
+    const total = ok + ftd + laneFull + utd + noRead + maxRecirc;
+    const ftdPct = total > 0 ? (ftd / total * 100).toFixed(2) : 0;
+    const lanePct = total > 0 ? (laneFull / total * 100).toFixed(1) : 0;
+    const utdPct = total > 0 ? (utd / total * 100).toFixed(2) : 0;
+    const nrPct = total > 0 ? (noRead / total * 100).toFixed(2) : 0;
+
+    html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--red)"></span> MHE Defect Breakdown (Weekly)</div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
+    html += `<div class="kpi-card red"><div class="kpi-label">Failed to Divert (FTD)</div><div class="kpi-value red">${ftd.toLocaleString()}</div><div class="kpi-subtitle">${ftdPct}% of sort attempts</div></div>`;
+    html += `<div class="kpi-card yellow"><div class="kpi-label">Lane Full</div><div class="kpi-value yellow">${laneFull.toLocaleString()}</div><div class="kpi-subtitle">${lanePct}% recirculated</div></div>`;
+    html += `<div class="kpi-card yellow"><div class="kpi-label">Item On Carrier (UTD)</div><div class="kpi-value yellow">${utd.toLocaleString()}</div><div class="kpi-subtitle">${utdPct}%</div></div>`;
+    html += `<div class="kpi-card blue"><div class="kpi-label">No Scanner Read</div><div class="kpi-value blue">${noRead.toLocaleString()}</div><div class="kpi-subtitle">${nrPct}%</div></div>`;
+    html += '</div>';
+
+    // Full breakdown table
+    html += '<table class="data-table"><thead><tr><th>Reason</th><th>Count</th><th>% of Total</th><th>Impact</th></tr></thead><tbody>';
+    const sorted = Object.entries(breakdown).sort((a,b) => b[1] - a[1]);
+    const grandTotal = sorted.reduce((s,e) => s + e[1], 0);
+    sorted.forEach(([reason, count]) => {
+      const pct = grandTotal > 0 ? (count / grandTotal * 100).toFixed(2) : 0;
+      let impact = '';
+      if (reason === 'NoActivation') impact = '<span class="badge-fault">MHE DEFECT</span>';
+      else if (reason === 'NoAnswerFromScanner') impact = '<span class="badge-fault">SCAN DEFECT</span>';
+      else if (reason === 'ItemOnActivatedCarrier') impact = '<span class="badge-fault">MHE DEFECT</span>';
+      else if (reason === 'Ok') impact = '<span class="badge-ok">GOOD</span>';
+      else impact = '<span style="color:var(--text-secondary)">Ops/Config</span>';
+      html += `<tr><td style="font-family:var(--font-mono)">${reason}</td><td style="font-weight:600">${count.toLocaleString()}</td><td>${pct}%</td><td>${impact}</td></tr>`;
+    });
+    html += '</tbody></table></div>';
+
+    // Daily trend
+    if (daily.length > 0) {
+      html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--orange)"></span> Daily Defect Trend (7 days)</div>';
+      html += '<table class="data-table"><thead><tr><th>Date</th><th>FTD</th><th>Good Diverts</th><th>Lane Full</th><th>No Read</th><th>UTD</th><th>FTD%</th></tr></thead><tbody>';
+      daily.forEach(d => {
+        const dayTotal = d.ftd + d.good + d.lane_full;
+        const dayFtdPct = dayTotal > 0 ? (d.ftd / dayTotal * 100).toFixed(2) : '0';
+        const ftdColor = d.ftd > 5000 ? 'color:var(--red)' : d.ftd > 3000 ? 'color:var(--yellow)' : '';
+        html += `<tr><td>${d.date}</td><td style="font-weight:600;${ftdColor}">${d.ftd.toLocaleString()}</td><td style="color:var(--green)">${d.good.toLocaleString()}</td><td>${d.lane_full.toLocaleString()}</td><td>${d.no_read.toLocaleString()}</td><td>${d.utd.toLocaleString()}</td><td style="${ftdColor}">${dayFtdPct}%</td></tr>`;
+      });
+      html += '</tbody></table></div>';
+    }
+
+    container.innerHTML = html;
+  }
+
+  return { init, refresh, showShiftReport, showSorterTab, showMetricsTab };
 })();
