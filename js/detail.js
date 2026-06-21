@@ -1,372 +1,247 @@
 /**
- * IXD Systems Dashboard — Site Detail Page Logic
- * ════════════════════════════════════════════════════
- * Renders the per-site deep-dive dashboard.
- * INTL sites get full health sections; DEM sites get simplified view.
+ * IXD Insights — Site Detail Page
+ * Renders per-site dashboard matching CB4000 KPI layout.
  */
-
 const SiteDetail = (() => {
   let _siteId = null;
   let _siteMeta = null;
   let _refreshTimer = null;
+  let _currentTab = 'overview';
 
   async function init() {
     const params = new URLSearchParams(window.location.search);
     _siteId = params.get('id');
+    if (!_siteId) { showError('No site ID specified.'); return; }
 
-    if (!_siteId) {
-      showNotFound();
-      return;
-    }
-
-    try {
-      await DataLayer.loadSites();
-    } catch (e) {
-      showError('Unable to load site configuration. Check network connection.');
-      return;
-    }
-
+    try { await DataLayer.loadSites(); } catch(e) { showError('Failed to load sites.'); return; }
     _siteMeta = DataLayer.getSites().find(s => s.id === _siteId);
-    if (!_siteMeta) {
-      showNotFound();
-      return;
-    }
+    if (!_siteMeta) { showError(`Site ${_siteId} not found.`); return; }
 
     await refresh();
-    startAutoRefresh();
-    setupVisibilityPause();
+    _refreshTimer = setInterval(() => { if (!document.hidden) refresh(); }, CONFIG.DETAIL_REFRESH_MS);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
   }
 
   async function refresh() {
     const result = await DataLayer.fetchSiteHealth(_siteId);
-    if (result.error === 'rate_limited') {
-      showWarning('Rate limited — retry in 60s');
-      return;
-    }
-    if (result.error === 'not_found' && !result.data) {
-      showError(`No health data available for ${_siteId}.`);
-      return;
-    }
-    if (result.error && !result.data) {
-      showError(`Failed to load data for ${_siteId}. Network error.`);
-      return;
-    }
-    if (result.error && result.data) {
-      showWarning('Refresh failed — showing cached data');
-    }
+    if (result.error === 'rate_limited') return;
+    if (!result.data) { showError(`No data for ${_siteId}.`); return; }
     render(result.data);
-    updateNavStatus();
+    const el = document.getElementById('nav-refresh-status');
+    if (el) el.textContent = 'Updated: ' + new Date().toLocaleTimeString();
   }
 
   function render(data) {
     const container = document.getElementById('detail-content');
     if (!container) return;
-
-    const oem = _siteMeta.oem;
-    const conn = data.connection_status || 'offline';
-    const staleness = DataLayer.getStaleness(data);
-
-    let html = `
-      <div class="detail-header">
-        <a href="index.html" class="back-link">← Overview</a>
-        <span class="detail-site-id">${_siteId}</span>
-        <span class="site-card-oem oem-${oem.toLowerCase()}">${oem}</span>
-        <span class="detail-connection ${conn}">${conn === 'online' ? '● LIVE' : '● OFFLINE'}</span>
-        <span class="staleness ${staleness.status}" style="margin-left:auto;">${staleness.label}</span>
-      </div>`;
-
-    if (oem === 'INTL') {
-      html += renderINTL(data);
-    } else if (oem === 'DEM') {
-      html += renderDEM(data);
-    }
-
-    container.innerHTML = html;
+    const oem = (_siteMeta.oem || data.oem || '').toUpperCase();
+    if (oem === 'INTL') container.innerHTML = renderINTL(data);
+    else if (oem === 'DEM') container.innerHTML = renderDEM(data);
+    else container.innerHTML = '<div class="error-banner">Unknown OEM type.</div>';
   }
 
-  // ═══════════════════════════════════════════════════════════════
-  // INTL SITE RENDER
-  // ═══════════════════════════════════════════════════════════════
-
-  function renderINTL(data) {
-    const sorter = data.sorter || {};
-    const carriers = data.carriers || {};
-    const config = data.config || {};
-    const scanners = data.scanners || [];
-    const ppuList = data.ppu || [];
-    const wptList = data.wpt || [];
-    const crb = data.crb || {};
-    const comms = data.comms || {};
-    const lsmZones = data.lsm_zones || [];
-    const strays = data.strays || [];
-    const lifetime = data.lifetime || {};
-    const actions = data.priority_actions || [];
-    const carrierCount = data.carrier_count || 2340;
+  function renderINTL(d) {
+    const sorter = d.sorter || {};
+    const carriers = d.carriers || {};
+    const config = d.config || {};
+    const scanners = d.scanners || [];
+    const ppuList = d.ppu || [];
+    const wptList = d.wpt || [];
+    const crb = d.crb || {};
+    const comms = d.comms || {};
+    const lsmZones = d.lsm_zones || [];
+    const strays = d.strays || [];
+    const lifetime = d.lifetime || {};
+    const actions = d.priority_actions || [];
+    const total = d.carrier_count || 2340;
 
     const faulted = carriers.faulted || 0;
-    const speed = sorter.speed || '?';
+    const disabled = carriers.disabled || 0;
+    const available = carriers.available || 0;
+    const speed = sorter.speed || 0;
+    const running = sorter.running;
     const availPct = carriers.availability_pct || 0;
-    const nrMax = Math.max(...scanners.map(s => s.nr_pct || 0), 0);
-    const wptFaulted = wptList.filter(w => w.error).length;
-    const strayCount = strays.length;
     const maxRecirc = config.max_recirc;
+    const wptFaulted = wptList.filter(w => w.error).length;
 
-    let html = '';
+    // Recirc %
+    const sorted = lifetime.sorted || 0;
+    const recirc = lifetime.recirculated || 0;
+    const recircPct = lifetime.recirc_pct || 0;
 
-    // --- KPI Cards ---
-    html += '<div class="kpi-row">';
-    html += kpiCard('Sorter', sorter.running ? `RUNNING ~${speed} mm/s` : 'STOPPED',
-      sorter.running ? 'sortation active' : 'not running', sorter.running ? 'green' : 'red');
-    html += kpiCard('Worst Scanner NR%', `${nrMax}%`, 'target <3%',
-      nrMax > 5 ? 'red' : nrMax > 3 ? 'yellow' : 'green');
-    html += kpiCard('Faulted Carriers', String(faulted), `of ${carrierCount} fleet`,
-      faulted > 50 ? 'red' : faulted > 20 ? 'yellow' : 'green');
-    html += kpiCard('Availability', `${availPct}%`, `${carriers.available || '?'}/${carrierCount}`,
-      availPct > 95 ? 'green' : availPct > 90 ? 'yellow' : 'red');
+    let h = '';
 
-    const crbOk = !crb.master_alarm && (crb.units || []).every(u => !u.connection_faulted);
-    html += kpiCard('CRB Status', crbOk ? '4/4 OK' : 'FAULT', 'induction CRBs', crbOk ? 'green' : 'red');
+    // Sub-tabs
+    h += `<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+      <button class="filter-btn active" onclick="SiteDetail.switchTab('overview',this)">Overview</button>
+      <button class="filter-btn" onclick="SiteDetail.switchTab('cp-zones',this)">CP Zones</button>
+      <button class="filter-btn" onclick="SiteDetail.switchTab('metrics',this)">Metrics</button>
+      <button class="filter-btn" onclick="SiteDetail.switchTab('wiki',this)">IXD Wiki</button>
+    </div>`;
 
-    const wptIds = wptList.filter(w => w.error).map(w => `[${w.index}]`).join('+');
-    html += kpiCard('WPT Faults', wptIds || 'None',
-      wptFaulted ? `${wptFaulted} positions faulted` : 'all clear',
-      wptFaulted > 2 ? 'red' : wptFaulted > 0 ? 'yellow' : 'green');
+    // Back link + header
+    h += `<div class="detail-header">
+      <a href="sites.html" class="back-link">\u2190 Back to Fleet</a>
+      <span class="detail-site-id">${_siteId}</span>
+      <span class="site-card-oem oem-intl">INTL</span>
+      <span class="detail-connection ${running ? 'online' : 'offline'}">${running ? '\u25cf LIVE' : '\u25cf OFFLINE'}</span>
+    </div>`;
 
-    html += kpiCard('Active Strays', String(strayCount), strayCount ? `DistTrays active` : 'none',
-      strayCount > 2 ? 'red' : strayCount > 0 ? 'yellow' : 'green');
-    html += kpiCard('MaxRecirc', String(maxRecirc || '?'),
-      `MaxRecircDest=${config.max_recirc_dest || '?'}`,
-      maxRecirc && maxRecirc <= 5 ? 'green' : 'red');
-    html += '</div>';
+    // Site title
+    h += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">\ud83c\udfed ${_siteId} \u2014 ${_siteMeta.region || ''} | 10.8.188.183 | Wk25</div>`;
 
-    // --- Priority Actions ---
-    if (actions.length > 0) {
-      html += '<div class="section-panel">';
-      html += '<div class="section-title"><span class="section-dot" style="background:var(--orange)"></span> Priority Actions</div>';
-      actions.sort((a, b) => severityOrder(a.severity) - severityOrder(b.severity));
-      actions.forEach((a, i) => {
-        const cls = a.severity === 'CRITICAL' ? 'critical' : a.severity === 'WARNING' ? 'warning' : 'info';
-        html += `<div class="action-item ${cls}">
-          <span>${i + 1}.</span>
-          <div><div class="action-item-title">${esc(a.text)}</div>
-          <div class="action-item-detail">${esc(a.component || '')}</div></div></div>`;
-      });
-      html += '</div>';
-    }
+    // Sorter status banner
+    const bannerColor = running ? 'var(--green)' : 'var(--red)';
+    const bannerText = running ? `\u25cf SORTER RUNNING` : '\u25cf SORTER STOPPED';
+    h += `<div style="display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 20px;margin-bottom:14px;border-radius:8px;background:${running ? 'var(--green-bg)' : 'var(--red-bg)'};border:1px solid ${bannerColor};">
+      <span style="font-size:14px;font-weight:700;color:${bannerColor};letter-spacing:0.05em;">${bannerText}</span></div>`;
 
-    // --- PPU Health ---
-    html += '<div class="section-panel">';
-    html += '<div class="section-title"><span class="section-dot" style="background:var(--green)"></span> PPU Health — Vahle vPOWER (1–6)</div>';
-    html += '<div class="health-grid">';
-    ppuList.forEach(ppu => {
-      const state = ppu.state || 'UNKNOWN';
-      let color = 'grey', icon = '—';
-      if (state === 'RUNNING') { color = 'green'; icon = '✓ Running'; }
-      else if (state === 'ERROR') { color = 'red'; icon = '✗ ERROR'; }
-      else if (state === 'WARNING') { color = 'yellow'; icon = '⚠ WARN'; }
-      else if (state === 'DISCONNECTED') { color = 'red'; icon = '✗ DISC'; }
-      else { icon = '— STOPPED'; }
-      html += `<div class="health-cell ${color}">
-        <div class="health-cell-label">PPU ${ppu.index}</div>
-        <div class="health-cell-value ${color}">${icon}</div></div>`;
+    // KPI Cards — 4 columns
+    h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
+    h += kpi('Sorter Availability', `${availPct}%`, 'empty carriers / total', availPct > 90 ? 'green' : 'red');
+    h += kpi('Faulted Carriers', String(faulted), 'MCB failures', faulted > 50 ? 'red' : faulted > 20 ? 'yellow' : 'green');
+    h += kpi('Disabled Carriers', String(disabled), 'out of service', disabled > 100 ? 'yellow' : 'green');
+    h += kpi('Total Inducted', '\u2014', 'this week', 'green');
+    h += kpi('Total Diverted', '\u2014', 'this week', 'green');
+    h += kpi('Max Recirc %', `${recircPct}%`, 'target <1%', recircPct > 1 ? 'yellow' : 'green');
+    h += kpi('Lane Full %', '\u2014', 'chutes at capacity', 'yellow');
+    h += kpi('FPY', '\u2014', 'Wk25', 'green');
+    h += kpi('Scan Defect', '\u2014', 'Wk25', 'yellow');
+    h += kpi('MHE Defect', '\u2014', 'Wk25', 'green');
+    h += kpi('IOB Trips', '\u2014', 'this week', 'yellow');
+    h += kpi('E-Stop Events', '\u2014', 'this week', 'yellow');
+    h += '</div>';
+
+    // PPU Health
+    h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--green)"></span> PPU Health \u2014 Vahle vPOWER (1\u20136)</div>';
+    h += '<div class="health-grid">';
+    ppuList.forEach(p => {
+      const st = p.state || 'UNKNOWN';
+      const color = st === 'RUNNING' ? 'green' : st === 'ERROR' ? 'red' : st === 'WARNING' ? 'yellow' : 'grey';
+      const icon = st === 'RUNNING' ? '\u2713 Running' : st === 'ERROR' ? '\u2717 ERROR' : st === 'WARNING' ? '\u26a0 WARN' : '\u2014 ' + st;
+      h += `<div class="health-cell ${color}"><div class="health-cell-label">PPU ${p.index}</div><div class="health-cell-value ${color}">${icon}</div></div>`;
     });
-    html += '</div></div>';
+    h += '</div></div>';
 
-    // --- WPT CTB/CRB Health ---
+    // WPT CTB/CRB Health [0-15]
     const wptColor = wptFaulted > 0 ? 'yellow' : 'green';
-    html += '<div class="section-panel">';
-    html += `<div class="section-title"><span class="section-dot" style="background:var(--${wptColor})"></span> WPT CTB/CRB Health — Carrier Health Check [0–15]</div>`;
-    html += '<div class="health-grid">';
+    h += `<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--${wptColor})"></span> WPT CTB/CRB Health \u2014 Carrier Health Check [0\u201315]</div>`;
+    h += '<div class="health-grid">';
     wptList.forEach(pos => {
       const color = pos.error ? 'red' : 'green';
-      const icon = pos.error ? '✗' : '✓';
+      const icon = pos.error ? '\u2717' : '\u2713';
       const label = pos.error ? 'FAULT' : 'OK';
-      const sub = pos.error && pos.carrier ? `MCB ${pos.carrier}` : '';
-      html += `<div class="health-cell ${color}">
-        <div class="health-cell-label">[${pos.index}]</div>
-        <div class="health-cell-value ${color}">${icon}</div>
-        <div class="health-cell-sub">${label} ${sub}</div></div>`;
+      const sub = pos.error && pos.carrier ? `MCB ${pos.carrier}` : (pos.error ? 'MCB null' : '');
+      h += `<div class="health-cell ${color}"><div class="health-cell-label">[${pos.index}]</div><div class="health-cell-value ${color}">${icon}</div><div class="health-cell-sub">${label}</div>${sub ? `<div class="health-cell-sub">${sub}</div>` : ''}</div>`;
     });
-    html += '</div></div>';
+    h += '</div></div>';
 
-    // --- LSM Drive Health ---
-    const lsmFaults = lsmZones.filter(z => z.collision_detect || z.collision_avoid || z.vfd_fault).length;
-    const lsmColor = lsmFaults > 0 ? 'yellow' : 'green';
-    html += '<div class="section-panel">';
-    html += `<div class="section-title"><span class="section-dot" style="background:var(--${lsmColor})"></span> LSM Drive Health — Motor Zones (1–23)</div>`;
-    html += '<div class="health-grid">';
-    lsmZones.forEach(z => {
-      const hasFault = z.collision_detect || z.collision_avoid || z.vfd_fault;
-      const color = hasFault ? (z.vfd_fault ? 'red' : 'yellow') : 'green';
-      let icon = '✓';
-      if (z.vfd_fault) icon = '✗ VFD';
-      else if (z.collision_detect) icon = '⚠ CD';
-      else if (z.collision_avoid) icon = '⚠ CA';
-      html += `<div class="health-cell ${color}">
-        <div class="health-cell-label">Zone ${z.zone}</div>
-        <div class="health-cell-value ${color}">${icon}</div></div>`;
+    // Discharge CRBs
+    const crbUnits = crb.units || [];
+    h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--green)"></span> Discharge CRBs \u2014 Belt Confirm Receivers (1\u20134)</div>';
+    h += '<div class="health-grid">';
+    crbUnits.forEach(u => {
+      const ok = !u.connection_faulted;
+      const color = ok ? 'green' : 'red';
+      h += `<div class="health-cell ${color}"><div class="health-cell-label">CRB ${u.index}</div><div class="health-cell-value ${color}">${ok ? '\u2713 OK' : '\u2717 FAULT'}</div></div>`;
     });
-    html += '</div></div>';
+    h += '</div></div>';
 
-    // --- Scanner Health ---
-    html += '<div class="section-panel">';
-    html += '<div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> Scanner Health — Weekly NR%</div>';
-    scanners.forEach(sc => {
-      const pct = sc.nr_pct || 0;
-      const barW = Math.min(Math.round(pct / 15 * 100), 100);
-      const color = pct > 5.5 ? 'red' : pct > 3 ? 'yellow' : 'green';
-      html += `<div class="scanner-bar-row">
-        <span class="scanner-bar-label">${esc(sc.label || 'Scanner')}</span>
-        <div class="scanner-bar-track"><div class="scanner-bar-fill ${color}" style="width:${barW}%"></div></div>
-        <span class="scanner-bar-value ${color}">${pct}%</span></div>`;
-    });
-    html += '</div>';
-
-    // --- Communications Health ---
-    html += '<div class="section-panel">';
-    html += '<div class="section-title"><span class="section-dot" style="background:var(--orange)"></span> Communications Health</div>';
-    html += '<table class="data-table"><thead><tr><th>Category</th><th>Device / Group</th><th>Count</th><th>Status</th></tr></thead><tbody>';
-    const ctb = comms.ctb || {};
-    const wptCrb = comms.wpt_crb || {};
-    const commRows = [
-      ['WCS', 'AWCS (Mercury TCP)', '1', comms.awcs_ok !== false],
-      ['WCS', 'ICW RoutingMaster', '1', comms.icw_ok !== false],
-      ['Discharge CTB', 'DCP_IO_CTB_01–47', String(ctb.total || 47), (ctb.faulted || 0) === 0],
-      ['Discharge CRB', 'DCP_IO_CTB_CRB_01–04', '4', crbOk],
-      ['WPT CRB', 'DCP_IO_CTB_CRB_WPT_01–16', String(wptCrb.total || 16), (wptCrb.faulted || 0) === 0],
-      ['PPU', 'DCP_PPU + DCP_IO_PPU 01–06', '12', (comms.ppu_connections || 0) === (comms.ppu_total || 6)],
-    ];
-    commRows.forEach(([cat, dev, count, ok]) => {
-      const badge = ok ? '<span class="badge-ok">OK</span>' : '<span class="badge-fault">FAULT</span>';
-      html += `<tr><td>${cat}</td><td>${dev}</td><td>${count}</td><td>${badge}</td></tr>`;
-    });
-    html += '</tbody></table></div>';
-
-    // --- Live State Summary ---
-    html += '<div class="section-panel">';
-    html += '<div class="section-title"><span class="section-dot" style="background:var(--green)"></span> Live State Summary</div>';
-    html += '<table class="data-table"><thead><tr><th>Parameter</th><th>Value</th><th>Status</th></tr></thead><tbody>';
-    const distIds = strays.map(s => s.dist_trays || '?').join('/');
-    const stateRows = [
-      ['Sorter Speed', `${sorter.running ? 'RUNNING' : 'STOPPED'} ~${speed} mm/s`, sorter.running ? '✓' : '🔴'],
-      ['Faulted Carriers', String(faulted), faulted > 50 ? '⚠' : '✓'],
-      ['Disabled Carriers', String(carriers.disabled || '?'), (carriers.disabled || 0) > 100 ? '⚠' : '✓'],
-      ['Active Strays', strayCount ? `${strayCount} (${distIds})` : '0', strayCount ? '⚠' : '✓'],
-      ['MaxRecirc / Dest', `${maxRecirc || '?'} / ${config.max_recirc_dest || '?'}`, maxRecirc && maxRecirc <= 5 ? '✓' : '🔴'],
-      ['ClockFaultCarrier', config.clock_fault_carrier ? `#${config.clock_fault_carrier}` : 'None', config.clock_fault_carrier ? '⚠' : '✓'],
-      ['WCS Connections', `AWCS: ${comms.awcs_ok !== false ? 'OK' : 'LOST'} / ICW: ${comms.icw_ok !== false ? 'Active' : 'Inactive'}`, comms.awcs_ok !== false && comms.icw_ok !== false ? '✓' : '🔴'],
-      ['Sorted (lifetime)', lifetime.sorted ? Number(lifetime.sorted).toLocaleString() : '—', '—'],
-      ['Recirculated', lifetime.recirculated ? `${Number(lifetime.recirculated).toLocaleString()} (${lifetime.recirc_pct || 0}%)` : '—', '—'],
-    ];
-    stateRows.forEach(([param, val, status]) => {
-      html += `<tr><td>${param}</td><td style="font-family:var(--font-mono)">${val}</td><td>${status}</td></tr>`;
-    });
-    html += '</tbody></table></div>';
-
-    return html;
-  }
-
-  // ═══════════════════════════════════════════════════════════════
-  // DEM SITE RENDER
-  // ═══════════════════════════════════════════════════════════════
-
-  function renderDEM(data) {
-    let html = '<div class="dem-notice">⚠ Dematic site — limited telemetry available</div>';
-
-    const safety = data.safety_plc || {};
-    const trace = data.trace || {};
-
-    // Safety PLC Status
-    html += '<div class="section-panel">';
-    html += '<div class="section-title"><span class="section-dot" style="background:var(--green)"></span> Safety PLC Status</div>';
-    html += '<table class="data-table"><thead><tr><th>Parameter</th><th>Value</th><th>Status</th></tr></thead><tbody>';
-    const safetyOk = safety.status === 'OK';
-    html += `<tr><td>Safety PLC</td><td style="font-family:var(--font-mono)">${safety.status || '?'}</td><td>${safetyOk ? '✓' : '🔴'}</td></tr>`;
-    html += `<tr><td>E-Stops Active</td><td style="font-family:var(--font-mono)">${safety.estops_active ?? '?'}</td><td>${(safety.estops_active || 0) === 0 ? '✓' : '🔴'}</td></tr>`;
-    html += `<tr><td>Gates Open</td><td style="font-family:var(--font-mono)">${safety.gates_open ?? '?'}</td><td>${(safety.gates_open || 0) === 0 ? '✓' : '⚠'}</td></tr>`;
-    html += `<tr><td>Zones Bypassed</td><td style="font-family:var(--font-mono)">${safety.zones_bypassed ?? '?'}</td><td>${(safety.zones_bypassed || 0) === 0 ? '✓' : '⚠'}</td></tr>`;
-    html += '</tbody></table></div>';
-
-    // Trace Data
-    html += '<div class="section-panel">';
-    html += '<div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> Trace Data</div>';
-    html += '<table class="data-table"><thead><tr><th>Parameter</th><th>Value</th><th>Status</th></tr></thead><tbody>';
-    html += `<tr><td>Trace Connection</td><td style="font-family:var(--font-mono)">${trace.connected ? 'Connected' : 'Disconnected'}</td><td>${trace.connected ? '✓' : '🔴'}</td></tr>`;
-    html += `<tr><td>Active Faults</td><td style="font-family:var(--font-mono)">${trace.active_faults ?? '?'}</td><td>${(trace.active_faults || 0) === 0 ? '✓' : '⚠'}</td></tr>`;
-    html += `<tr><td>Chute Jams</td><td style="font-family:var(--font-mono)">${trace.chute_jams ?? '?'}</td><td>${(trace.chute_jams || 0) === 0 ? '✓' : '⚠'}</td></tr>`;
-    html += `<tr><td>Carrier SD Trips</td><td style="font-family:var(--font-mono)">${trace.carrier_sd_trips ?? '?'}</td><td>${(trace.carrier_sd_trips || 0) === 0 ? '✓' : '⚠'}</td></tr>`;
-    html += `<tr><td>Last Update</td><td style="font-family:var(--font-mono)">${trace.last_update || '—'}</td><td>—</td></tr>`;
-    html += '</tbody></table></div>';
-
-    return html;
-  }
-
-  // ═══════════════════════════════════════════════════════════════
-  // HELPERS
-  // ═══════════════════════════════════════════════════════════════
-
-  function kpiCard(label, value, subtitle, color) {
-    return `<div class="kpi-card ${color}">
-      <div class="kpi-label">${label}</div>
-      <div class="kpi-value ${color}">${value}</div>
-      <div class="kpi-subtitle">${subtitle}</div></div>`;
-  }
-
-  function severityOrder(s) {
-    if (s === 'CRITICAL') return 0;
-    if (s === 'WARNING') return 1;
-    return 2;
-  }
-
-  function esc(str) {
-    const d = document.createElement('div');
-    d.textContent = str;
-    return d.innerHTML;
-  }
-
-  function showNotFound() {
-    const container = document.getElementById('detail-content');
-    if (container) {
-      container.innerHTML = `
-        <div class="error-banner">Site not found. <a href="index.html" style="color:var(--blue);margin-left:8px;">← Back to Overview</a></div>`;
+    // LSM Drive Health
+    if (lsmZones.length > 0) {
+      const lsmFaults = lsmZones.filter(z => z.collision_detect || z.collision_avoid || z.vfd_fault).length;
+      const lsmColor = lsmFaults > 0 ? 'yellow' : 'green';
+      h += `<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--${lsmColor})"></span> LSM Drive Health (1\u201323)</div>`;
+      h += '<div class="health-grid">';
+      lsmZones.forEach(z => {
+        const hasFault = z.collision_detect || z.collision_avoid || z.vfd_fault;
+        const color = hasFault ? (z.vfd_fault ? 'red' : 'yellow') : 'green';
+        let icon = '\u2713';
+        if (z.vfd_fault) icon = '\u2717 VFD';
+        else if (z.collision_detect) icon = '\u26a0 CD';
+        else if (z.collision_avoid) icon = '\u26a0 CA';
+        h += `<div class="health-cell ${color}"><div class="health-cell-label">Zone ${z.zone}</div><div class="health-cell-value ${color}">${icon}</div></div>`;
+      });
+      h += '</div></div>';
     }
-  }
 
-  function showError(msg) {
-    const container = document.getElementById('detail-content');
-    if (container) {
-      container.innerHTML = `<div class="error-banner">⚠ ${esc(msg)}</div>`;
+    // Scanner Health
+    if (scanners.length > 0) {
+      h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> Scanner Health \u2014 Weekly NR%</div>';
+      scanners.forEach(sc => {
+        const pct = sc.nr_pct || 0;
+        const barW = Math.min(Math.round(pct / 15 * 100), 100);
+        const color = pct > 5.5 ? 'red' : pct > 3 ? 'yellow' : 'green';
+        h += `<div class="scanner-bar-row"><span class="scanner-bar-label">${esc(sc.label || 'Scanner')}</span><div class="scanner-bar-track"><div class="scanner-bar-fill ${color}" style="width:${barW}%"></div></div><span class="scanner-bar-value ${color}">${pct}%</span></div>`;
+      });
+      h += '</div>';
     }
-  }
 
-  function showWarning(msg) {
-    const banner = document.getElementById('warning-banner');
-    if (banner) {
-      banner.classList.remove('hidden');
-      banner.textContent = msg;
+    // Communications
+    h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--orange)"></span> Communications Health</div>';
+    h += '<table class="data-table"><thead><tr><th>System</th><th>Status</th></tr></thead><tbody>';
+    h += `<tr><td>AWCS (Mercury TCP)</td><td>${comms.awcs_ok !== false ? '<span class="badge-ok">OK</span>' : '<span class="badge-fault">LOST</span>'}</td></tr>`;
+    h += `<tr><td>ICW RoutingMaster</td><td>${comms.icw_ok !== false ? '<span class="badge-ok">OK</span>' : '<span class="badge-fault">INACTIVE</span>'}</td></tr>`;
+    h += `<tr><td>WPT CRB (16 positions)</td><td>${wptFaulted === 0 ? '<span class="badge-ok">OK</span>' : `<span class="badge-fault">${wptFaulted} FAULTED</span>`}</td></tr>`;
+    h += `<tr><td>PPU Units (6 total)</td><td>${ppuList.filter(p=>p.state==='RUNNING').length === 6 ? '<span class="badge-ok">6/6 OK</span>' : `<span class="badge-fault">${ppuList.filter(p=>p.state==='RUNNING').length}/6</span>`}</td></tr>`;
+    h += '</tbody></table></div>';
+
+    // Priority Actions
+    if (actions.length > 0) {
+      h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--orange)"></span> Priority Actions</div>';
+      actions.forEach((a, i) => {
+        const cls = a.severity === 'CRITICAL' ? 'critical' : a.severity === 'WARNING' ? 'warning' : 'info';
+        h += `<div class="action-item ${cls}"><span>${i+1}.</span><div><div class="action-item-title">${esc(a.text)}</div><div class="action-item-detail">${esc(a.component || '')}</div></div></div>`;
+      });
+      h += '</div>';
     }
+
+    // Live State Summary
+    h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--green)"></span> Live State Summary</div>';
+    h += '<table class="data-table"><thead><tr><th>Parameter</th><th>Value</th><th>Status</th></tr></thead><tbody>';
+    h += `<tr><td>Sorter Speed</td><td>${running ? 'RUNNING' : 'STOPPED'} ~${speed} mm/s</td><td>${running ? '\u2713' : '\ud83d\udd34'}</td></tr>`;
+    h += `<tr><td>Faulted Carriers</td><td>${faulted}</td><td>${faulted > 50 ? '\u26a0' : '\u2713'}</td></tr>`;
+    h += `<tr><td>Disabled Carriers</td><td>${disabled}</td><td>${disabled > 100 ? '\u26a0' : '\u2713'}</td></tr>`;
+    h += `<tr><td>Active Strays</td><td>${strays.length ? strays.length + ' (' + strays.map(s=>s.dist_trays||'?').join('/') + ')' : '0'}</td><td>${strays.length ? '\u26a0' : '\u2713'}</td></tr>`;
+    h += `<tr><td>MaxRecirc / Dest</td><td>${maxRecirc || '?'} / ${config.max_recirc_dest || '?'}</td><td>${maxRecirc && maxRecirc <= 5 ? '\u2713' : '\ud83d\udd34'}</td></tr>`;
+    h += `<tr><td>ClockFaultCarrier</td><td>${config.clock_fault_carrier ? '#' + config.clock_fault_carrier : 'None'}</td><td>${config.clock_fault_carrier ? '\u26a0' : '\u2713'}</td></tr>`;
+    h += `<tr><td>WCS Connections</td><td>AWCS: ${comms.awcs_ok !== false ? 'OK' : 'LOST'} / ICW: ${comms.icw_ok !== false ? 'Active' : 'Inactive'}</td><td>${comms.awcs_ok !== false && comms.icw_ok !== false ? '\u2713' : '\ud83d\udd34'}</td></tr>`;
+    h += '</tbody></table></div>';
+
+    return h;
   }
 
-  function updateNavStatus() {
-    const el = document.getElementById('nav-refresh-status');
-    if (el) el.textContent = `Last refresh: ${new Date().toLocaleTimeString()}`;
+  function renderDEM(d) {
+    let h = '<div class="dem-notice">\u26a0 Dematic site \u2014 limited telemetry available</div>';
+    h += `<div class="detail-header"><a href="sites.html" class="back-link">\u2190 Back</a><span class="detail-site-id">${_siteId}</span><span class="site-card-oem oem-dem">DEM</span></div>`;
+    const safety = d.safety_plc || {};
+    const trace = d.trace || {};
+    h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--green)"></span> Safety PLC</div>';
+    h += '<table class="data-table"><tbody>';
+    h += `<tr><td>Status</td><td>${safety.status || '?'}</td><td>${safety.status === 'OK' ? '\u2713' : '\ud83d\udd34'}</td></tr>`;
+    h += `<tr><td>E-Stops Active</td><td>${safety.estops_active ?? '?'}</td><td>${(safety.estops_active || 0) === 0 ? '\u2713' : '\ud83d\udd34'}</td></tr>`;
+    h += '</tbody></table></div>';
+    h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> Trace</div>';
+    h += '<table class="data-table"><tbody>';
+    h += `<tr><td>Connected</td><td>${trace.connected ? 'Yes' : 'No'}</td><td>${trace.connected ? '\u2713' : '\ud83d\udd34'}</td></tr>`;
+    h += `<tr><td>Active Faults</td><td>${trace.active_faults ?? '?'}</td><td>${(trace.active_faults || 0) === 0 ? '\u2713' : '\u26a0'}</td></tr>`;
+    h += '</tbody></table></div>';
+    return h;
   }
 
-  function startAutoRefresh() {
-    _refreshTimer = setInterval(() => {
-      if (!document.hidden) refresh();
-    }, CONFIG.DETAIL_REFRESH_MS);
+  function kpi(label, value, sub, color) {
+    return `<div class="kpi-card ${color}"><div class="kpi-label">${label}</div><div class="kpi-value ${color}">${value}</div><div class="kpi-subtitle">${sub}</div></div>`;
   }
 
-  function setupVisibilityPause() {
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) refresh();
-    });
+  function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+  function showError(msg) { const c = document.getElementById('detail-content'); if(c) c.innerHTML = `<div class="error-banner">${msg} <a href="sites.html" style="color:var(--blue);margin-left:8px;">\u2190 Back</a></div>`; }
+
+  function switchTab(tab, btn) {
+    _currentTab = tab;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    // For now only overview is implemented with live data
   }
 
-  function destroy() {
-    if (_refreshTimer) clearInterval(_refreshTimer);
-  }
-
-  return { init, refresh, destroy };
+  return { init, refresh, switchTab };
 })();
