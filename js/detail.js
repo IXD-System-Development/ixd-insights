@@ -76,7 +76,7 @@ const SiteDetail = (() => {
       <button class="filter-btn">CP Zones</button>
       <button class="filter-btn">Metrics</button>
       <button class="filter-btn">Shift Reports</button>
-      <button class="filter-btn">IXD Wiki</button>
+      <a href="https://w.amazon.com/bin/view/IXD-SD/SITES/RDU2" target="_blank" class="filter-btn" style="text-decoration:none;">IXD Wiki ↗</a>
       <button class="filter-btn">Outbound</button>
       <button class="filter-btn">Inbound</button>
       <button class="filter-btn">Sorter</button>
