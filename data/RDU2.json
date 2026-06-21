@@ -1,6 +1,6 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-20 23:50:13",
+  "timestamp": "2026-06-20 23:50:52",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
@@ -8,13 +8,13 @@
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2406
+    "speed": 2400
   },
   "carriers": {
-    "faulted": 133,
+    "faulted": 128,
     "disabled": 36,
-    "available": 2171,
-    "availability_pct": 92.8
+    "available": 2176,
+    "availability_pct": 93.0
   },
   "config": {
     "max_recirc": 5,
@@ -73,8 +73,8 @@
     },
     {
       "index": 1,
-      "error": true,
-      "carrier": 63
+      "error": false,
+      "carrier": null
     },
     {
       "index": 2,
@@ -134,7 +134,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 975
+      "carrier": 1132
     },
     {
       "index": 14,
@@ -177,7 +177,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 2
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -337,14 +337,14 @@
     }
   ],
   "lifetime": {
-    "sorted": 761501,
+    "sorted": 761604,
     "recirculated": 10786,
     "recirc_pct": 1.4
   },
   "weekly": {
-    "inducted": 93195,
-    "diverted": 83994,
-    "ftd_count": 9201,
+    "inducted": 93295,
+    "diverted": 84086,
+    "ftd_count": 9209,
     "ftd_pct": 9.87,
     "fpy_pct": 90.1,
     "scan_defect_pct": 6.35,
@@ -356,13 +356,13 @@
     "downtime_pct": 11.01,
     "sorter_fpy_icw": 96.6,
     "mhe_defect_icw": 2.42,
-    "jam_dpmo": 6197,
+    "jam_dpmo": 6196,
     "iob_trips": 1,
     "estop_events": 1
   },
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[13]",
+      "text": "Pull MCB carriers at WPT [13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -372,7 +372,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "133 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "128 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
