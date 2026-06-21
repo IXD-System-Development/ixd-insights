@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-21 05:06:54 EST",
+  "timestamp": "2026-06-21 05:07:19 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-21 05:06",
+  "_pushed_at": "2026-06-21 05:07",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2408,
+    "speed": 2406,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 106,
+    "faulted": 103,
     "disabled": 36,
-    "available": 2198,
+    "available": 2201,
     "occupied": 2053,
-    "empty": 145,
-    "empty_pct": 6.2,
-    "availability_pct": 93.9
+    "empty": 148,
+    "empty_pct": 6.3,
+    "availability_pct": 94.1
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 982
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1795
+      "carrier": 1895
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -395,7 +395,7 @@
   ],
   "wpt_fault_counts": {
     "13": 1,
-    "1": 69,
+    "1": 70,
     "9": 1,
     "10": 5
   },
@@ -419,18 +419,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 792867,
+    "sorted": 792889,
     "recirculated": 11320,
     "recirc_pct": 1.41
   },
   "weekly": {
-    "inducted": 57566,
-    "diverted": 45303,
-    "ftd_count": 12263,
-    "ftd_pct": 21.3,
+    "inducted": 57594,
+    "diverted": 45330,
+    "ftd_count": 12264,
+    "ftd_pct": 21.29,
     "fpy_pct": 78.7,
     "scan_defect_pct": 6.28,
-    "mhe_defect_pct": 21.3,
+    "mhe_defect_pct": 21.29,
     "recirc_pct": 1.41,
     "lane_full_pct": 61.7,
     "sorter_ote": 88.1,
@@ -438,19 +438,19 @@
     "downtime_pct": 10.96,
     "sorter_fpy_icw": 96.6,
     "mhe_defect_icw": 2.34,
-    "jam_dpmo": 5236,
+    "jam_dpmo": 5240,
     "mhe_breakdown": {
-      "ItemScanned": 5642276,
-      "LaneFull": 2141481,
-      "CodeUsed": 1314488,
-      "Ok": 1299436,
-      "TrayspacingHorizontal": 226610,
-      "LaneBlocked": 178991,
-      "MaxRecirculation": 146251,
+      "ItemScanned": 5642213,
+      "LaneFull": 2141477,
+      "CodeUsed": 1314496,
+      "Ok": 1299447,
+      "TrayspacingHorizontal": 226616,
+      "LaneBlocked": 178947,
+      "MaxRecirculation": 146226,
       "SorterSpeedChange": 38976,
-      "LaneDisabled": 33980,
+      "LaneDisabled": 33979,
       "NoActivation": 29281,
-      "ItemOnActivatedCarrier": 16602,
+      "ItemOnActivatedCarrier": 16600,
       "NoAnswerFromScanner": 9920,
       "NotCodeConverted": 3,
       "LaneJammed": 2
@@ -459,10 +459,10 @@
       {
         "date": "2026-06-14",
         "ftd": 2934,
-        "good": 156760,
-        "lane_full": 199620,
+        "good": 156731,
+        "lane_full": 199465,
         "no_read": 0,
-        "utd": 2183
+        "utd": 2181
       },
       {
         "date": "2026-06-15",
@@ -515,10 +515,10 @@
       {
         "date": "2026-06-21",
         "ftd": 51,
-        "good": 41366,
-        "lane_full": 90634,
+        "good": 41401,
+        "lane_full": 90786,
         "no_read": 0,
-        "utd": 746
+        "utd": 747
       }
     ],
     "top_ftd_chutes": [
@@ -788,7 +788,7 @@
   "dtw_overshoots": [],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -798,7 +798,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "106 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "103 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
