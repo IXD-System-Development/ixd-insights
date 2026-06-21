@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-21 15:17:47 EST",
+  "timestamp": "2026-06-21 15:18:30 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-21 15:17",
+  "_pushed_at": "2026-06-21 15:18",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2401,
+    "speed": 2396,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 159,
+    "faulted": 130,
     "disabled": 37,
-    "available": 2144,
+    "available": 2173,
     "occupied": 2053,
-    "empty": 91,
-    "empty_pct": 3.9,
-    "availability_pct": 91.6
+    "empty": 120,
+    "empty_pct": 5.1,
+    "availability_pct": 92.9
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": true,
-      "carrier": 2007
+      "error": false,
+      "carrier": null
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 580
+      "carrier": 771
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 2
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -419,18 +419,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 855082,
-    "recirculated": 12316,
+    "sorted": 855168,
+    "recirculated": 12317,
     "recirc_pct": 1.42
   },
   "weekly": {
-    "inducted": 48231,
-    "diverted": 30455,
-    "ftd_count": 17776,
-    "ftd_pct": 36.86,
-    "fpy_pct": 63.1,
+    "inducted": 48313,
+    "diverted": 30530,
+    "ftd_count": 17783,
+    "ftd_pct": 36.81,
+    "fpy_pct": 63.2,
     "scan_defect_pct": 6.28,
-    "mhe_defect_pct": 36.86,
+    "mhe_defect_pct": 36.81,
     "recirc_pct": 1.42,
     "lane_full_pct": 62.2,
     "sorter_ote": 88.6,
@@ -438,19 +438,19 @@
     "downtime_pct": 10.48,
     "sorter_fpy_icw": 96.7,
     "mhe_defect_icw": 2.27,
-    "jam_dpmo": 4448,
+    "jam_dpmo": 4446,
     "mhe_breakdown": {
-      "ItemScanned": 5662170,
-      "LaneFull": 2179774,
-      "CodeUsed": 1313074,
-      "Ok": 1297857,
-      "TrayspacingHorizontal": 228992,
-      "LaneBlocked": 176775,
-      "MaxRecirculation": 142847,
+      "ItemScanned": 5662146,
+      "LaneFull": 2179840,
+      "CodeUsed": 1312969,
+      "Ok": 1297754,
+      "TrayspacingHorizontal": 229007,
+      "LaneBlocked": 176776,
+      "MaxRecirculation": 142844,
       "SorterSpeedChange": 37905,
-      "LaneDisabled": 33280,
-      "NoActivation": 28321,
-      "ItemOnActivatedCarrier": 17266,
+      "LaneDisabled": 33287,
+      "NoActivation": 28319,
+      "ItemOnActivatedCarrier": 17264,
       "NoAnswerFromScanner": 9920,
       "NotCodeConverted": 3,
       "LaneJammed": 2
@@ -458,11 +458,11 @@
     "daily_defects": [
       {
         "date": "2026-06-14",
-        "ftd": 1802,
-        "good": 71077,
-        "lane_full": 111952,
+        "ftd": 1800,
+        "good": 70867,
+        "lane_full": 111797,
         "no_read": 0,
-        "utd": 929
+        "utd": 924
       },
       {
         "date": "2026-06-15",
@@ -514,11 +514,11 @@
       },
       {
         "date": "2026-06-21",
-        "ftd": 223,
-        "good": 125461,
-        "lane_full": 216597,
+        "ftd": 224,
+        "good": 125569,
+        "lane_full": 216815,
         "no_read": 0,
-        "utd": 2665
+        "utd": 2667
       }
     ],
     "top_ftd_chutes": [
@@ -799,7 +799,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[13]",
+      "text": "Pull MCB carriers at WPT [13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -809,7 +809,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "159 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "130 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
