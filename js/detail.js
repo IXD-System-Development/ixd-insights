@@ -420,11 +420,10 @@ const SiteDetail = (() => {
     html += '<div class="section-title"><span class="section-dot" style="background:var(--red)"></span> Constantly Faulted Carriers (Weekly)</div>';
     if (carriers.length > 0) {
       html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
-      carriers.forEach((c, i) => {
+      carriers.forEach(c => {
         const bg = c.total > 500 ? 'var(--red-bg)' : c.total > 200 ? 'var(--yellow-bg)' : 'var(--bg-surface)';
         const border = c.total > 500 ? 'var(--red)' : c.total > 200 ? 'var(--yellow)' : 'var(--border)';
-        const textColor = c.total > 500 ? 'var(--red)' : c.total > 200 ? 'var(--yellow)' : 'var(--text-primary)';
-        html += `<div style="background:${bg};border:1px solid ${border};border-radius:6px;padding:5px 10px;font-size:11px;font-family:var(--font-mono);"><span style="font-weight:700;color:${textColor};">${c.name}</span> <span style="color:var(--text-secondary);">${c.total} (MNR:${c.mnr||0} CL:${c.current_limit||0})</span></div>`;
+        html += `<div style="background:${bg};border:1px solid ${border};border-radius:6px;padding:4px 8px;font-size:11px;font-family:var(--font-mono);"><span style="font-weight:700;">${c.name}</span> <span style="color:var(--text-secondary);">${c.total}</span></div>`;
       });
       html += '</div>';
     } else {
@@ -533,8 +532,7 @@ const SiteDetail = (() => {
       topFtdChutes.forEach(ch => {
         const bg = ch.fail_pct > 80 ? 'var(--red-bg)' : ch.fail_pct > 50 ? 'var(--yellow-bg)' : 'var(--bg-surface)';
         const border = ch.fail_pct > 80 ? 'var(--red)' : ch.fail_pct > 50 ? 'var(--yellow)' : 'var(--border)';
-        const textColor = ch.fail_pct > 80 ? 'var(--red)' : ch.fail_pct > 50 ? 'var(--yellow)' : 'var(--text-primary)';
-        html += `<div style="background:${bg};border:1px solid ${border};border-radius:6px;padding:5px 10px;font-size:11px;font-family:var(--font-mono);"><span style="font-weight:700;color:${textColor};">${ch.name}</span> <span style="color:var(--text-secondary);">ICW ${ch.icw_id} | ${ch.ftd.toLocaleString()} FTD (${ch.fail_pct}%)</span></div>`;
+        html += `<div style="background:${bg};border:1px solid ${border};border-radius:6px;padding:4px 8px;font-size:11px;font-family:var(--font-mono);"><span style="font-weight:700;">${ch.name}</span> <span style="color:var(--text-secondary);">${ch.ftd.toLocaleString()}</span></div>`;
       });
       html += '</div></div>';
     }
