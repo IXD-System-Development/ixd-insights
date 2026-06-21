@@ -1,20 +1,20 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-21 00:42:56",
+  "timestamp": "2026-06-21 00:43:18",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-21 00:42",
+  "_pushed_at": "2026-06-21 00:43",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
     "speed": 2397
   },
   "carriers": {
-    "faulted": 113,
+    "faulted": 115,
     "disabled": 36,
-    "available": 2191,
-    "availability_pct": 93.6
+    "available": 2189,
+    "availability_pct": 93.5
   },
   "config": {
     "max_recirc": 5,
@@ -73,8 +73,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1103
     },
     {
       "index": 2,
@@ -134,7 +134,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1926
+      "carrier": 2015
     },
     {
       "index": 14,
@@ -177,7 +177,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -337,14 +337,14 @@
     }
   ],
   "lifetime": {
-    "sorted": 769933,
+    "sorted": 769991,
     "recirculated": 10865,
     "recirc_pct": 1.39
   },
   "weekly": {
-    "inducted": 100978,
-    "diverted": 90974,
-    "ftd_count": 10004,
+    "inducted": 101045,
+    "diverted": 91036,
+    "ftd_count": 10009,
     "ftd_pct": 9.91,
     "fpy_pct": 90.1,
     "scan_defect_pct": 6.24,
@@ -356,7 +356,7 @@
     "downtime_pct": 11.01,
     "sorter_fpy_icw": 96.6,
     "mhe_defect_icw": 2.39,
-    "jam_dpmo": 5967,
+    "jam_dpmo": 5968,
     "iob_trips": 1,
     "iob_downtime_min": 4.6,
     "estop_events": 1,
@@ -369,7 +369,7 @@
   },
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -379,7 +379,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "113 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "115 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
