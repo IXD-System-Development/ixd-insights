@@ -525,6 +525,18 @@ const SiteDetail = (() => {
     });
     html += '</tbody></table></div>';
 
+    // Top 10 Chutes by Failed to Divert
+    const topFtdChutes = weekly.top_ftd_chutes || [];
+    if (topFtdChutes.length > 0) {
+      html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--red)"></span> Top 10 Chutes \u2014 Failed to Divert</div>';
+      html += '<table class="data-table"><thead><tr><th>Chute</th><th>ICW ID</th><th>FTD Count</th><th>Good Diverts</th><th>Fail %</th></tr></thead><tbody>';
+      topFtdChutes.forEach((ch, i) => {
+        const color = ch.fail_pct > 80 ? 'color:var(--red);font-weight:700' : ch.fail_pct > 50 ? 'color:var(--yellow)' : '';
+        html += `<tr><td style="${color}">${ch.name}</td><td>ICW ${ch.icw_id}</td><td style="${color}">${ch.ftd.toLocaleString()}</td><td>${ch.good.toLocaleString()}</td><td style="${color}">${ch.fail_pct}%</td></tr>`;
+      });
+      html += '</tbody></table></div>';
+    }
+
     // Daily trend
     if (daily.length > 0) {
       html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--orange)"></span> Daily Defect Trend (7 days)</div>';
