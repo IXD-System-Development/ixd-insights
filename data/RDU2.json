@@ -1,6 +1,6 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-21 00:25:14",
+  "timestamp": "2026-06-21 00:25:55",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
@@ -8,13 +8,13 @@
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2409
+    "speed": 2403
   },
   "carriers": {
-    "faulted": 115,
+    "faulted": 135,
     "disabled": 36,
-    "available": 2189,
-    "availability_pct": 93.5
+    "available": 2169,
+    "availability_pct": 92.7
   },
   "config": {
     "max_recirc": 5,
@@ -74,7 +74,7 @@
     {
       "index": 1,
       "error": true,
-      "carrier": 1450
+      "carrier": 1613
     },
     {
       "index": 2,
@@ -118,8 +118,8 @@
     },
     {
       "index": 10,
-      "error": true,
-      "carrier": 214
+      "error": false,
+      "carrier": null
     },
     {
       "index": 11,
@@ -134,7 +134,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 22
+      "carrier": 185
     },
     {
       "index": 14,
@@ -177,7 +177,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 3
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -337,18 +337,18 @@
     }
   ],
   "lifetime": {
-    "sorted": 767663,
-    "recirculated": 10834,
+    "sorted": 767731,
+    "recirculated": 10835,
     "recirc_pct": 1.39
   },
   "weekly": {
-    "inducted": 98780,
-    "diverted": 89029,
-    "ftd_count": 9751,
-    "ftd_pct": 9.87,
+    "inducted": 98871,
+    "diverted": 89103,
+    "ftd_count": 9768,
+    "ftd_pct": 9.88,
     "fpy_pct": 90.1,
     "scan_defect_pct": 6.29,
-    "mhe_defect_pct": 9.87,
+    "mhe_defect_pct": 9.88,
     "recirc_pct": 1.39,
     "lane_full_pct": 61.8,
     "sorter_ote": 88.1,
@@ -356,16 +356,20 @@
     "downtime_pct": 11.01,
     "sorter_fpy_icw": 96.6,
     "mhe_defect_icw": 2.39,
-    "jam_dpmo": 6078,
+    "jam_dpmo": 6069,
     "iob_trips": 1,
     "iob_downtime_min": 4.6,
     "estop_events": 1,
     "estop_downtime_min": 5.2
   },
-  "shift_report": null,
+  "shift_report": {
+    "shift_label": "Day Shift (7am - 7pm EST)",
+    "generated_at": "2026-06-21 04:25 UTC",
+    "text": "placeholder"
+  },
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[10]+[13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -375,7 +379,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "115 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "135 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
