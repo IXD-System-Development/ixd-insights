@@ -443,6 +443,23 @@ const SiteDetail = (() => {
       html += '</tbody></table></div></div>';
     }
 
+    // Recert — carriers needing recertification (fault count > 20)
+    const recertCarriers = carriers.filter(c => c.total > 20).sort((a,b) => b.total - a.total);
+    html += '<div class="section-panel">';
+    html += `<div class="section-title"><span class="section-dot" style="background:var(--red)"></span> Recert Required \u2014 ${recertCarriers.length} Carriers (Total Faults > 20)</div>`;
+    if (recertCarriers.length > 0) {
+      html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+      recertCarriers.forEach(c => {
+        const bg = c.total > 500 ? 'var(--red-bg)' : c.total > 200 ? 'var(--yellow-bg)' : 'var(--bg-surface)';
+        const border = c.total > 500 ? 'var(--red)' : c.total > 200 ? 'var(--yellow)' : 'var(--border)';
+        html += `<div style="background:${bg};border:1px solid ${border};border-radius:6px;padding:4px 8px;font-size:11px;font-family:var(--font-mono);"><span style="font-weight:700;">${c.name}</span> <span style="color:var(--text-secondary);">${c.total}</span></div>`;
+      });
+      html += '</div>';
+    } else {
+      html += '<p style="color:var(--green);font-size:12px;">No carriers above recert threshold.</p>';
+    }
+    html += '</div>';
+
     // Carrier fault legend
     html += '<div class="section-panel">';
     html += '<div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> Fault Type Legend</div>';
