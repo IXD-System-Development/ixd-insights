@@ -1,23 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-21 10:06:13 EST",
+  "timestamp": "2026-06-21 10:07:20 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-21 10:06",
+  "_pushed_at": "2026-06-21 10:07",
   "carrier_count": 2340,
   "sorter": {
-    "running": true,
-    "speed": 2409,
-    "active_faults": [],
+    "running": false,
+    "speed": 0,
+    "active_faults": [
+      "IOB-4 TRIPPED"
+    ],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 105,
+    "faulted": 106,
     "disabled": 37,
-    "available": 2198,
+    "available": 2197,
     "occupied": 2053,
-    "empty": 145,
+    "empty": 144,
     "empty_pct": 6.2,
     "availability_pct": 93.9
   },
@@ -47,27 +49,27 @@
   "ppu": [
     {
       "index": 1,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 3,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 6,
-      "state": "RUNNING"
+      "state": "STOPPED"
     }
   ],
   "wpt": [
@@ -139,7 +141,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 2026
+      "carrier": 2034
     },
     {
       "index": 14,
@@ -157,19 +159,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 2,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 3,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 4,
-        "connection_faulted": false
+        "connection_faulted": true
       }
     ]
   },
@@ -184,7 +186,7 @@
       "total": 16,
       "faulted": 1
     },
-    "ppu_connections": 6,
+    "ppu_connections": 0,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -417,18 +419,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 820921,
+    "sorted": 820922,
     "recirculated": 11838,
     "recirc_pct": 1.42
   },
   "weekly": {
-    "inducted": 19322,
-    "diverted": 4203,
+    "inducted": 19332,
+    "diverted": 4213,
     "ftd_count": 15119,
-    "ftd_pct": 78.25,
+    "ftd_pct": 78.21,
     "fpy_pct": 21.8,
     "scan_defect_pct": 6.17,
-    "mhe_defect_pct": 78.25,
+    "mhe_defect_pct": 78.21,
     "recirc_pct": 1.42,
     "lane_full_pct": 61.8,
     "sorter_ote": 88.4,
@@ -436,19 +438,19 @@
     "downtime_pct": 10.73,
     "sorter_fpy_icw": 96.7,
     "mhe_defect_icw": 2.3,
-    "jam_dpmo": 4823,
+    "jam_dpmo": 4826,
     "mhe_breakdown": {
-      "ItemScanned": 5645617,
-      "LaneFull": 2155052,
-      "CodeUsed": 1318436,
-      "Ok": 1303312,
-      "TrayspacingHorizontal": 227468,
-      "LaneBlocked": 172092,
-      "MaxRecirculation": 143796,
-      "SorterSpeedChange": 39616,
-      "LaneDisabled": 33696,
-      "NoActivation": 28815,
-      "ItemOnActivatedCarrier": 17555,
+      "ItemScanned": 5644644,
+      "LaneFull": 2154885,
+      "CodeUsed": 1318104,
+      "Ok": 1302978,
+      "TrayspacingHorizontal": 227429,
+      "LaneBlocked": 172042,
+      "MaxRecirculation": 143778,
+      "SorterSpeedChange": 39630,
+      "LaneDisabled": 33694,
+      "NoActivation": 28805,
+      "ItemOnActivatedCarrier": 17550,
       "NoAnswerFromScanner": 9920,
       "NotCodeConverted": 3,
       "LaneJammed": 2
@@ -456,11 +458,11 @@
     "daily_defects": [
       {
         "date": "2026-06-14",
-        "ftd": 2408,
-        "good": 121471,
-        "lane_full": 152677,
+        "ftd": 2398,
+        "good": 121154,
+        "lane_full": 152511,
         "no_read": 0,
-        "utd": 1744
+        "utd": 1739
       },
       {
         "date": "2026-06-15",
@@ -773,8 +775,8 @@
         "total": 486
       }
     ],
-    "iob_trips": 2,
-    "iob_downtime_min": 9.2,
+    "iob_trips": 3,
+    "iob_downtime_min": 9.8,
     "estop_events": 2,
     "estop_downtime_min": 6.9
   },
@@ -796,7 +798,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "105 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "106 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
