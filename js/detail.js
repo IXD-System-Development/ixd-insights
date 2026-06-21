@@ -143,9 +143,10 @@ const SiteDetail = (() => {
     h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--green)"></span> PPU Health \u2014 Vahle vPOWER (1\u20136)</div>';
     h += '<div class="health-grid">';
     ppuList.forEach(p => {
-      const st = p.state || 'UNKNOWN';
-      const color = st === 'RUNNING' ? 'green' : st === 'ERROR' ? 'red' : st === 'WARNING' ? 'yellow' : 'grey';
-      const icon = st === 'RUNNING' ? '\u2713 Running' : st === 'ERROR' ? '\u2717 ERROR' : st === 'WARNING' ? '\u26a0 WARN' : '\u2014 ' + st;
+      let st = p.state || 'UNKNOWN';
+      if (!running && st !== 'RUNNING') st = 'STOPPED';
+      const color = st === 'RUNNING' ? 'green' : st === 'STOPPED' ? 'grey' : st === 'ERROR' ? 'red' : st === 'WARNING' ? 'yellow' : 'grey';
+      const icon = st === 'RUNNING' ? '\u2713 Running' : st === 'STOPPED' ? '\u25a0 Stopped' : st === 'ERROR' ? '\u2717 ERROR' : st === 'WARNING' ? '\u26a0 WARN' : '\u2014 ' + st;
       h += `<div class="health-cell ${color}"><div class="health-cell-label">PPU ${p.index}</div><div class="health-cell-value ${color}">${icon}</div></div>`;
     });
     h += '</div></div>';
