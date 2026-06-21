@@ -132,9 +132,10 @@ const SiteDetail = (() => {
     h += kpi('Downtime %', downtimePct != null ? `${downtimePct}%` : '\u2014', 'weekly', downtimePct != null ? (downtimePct > 5 ? 'red' : downtimePct > 2 ? 'yellow' : 'green') : 'yellow');
     // Locked/Disabled Chutes
     const chutes = d.chutes || {};
-    const lockedOut = chutes.locked_out || 0;
-    const chutesDisabled = chutes.disabled || 0;
-    h += kpi('Locked/Disabled Chutes', `${lockedOut + chutesDisabled}`, `${lockedOut} locked + ${chutesDisabled} disabled`, (lockedOut + chutesDisabled) > 50 ? 'red' : (lockedOut + chutesDisabled) > 20 ? 'yellow' : 'green');
+    const chutesLocked = chutes.locked_out || 0;
+    const chutesInhibited = chutes.inhibited || 0;
+    const chuteTotal = chutesLocked + chutesInhibited;
+    h += kpi('Locked/Inhibited Chutes', `${chuteTotal} / 144`, `${chutesLocked} locked (RME) + ${chutesInhibited} inhibited (WCS)`, chuteTotal > 30 ? 'red' : chuteTotal > 10 ? 'yellow' : 'green');
     h += '</div>';
 
     // PPU Health
