@@ -62,6 +62,9 @@ const SiteDetail = (() => {
     const maxRecirc = config.max_recirc;
     const wptFaulted = wptList.filter(w => w.error).length;
     const recircPct = weekly.recirc_pct || lifetime.recirc_pct || 0;
+    const sorterOte = weekly.sorter_ote;
+    const sorterOee = weekly.sorter_oee;
+    const downtimePct = weekly.downtime_pct;
     const fpyPct = weekly.fpy_pct;
     const scanDefect = weekly.scan_defect_pct;
     const mheDefect = weekly.mhe_defect_pct;
@@ -113,6 +116,9 @@ const SiteDetail = (() => {
     h += kpi('MHE Defect', mheDefect != null ? `${mheDefect}%` : '\u2014', 'Wk25', mheDefect != null ? (mheDefect > 3 ? 'red' : mheDefect > 1.5 ? 'yellow' : 'green') : 'green');
     h += kpi('IOB Trips', weekly.iob_trips != null ? String(weekly.iob_trips) : '\u2014', 'this week', weekly.iob_trips != null ? (weekly.iob_trips > 20 ? 'red' : weekly.iob_trips > 5 ? 'yellow' : 'green') : 'yellow');
     h += kpi('E-Stop Events', weekly.estop_events != null ? String(weekly.estop_events) : '\u2014', 'this week', weekly.estop_events != null ? (weekly.estop_events > 10 ? 'red' : weekly.estop_events > 3 ? 'yellow' : 'green') : 'yellow');
+    h += kpi('Sorter OTE', sorterOte != null ? `${sorterOte}%` : '\u2014', 'time running / total', sorterOte != null ? (sorterOte >= 95 ? 'green' : sorterOte >= 80 ? 'yellow' : 'red') : 'yellow');
+    h += kpi('Sorter OEE', sorterOee != null ? `${sorterOee}%` : '\u2014', 'availability metric', sorterOee != null ? (sorterOee >= 95 ? 'green' : sorterOee >= 80 ? 'yellow' : 'red') : 'yellow');
+    h += kpi('Downtime %', downtimePct != null ? `${downtimePct}%` : '\u2014', 'weekly', downtimePct != null ? (downtimePct > 5 ? 'red' : downtimePct > 2 ? 'yellow' : 'green') : 'yellow');
     h += '</div>';
 
     // PPU Health
