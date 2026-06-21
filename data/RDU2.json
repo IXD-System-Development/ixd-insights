@@ -1,20 +1,20 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-20 20:52:54",
+  "timestamp": "2026-06-20 20:53:33",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-20 20:52",
+  "_pushed_at": "2026-06-20 20:53",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2412
+    "speed": 2415
   },
   "carriers": {
-    "faulted": 132,
+    "faulted": 148,
     "disabled": 36,
-    "available": 2172,
-    "availability_pct": 92.8
+    "available": 2156,
+    "availability_pct": 92.1
   },
   "config": {
     "max_recirc": 5,
@@ -73,8 +73,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1655
     },
     {
       "index": 2,
@@ -134,7 +134,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 70
+      "carrier": 227
     },
     {
       "index": 14,
@@ -177,7 +177,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -337,13 +337,13 @@
     }
   ],
   "lifetime": {
-    "sorted": 744901,
-    "recirculated": 10514,
+    "sorted": 745014,
+    "recirculated": 10515,
     "recirc_pct": 1.39
   },
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -353,7 +353,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "132 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "148 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
