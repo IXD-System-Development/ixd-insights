@@ -65,9 +65,9 @@ const SiteDetail = (() => {
     const sorterOte = weekly.sorter_ote;
     const sorterOee = weekly.sorter_oee;
     const downtimePct = weekly.downtime_pct;
-    const fpyPct = weekly.fpy_pct;
+    const fpyPct = weekly.sorter_fpy_icw || weekly.fpy_pct;
     const scanDefect = weekly.scan_defect_pct;
-    const mheDefect = weekly.mhe_defect_pct;
+    const mheDefect = weekly.mhe_defect_icw || weekly.mhe_defect_pct;
     const inducted = weekly.inducted;
     const diverted = weekly.diverted;
 
