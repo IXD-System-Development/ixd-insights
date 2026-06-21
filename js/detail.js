@@ -171,8 +171,9 @@ const SiteDetail = (() => {
       h += '<div class="health-grid">';
       crbUnits.forEach(u => {
         const ok = !u.connection_faulted;
-        const color = ok ? 'green' : 'red';
-        h += `<div class="health-cell ${color}"><div class="health-cell-label">CRB ${u.index}</div><div class="health-cell-value ${color}">${ok ? '\u2713 OK' : '\u2717 FAULT'}</div></div>`;
+        const isStopped = !running;
+        const color = isStopped ? 'grey' : ok ? 'green' : 'red';
+        h += `<div class="health-cell ${color}"><div class="health-cell-label">CRB ${u.index}</div><div class="health-cell-value ${color}">${isStopped ? '\u25a0 Stopped' : ok ? '\u2713 OK' : '\u2717 FAULT'}</div></div>`;
       });
       h += '</div></div>';
     }
