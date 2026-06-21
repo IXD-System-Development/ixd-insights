@@ -176,6 +176,22 @@ const SiteDetail = (() => {
       h += '</div></div>';
     }
 
+    // UCD Health (1-16)
+    const ucdList = d.ucd || [];
+    if (ucdList.length > 0) {
+      const ucdFaults = ucdList.filter(u => u.ok === false).length;
+      const ucdColor = ucdFaults > 0 ? 'yellow' : 'green';
+      h += `<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--${ucdColor})"></span> UCD Health \u2014 Universal Carrier Detectors (1\u201316)</div>`;
+      h += '<div class="health-grid">';
+      ucdList.forEach(u => {
+        const color = u.ok === true ? 'green' : u.ok === false ? 'red' : 'grey';
+        const icon = u.ok === true ? '\u2713' : u.ok === false ? '\u2717' : '\u2014';
+        const label = u.ok === true ? 'OK' : u.ok === false ? 'FAULT' : '?';
+        h += `<div class="health-cell ${color}"><div class="health-cell-label">UCD ${u.index}</div><div class="health-cell-value ${color}">${icon}</div><div class="health-cell-sub">${label}</div></div>`;
+      });
+      h += '</div></div>';
+    }
+
     // Scanner Health
     if (scanners.length > 0) {
       h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> Scanner Health \u2014 Weekly NR%</div>';
