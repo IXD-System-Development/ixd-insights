@@ -82,7 +82,7 @@ const SiteDetail = (() => {
       <a href="https://w.amazon.com/bin/view/IXD-SD/SITES/RDU2" target="_blank" class="filter-btn" style="text-decoration:none;">IXD Wiki ↗</a>
       <button class="filter-btn">Outbound</button>
       <button class="filter-btn">Inbound</button>
-      <button class="filter-btn">Sorter</button>
+      <button class="filter-btn" onclick="SiteDetail.showSorterTab()">Sorter</button>
       <button class="filter-btn">Induction</button>
     </div>`;
 
@@ -381,5 +381,46 @@ const SiteDetail = (() => {
     container.innerHTML = html;
   }
 
-  return { init, refresh, showShiftReport };
+  function showSorterTab() {
+    const container = document.getElementById('detail-content');
+    if (!container) return;
+    const result = DataLayer.getCachedData(_siteId);
+    if (!result) { container.innerHTML = '<div class="section-panel"><p style="color:var(--text-secondary)">No data available.</p></div>'; return; }
+
+    let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>';
+
+    // Faulted Carriers Table
+    const carriers = (result.weekly || {}).faulted_carriers || [];
+    html += '<div class="section-panel">';
+    html += '<div class="section-title"><span class="section-dot" style="background:var(--red)"></span> Constantly Faulted Carriers (Weekly)</div>';
+    if (carriers.length > 0) {
+      html += '<div style="overflow-x:auto;"><table class="data-table"><thead><tr>';
+      html += '<th>Carrier</th><th>Total</th><th>MNR</th><th>Comm</th><th>Current Limit</th><th>Brush</th><th>Cal</th><th>Clock</th>';
+      html += '</tr></thead><tbody>';
+      carriers.forEach((c, i) => {
+        const rowColor = i < 5 ? 'color:var(--red)' : i < 10 ? 'color:var(--yellow)' : '';
+        html += `<tr><td style="font-weight:700;${rowColor}">${c.name}</td><td style="font-weight:700;${rowColor}">${c.total}</td><td>${c.mnr || 0}</td><td>${c.comm || 0}</td><td>${c.current_limit || 0}</td><td>${c.brush || 0}</td><td>${c.cal || 0}</td><td>${c.clock || 0}</td></tr>`;
+      });
+      html += '</tbody></table></div>';
+    } else {
+      html += '<p style="color:var(--text-secondary)">No carrier fault data available.</p>';
+    }
+    html += '</div>';
+
+    // Carrier fault legend
+    html += '<div class="section-panel">';
+    html += '<div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> Fault Type Legend</div>';
+    html += '<table class="data-table" style="font-size:11px;"><tbody>';
+    html += '<tr><td style="font-weight:600;">MNR</td><td>Motor Not Running \u2014 MCB belt motor failure (most common, needs MCB replacement)</td></tr>';
+    html += '<tr><td style="font-weight:600;">Comm</td><td>Communication Fault \u2014 MCB lost contact with CTB/CRB (IR window dirty or MCB board failure)</td></tr>';
+    html += '<tr><td style="font-weight:600;">Current Limit</td><td>Current Limit Exceeded \u2014 Cart regulator drawing too much current (brush wear or short)</td></tr>';
+    html += '<tr><td style="font-weight:600;">Brush</td><td>Brush Collector Fault \u2014 Power collection brushes worn/damaged (P/N 447D551)</td></tr>';
+    html += '<tr><td style="font-weight:600;">Cal</td><td>Calibration Error \u2014 MCB calibration lost (reprogram via CCT)</td></tr>';
+    html += '<tr><td style="font-weight:600;">Clock</td><td>Clock Pulse Fault \u2014 Carrier missed clock pulse sensor (timing/position error)</td></tr>';
+    html += '</tbody></table></div>';
+
+    container.innerHTML = html;
+  }
+
+  return { init, refresh, showShiftReport, showSorterTab };
 })();
