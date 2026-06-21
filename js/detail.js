@@ -107,12 +107,12 @@ const SiteDetail = (() => {
     h += kpi('Total Inducted', inducted ? Number(inducted).toLocaleString() : '\u2014', 'this week', 'green');
     h += kpi('Total Diverted', diverted ? Number(diverted).toLocaleString() : '\u2014', 'this week', 'green');
     h += kpi('Max Recirc %', `${recircPct}%`, 'target <1%', recircPct > 2 ? 'red' : recircPct > 1 ? 'yellow' : 'green');
-    h += kpi('Lane Full %', '\u2014', 'chutes at capacity', 'yellow');
+    h += kpi('Lane Full %', weekly.lane_full_pct != null ? `${weekly.lane_full_pct}%` : '\u2014', 'chutes at capacity', weekly.lane_full_pct != null ? (weekly.lane_full_pct > 5 ? 'red' : weekly.lane_full_pct > 2 ? 'yellow' : 'green') : 'yellow');
     h += kpi('FPY', fpyPct != null ? `${fpyPct}%` : '\u2014', 'Wk25', fpyPct != null ? (fpyPct >= 95 ? 'green' : fpyPct >= 80 ? 'yellow' : 'red') : 'yellow');
     h += kpi('Scan Defect', scanDefect != null ? `${scanDefect}%` : '\u2014', 'Wk25', scanDefect != null ? (scanDefect > 5.5 ? 'red' : scanDefect > 3 ? 'yellow' : 'green') : 'yellow');
     h += kpi('MHE Defect', mheDefect != null ? `${mheDefect}%` : '\u2014', 'Wk25', mheDefect != null ? (mheDefect > 3 ? 'red' : mheDefect > 1.5 ? 'yellow' : 'green') : 'green');
-    h += kpi('IOB Trips', '\u2014', 'this week', 'yellow');
-    h += kpi('E-Stop Events', '\u2014', 'this week', 'yellow');
+    h += kpi('IOB Trips', weekly.iob_trips != null ? String(weekly.iob_trips) : '\u2014', 'this week', weekly.iob_trips != null ? (weekly.iob_trips > 20 ? 'red' : weekly.iob_trips > 5 ? 'yellow' : 'green') : 'yellow');
+    h += kpi('E-Stop Events', weekly.estop_events != null ? String(weekly.estop_events) : '\u2014', 'this week', weekly.estop_events != null ? (weekly.estop_events > 10 ? 'red' : weekly.estop_events > 3 ? 'yellow' : 'green') : 'yellow');
     h += '</div>';
 
     // PPU Health
