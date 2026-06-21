@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-21 11:21:49 EST",
+  "timestamp": "2026-06-21 11:22:12 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-21 11:21",
+  "_pushed_at": "2026-06-21 11:22",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2390,
+    "speed": 2391,
     "active_faults": [],
     "in_dtw": false
   },
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1921
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 383
+      "carrier": 493
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 20,
+    "1": 21,
     "13": 1,
     "10": 2
   },
@@ -418,38 +418,38 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 825993,
-    "recirculated": 11992,
+    "sorted": 826083,
+    "recirculated": 11993,
     "recirc_pct": 1.43
   },
   "weekly": {
-    "inducted": 23898,
-    "diverted": 8323,
-    "ftd_count": 15575,
-    "ftd_pct": 65.17,
-    "fpy_pct": 34.8,
+    "inducted": 23963,
+    "diverted": 8383,
+    "ftd_count": 15580,
+    "ftd_pct": 65.02,
+    "fpy_pct": 35.0,
     "scan_defect_pct": 6.21,
-    "mhe_defect_pct": 65.17,
+    "mhe_defect_pct": 65.02,
     "recirc_pct": 1.43,
-    "lane_full_pct": 61.8,
+    "lane_full_pct": 61.9,
     "sorter_ote": 88.6,
     "sorter_oee": 88.6,
     "downtime_pct": 10.53,
     "sorter_fpy_icw": 96.7,
     "mhe_defect_icw": 2.29,
-    "jam_dpmo": 4767,
+    "jam_dpmo": 4769,
     "mhe_breakdown": {
-      "ItemScanned": 5643778,
-      "LaneFull": 2158273,
-      "CodeUsed": 1317715,
-      "Ok": 1302550,
-      "TrayspacingHorizontal": 227466,
-      "LaneBlocked": 171792,
-      "MaxRecirculation": 143526,
+      "ItemScanned": 5643746,
+      "LaneFull": 2158337,
+      "CodeUsed": 1317659,
+      "Ok": 1302497,
+      "TrayspacingHorizontal": 227459,
+      "LaneBlocked": 171790,
+      "MaxRecirculation": 143532,
       "SorterSpeedChange": 38994,
-      "LaneDisabled": 33689,
+      "LaneDisabled": 33687,
       "NoActivation": 28697,
-      "ItemOnActivatedCarrier": 17576,
+      "ItemOnActivatedCarrier": 17577,
       "NoAnswerFromScanner": 9920,
       "NotCodeConverted": 3,
       "LaneJammed": 2
@@ -458,10 +458,10 @@
       {
         "date": "2026-06-14",
         "ftd": 2248,
-        "good": 113893,
-        "lane_full": 146308,
+        "good": 113774,
+        "lane_full": 146246,
         "no_read": 0,
-        "utd": 1654
+        "utd": 1653
       },
       {
         "date": "2026-06-15",
@@ -514,10 +514,10 @@
       {
         "date": "2026-06-21",
         "ftd": 153,
-        "good": 87343,
-        "lane_full": 160754,
+        "good": 87404,
+        "lane_full": 160866,
         "no_read": 0,
-        "utd": 2247
+        "utd": 2252
       }
     ],
     "top_ftd_chutes": [
@@ -793,7 +793,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
