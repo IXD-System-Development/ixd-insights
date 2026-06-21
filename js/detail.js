@@ -78,7 +78,7 @@ const SiteDetail = (() => {
       <button class="filter-btn active">Overview</button>
       <button class="filter-btn">CP Zones</button>
       <button class="filter-btn">Metrics</button>
-      <button class="filter-btn">Shift Reports</button>
+      <button class="filter-btn" onclick="SiteDetail.showShiftReport()">Shift Reports</button>
       <a href="https://w.amazon.com/bin/view/IXD-SD/SITES/RDU2" target="_blank" class="filter-btn" style="text-decoration:none;">IXD Wiki ↗</a>
       <button class="filter-btn">Outbound</button>
       <button class="filter-btn">Inbound</button>
@@ -247,5 +247,25 @@ const SiteDetail = (() => {
   function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
   function showError(msg) { const c = document.getElementById('detail-content'); if(c) c.innerHTML = `<div class="error-banner">${msg} <a href="sites.html" style="color:var(--blue);margin-left:8px;">\u2190 Back</a></div>`; }
 
-  return { init, refresh };
+  function showShiftReport() {
+    const container = document.getElementById('detail-content');
+    if (!container) return;
+    const result = DataLayer.getCachedData(_siteId);
+    if (!result || !result.shift_report) {
+      container.innerHTML = '<div class="section-panel"><div class="section-title">Shift Report</div><p style="color:var(--text-secondary)">No shift report available yet. Reports are generated at 7am and 7pm EST.</p></div>';
+      return;
+    }
+    const sr = result.shift_report;
+    const lines = sr.text.split('\n');
+    let html = `<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>`;
+    html += '<div class="section-panel">';
+    html += `<div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> ${esc(sr.shift_label || 'Shift Report')}</div>`;
+    html += `<p style="font-size:10px;color:var(--text-secondary);margin-bottom:12px;">Generated: ${esc(sr.generated_at || '')}</p>`;
+    html += '<pre style="background:var(--bg-body);border:1px solid var(--border);border-radius:6px;padding:14px;font-size:11px;overflow-x:auto;line-height:1.8;color:var(--text-primary);white-space:pre-wrap;">';
+    html += esc(sr.text);
+    html += '</pre></div>';
+    container.innerHTML = html;
+  }
+
+  return { init, refresh, showShiftReport };
 })();
