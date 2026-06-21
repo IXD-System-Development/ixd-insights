@@ -364,6 +364,8 @@ const SiteDetail = (() => {
         current = {title:'WPT CTB/CRB Health Check', icon:'\ud83d\udd34', color:'var(--red)', items:[]};
       } else if (stripped.includes('DISCHARGE CTB COMM')) {
         current = {title:'Discharge CTB Comm Status', icon:'\ud83d\udce1', color:'var(--green)', items:[]};
+      } else if (stripped.includes('LATE STARTUP AFTER DTW')) {
+        current = {title:'Late Startup After DTW', icon:'\u23f1\ufe0f', color:'var(--yellow)', items:[]};
       } else if (stripped.includes('SHIFT SUMMARY') || stripped.includes('Day Shift') || stripped.includes('Night Shift') || stripped.match(/^\d{4}-\d{2}-\d{2}/)) {
         // Skip header lines
       } else if (current) {
