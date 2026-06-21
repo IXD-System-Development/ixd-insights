@@ -1,20 +1,20 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-20 21:52:23",
+  "timestamp": "2026-06-20 21:53:02",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-20 21:52",
+  "_pushed_at": "2026-06-20 21:53",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2409
+    "speed": 2402
   },
   "carriers": {
-    "faulted": 103,
+    "faulted": 105,
     "disabled": 36,
-    "available": 450,
-    "availability_pct": 19.2
+    "available": 2199,
+    "availability_pct": 94.0
   },
   "config": {
     "max_recirc": 5,
@@ -73,8 +73,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1883
     },
     {
       "index": 2,
@@ -134,7 +134,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 300
+      "carrier": 455
     },
     {
       "index": 14,
@@ -177,7 +177,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -337,14 +337,14 @@
     }
   ],
   "lifetime": {
-    "sorted": 753058,
-    "recirculated": 10645,
+    "sorted": 753116,
+    "recirculated": 10652,
     "recirc_pct": 1.39
   },
   "weekly": {
-    "inducted": 84666,
-    "diverted": 76352,
-    "ftd_count": 8314,
+    "inducted": 84729,
+    "diverted": 76407,
+    "ftd_count": 8322,
     "ftd_pct": 9.82,
     "fpy_pct": 90.2,
     "scan_defect_pct": 6.2,
@@ -356,7 +356,7 @@
   },
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -366,7 +366,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "103 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "105 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
