@@ -256,14 +256,91 @@ const SiteDetail = (() => {
       return;
     }
     const sr = result.shift_report;
-    const lines = sr.text.split('\n');
     let html = `<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>`;
-    html += '<div class="section-panel">';
-    html += `<div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> ${esc(sr.shift_label || 'Shift Report')}</div>`;
-    html += `<p style="font-size:10px;color:var(--text-secondary);margin-bottom:12px;">Generated: ${esc(sr.generated_at || '')}</p>`;
-    html += '<pre style="background:var(--bg-body);border:1px solid var(--border);border-radius:6px;padding:14px;font-size:11px;overflow-x:auto;line-height:1.8;color:var(--text-primary);white-space:pre-wrap;">';
-    html += esc(sr.text);
-    html += '</pre></div>';
+
+    // Header
+    html += `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);">
+      <div><div style="font-size:16px;font-weight:700;color:var(--text-primary);">\ud83d\udccb Shift Summary Report</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">${esc(sr.shift_label || '')} \u2014 ${esc(sr.generated_at || '')}</div></div></div>`;
+
+    // Parse sections from text
+    const text = sr.text || '';
+    const sections = text.split('\n\n');
+
+    sections.forEach(section => {
+      if (!section.trim()) return;
+      const lines = section.split('\n').filter(l => l.trim());
+      if (lines.length === 0) return;
+
+      // Detect section header (lines with emoji or all caps)
+      const firstLine = lines[0];
+      let title = '';
+      let items = [];
+      let dotColor = 'var(--blue)';
+
+      if (firstLine.includes('TOP 10') || firstLine.includes('FREQUENT')) {
+        title = 'Top 10 Most Frequent Jams';
+        dotColor = 'var(--red)';
+        items = lines.slice(1);
+      } else if (firstLine.includes('IOB')) {
+        title = 'IOB Trips';
+        dotColor = 'var(--yellow)';
+        items = lines.slice(1);
+      } else if (firstLine.includes('SORTER FAULT')) {
+        title = 'Sorter Faults';
+        dotColor = 'var(--green)';
+        items = lines.slice(1);
+      } else if (firstLine.includes('ESTOP')) {
+        title = 'E-Stop Downtime';
+        dotColor = 'var(--red)';
+        items = lines.slice(1);
+      } else if (firstLine.includes('SCANNER')) {
+        title = 'Scanner Report';
+        dotColor = 'var(--blue)';
+        items = lines.slice(1);
+      } else if (firstLine.includes('CARRIER')) {
+        title = 'Top Faulted Carriers';
+        dotColor = 'var(--orange)';
+        items = lines.slice(1);
+      } else if (firstLine.includes('INDUCTION')) {
+        title = 'Crossbelt Induction';
+        dotColor = 'var(--green)';
+        items = lines.slice(1);
+      } else if (firstLine.includes('DIVERT')) {
+        title = 'Crossbelt Diverts';
+        dotColor = 'var(--green)';
+        items = lines.slice(1);
+      } else if (firstLine.includes('SHIFT SUMMARY') || firstLine.includes('\ud83d\udd53')) {
+        return; // Skip the header section
+      } else {
+        title = firstLine.replace(/[\ud83d\udea8\u26a0\ufe0f\u2699\ufe0f\ud83d\uded1\ud83d\udcf7\ud83d\ude9a\ud83d\udce6\ud83d\udce4\ud83d\udccb\ud83d\udd53]/g, '').trim();
+        items = lines.slice(1);
+      }
+
+      if (!title && items.length === 0) return;
+
+      html += '<div class="section-panel">';
+      if (title) {
+        html += `<div class="section-title"><span class="section-dot" style="background:${dotColor}"></span> ${esc(title)}</div>`;
+      }
+      html += '<div style="font-family:var(--font-mono);font-size:12px;line-height:2;">';
+      items.forEach(item => {
+        let line = item.trim();
+        if (!line) return;
+        // Style bullet points and totals
+        let style = 'color:var(--text-primary)';
+        if (line.startsWith('\u2022') || line.includes('Total')) {
+          style = 'color:var(--text-secondary);font-weight:600';
+        }
+        if (line.includes('\u2705')) style = 'color:var(--green)';
+        if (line.includes('\u274c') || line.includes('FTD')) style = 'color:var(--red)';
+        if (line.includes('\u26a0')) style = 'color:var(--yellow)';
+        if (line.includes('\ud83d\udd04')) style = 'color:var(--orange)';
+        html += `<div style="${style}">${esc(line)}</div>`;
+      });
+      html += '</div></div>';
+    });
+
     container.innerHTML = html;
   }
 
