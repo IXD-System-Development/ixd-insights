@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-21 17:29:46 EST",
+  "timestamp": "2026-06-21 17:30:26 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-21 17:29",
+  "_pushed_at": "2026-06-21 17:30",
   "carrier_count": 2340,
   "sorter": {
-    "running": true,
-    "speed": 2393,
+    "running": false,
+    "speed": 456,
     "active_faults": [],
-    "in_dtw": false
+    "in_dtw": true
   },
   "carriers": {
-    "faulted": 117,
+    "faulted": 116,
     "disabled": 37,
-    "available": 2186,
+    "available": 2187,
     "occupied": 2053,
-    "empty": 133,
+    "empty": 134,
     "empty_pct": 5.7,
-    "availability_pct": 93.4
+    "availability_pct": 93.5
   },
   "config": {
     "max_recirc": 5,
@@ -47,7 +47,7 @@
   "ppu": [
     {
       "index": 1,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 2,
@@ -59,11 +59,11 @@
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 6,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1853
+      "carrier": 1978
     },
     {
       "index": 14,
@@ -157,19 +157,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 2,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 3,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 4,
-        "connection_faulted": false
+        "connection_faulted": true
       }
     ]
   },
@@ -184,7 +184,7 @@
       "total": 16,
       "faulted": 1
     },
-    "ppu_connections": 6,
+    "ppu_connections": 3,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -419,14 +419,14 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 867309,
+    "sorted": 867314,
     "recirculated": 12546,
     "recirc_pct": 1.43
   },
   "weekly": {
     "inducted": 0,
     "diverted": 0,
-    "ftd_count": 19268,
+    "ftd_count": 19271,
     "ftd_pct": 0,
     "fpy_pct": 0,
     "scan_defect_pct": 6.44,
@@ -438,18 +438,18 @@
     "downtime_pct": 10.42,
     "sorter_fpy_icw": 96.7,
     "mhe_defect_icw": 2.26,
-    "jam_dpmo": 4255,
+    "jam_dpmo": 4254,
     "mhe_breakdown": {
-      "ItemScanned": 5662378,
-      "LaneFull": 2174224,
-      "CodeUsed": 1309196,
-      "Ok": 1293955,
-      "TrayspacingHorizontal": 229261,
-      "LaneBlocked": 177718,
+      "ItemScanned": 5662382,
+      "LaneFull": 2174184,
+      "CodeUsed": 1309163,
+      "Ok": 1293922,
+      "TrayspacingHorizontal": 229251,
+      "LaneBlocked": 177711,
       "MaxRecirculation": 144210,
-      "SorterSpeedChange": 37588,
+      "SorterSpeedChange": 37591,
       "LaneDisabled": 34433,
-      "NoActivation": 28041,
+      "NoActivation": 28037,
       "ItemOnActivatedCarrier": 17245,
       "NoAnswerFromScanner": 9920,
       "NotCodeConverted": 3,
@@ -458,11 +458,11 @@
     "daily_defects": [
       {
         "date": "2026-06-14",
-        "ftd": 1485,
-        "good": 50268,
-        "lane_full": 61320,
+        "ftd": 1482,
+        "good": 50232,
+        "lane_full": 61148,
         "no_read": 0,
-        "utd": 582
+        "utd": 581
       },
       {
         "date": "2026-06-15",
@@ -515,10 +515,10 @@
       {
         "date": "2026-06-21",
         "ftd": 259,
-        "good": 142374,
-        "lane_full": 261673,
+        "good": 142378,
+        "lane_full": 261805,
         "no_read": 0,
-        "utd": 2991
+        "utd": 2992
       }
     ],
     "top_ftd_chutes": [
@@ -809,7 +809,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "117 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "116 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
