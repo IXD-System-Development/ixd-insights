@@ -347,6 +347,12 @@ const SiteDetail = (() => {
         }
       } else if (stripped.includes('CROSSBELT DIVERT') || stripped.includes('DIVERTS')) {
         current = {title:'Crossbelt Diverts', icon:'\ud83d\udce4', color:'var(--blue)', items:[]};
+      } else if (stripped.includes('CTB/CRB FAULT COUNT')) {
+        current = {title:'CTB/CRB Fault Count', icon:'\ud83d\udd0c', color:'var(--orange)', items:[]};
+      } else if (stripped.includes('WPT CTB/CRB HEALTH')) {
+        current = {title:'WPT CTB/CRB Health Check', icon:'\ud83d\udd34', color:'var(--red)', items:[]};
+      } else if (stripped.includes('DISCHARGE CTB COMM')) {
+        current = {title:'Discharge CTB Comm Status', icon:'\ud83d\udce1', color:'var(--green)', items:[]};
       } else if (stripped.includes('SHIFT SUMMARY') || stripped.includes('Day Shift') || stripped.includes('Night Shift') || stripped.match(/^\d{4}-\d{2}-\d{2}/)) {
         // Skip header lines
       } else if (current) {
