@@ -15,6 +15,7 @@
       <a href="sites.html">Sites</a>
     </div>
     <div class="nav-status" id="nav-refresh-status">Loading...</div>
+    <div class="nav-status" id="live-clock" style="color:#3fb950;font-weight:600;"></div>
   </nav>
 
   <!-- Main Content -->
@@ -35,5 +36,17 @@
     document.addEventListener('DOMContentLoaded', () => SiteDetail.init());
   </script>
   <script src="js/rdu2_enhancements.js"></script>
+
+  <script>
+    (function updateClock(){
+      var now = new Date();
+      var est = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
+      var h = String(est.getHours()).padStart(2,'0');
+      var m = String(est.getMinutes()).padStart(2,'0');
+      var s = String(est.getSeconds()).padStart(2,'0');
+      document.getElementById('live-clock').textContent = h + ':' + m + ':' + s + ' EST';
+      setTimeout(updateClock, 1000);
+    })();
+  </script>
 </body>
 </html>
