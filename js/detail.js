@@ -131,7 +131,7 @@ const SiteDetail = (() => {
     h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
     h += kpi('Sorter Availability', `${carriers.empty_pct || 0}%`, 'empty carriers / total', carriers.empty_pct < 10 ? 'red' : carriers.empty_pct < 30 ? 'yellow' : 'green');
     h += kpi('Faulted Carriers', String(faulted), 'MCB failures', faulted > 50 ? 'red' : faulted > 20 ? 'yellow' : 'green');
-    h += kpi('Disabled Carriers', String(disabled), 'out of service', disabled > 100 ? 'red' : disabled > 50 ? 'yellow' : 'green');
+    h += kpi('Disabled Carriers', String(disabled), 'out of service', disabled > 25 ? 'red' : disabled > 10 ? 'yellow' : 'green');
     h += kpi('Total Inducted', inducted ? Number(inducted).toLocaleString() : '\u2014', 'this week', 'green');
     h += kpi('Total Diverted', diverted ? Number(diverted).toLocaleString() : '\u2014', 'this week', 'green');
     h += kpi('Max Recirc %', `${recircPct}%`, 'target <1%', recircPct > 2 ? 'red' : recircPct > 1 ? 'yellow' : 'green');
