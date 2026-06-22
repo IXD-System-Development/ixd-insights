@@ -38,12 +38,18 @@
 
   <script>
     (function updateClock(){
+      var params = new URLSearchParams(window.location.search);
+      var siteId = (params.get('id') || '').toUpperCase();
+      var tzMap = {'IAH3':'America/Chicago','RDU2':'America/New_York'};
+      var tzLabelMap = {'IAH3':'CDT','RDU2':'EDT'};
+      var tz = tzMap[siteId] || 'America/New_York';
+      var tzLabel = tzLabelMap[siteId] || 'EDT';
       var now = new Date();
-      var est = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
-      var h = String(est.getHours()).padStart(2,'0');
-      var m = String(est.getMinutes()).padStart(2,'0');
-      var s = String(est.getSeconds()).padStart(2,'0');
-      document.getElementById('live-clock').textContent = h + ':' + m + ':' + s + ' EST';
+      var local = new Date(now.toLocaleString("en-US", {timeZone: tz}));
+      var h = String(local.getHours()).padStart(2,'0');
+      var m = String(local.getMinutes()).padStart(2,'0');
+      var s = String(local.getSeconds()).padStart(2,'0');
+      document.getElementById('live-clock').textContent = h + ':' + m + ':' + s + ' ' + tzLabel;
       setTimeout(updateClock, 1000);
     })();
   </script>
