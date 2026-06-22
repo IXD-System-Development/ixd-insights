@@ -296,21 +296,10 @@ const SiteDetail = (() => {
     const actions = d.priority_actions || [];
     const staleness = DataLayer.getStaleness(d);
     const total = d.carrier_count || 1882;
+    const pidData = d.pids || {};
+    const bypassData = d.bypass || {};
 
     const running = sorter.state === 'running';
-    const sortsHr = trace.sorts_per_hour || 0;
-    const nonOpPct = trace.no_read_pct || 0;
-    const recircPct = trace.recirc_pct || 0;
-    const successPct = trace.success_pct || 0;
-    const totalDiverted = trace.total_diverted || 0;
-    const totalInducted = trace.total_inducted || 0;
-    const chutesDown = trace.chutes_down_count || 0;
-    const activeJams = trace.active_jams || 0;
-    const carrierSD = trace.carrier_sd_trips_24h || 0;
-    const multiRead = trace.multi_read_pct || 0;
-    const chutesDownList = trace.chutes_down || [];
-    const inductFaults = trace.induct_faults_12h || [];
-    const s04 = trace.s04_codes || {};
     const wkNum = (() => { const d2=new Date(); const onejan=new Date(d2.getFullYear(),0,1); return Math.ceil((((d2-onejan)/86400000)+onejan.getDay()+1)/7); })();
 
     let h = '';
@@ -323,8 +312,16 @@ const SiteDetail = (() => {
     h += `<span class="staleness-badge staleness-${staleness.status}">\u25cf ${staleness.label}</span>`;
     h += `</div>`;
 
+    // Tab bar (matches RDU2 sub-tab style)
+    h += `<div class="tab-bar" style="display:flex;gap:4px;margin:8px 0 16px 0;flex-wrap:wrap;">`;
+    h += `<button class="filter-btn active" onclick="SiteDetail.showDemTab('overview')">Overview</button>`;
+    h += `<button class="filter-btn" onclick="SiteDetail.showDemTab('pids')">PID Deck</button>`;
+    h += `<button class="filter-btn" onclick="SiteDetail.showDemTab('bypass')">Bypass</button>`;
+    h += `<button class="filter-btn" onclick="SiteDetail.showDemTab('trace')">Trace Codes</button>`;
+    h += `</div>`;
+
     // Site info
-    h += `<div style="font-size:11px;color:var(--text-secondary);margin:4px 0 12px 0;">${_siteId} \u2014 10.225.139.140 | Wk${wkNum}</div>`;
+    h += `<div style="font-size:11px;color:var(--text-secondary);margin:0 0 12px 0;">${_siteId} \u2014 10.225.139.140 | Wk${wkNum}</div>`;
 
     // Sorter banner
     const bannerColor = running ? 'var(--green)' : sorter.state === 'estopped' ? 'var(--red)' : 'var(--yellow)';
@@ -332,6 +329,17 @@ const SiteDetail = (() => {
     h += `<div style="background:${bannerColor}15;border:1px solid ${bannerColor};border-radius:6px;padding:10px 16px;text-align:center;font-weight:700;color:${bannerColor};font-size:13px;margin-bottom:16px;">${bannerText}</div>`;
 
     // KPI Row 1
+    const sortsHr = trace.sorts_per_hour || 0;
+    const nonOpPct = trace.no_read_pct || 0;
+    const recircPct = trace.recirc_pct || 0;
+    const totalDiverted = trace.total_diverted || 0;
+    const totalInducted = trace.total_inducted || 0;
+    const chutesDown = trace.chutes_down_count || 0;
+    const activeJams = trace.active_jams || 0;
+    const carrierSD = trace.carrier_sd_trips_24h || 0;
+    const multiRead = trace.multi_read_pct || 0;
+    const successPct = trace.success_pct || 0;
+
     h += `<div class="kpi-row">`;
     h += demKpi('SORTS / HOUR', sortsHr.toLocaleString(), 'successful diverts/hr', 'green');
     h += demKpi('NON-OP %', nonOpPct.toFixed(2) + '%', 'chute unavailable', nonOpPct > 5 ? 'red' : nonOpPct > 3 ? 'yellow' : 'green');
@@ -352,7 +360,7 @@ const SiteDetail = (() => {
     h += demKpi('E-STOP EVENTS', (safety.estops_active || 0) + ' / 0 min', 'events / downtime', (safety.estops_active||0) > 0 ? 'red' : 'green');
     h += demKpi('GATES OPEN', (safety.gates_open || 0).toString(), 'safety gates open', (safety.gates_open||0) > 0 ? 'yellow' : 'green');
     h += demKpi('SAFETY DEVICES', safety.safdev_tripped > 0 ? 'TRIPPED' : 'OK', safety.safdev_tripped > 0 ? (safety.safdev_list||[]).join(', ') : 'series OK', safety.safdev_tripped > 0 ? 'red' : 'green');
-    h += demKpi('CHUTES DOWN', chutesDown + ' / ' + (chutesDownList.length > 0 ? chutesDownList.reduce((s,c)=>s+c.count,0) : 0), 'non-op / total failures', chutesDown > 5 ? 'red' : chutesDown > 2 ? 'yellow' : 'green');
+    h += demKpi('CHUTES DOWN', chutesDown + ' / ' + (trace.chutes_down||[]).reduce((s,c)=>s+(c.count||0),0), 'non-op / total failures', chutesDown > 5 ? 'red' : chutesDown > 2 ? 'yellow' : 'green');
     h += `</div>`;
 
     // Zone Health
@@ -370,47 +378,44 @@ const SiteDetail = (() => {
     });
     h += `</div></div>`;
 
-    // Chutes Down
-    if (chutesDownList.length > 0) {
+    // Bypass quick view
+    const northBp = bypassData.north || {};
+    const southBp = bypassData.south || {};
+    if (northBp.connected || southBp.connected) {
       h += `<div class="section-panel">`;
-      h += `<div class="section-title"><span class="section-dot" style="background:var(--yellow)"></span> NON-OP CHUTES \u2014 S04 CODE 06 (${chutesDownList.length} chutes)</div>`;
-      h += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:6px;">`;
-      chutesDownList.forEach(c => {
-        const severity = c.count > 100 ? 'red' : c.count > 20 ? 'yellow' : 'green';
-        const borderC = severity === 'red' ? 'var(--red)' : severity === 'yellow' ? 'var(--yellow)' : 'var(--border)';
-        h += `<div style="background:var(--bg-surface);border:1px solid ${borderC};border-radius:4px;padding:6px;text-align:center;">`;
-        h += `<div style="font-size:10px;color:var(--text-secondary);">M01${c.chute}</div>`;
-        h += `<div style="font-size:12px;color:var(--${severity});font-weight:700;">${c.count > 100 ? '\u2717' : c.count > 20 ? '\u26a0' : '\u2713'}</div>`;
-        h += `<div style="font-size:9px;color:var(--text-secondary);">${c.count}</div>`;
+      h += `<div class="section-title"><span class="section-dot" style="background:var(--green)"></span> BYPASS STATUS</div>`;
+      h += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">`;
+      [northBp, southBp].forEach(bp => {
+        if (!bp.name) return;
+        const jammed = bp.jam_active;
+        const color = jammed ? 'var(--red)' : 'var(--green)';
+        h += `<div style="background:var(--bg-surface);border:1px solid ${color};border-radius:6px;padding:12px;text-align:center;">`;
+        h += `<div style="font-size:9px;color:var(--text-secondary);text-transform:uppercase;margin-bottom:6px;">${bp.name}</div>`;
+        h += `<div style="font-size:16px;color:${color};font-weight:700;">${jammed ? '\u2717 JAMMED' : '\u2713 CLEAR'}</div>`;
+        if (jammed && bp.duration_min) h += `<div style="font-size:10px;color:var(--red);margin-top:4px;">${bp.duration_min.toFixed(0)} min</div>`;
         h += `</div>`;
       });
       h += `</div></div>`;
     }
 
-    // Induct Faults
-    if (inductFaults.length > 0) {
+    // PID quick summary
+    const pidList = pidData.pids || [];
+    const pidSummary = pidData.summary || {};
+    if (pidList.length > 0) {
       h += `<div class="section-panel">`;
-      h += `<div class="section-title"><span class="section-dot" style="background:var(--yellow)"></span> INDUCT STATION FAULTS \u2014 DEVICE=60 (12h)</div>`;
-      h += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px;">`;
-      inductFaults.forEach(f => {
-        const borderC = f.faults > 10 ? 'var(--red)' : f.faults > 3 ? 'var(--yellow)' : 'var(--border)';
-        h += `<div style="background:var(--bg-surface);border:1px solid ${borderC};border-radius:4px;padding:6px;text-align:center;">`;
-        h += `<div style="font-size:10px;color:var(--text-secondary);">${f.induct}</div>`;
-        h += `<div style="font-size:12px;color:var(--text-primary);font-weight:700;">${f.faults}x</div>`;
+      h += `<div class="section-title"><span class="section-dot" style="background:var(--green)"></span> PID HEALTH \u2014 SCAN TUNNELS (${pidSummary.pids_connected || 0}/${pidList.length})</div>`;
+      h += `<div style="display:grid;grid-template-columns:repeat(${pidList.length},1fr);gap:6px;">`;
+      pidList.forEach(pid => {
+        const hasFault = pid.active_fault_count > 0;
+        const color = !pid.connected ? 'var(--text-secondary)' : hasFault ? 'var(--red)' : 'var(--green)';
+        const border = hasFault ? 'var(--red)' : pid.connected ? 'var(--green)' : 'var(--border)';
+        h += `<div style="background:var(--bg-surface);border:1px solid ${border};border-radius:4px;padding:8px;text-align:center;">`;
+        h += `<div style="font-size:9px;color:var(--text-secondary);">${pid.pid}</div>`;
+        h += `<div style="font-size:13px;color:${color};font-weight:700;">${!pid.connected ? '?' : hasFault ? '\u2717' : '\u2713'} ${!pid.connected ? '?' : hasFault ? 'FAULT' : 'OK'}</div>`;
         h += `</div>`;
       });
       h += `</div></div>`;
     }
-
-    // Communications Health
-    h += `<div class="section-panel">`;
-    h += `<div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> COMMUNICATIONS HEALTH</div>`;
-    h += `<table class="data-table"><thead><tr><th>System</th><th style="text-align:right;">Status</th></tr></thead><tbody>`;
-    h += `<tr><td>Safety PLC (CC530)</td><td style="text-align:right;"><span style="background:var(--green);color:#000;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;">OK</span></td></tr>`;
-    h += `<tr><td>SC3 Master Controller</td><td style="text-align:right;"><span style="background:${trace.connected?'var(--green)':'var(--red)'};color:#000;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;">${trace.connected?'OK':'OFFLINE'}</span></td></tr>`;
-    h += `<tr><td>LSM Contactors (${zones.filter(z=>z.spc_ok).length}/${zones.length} zones)</td><td style="text-align:right;"><span style="background:${zones.every(z=>z.spc_ok)?'var(--green)':'var(--red)'};color:#000;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;">${zones.every(z=>z.spc_ok)?zones.length+'/'+zones.length+' OK':'FAULT'}</span></td></tr>`;
-    h += `<tr><td>48V Power Supply (${zones.filter(z=>z.power_ok).length}/${zones.length} zones)</td><td style="text-align:right;"><span style="background:${zones.every(z=>z.power_ok)?'var(--green)':'var(--red)'};color:#000;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;">${zones.every(z=>z.power_ok)?zones.length+'/'+zones.length+' OK':'FAULT'}</span></td></tr>`;
-    h += `</tbody></table></div>`;
 
     // Priority Actions
     if (actions.length > 0) {
@@ -440,9 +445,168 @@ const SiteDetail = (() => {
     h += demRow('Safety Devices', safety.safdev_tripped > 0 ? 'TRIPPED' : 'OK', safety.safdev_tripped === 0);
     h += demRow('Non-Op Rate', nonOpPct.toFixed(2) + '%', nonOpPct < 5);
     h += demRow('Sorts/Hour', sortsHr.toLocaleString(), sortsHr > 0);
+    h += demRow('North Bypass', northBp.jam_active ? 'JAMMED' : 'CLEAR', !northBp.jam_active);
+    h += demRow('South Bypass', southBp.jam_active ? 'JAMMED' : 'CLEAR', !southBp.jam_active);
+    h += demRow('PIDs Connected', (pidSummary.pids_connected||0) + '/' + pidList.length, (pidSummary.pids_connected||0) === pidList.length);
     h += `</tbody></table></div>`;
 
     return h;
+  }
+
+  function showDemTab(tab) {
+    const container = document.getElementById('detail-content');
+    if (!container) return;
+    const result = DataLayer.getCachedData(_siteId);
+    if (!result) return;
+
+    if (tab === 'overview') { render(result); return; }
+    if (tab === 'pids') { renderDemPidTab(result); return; }
+    if (tab === 'bypass') { renderDemBypassTab(result); return; }
+    if (tab === 'trace') { renderDemTraceTab(result); return; }
+  }
+
+  function renderDemPidTab(d) {
+    const container = document.getElementById('detail-content');
+    const pidData = d.pids || {};
+    const pidList = pidData.pids || [];
+    const cc210Jams = pidData.cc210_jams || [];
+    const pidSummary = pidData.summary || {};
+
+    let h = '';
+    h += `<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>`;
+
+    // Summary KPIs
+    h += `<div class="kpi-row">`;
+    h += demKpi('PIDs CONNECTED', (pidSummary.pids_connected||0) + ' / ' + pidList.length, 'scan tunnels online', (pidSummary.pids_connected||0)===pidList.length ? 'green' : 'red');
+    h += demKpi('ACTIVE FAULTS', (pidSummary.total_active_faults||0).toString(), 'across all PIDs', (pidSummary.total_active_faults||0)>0 ? 'red' : 'green');
+    h += demKpi('RECV SORTER JAMS', (pidSummary.receive_sorter_jams||0).toString(), 'CC210 jam tags', (pidSummary.receive_sorter_jams||0)>0 ? 'red' : 'green');
+    h += demKpi('WORST NR%', (pidSummary.worst_no_read_pct||0).toFixed(1) + '%', pidSummary.worst_no_read_pid || 'N/A', (pidSummary.worst_no_read_pct||0)>3 ? 'red' : 'green');
+    h += `</div>`;
+
+    // Per-PID detail cards
+    h += `<div class="section-panel">`;
+    h += `<div class="section-title"><span class="section-dot" style="background:var(--green)"></span> PID SCAN TUNNEL DETAIL (6 PLCs)</div>`;
+    pidList.forEach(pid => {
+      const hasFault = pid.active_fault_count > 0;
+      const border = hasFault ? 'var(--red)' : pid.connected ? 'var(--green)' : 'var(--border)';
+      const cam = pid.verify_camera || {};
+      h += `<div style="background:var(--bg-surface);border:1px solid ${border};border-radius:6px;padding:12px;margin-bottom:8px;">`;
+      h += `<div style="display:flex;justify-content:space-between;align-items:center;">`;
+      h += `<div style="font-weight:700;font-size:13px;">${pid.pid} <span style="color:var(--text-secondary);font-size:10px;">(${pid.ip})</span></div>`;
+      h += `<div style="font-size:12px;color:${hasFault?'var(--red)':'var(--green)'};font-weight:700;">${hasFault?'\u2717 '+pid.active_fault_count+' FAULT(S)':'\u2713 OK'}</div>`;
+      h += `</div>`;
+      if (hasFault) {
+        h += `<div style="margin-top:6px;">`;
+        pid.active_faults.forEach(f => {
+          h += `<div style="font-size:11px;color:var(--red);padding:2px 0;">\u2022 ${f.friendly}</div>`;
+        });
+        h += `</div>`;
+      }
+      h += `<div style="display:flex;gap:16px;margin-top:8px;font-size:10px;color:var(--text-secondary);">`;
+      h += `<span>Total Reads: ${(cam.total_reads||0).toLocaleString()}</span>`;
+      h += `<span>No-Reads: ${cam.no_reads||0}</span>`;
+      h += `<span>Multi-Reads: ${cam.multi_reads||0}</span>`;
+      h += `</div>`;
+      h += `</div>`;
+    });
+    h += `</div>`;
+
+    // CC210 Receive Sorter Jams
+    h += `<div class="section-panel">`;
+    h += `<div class="section-title"><span class="section-dot" style="background:var(--yellow)"></span> CC210 RECEIVE SORTER JAMS</div>`;
+    h += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;">`;
+    cc210Jams.forEach(j => {
+      const color = j.jammed ? 'var(--red)' : 'var(--green)';
+      const border = j.jammed ? 'var(--red)' : 'var(--border)';
+      h += `<div style="background:var(--bg-surface);border:1px solid ${border};border-radius:4px;padding:8px;text-align:center;">`;
+      h += `<div style="font-size:9px;color:var(--text-secondary);">${j.name}</div>`;
+      h += `<div style="font-size:11px;color:${color};font-weight:700;">${j.jammed?'\u2717 JAMMED':'\u2713 OK'}</div>`;
+      h += `<div style="font-size:8px;color:var(--text-secondary);">${j.pid}</div>`;
+      h += `</div>`;
+    });
+    h += `</div></div>`;
+
+    container.innerHTML = h;
+  }
+
+  function renderDemBypassTab(d) {
+    const container = document.getElementById('detail-content');
+    const bypassData = d.bypass || {};
+    const north = bypassData.north || {};
+    const south = bypassData.south || {};
+
+    let h = '';
+    h += `<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>`;
+
+    h += `<div class="section-panel">`;
+    h += `<div class="section-title"><span class="section-dot" style="background:var(--green)"></span> BYPASS JAM MONITOR \u2014 CC400 (10.225.139.91)</div>`;
+    h += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">`;
+
+    [north, south].forEach(bp => {
+      if (!bp.name) return;
+      const jammed = bp.jam_active;
+      const color = jammed ? 'var(--red)' : 'var(--green)';
+      h += `<div style="background:var(--bg-surface);border:2px solid ${color};border-radius:8px;padding:20px;text-align:center;">`;
+      h += `<div style="font-size:11px;color:var(--text-secondary);text-transform:uppercase;margin-bottom:8px;">${bp.name}</div>`;
+      h += `<div style="font-size:24px;color:${color};font-weight:700;">${jammed ? '\u2717 JAMMED' : '\u2713 CLEAR'}</div>`;
+      if (jammed && bp.duration_min) {
+        h += `<div style="font-size:14px;color:var(--red);margin-top:8px;">${bp.duration_min.toFixed(1)} min</div>`;
+      }
+      h += `<div style="font-size:10px;color:var(--text-secondary);margin-top:8px;">Jams (24h): ${bp.jam_count_24h || 0}</div>`;
+      h += `</div>`;
+    });
+
+    h += `</div></div>`;
+    container.innerHTML = h;
+  }
+
+  function renderDemTraceTab(d) {
+    const container = document.getElementById('detail-content');
+    const trace = d.trace || {};
+    const s04 = trace.s04_codes || {};
+    const chutesDown = trace.chutes_down || [];
+    const inductFaults = trace.induct_faults_12h || [];
+
+    let h = '';
+    h += `<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>`;
+
+    // S04 Code Breakdown
+    h += `<div class="section-panel">`;
+    h += `<div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> S04 SORT CODE BREAKDOWN</div>`;
+    h += `<table class="data-table"><thead><tr><th>Code</th><th>Count</th><th>Meaning</th></tr></thead><tbody>`;
+    const meanings = {'00':'Successful divert','01':'Empty carrier offload','05':'Recirculation','06':'Non-op chute','08':'Manual sort','10':'Multi-read','12':'No destination','13':'Overflow','14':'Failure to divert','21':'Bad position'};
+    Object.entries(s04).sort((a,b) => b[1]-a[1]).forEach(([code, count]) => {
+      const color = code==='00'?'color:var(--green)':code==='06'?'color:var(--red)':code==='05'?'color:var(--yellow)':'';
+      h += `<tr><td style="${color};font-weight:700;">${code}</td><td style="${color}">${count.toLocaleString()}</td><td style="color:var(--text-secondary);font-size:11px;">${meanings[code]||'Unknown'}</td></tr>`;
+    });
+    h += `</tbody></table></div>`;
+
+    // Chutes Down
+    if (chutesDown.length > 0) {
+      h += `<div class="section-panel">`;
+      h += `<div class="section-title"><span class="section-dot" style="background:var(--yellow)"></span> NON-OP CHUTES (${chutesDown.length})</div>`;
+      h += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:6px;">`;
+      chutesDown.forEach(c => {
+        const sev = c.count>100?'red':c.count>20?'yellow':'green';
+        h += `<div style="background:var(--bg-surface);border:1px solid var(--${sev});border-radius:4px;padding:6px;text-align:center;">`;
+        h += `<div style="font-size:10px;color:var(--text-secondary);">M01${c.chute}</div>`;
+        h += `<div style="font-size:12px;color:var(--${sev});font-weight:700;">${c.count}</div>`;
+        h += `</div>`;
+      });
+      h += `</div></div>`;
+    }
+
+    // Induct Faults
+    if (inductFaults.length > 0) {
+      h += `<div class="section-panel">`;
+      h += `<div class="section-title"><span class="section-dot" style="background:var(--yellow)"></span> INDUCT FAULTS (12h)</div>`;
+      inductFaults.forEach(f => {
+        h += `<div style="padding:4px 0;font-size:12px;border-bottom:1px solid var(--border-light);">${f.induct}: <b>${f.faults}x</b></div>`;
+      });
+      h += `</div>`;
+    }
+
+    container.innerHTML = h;
   }
 
   function demKpi(label, value, sub, color) {
