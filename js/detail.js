@@ -88,7 +88,7 @@ const SiteDetail = (() => {
       <button class="filter-btn" onclick="SiteDetail.showChuteJamsTab()">Chute Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showInboundTab()">Inbound Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showSorterTab()">Sorter</button>
-      <button class="filter-btn" onclick="SiteDetail.showOutboundSouth()">Outbound South</button><button class="filter-btn" onclick="SiteDetail.showOutboundNorth()">Outbound North</button>
+      <button class="filter-btn" onclick="SiteDetail.showOutboundSouth()">Outbound South</button><button class="filter-btn" onclick="SiteDetail.showOutboundNorth()">Outbound North</button><button class="filter-btn" onclick="SiteDetail.showShoeSorter()">Shoe Sorter</button>
     </div>`;
 
     // Header
@@ -841,5 +841,59 @@ const SiteDetail = (() => {
     container.innerHTML = html;
   }
 
-  return { init, refresh, showShiftReport, showSorterTab, showMetricsTab, showChuteJamsTab, showInboundTab, showOutboundSouth, showOutboundNorth };
+  function showShoeSorter() {
+    const container = document.getElementById('detail-content');
+    if (!container) return;
+    const result = DataLayer.getCachedData(_siteId);
+    if (!result) return;
+    const ss = result.shoe_sorter || {};
+
+    let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>';
+
+    // Header
+    html += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">\ud83d\udc5f Shoe Sorter \u2014 CP67 / CP68</div>`;
+
+    // KPI cards row
+    const totalNodes = (ss.profibus_ok || 0) + (ss.profibus_fault || 0);
+    const profibusColor = ss.profibus_fault > 0 ? 'red' : 'green';
+    const gridlockColor = ss.gridlock ? 'red' : 'green';
+    const jamCount = (ss.jams || []).length;
+    const jamColor = jamCount > 0 ? 'red' : 'green';
+
+    html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
+    html += `<div class="kpi-card ${profibusColor}"><div class="kpi-label">Profibus Nodes</div><div class="kpi-value ${profibusColor}">${ss.profibus_ok || 0}/${totalNodes}</div><div class="kpi-subtitle">${ss.profibus_fault || 0} faulted</div></div>`;
+    html += `<div class="kpi-card ${gridlockColor}"><div class="kpi-label">Gridlock Avoidance</div><div class="kpi-value ${gridlockColor}">${ss.gridlock ? 'ACTIVE' : 'OK'}</div><div class="kpi-subtitle">${ss.gridlock ? 'gridlock detected' : 'no gridlock'}</div></div>`;
+    html += `<div class="kpi-card ${jamColor}"><div class="kpi-label">Active Jams</div><div class="kpi-value ${jamColor}">${jamCount}</div><div class="kpi-subtitle">${jamCount > 0 ? (ss.jams || []).join(', ') : 'all clear'}</div></div>`;
+    html += `<div class="kpi-card green"><div class="kpi-label">Induct Count</div><div class="kpi-value green">${(ss.induct_count || 0).toLocaleString()}</div><div class="kpi-subtitle">items inducted</div></div>`;
+    html += '</div>';
+
+    // Profibus Health Grid (like LSM)
+    html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--${profibusColor})"></span> Profibus Slave Health (CP68 Nodes)</div>';
+    html += '<div style="margin-bottom:8px;font-size:10px;color:var(--text-secondary);">\u25cf Green = communicating | \u25cf Red = fault</div>';
+    html += '<div class="health-grid">';
+    const slaveNames = ['68307', '68306', '68305', '68304', '68303', '68302', '68301', '68211', '68210', '68209'];
+    const okCount = ss.profibus_ok || 0;
+    const faultCount = ss.profibus_fault || 0;
+    slaveNames.forEach((name, i) => {
+      const isFault = i >= okCount;
+      const color = isFault ? 'red' : 'green';
+      const icon = isFault ? '\u2717' : '\u2713';
+      html += `<div class="health-cell ${color}"><div class="health-cell-label">${name}</div><div class="health-cell-value ${color}">${icon}</div></div>`;
+    });
+    html += '</div></div>';
+
+    // Active Jams
+    if (jamCount > 0) {
+      html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--red)"></span> Active Shoe Sorter Jams</div>';
+      (ss.jams || []).forEach(j => {
+        html += `<div style="padding:8px 12px;margin-bottom:5px;background:var(--red-bg);border-radius:4px;border-left:3px solid var(--red);animation:fault-flash 1s infinite;font-size:12px;font-weight:600;color:var(--red);">${j}</div>`;
+      });
+      html += '</div>';
+    }
+
+    html += '<style>@keyframes fault-flash{0%,100%{opacity:1}50%{opacity:0.4}}</style>';
+    container.innerHTML = html;
+  }
+
+  return { init, refresh, showShiftReport, showSorterTab, showMetricsTab, showChuteJamsTab, showInboundTab, showOutboundSouth, showOutboundNorth, showShoeSorter };
 })();
