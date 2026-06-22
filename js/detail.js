@@ -84,7 +84,7 @@ const SiteDetail = (() => {
       <button class="filter-btn">CP Zones</button>
       <button class="filter-btn" onclick="SiteDetail.showMetricsTab()">MHE Defect</button>
       <button class="filter-btn" onclick="SiteDetail.showShiftReport()">Shift Reports</button>
-      <a href="https://w.amazon.com/bin/view/IXD-SD/SITES/RDU2" target="_blank" class="filter-btn" style="text-decoration:none;">IXD Wiki ↗</a>
+      <a href="https://w.amazon.com/bin/view/IXD-SD/SITES/${_siteId}" target="_blank" class="filter-btn" style="text-decoration:none;">IXD Wiki ↗</a>
       <button class="filter-btn" onclick="SiteDetail.showChuteJamsTab()">Chute Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showInboundTab()">Inbound Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showSorterTab()">Sorter</button>
@@ -94,13 +94,13 @@ const SiteDetail = (() => {
     // Header
     h += `<div class="detail-header">
       <a href="sites.html" class="back-link">\u2190 Back to Fleet</a>
-      <span class="detail-site-id">${_siteId}</span><img src="img/rdu2_logo.png" alt="" style="height:40px;border-radius:50%;margin-left:8px;">
+      <span class="detail-site-id">${_siteId}</span><img src="img/${_siteId.toLowerCase()}_logo.svg" alt="" style="height:40px;border-radius:50%;margin-left:8px;">
       <span class="site-card-oem oem-intl">INTL</span>
       <span class="detail-connection ${running ? 'online' : 'offline'}">${running ? '\u25cf LIVE' : '\u25cf OFFLINE'}</span>
       <span id="header-clock" style="color:#3fb950;font-weight:600;font-size:12px;margin-left:auto;"></span>
     </div>`;
 
-    h += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">\ud83c\udfed ${_siteId} \u2014 10.8.188.183 | Wk25</div>`;
+    h += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">\ud83c\udfed ${_siteId} \u2014 ${_siteId} Sorter | Wk${(() => { const d2=new Date(); const onejan=new Date(d2.getFullYear(),0,1); return Math.ceil((((d2-onejan)/86400000)+onejan.getDay()+1)/7); })()}</div>`;
 
     // Sorter banner
     const bannerColor = running ? 'var(--green)' : 'var(--red)';
