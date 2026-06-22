@@ -80,7 +80,7 @@ const SiteDetail = (() => {
       <button class="filter-btn" onclick="SiteDetail.showMetricsTab()">MHE Defect</button>
       <button class="filter-btn" onclick="SiteDetail.showShiftReport()">Shift Reports</button>
       <a href="https://w.amazon.com/bin/view/IXD-SD/SITES/RDU2" target="_blank" class="filter-btn" style="text-decoration:none;">IXD Wiki ↗</a>
-      <button class="filter-btn">Outbound</button>
+      <button class="filter-btn" onclick="SiteDetail.showChuteJamsTab()">Chute Jams</button>
       <button class="filter-btn">Inbound</button>
       <button class="filter-btn" onclick="SiteDetail.showSorterTab()">Sorter</button>
       <button class="filter-btn">Induction</button>
@@ -554,5 +554,58 @@ const SiteDetail = (() => {
     container.innerHTML = html;
   }
 
-  return { init, refresh, showShiftReport, showSorterTab, showMetricsTab };
+  function showChuteJamsTab() {
+    const container = document.getElementById('detail-content');
+    if (!container) return;
+    const result = DataLayer.getCachedData(_siteId);
+    if (!result) { container.innerHTML = '<div class="section-panel"><p style="color:var(--text-secondary)">No data.</p></div>'; return; }
+    const jams = result.active_jams || {south:[], north:[]};
+    const south = jams.south || [];
+    const north = jams.north || [];
+
+    let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>';
+
+    // Side by side panels
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">';
+
+    // South (Lower)
+    html += `<div style="background:var(--bg-card);border:1px solid var(--border);border-top:3px solid var(--yellow);border-radius:8px;padding:16px;">`;
+    html += `<div style="font-size:13px;font-weight:700;color:var(--yellow);margin-bottom:12px;">\ud83d\udfe1 SOUTH / LOWER (Operations)</div>`;
+    if (south.length > 0) {
+      html += `<div style="font-size:11px;color:var(--text-secondary);margin-bottom:8px;">${south.length} active jam(s)</div>`;
+      south.forEach(j => {
+        const durColor = j.duration_min > 60 ? 'var(--red)' : j.duration_min > 15 ? 'var(--yellow)' : 'var(--text-primary)';
+        html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;margin-bottom:4px;background:var(--bg-surface);border-radius:4px;border-left:3px solid ${durColor};">
+          <span style="font-size:11px;font-family:var(--font-mono);font-weight:600;">${j.name}</span>
+          <span style="font-size:11px;font-weight:700;color:${durColor};">${j.duration_min} min</span>
+        </div>`;
+      });
+    } else {
+      html += '<div style="text-align:center;padding:20px;color:var(--green);font-size:12px;">\u2713 No active jams</div>';
+    }
+    html += '</div>';
+
+    // North (Upper)
+    html += `<div style="background:var(--bg-card);border:1px solid var(--border);border-top:3px solid var(--orange);border-radius:8px;padding:16px;">`;
+    html += `<div style="font-size:13px;font-weight:700;color:var(--orange);margin-bottom:12px;">\ud83d\udfe0 NORTH / UPPER (RME)</div>`;
+    if (north.length > 0) {
+      html += `<div style="font-size:11px;color:var(--text-secondary);margin-bottom:8px;">${north.length} active jam(s)</div>`;
+      north.forEach(j => {
+        const durColor = j.duration_min > 60 ? 'var(--red)' : j.duration_min > 15 ? 'var(--yellow)' : 'var(--text-primary)';
+        html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;margin-bottom:4px;background:var(--bg-surface);border-radius:4px;border-left:3px solid ${durColor};">
+          <span style="font-size:11px;font-family:var(--font-mono);font-weight:600;">${j.name}</span>
+          <span style="font-size:11px;font-weight:700;color:${durColor};">${j.duration_min} min</span>
+        </div>`;
+      });
+    } else {
+      html += '<div style="text-align:center;padding:20px;color:var(--green);font-size:12px;">\u2713 No active jams</div>';
+    }
+    html += '</div>';
+
+    html += '</div>'; // close grid
+
+    container.innerHTML = html;
+  }
+
+  return { init, refresh, showShiftReport, showSorterTab, showMetricsTab, showChuteJamsTab };
 })();
