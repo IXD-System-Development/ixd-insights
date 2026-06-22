@@ -294,7 +294,6 @@ const SiteDetail = (() => {
     const trace = d.trace || {};
     const zones = d.zones || [];
     const actions = d.priority_actions || [];
-    const incident = d.incident || {};
     const staleness = DataLayer.getStaleness(d);
     const total = d.carrier_count || 1882;
 
@@ -308,10 +307,16 @@ const SiteDetail = (() => {
     const chutesDown = trace.chutes_down_count || 0;
     const activeJams = trace.active_jams || 0;
     const carrierSD = trace.carrier_sd_trips_24h || 0;
+    const multiRead = trace.multi_read_pct || 0;
+    const chutesDownList = trace.chutes_down || [];
+    const inductFaults = trace.induct_faults_12h || [];
+    const s04 = trace.s04_codes || {};
+
+    const wkNum = (() => { const d2=new Date(); const onejan=new Date(d2.getFullYear(),0,1); return Math.ceil((((d2-onejan)/86400000)+onejan.getDay()+1)/7); })();
 
     let h = '';
 
-    // Header
+    // ═══ HEADER (matches INTL style) ═══
     h += `<div class="detail-header">`;
     h += `<a href="sites.html" class="back-link">\u2190 Back to Fleet</a>`;
     h += `<span class="detail-site-id">${_siteId}</span>`;
@@ -319,117 +324,138 @@ const SiteDetail = (() => {
     h += `<span class="staleness-badge staleness-${staleness.status}">\u25cf ${staleness.label}</span>`;
     h += `</div>`;
 
-    // PLC info line
-    h += `<div style="font-size:11px;color:var(--text-secondary);margin:4px 0 12px 0;">\ud83c\udfed ${_siteId} \u2014 Dematic SC3 Crossbelt | Wk${getWeekNumber()}</div>`;
+    // Site info line
+    h += `<div style="font-size:11px;color:var(--text-secondary);margin:4px 0 12px 0;">\ud83c\udfed ${_siteId} \u2014 10.225.139.140 | Wk${wkNum}</div>`;
 
-    // Sorter state banner
+    // ═══ SORTER STATE BANNER ═══
     const bannerColor = running ? 'var(--green)' : sorter.state === 'estopped' ? 'var(--red)' : 'var(--yellow)';
     const bannerText = running ? '\u25cf SORTER RUNNING' : sorter.state === 'estopped' ? '\u25cf SORTER E-STOPPED' : sorter.state === 'fault' ? '\u25cf SORTER FAULT' : '\u25cf SORTER STOPPED';
-    h += `<div style="background:${bannerColor}22;border:1px solid ${bannerColor};border-radius:8px;padding:10px;text-align:center;font-weight:700;color:${bannerColor};font-size:14px;margin-bottom:16px;">${bannerText}</div>`;
+    h += `<div style="background:${bannerColor}15;border:1px solid ${bannerColor};border-radius:6px;padding:10px 16px;text-align:center;font-weight:700;color:${bannerColor};font-size:13px;margin-bottom:16px;">${bannerText}</div>`;
 
-    // KPI Row 1 — Throughput
-    h += '<div class="kpi-grid">';
-    h += kpi('SORTS / HOUR', sortsHr.toLocaleString(), 'successful diverts', 'green');
-    h += kpi('NON-OP %', nonOpPct.toFixed(1) + '%', 'chute unavailable (S04=06)', nonOpPct > 5 ? 'red' : nonOpPct > 3 ? 'yellow' : 'green');
-    h += kpi('RECIRC %', recircPct.toFixed(1) + '%', 'recirculation rate', recircPct > 60 ? 'red' : recircPct > 40 ? 'yellow' : 'green');
-    h += kpi('CARRIERS', total.toLocaleString(), 'crossbelt carriers', 'green');
-    h += '</div>';
+    // ═══ KPI ROW 1 — Throughput (matches INTL row 1 layout) ═══
+    h += `<div class="kpi-grid">`;
+    h += demKpi('SORTS / HOUR', sortsHr.toLocaleString(), 'successful diverts/hr', 'green');
+    h += demKpi('NON-OP %', nonOpPct.toFixed(2) + '%', 'chute unavailable', nonOpPct > 5 ? 'red' : nonOpPct > 3 ? 'yellow' : 'green');
+    h += demKpi('RECIRC %', recircPct.toFixed(2) + '%', 'recirculation rate', recircPct > 60 ? 'red' : recircPct > 40 ? 'yellow' : 'green');
+    h += demKpi('TOTAL INDUCTED', totalInducted.toLocaleString(), 'this shift', 'green');
+    h += `</div>`;
 
-    // KPI Row 2 — Sort metrics
-    h += '<div class="kpi-grid">';
-    h += kpi('TOTAL DIVERTED', totalDiverted.toLocaleString(), 'code 00 (success)', 'green');
-    h += kpi('TOTAL INDUCTED', totalInducted.toLocaleString(), 'all S04 events', 'blue');
-    h += kpi('CHUTES DOWN', chutesDown.toString(), 'non-operational chutes', chutesDown > 5 ? 'red' : chutesDown > 2 ? 'yellow' : 'green');
-    h += kpi('CHUTE JAMS', activeJams.toString(), 'active jam events', activeJams > 3 ? 'red' : activeJams > 0 ? 'yellow' : 'green');
-    h += '</div>';
+    // ═══ KPI ROW 2 — Sort detail ═══
+    h += `<div class="kpi-grid">`;
+    h += demKpi('TOTAL DIVERTED', totalDiverted.toLocaleString(), 'this shift', 'green');
+    h += demKpi('MULTI-READ %', multiRead.toFixed(2) + '%', 'Wk' + wkNum, multiRead > 3 ? 'red' : 'green');
+    h += demKpi('SUCCESS %', successPct.toFixed(1) + '%', 'diverted / inducted', successPct > 40 ? 'green' : 'yellow');
+    h += demKpi('CARRIER SD', carrierSD.toString(), 'trips / 24h', carrierSD > 20 ? 'red' : carrierSD > 5 ? 'yellow' : 'green');
+    h += `</div>`;
 
-    // KPI Row 3 — Safety
-    h += '<div class="kpi-grid">';
-    h += kpi('E-STOPS', (safety.estops_active || 0).toString(), 'active E-stops', (safety.estops_active || 0) > 0 ? 'red' : 'green');
-    h += kpi('GATES OPEN', (safety.gates_open || 0).toString(), 'safety gates', (safety.gates_open || 0) > 0 ? 'yellow' : 'green');
-    h += kpi('SAFETY DEVICES', safety.safdev_tripped > 0 ? 'TRIP' : 'OK', safety.safdev_tripped > 0 ? safety.safdev_list.join(', ') : 'all clear', safety.safdev_tripped > 0 ? 'red' : 'green');
-    h += kpi('CARRIER SD', carrierSD.toString(), 'trips in 24h', carrierSD > 20 ? 'red' : carrierSD > 5 ? 'yellow' : 'green');
-    h += '</div>';
+    // ═══ KPI ROW 3 — Safety + Chutes ═══
+    h += `<div class="kpi-grid">`;
+    h += demKpi('E-STOP EVENTS', (safety.estops_active || 0) + ' / 0 min', 'events / downtime this shift', (safety.estops_active||0) > 0 ? 'red' : 'green');
+    h += demKpi('GATES OPEN', (safety.gates_open || 0).toString(), 'safety gates open', (safety.gates_open||0) > 0 ? 'yellow' : 'green');
+    h += demKpi('SAFETY DEVICES', safety.safdev_tripped > 0 ? 'TRIPPED' : 'OK', safety.safdev_tripped > 0 ? (safety.safdev_list||[]).join(', ') : 'series OK', safety.safdev_tripped > 0 ? 'red' : 'green');
+    h += demKpi('CHUTES DOWN', chutesDown + ' / ' + (chutesDownList.length > 0 ? chutesDownList.reduce((s,c)=>s+c.count,0) : 0), 'non-op chutes / failures', chutesDown > 5 ? 'red' : chutesDown > 2 ? 'yellow' : 'green');
+    h += `</div>`;
 
-    // Zone Health Section
-    h += '<div class="section-panel">';
-    h += '<div class="section-title"><span class="section-dot" style="background:var(--green)"></span> ZONE HEALTH \u2014 Safety PLC (4 Zones)</div>';
-    h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">';
+    // ═══ ZONE HEALTH — LSM / POWER (like PPU Health section) ═══
+    h += `<div class="section-panel">`;
+    h += `<div class="section-title"><span class="section-dot" style="background:var(--green)"></span> ZONE HEALTH \u2014 SAFETY PLC (${zones.length} Zones)</div>`;
+    h += `<div style="display:grid;grid-template-columns:repeat(${zones.length},1fr);gap:8px;">`;
     zones.forEach(z => {
       const ok = z.status === 'OK';
       const color = ok ? 'var(--green)' : 'var(--red)';
-      const icon = ok ? '\u2713' : '\u2717';
-      const faults = (z.faults || []).join(', ') || 'All OK';
-      h += `<div style="background:var(--bg-surface);border:1px solid ${color};border-radius:6px;padding:10px;text-align:center;">`;
-      h += `<div style="font-size:10px;color:var(--text-secondary);margin-bottom:4px;">${esc(z.label || z.id)}</div>`;
-      h += `<div style="font-size:18px;color:${color};font-weight:700;">${icon} ${z.status}</div>`;
-      h += `<div style="font-size:9px;color:var(--text-secondary);margin-top:4px;">LSM:${z.spc_ok?'\u2713':'\u2717'} PWR:${z.power_ok?'\u2713':'\u2717'}</div>`;
-      h += '</div>';
+      h += `<div style="background:var(--bg-surface);border:1px solid ${color};border-radius:6px;padding:12px 8px;text-align:center;">`;
+      h += `<div style="font-size:9px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">${esc(z.id.replace('zone_','Zone '))}</div>`;
+      h += `<div style="font-size:14px;color:${color};font-weight:700;">${ok ? '\u2713 Running' : '\u2717 ' + (z.faults||[]).join(', ')}</div>`;
+      h += `<div style="font-size:9px;color:var(--text-secondary);margin-top:6px;">LSM: ${z.spc_ok?'\u2705':'\u274c'} &nbsp; PWR: ${z.power_ok?'\u2705':'\u274c'} &nbsp; ESTOP: ${z.estop?'\u274c':'\u2705'} &nbsp; GATE: ${z.gate_open?'\u274c':'\u2705'}</div>`;
+      h += `</div>`;
     });
-    h += '</div></div>';
+    h += `</div></div>`;
 
-    // Chutes Down detail
-    const chutesDownList = trace.chutes_down || [];
+    // ═══ CHUTES DOWN — Non-op detail (like WPT/CRB grid) ═══
     if (chutesDownList.length > 0) {
-      h += '<div class="section-panel">';
-      h += '<div class="section-title"><span class="section-dot" style="background:var(--yellow)"></span> NON-OP CHUTES (Code 06 failures)</div>';
-      h += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+      h += `<div class="section-panel">`;
+      h += `<div class="section-title"><span class="section-dot" style="background:var(--yellow)"></span> NON-OP CHUTES \u2014 S04 CODE 06 (${chutesDownList.length} chutes)</div>`;
+      h += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px;">`;
       chutesDownList.forEach(c => {
-        const bg = c.count > 100 ? 'var(--red-bg,#2a1515)' : c.count > 20 ? 'var(--yellow-bg,#2a2a15)' : 'var(--bg-surface)';
-        const border = c.count > 100 ? 'var(--red)' : c.count > 20 ? 'var(--yellow)' : 'var(--border)';
-        h += `<div style="background:${bg};border:1px solid ${border};border-radius:6px;padding:4px 10px;font-size:11px;font-family:var(--font-mono);">M01<b>${c.chute}</b> <span style="color:var(--text-secondary);">(${c.count})</span></div>`;
+        const severity = c.count > 100 ? 'red' : c.count > 20 ? 'yellow' : 'green';
+        const borderC = severity === 'red' ? 'var(--red)' : severity === 'yellow' ? 'var(--yellow)' : 'var(--border)';
+        h += `<div style="background:var(--bg-surface);border:1px solid ${borderC};border-radius:4px;padding:6px;text-align:center;">`;
+        h += `<div style="font-size:10px;color:var(--text-secondary);">M01${c.chute}</div>`;
+        h += `<div style="font-size:12px;color:var(--${severity});font-weight:700;">${c.count > 100 ? '\u2717' : c.count > 20 ? '\u26a0' : '\u2713'}</div>`;
+        h += `<div style="font-size:9px;color:var(--text-secondary);">${c.count} fails</div>`;
+        h += `</div>`;
       });
-      h += '</div></div>';
+      h += `</div></div>`;
     }
 
-    // Induct Faults
-    const inductFaults = trace.induct_faults_12h || [];
+    // ═══ INDUCT FAULTS (like UCD Health) ═══
     if (inductFaults.length > 0) {
-      h += '<div class="section-panel">';
-      h += '<div class="section-title"><span class="section-dot" style="background:var(--orange,#f59e0b)"></span> INDUCT FAULTS (DEVICE=60, last 12h)</div>';
-      h += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+      h += `<div class="section-panel">`;
+      h += `<div class="section-title"><span class="section-dot" style="background:var(--orange,#f59e0b)"></span> INDUCT STATION FAULTS \u2014 DEVICE=60 (12h)</div>`;
+      h += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px;">`;
       inductFaults.forEach(f => {
-        h += `<div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;font-family:var(--font-mono);"><b>${f.induct}</b> <span style="color:var(--text-secondary);">(${f.faults}x)</span></div>`;
+        const severity = f.faults > 10 ? 'red' : f.faults > 3 ? 'yellow' : 'green';
+        const borderC = severity === 'red' ? 'var(--red)' : severity === 'yellow' ? 'var(--yellow)' : 'var(--border)';
+        h += `<div style="background:var(--bg-surface);border:1px solid ${borderC};border-radius:4px;padding:6px;text-align:center;">`;
+        h += `<div style="font-size:10px;color:var(--text-secondary);">${f.induct}</div>`;
+        h += `<div style="font-size:12px;color:var(--${severity});font-weight:700;">${f.faults > 10 ? '\u2717 FAULT' : '\u26a0'} ${f.faults}x</div>`;
+        h += `</div>`;
       });
-      h += '</div></div>';
+      h += `</div></div>`;
     }
 
-    // Priority Actions
+    // ═══ COMMUNICATIONS HEALTH (like INTL Comms section) ═══
+    h += `<div class="section-panel">`;
+    h += `<div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> COMMUNICATIONS HEALTH</div>`;
+    h += `<table class="data-table"><thead><tr><th>System</th><th style="text-align:right;">Status</th></tr></thead><tbody>`;
+    h += `<tr><td>Safety PLC (CC530)</td><td style="text-align:right;"><span style="background:var(--green);color:#000;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;">OK</span></td></tr>`;
+    h += `<tr><td>SC3 Master Controller</td><td style="text-align:right;"><span style="background:${trace.connected?'var(--green)':'var(--red)'};color:#000;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;">${trace.connected?'OK':'OFFLINE'}</span></td></tr>`;
+    h += `<tr><td>LSM Contactors (${zones.filter(z=>z.spc_ok).length}/${zones.length} zones)</td><td style="text-align:right;"><span style="background:${zones.every(z=>z.spc_ok)?'var(--green)':'var(--red)'};color:#000;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;">${zones.every(z=>z.spc_ok)?zones.length+'/'+zones.length+' OK':'FAULT'}</span></td></tr>`;
+    h += `<tr><td>48V Power Supply (${zones.filter(z=>z.power_ok).length}/${zones.length} zones)</td><td style="text-align:right;"><span style="background:${zones.every(z=>z.power_ok)?'var(--green)':'var(--red)'};color:#000;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;">${zones.every(z=>z.power_ok)?zones.length+'/'+zones.length+' OK':'FAULT'}</span></td></tr>`;
+    h += `</tbody></table></div>`;
+
+    // ═══ PRIORITY ACTIONS (matches INTL style — colored severity bands) ═══
     if (actions.length > 0) {
-      h += '<div class="section-panel">';
-      h += '<div class="section-title"><span class="section-dot" style="background:var(--red)"></span> PRIORITY ACTIONS</div>';
-      actions.forEach(a => {
-        const sev = a.severity || 'INFO';
-        const color = sev === 'CRITICAL' ? 'var(--red)' : sev === 'WARNING' ? 'var(--yellow)' : 'var(--blue)';
-        const icon = sev === 'CRITICAL' ? '\ud83d\udea8' : sev === 'WARNING' ? '\u26a0\ufe0f' : '\u2139\ufe0f';
-        h += `<div style="padding:6px 0;border-bottom:1px solid var(--border-light);font-size:12px;">`;
-        h += `<span>${icon}</span> <span style="color:${color};font-weight:600;">[${sev}]</span> ${esc(a.text)} <span style="color:var(--text-secondary);font-size:10px;">(${esc(a.component || '')})</span>`;
-        h += '</div>';
+      h += `<div class="section-panel">`;
+      h += `<div class="section-title"><span class="section-dot" style="background:var(--red)"></span> PRIORITY ACTIONS</div>`;
+      actions.forEach((a, i) => {
+        const sev = (a.severity || 'INFO').toUpperCase();
+        const bg = sev === 'CRITICAL' ? 'rgba(239,68,68,0.15)' : sev === 'WARNING' ? 'rgba(234,179,8,0.1)' : 'rgba(59,130,246,0.08)';
+        const border = sev === 'CRITICAL' ? 'var(--red)' : sev === 'WARNING' ? 'var(--yellow)' : 'var(--blue)';
+        h += `<div style="background:${bg};border-left:3px solid ${border};border-radius:4px;padding:10px 14px;margin-bottom:8px;">`;
+        h += `<div style="font-size:12px;font-weight:700;color:var(--text-primary);">${i+1}. &nbsp;${esc(a.text)}</div>`;
+        if (a.component) h += `<div style="font-size:10px;color:var(--text-secondary);margin-top:3px;">${esc(a.component)}</div>`;
+        h += `</div>`;
       });
-      h += '</div>';
+      h += `</div>`;
     }
 
-    // S04 Code Breakdown
-    const s04 = trace.s04_codes || {};
-    if (Object.keys(s04).length > 0) {
-      h += '<div class="section-panel">';
-      h += '<div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> S04 SORT CODE BREAKDOWN</div>';
-      h += '<table class="data-table"><thead><tr><th>Code</th><th>Count</th><th>Meaning</th></tr></thead><tbody>';
-      const meanings = {'00':'Successful divert','01':'Empty carrier offload','05':'Recirculation','06':'Non-op chute','08':'Manual sort','10':'Multi-read','12':'No destination','13':'Overflow','14':'Failure to divert','21':'Bad position'};
-      Object.entries(s04).sort((a,b) => b[1]-a[1]).forEach(([code, count]) => {
-        const color = code === '00' ? 'color:var(--green)' : code === '06' ? 'color:var(--red)' : code === '05' ? 'color:var(--yellow)' : '';
-        h += `<tr><td style="${color};font-weight:700;">${code}</td><td style="${color}">${count.toLocaleString()}</td><td style="color:var(--text-secondary);font-size:11px;">${meanings[code] || 'Unknown'}</td></tr>`;
-      });
-      h += '</tbody></table></div>';
-    }
+    // ═══ LIVE STATE SUMMARY (matches INTL table at bottom) ═══
+    h += `<div class="section-panel">`;
+    h += `<div class="section-title"><span class="section-dot" style="background:var(--green)"></span> LIVE STATE SUMMARY</div>`;
+    h += `<table class="data-table"><thead><tr><th>Parameter</th><th>Value</th><th style="text-align:right;">Status</th></tr></thead><tbody>`;
+    h += demStateRow('Sorter State', running ? 'RUNNING' : sorter.state.toUpperCase(), running);
+    h += demStateRow('Contactor Enable', sorter.contactor_enable ? 'ENABLED' : 'OPEN', sorter.contactor_enable);
+    h += demStateRow('LSM All Zones', sorter.lsm_all_ok ? 'ALL OK' : 'FAULT', sorter.lsm_all_ok);
+    h += demStateRow('E-Stops Active', (safety.estops_active || 0).toString(), (safety.estops_active || 0) === 0);
+    h += demStateRow('Gates Open', (safety.gates_open || 0).toString(), (safety.gates_open || 0) === 0);
+    h += demStateRow('Safety Devices', safety.safdev_tripped > 0 ? 'TRIPPED' : 'OK', safety.safdev_tripped === 0);
+    h += demStateRow('Non-Op Rate', nonOpPct.toFixed(2) + '%', nonOpPct < 5);
+    h += demStateRow('Sorts/Hour', sortsHr.toLocaleString(), sortsHr > 0);
+    h += `</tbody></table></div>`;
 
     return h;
   }
 
-  function getWeekNumber() {
-    const d = new Date();
-    const onejan = new Date(d.getFullYear(), 0, 1);
-    return Math.ceil((((d - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+  function demKpi(label, value, sub, color) {
+    const c = color || 'green';
+    return `<div class="kpi-card"><div class="kpi-label">${label}</div><div class="kpi-value ${c}">${value}</div><div class="kpi-subtitle">${sub}</div></div>`;
+  }
+
+  function demStateRow(param, value, ok) {
+    const icon = ok ? '\u2713' : '\u26a0';
+    const color = ok ? 'var(--green)' : 'var(--yellow)';
+    return `<tr><td>${param}</td><td>${value}</td><td style="text-align:right;color:${color};">${icon}</td></tr>`;
   }
 
   function kpi(label, value, sub, color) {
