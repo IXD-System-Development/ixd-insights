@@ -129,7 +129,7 @@ const SiteDetail = (() => {
 
     // KPI Cards - 4 columns matching Benplaci layout
     h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
-    h += kpi('Carrier Avail', `${availPct}%`, `${carriers.available || '?'}/${data.carrier_count || 2340}`, availPct > 95 ? 'green' : availPct > 90 ? 'yellow' : 'red');
+    h += kpi('Carrier Avail', `${availPct}%`, `${available}/${total}`, availPct > 95 ? 'green' : availPct > 90 ? 'yellow' : 'red');
     h += kpi('Faulted Carriers', String(faulted), 'MCB failures', faulted > 50 ? 'red' : faulted > 20 ? 'yellow' : 'green');
     h += kpi('Disabled Carriers', String(disabled), 'out of service', disabled > 100 ? 'red' : disabled > 50 ? 'yellow' : 'green');
     h += kpi('Total Inducted', inducted ? Number(inducted).toLocaleString() : '\u2014', 'this week', 'green');
