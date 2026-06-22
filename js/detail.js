@@ -833,15 +833,21 @@ const SiteDetail = (() => {
     // MHE Defect Summary KPIs
     const ok = breakdown.Ok || 0;
     const ftd = breakdown.NoActivation || 0;
-    const laneFull = breakdown.LaneFull || 0;
+    const gapError = breakdown.TrayspacingHorizontal || 0;
+    const laneNonOp = breakdown.LaneBlocked || 0;
     const utd = breakdown.ItemOnActivatedCarrier || 0;
+    const laneFull = breakdown.LaneFull || 0;
     const noRead = breakdown.NoAnswerFromScanner || 0;
     const maxRecirc = breakdown.MaxRecirculation || 0;
-    const total = ok + ftd + laneFull + utd + noRead + maxRecirc;
-    const ftdPct = total > 0 ? (ftd / total * 100).toFixed(2) : 0;
-    const lanePct = total > 0 ? (laneFull / total * 100).toFixed(1) : 0;
-    const utdPct = total > 0 ? (utd / total * 100).toFixed(2) : 0;
-    const nrPct = total > 0 ? (noRead / total * 100).toFixed(2) : 0;
+    // MySPD MHE Defect = FTD + Gap Error + Lane Non-Op + UTD
+    const mheTotal = ftd + gapError + laneNonOp + utd;
+    // Denominator = all sort outcomes (exclude ItemScanned + CodeUsed)
+    const sortDenom = Object.entries(breakdown).filter(([k]) => k !== 'ItemScanned' && k !== 'CodeUsed').reduce((s,[,v]) => s + v, 0);
+    const mhePct = sortDenom > 0 ? (mheTotal / sortDenom * 100).toFixed(2) : 0;
+    const ftdPct = sortDenom > 0 ? (ftd / sortDenom * 100).toFixed(2) : 0;
+    const gapPct = sortDenom > 0 ? (gapError / sortDenom * 100).toFixed(2) : 0;
+    const laneNonOpPct = sortDenom > 0 ? (laneNonOp / sortDenom * 100).toFixed(2) : 0;
+    const utdPct = sortDenom > 0 ? (utd / sortDenom * 100).toFixed(2) : 0;
 
     html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--red)"></span> MHE Defect Breakdown (Weekly)</div>';
     html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
@@ -858,11 +864,16 @@ const SiteDetail = (() => {
     sorted.forEach(([reason, count]) => {
       const pct = grandTotal > 0 ? (count / grandTotal * 100).toFixed(2) : 0;
       let impact = '';
-      if (reason === 'NoActivation') impact = '<span class="badge-fault">MHE DEFECT</span>';
-      else if (reason === 'NoAnswerFromScanner') impact = '<span class="badge-fault">SCAN DEFECT</span>';
-      else if (reason === 'ItemOnActivatedCarrier') impact = '<span class="badge-fault">MHE DEFECT</span>';
-      else if (reason === 'Ok') impact = '<span class="badge-ok">GOOD</span>';
-      else impact = '<span style="color:var(--text-secondary)">Ops/Config</span>';
+      const mheCodes = ['NoActivation','TrayspacingHorizontal','ItemOnActivatedCarrier','LaneBlocked','LaneJammed'];
+      const scanCodes = ['NoAnswerFromScanner','NotCodeConverted','MultipleBarcode'];
+      const opsCodes = ['LaneFull','LaneUnavailable','LaneDisabled'];
+      const loadCodes = ['MaxRecirculation','SorterSpeedChange','ThroughputLimit'];
+      if (mheCodes.includes(reason)) impact = '<span class="badge-fault">MHE DEFECT</span>';
+      else if (scanCodes.includes(reason)) impact = '<span style="background:#1a3a5c;color:#58a6ff;padding:2px 6px;border-radius:4px;font-size:10px;">SCAN DEFECT</span>';
+      else if (reason === 'Ok' || reason === 'ItemScanned' || reason === 'CodeUsed') impact = '<span class="badge-ok">GOOD</span>';
+      else if (opsCodes.includes(reason)) impact = '<span style="background:#3b2e00;color:#d29922;padding:2px 6px;border-radius:4px;font-size:10px;">OPS DEFECT</span>';
+      else if (loadCodes.includes(reason)) impact = '<span style="background:#2d1f3d;color:#bc8cff;padding:2px 6px;border-radius:4px;font-size:10px;">LOAD BALANCE</span>';
+      else impact = '<span style="color:var(--text-secondary)">Other</span>';
       html += `<tr><td style="font-family:var(--font-mono)">${reason}</td><td style="font-weight:600">${count.toLocaleString()}</td><td>${pct}%</td><td>${impact}</td></tr>`;
     });
     html += '</tbody></table></div>';
