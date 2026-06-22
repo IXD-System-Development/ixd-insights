@@ -150,7 +150,7 @@ const SiteDetail = (() => {
     const chutesInhibited = chutes.inhibited || 0;
     const chutesJammed = chutes.jammed || 0;
     const chuteDown = chutesLocked + chutesInhibited + chutesJammed;
-    h += kpi('Chutes Down', `${chuteDown} / 144`, `${chutesLocked} No24VDC + ${chutesInhibited} MDR Not Ready + ${chutesJammed} Jammed`, chuteDown > 50 ? 'red' : chuteDown > 20 ? 'yellow' : 'green');
+    h += kpi('Chutes Down', `${chuteDown} / 144`, 'Lane Non Operational', chuteDown > 50 ? 'red' : chuteDown > 20 ? 'yellow' : 'green');
     h += '</div>';
 
     // PPU Health
