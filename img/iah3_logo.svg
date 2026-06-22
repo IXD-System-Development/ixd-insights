@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="bearGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00bcd4;stop-opacity:0.9"/>
+      <stop offset="100%" style="stop-color:#1a6fc8;stop-opacity:0.9"/>
+    </linearGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d333b"/>
+      <stop offset="100%" style="stop-color:#1c2028"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="96" fill="#f8f9fa"/>
+  <!-- Outer ring -->
+  <circle cx="100" cy="100" r="92" fill="none" stroke="url(#ringGrad)" stroke-width="7"/>
+  <!-- Cyan accent arcs -->
+  <path d="M 40 65 A 65 65 0 0 1 65 40" fill="none" stroke="#00bcd4" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 160 65 A 65 65 0 0 0 135 40" fill="none" stroke="#00bcd4" stroke-width="4" stroke-linecap="round"/>
+  <!-- IAH3 text at top -->
+  <text x="100" y="52" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="24" font-weight="900" fill="#2d333b" letter-spacing="2">IAH3</text>
+  <!-- Stars/dots -->
+  <circle cx="72" cy="62" r="2" fill="#2d333b"/>
+  <circle cx="82" cy="58" r="1.5" fill="#2d333b"/>
+  <circle cx="108" cy="56" r="2" fill="#2d333b"/>
+  <circle cx="118" cy="60" r="1.5" fill="#2d333b"/>
+  <circle cx="128" cy="58" r="2" fill="#2d333b"/>
+  <circle cx="95" cy="60" r="2.5" fill="#2d333b"/>
+  <!-- Rocket -->
+  <g transform="translate(78, 55) rotate(-45)">
+    <path d="M 0 0 L 2 -8 L 4 0 Z" fill="#2d333b"/>
+    <line x1="0" y1="0" x2="-2" y2="3" stroke="#2d333b" stroke-width="1"/>
+    <line x1="4" y1="0" x2="6" y2="3" stroke="#2d333b" stroke-width="1"/>
+  </g>
+  <!-- Bear silhouette (stylized) -->
+  <g transform="translate(60, 72)">
+    <!-- Bear body/shadow in cyan -->
+    <ellipse cx="45" cy="52" rx="35" ry="30" fill="url(#bearGrad)" opacity="0.7"/>
+    <!-- Bear head outline -->
+    <path d="M 55 35 C 55 25, 70 20, 75 30 C 80 20, 90 25, 88 35 C 92 38, 92 50, 85 55 C 82 60, 75 65, 65 62 C 55 65, 48 58, 45 52 C 40 48, 42 38, 55 35 Z" 
+          fill="none" stroke="#2d333b" stroke-width="2.5" stroke-linejoin="round"/>
+    <!-- Bear ear left -->
+    <path d="M 57 32 C 55 26, 60 22, 64 27" fill="none" stroke="#2d333b" stroke-width="2"/>
+    <!-- Bear ear right -->
+    <path d="M 80 28 C 82 22, 88 24, 86 30" fill="none" stroke="#2d333b" stroke-width="2"/>
+    <!-- Bear eye -->
+    <circle cx="67" cy="40" r="2.5" fill="#2d333b"/>
+    <circle cx="79" cy="40" r="2.5" fill="#2d333b"/>
+    <!-- Bear nose -->
+    <ellipse cx="73" cy="48" rx="4" ry="3" fill="#2d333b"/>
+    <!-- Bear mouth/chin -->
+    <path d="M 69 51 C 71 54, 75 54, 77 51" fill="none" stroke="#2d333b" stroke-width="1.5"/>
+    <!-- Mane/fur stripes -->
+    <path d="M 50 45 C 45 50, 42 58, 48 62" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.8"/>
+    <path d="M 52 48 C 48 52, 46 60, 50 64" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.6"/>
+  </g>
+  <!-- Bottom text: A TEAM WITH NO LIMITS -->
+  <path id="bottomArc" d="M 35 155 A 70 70 0 0 0 165 155" fill="none"/>
+  <text font-family="Arial Black, Arial, sans-serif" font-size="12" font-weight="900" fill="#2d333b" letter-spacing="2">
+    <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">A TEAM WITH NO LIMITS</textPath>
+  </text>
+</svg>
