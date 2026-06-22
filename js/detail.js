@@ -570,7 +570,7 @@ const SiteDetail = (() => {
 
     // South (Lower)
     html += `<div style="background:var(--bg-card);border:1px solid var(--border);border-top:3px solid var(--yellow);border-radius:8px;padding:16px;">`;
-    html += `<div style="font-size:13px;font-weight:700;color:var(--yellow);margin-bottom:12px;">\ud83d\udfe1 SOUTH / LOWER (Operations)</div>`;
+    html += `<div style="font-size:13px;font-weight:700;color:var(--yellow);margin-bottom:12px;">Ops Chute Jam Lower</div>`;
     if (south.length > 0) {
       html += `<div style="font-size:11px;color:var(--text-secondary);margin-bottom:8px;">${south.length} active jam(s)</div>`;
       south.forEach(j => {
@@ -587,7 +587,7 @@ const SiteDetail = (() => {
 
     // North (Upper)
     html += `<div style="background:var(--bg-card);border:1px solid var(--border);border-top:3px solid var(--orange);border-radius:8px;padding:16px;">`;
-    html += `<div style="font-size:13px;font-weight:700;color:var(--orange);margin-bottom:12px;">\ud83d\udfe0 NORTH / UPPER (RME)</div>`;
+    html += `<div style="font-size:13px;font-weight:700;color:var(--orange);margin-bottom:12px;">RME Chute Jam Upper</div>`;
     if (north.length > 0) {
       html += `<div style="font-size:11px;color:var(--text-secondary);margin-bottom:8px;">${north.length} active jam(s)</div>`;
       north.forEach(j => {
