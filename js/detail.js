@@ -581,7 +581,8 @@ const SiteDetail = (() => {
         html += `<div style="font-size:10px;color:var(--text-secondary);margin-bottom:6px;">${items.length} active jam(s)</div>`;
         items.forEach(j => {
           const durColor = j.duration_min > 60 ? 'var(--red)' : j.duration_min > 15 ? 'var(--yellow)' : 'var(--text-primary)';
-          html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 8px;margin-bottom:3px;background:var(--bg-surface);border-radius:4px;border-left:3px solid ${durColor};">
+          const flash = j.duration_min > 10 ? 'animation:fault-flash 1s infinite;' : '';
+          html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 8px;margin-bottom:3px;background:${j.duration_min > 10 ? 'var(--red-bg)' : 'var(--bg-surface)'};border-radius:4px;border-left:3px solid ${durColor};${flash}">
             <span style="font-size:10px;font-family:var(--font-mono);font-weight:600;">${j.name}</span>
             <span style="font-size:10px;font-weight:700;color:${durColor};">${j.duration_min} min</span>
           </div>`;
