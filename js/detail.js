@@ -852,31 +852,30 @@ const SiteDetail = (() => {
     html += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">\ud83d\udc5f Shoe Sorter \u2014 CP67 / CP68</div>`;
 
     // KPI cards row
-    const totalNodes = (ss.profibus_ok || 0) + (ss.profibus_fault || 0);
-    const profibusColor = ss.profibus_fault > 0 ? 'red' : 'green';
+    const nodes2 = ss.profibus_nodes || []; const totalNodes = nodes2.length;
+    const profibusColor = nodes2.filter(n => n.ok === false).length > 0 ? 'red' : 'green';
     const gridlockColor = ss.gridlock ? 'red' : 'green';
     const jamCount = (ss.jams || []).length;
     const jamColor = jamCount > 0 ? 'red' : 'green';
 
     html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
-    html += `<div class="kpi-card ${profibusColor}"><div class="kpi-label">Profibus Nodes</div><div class="kpi-value ${profibusColor}">${ss.profibus_ok || 0}/${totalNodes}</div><div class="kpi-subtitle">${ss.profibus_fault || 0} faulted</div></div>`;
+    html += `<div class="kpi-card ${profibusColor}"><div class="kpi-label">Profibus Nodes</div><div class="kpi-value ${profibusColor}">${nodes2.filter(n=>n.ok).length}/${totalNodes}</div><div class="kpi-subtitle">${nodes2.filter(n=>n.ok===false).length} faulted</div></div>`;
     html += `<div class="kpi-card ${gridlockColor}"><div class="kpi-label">Gridlock Avoidance</div><div class="kpi-value ${gridlockColor}">${ss.gridlock ? 'ACTIVE' : 'OK'}</div><div class="kpi-subtitle">${ss.gridlock ? 'gridlock detected' : 'no gridlock'}</div></div>`;
     html += `<div class="kpi-card ${jamColor}"><div class="kpi-label">Active Jams</div><div class="kpi-value ${jamColor}">${jamCount}</div><div class="kpi-subtitle">${jamCount > 0 ? (ss.jams || []).join(', ') : 'all clear'}</div></div>`;
     html += `<div class="kpi-card green"><div class="kpi-label">Induct Count</div><div class="kpi-value green">${(ss.induct_count || 0).toLocaleString()}</div><div class="kpi-subtitle">items inducted</div></div>`;
     html += '</div>';
 
     // Profibus Health Grid (like LSM)
-    html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--${profibusColor})"></span> Profibus Slave Health (CP68 Nodes)</div>';
+    const nodes = ss.profibus_nodes || [];
+    const profiFaulted = nodes.filter(n => n.ok === false).length;
+    const profiColor2 = profiFaulted > 0 ? 'yellow' : 'green';
+    html += `<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--${profiColor2})"></span> Profibus Slave Health (CP68 Nodes)</div>`;
     html += '<div style="margin-bottom:8px;font-size:10px;color:var(--text-secondary);">\u25cf Green = communicating | \u25cf Red = fault</div>';
     html += '<div class="health-grid">';
-    const slaveNames = ['68307', '68306', '68305', '68304', '68303', '68302', '68301', '68211', '68210', '68209'];
-    const okCount = ss.profibus_ok || 0;
-    const faultCount = ss.profibus_fault || 0;
-    slaveNames.forEach((name, i) => {
-      const isFault = i >= okCount;
-      const color = isFault ? 'red' : 'green';
-      const icon = isFault ? '\u2717' : '\u2713';
-      html += `<div class="health-cell ${color}"><div class="health-cell-label">${name}</div><div class="health-cell-value ${color}">${icon}</div></div>`;
+    nodes.forEach(n => {
+      const color = n.ok === true ? 'green' : n.ok === false ? 'red' : 'grey';
+      const icon = n.ok === true ? '\u2713' : n.ok === false ? '\u2717' : '\u2014';
+      html += `<div class="health-cell ${color}"><div class="health-cell-label">${n.name}</div><div class="health-cell-value ${color}">${icon}</div></div>`;
     });
     html += '</div></div>';
 
