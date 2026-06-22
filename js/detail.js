@@ -559,51 +559,40 @@ const SiteDetail = (() => {
     if (!container) return;
     const result = DataLayer.getCachedData(_siteId);
     if (!result) { container.innerHTML = '<div class="section-panel"><p style="color:var(--text-secondary)">No data.</p></div>'; return; }
-    const jams = result.active_jams || {south:[], north:[]};
-    const south = jams.south || [];
-    const north = jams.north || [];
+    const jams = result.active_jams || {};
 
     let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>';
 
-    // Side by side panels
+    // 2x2 grid
     html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">';
 
-    // South (Lower)
-    html += `<div style="background:var(--bg-card);border:1px solid var(--border);border-top:3px solid var(--yellow);border-radius:8px;padding:16px;">`;
-    html += `<div style="font-size:13px;font-weight:700;color:var(--yellow);margin-bottom:12px;">Ops Chute Jam Lower</div>`;
-    if (south.length > 0) {
-      html += `<div style="font-size:11px;color:var(--text-secondary);margin-bottom:8px;">${south.length} active jam(s)</div>`;
-      south.forEach(j => {
-        const durColor = j.duration_min > 60 ? 'var(--red)' : j.duration_min > 15 ? 'var(--yellow)' : 'var(--text-primary)';
-        html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;margin-bottom:4px;background:var(--bg-surface);border-radius:4px;border-left:3px solid ${durColor};">
-          <span style="font-size:11px;font-family:var(--font-mono);font-weight:600;">${j.name}</span>
-          <span style="font-size:11px;font-weight:700;color:${durColor};">${j.duration_min} min</span>
-        </div>`;
-      });
-    } else {
-      html += '<div style="text-align:center;padding:20px;color:var(--green);font-size:12px;">\u2713 No active jams</div>';
-    }
+    const boxes = [
+      {key:'north_upper', title:'RME Chute Jam Upper (Northside)', color:'var(--red)', border:'var(--red)'},
+      {key:'south_upper', title:'RME Chute Jam Upper (Southside)', color:'var(--orange)', border:'var(--orange)'},
+      {key:'north_lower', title:'Ops Chute Jam Lower (Northside)', color:'var(--yellow)', border:'var(--yellow)'},
+      {key:'south_lower', title:'Ops Chute Jam Lower (Southside)', color:'var(--blue)', border:'var(--blue)'},
+    ];
+
+    boxes.forEach(box => {
+      const items = jams[box.key] || [];
+      html += `<div style="background:var(--bg-card);border:1px solid var(--border);border-top:3px solid ${box.border};border-radius:8px;padding:16px;">`;
+      html += `<div style="font-size:12px;font-weight:700;color:${box.color};margin-bottom:10px;">${box.title}</div>`;
+      if (items.length > 0) {
+        html += `<div style="font-size:10px;color:var(--text-secondary);margin-bottom:6px;">${items.length} active jam(s)</div>`;
+        items.forEach(j => {
+          const durColor = j.duration_min > 60 ? 'var(--red)' : j.duration_min > 15 ? 'var(--yellow)' : 'var(--text-primary)';
+          html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 8px;margin-bottom:3px;background:var(--bg-surface);border-radius:4px;border-left:3px solid ${durColor};">
+            <span style="font-size:10px;font-family:var(--font-mono);font-weight:600;">${j.name}</span>
+            <span style="font-size:10px;font-weight:700;color:${durColor};">${j.duration_min} min</span>
+          </div>`;
+        });
+      } else {
+        html += '<div style="text-align:center;padding:16px;color:var(--green);font-size:11px;">\u2713 No active jams</div>';
+      }
+      html += '</div>';
+    });
+
     html += '</div>';
-
-    // North (Upper)
-    html += `<div style="background:var(--bg-card);border:1px solid var(--border);border-top:3px solid var(--orange);border-radius:8px;padding:16px;">`;
-    html += `<div style="font-size:13px;font-weight:700;color:var(--orange);margin-bottom:12px;">RME Chute Jam Upper</div>`;
-    if (north.length > 0) {
-      html += `<div style="font-size:11px;color:var(--text-secondary);margin-bottom:8px;">${north.length} active jam(s)</div>`;
-      north.forEach(j => {
-        const durColor = j.duration_min > 60 ? 'var(--red)' : j.duration_min > 15 ? 'var(--yellow)' : 'var(--text-primary)';
-        html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;margin-bottom:4px;background:var(--bg-surface);border-radius:4px;border-left:3px solid ${durColor};">
-          <span style="font-size:11px;font-family:var(--font-mono);font-weight:600;">${j.name}</span>
-          <span style="font-size:11px;font-weight:700;color:${durColor};">${j.duration_min} min</span>
-        </div>`;
-      });
-    } else {
-      html += '<div style="text-align:center;padding:20px;color:var(--green);font-size:12px;">\u2713 No active jams</div>';
-    }
-    html += '</div>';
-
-    html += '</div>'; // close grid
-
     container.innerHTML = html;
   }
 
