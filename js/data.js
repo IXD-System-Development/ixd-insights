@@ -127,14 +127,24 @@ const DataLayer = (() => {
 
     if (oem === 'DEM') {
       const safety = data.safety_plc || {};
+      const sorter = data.sorter || {};
       const trace = data.trace || {};
-      if (safety.status === 'FAULT' || safety.estops_active > 0) {
+      const actions = data.priority_actions || [];
+      const hasCritical = actions.some(a => a.severity === 'CRITICAL');
+      const hasWarning = actions.some(a => a.severity === 'WARNING');
+
+      if (safety.status === 'ESTOP' || safety.estops_active > 0) {
+        return { color: 'red', text: 'E-STOP' };
+      }
+      if (safety.status === 'FAULT' || safety.status === 'SAFDEV_TRIP') {
         return { color: 'red', text: 'Safety Fault' };
       }
-      if ((trace.active_faults || 0) > 0) {
-        return { color: 'yellow', text: `${trace.active_faults} Fault${trace.active_faults > 1 ? 's' : ''}` };
+      if (!sorter.running && sorter.state !== 'running') {
+        return { color: 'red', text: 'STOPPED' };
       }
-      return { color: 'green', text: 'OK' };
+      if (hasCritical) return { color: 'red', text: 'CRITICAL' };
+      if (hasWarning) return { color: 'yellow', text: `${actions.length} Warning${actions.length > 1 ? 's' : ''}` };
+      return { color: 'green', text: 'Running' };
     }
 
     return { color: 'grey', text: 'Unknown OEM' };
