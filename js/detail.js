@@ -311,12 +311,11 @@ const SiteDetail = (() => {
     const chutesDownList = trace.chutes_down || [];
     const inductFaults = trace.induct_faults_12h || [];
     const s04 = trace.s04_codes || {};
-
     const wkNum = (() => { const d2=new Date(); const onejan=new Date(d2.getFullYear(),0,1); return Math.ceil((((d2-onejan)/86400000)+onejan.getDay()+1)/7); })();
 
     let h = '';
 
-    // ═══ HEADER (matches INTL style) ═══
+    // Header
     h += `<div class="detail-header">`;
     h += `<a href="sites.html" class="back-link">\u2190 Back to Fleet</a>`;
     h += `<span class="detail-site-id">${_siteId}</span>`;
@@ -324,39 +323,39 @@ const SiteDetail = (() => {
     h += `<span class="staleness-badge staleness-${staleness.status}">\u25cf ${staleness.label}</span>`;
     h += `</div>`;
 
-    // Site info line
-    h += `<div style="font-size:11px;color:var(--text-secondary);margin:4px 0 12px 0;">\ud83c\udfed ${_siteId} \u2014 10.225.139.140 | Wk${wkNum}</div>`;
+    // Site info
+    h += `<div style="font-size:11px;color:var(--text-secondary);margin:4px 0 12px 0;">${_siteId} \u2014 10.225.139.140 | Wk${wkNum}</div>`;
 
-    // ═══ SORTER STATE BANNER ═══
+    // Sorter banner
     const bannerColor = running ? 'var(--green)' : sorter.state === 'estopped' ? 'var(--red)' : 'var(--yellow)';
     const bannerText = running ? '\u25cf SORTER RUNNING' : sorter.state === 'estopped' ? '\u25cf SORTER E-STOPPED' : sorter.state === 'fault' ? '\u25cf SORTER FAULT' : '\u25cf SORTER STOPPED';
     h += `<div style="background:${bannerColor}15;border:1px solid ${bannerColor};border-radius:6px;padding:10px 16px;text-align:center;font-weight:700;color:${bannerColor};font-size:13px;margin-bottom:16px;">${bannerText}</div>`;
 
-    // ═══ KPI ROW 1 — Throughput (matches INTL row 1 layout) ═══
-    h += `<div class="kpi-grid">`;
+    // KPI Row 1
+    h += `<div class="kpi-row">`;
     h += demKpi('SORTS / HOUR', sortsHr.toLocaleString(), 'successful diverts/hr', 'green');
     h += demKpi('NON-OP %', nonOpPct.toFixed(2) + '%', 'chute unavailable', nonOpPct > 5 ? 'red' : nonOpPct > 3 ? 'yellow' : 'green');
     h += demKpi('RECIRC %', recircPct.toFixed(2) + '%', 'recirculation rate', recircPct > 60 ? 'red' : recircPct > 40 ? 'yellow' : 'green');
     h += demKpi('TOTAL INDUCTED', totalInducted.toLocaleString(), 'this shift', 'green');
     h += `</div>`;
 
-    // ═══ KPI ROW 2 — Sort detail ═══
-    h += `<div class="kpi-grid">`;
+    // KPI Row 2
+    h += `<div class="kpi-row">`;
     h += demKpi('TOTAL DIVERTED', totalDiverted.toLocaleString(), 'this shift', 'green');
     h += demKpi('MULTI-READ %', multiRead.toFixed(2) + '%', 'Wk' + wkNum, multiRead > 3 ? 'red' : 'green');
     h += demKpi('SUCCESS %', successPct.toFixed(1) + '%', 'diverted / inducted', successPct > 40 ? 'green' : 'yellow');
     h += demKpi('CARRIER SD', carrierSD.toString(), 'trips / 24h', carrierSD > 20 ? 'red' : carrierSD > 5 ? 'yellow' : 'green');
     h += `</div>`;
 
-    // ═══ KPI ROW 3 — Safety + Chutes ═══
-    h += `<div class="kpi-grid">`;
-    h += demKpi('E-STOP EVENTS', (safety.estops_active || 0) + ' / 0 min', 'events / downtime this shift', (safety.estops_active||0) > 0 ? 'red' : 'green');
+    // KPI Row 3
+    h += `<div class="kpi-row">`;
+    h += demKpi('E-STOP EVENTS', (safety.estops_active || 0) + ' / 0 min', 'events / downtime', (safety.estops_active||0) > 0 ? 'red' : 'green');
     h += demKpi('GATES OPEN', (safety.gates_open || 0).toString(), 'safety gates open', (safety.gates_open||0) > 0 ? 'yellow' : 'green');
     h += demKpi('SAFETY DEVICES', safety.safdev_tripped > 0 ? 'TRIPPED' : 'OK', safety.safdev_tripped > 0 ? (safety.safdev_list||[]).join(', ') : 'series OK', safety.safdev_tripped > 0 ? 'red' : 'green');
-    h += demKpi('CHUTES DOWN', chutesDown + ' / ' + (chutesDownList.length > 0 ? chutesDownList.reduce((s,c)=>s+c.count,0) : 0), 'non-op chutes / failures', chutesDown > 5 ? 'red' : chutesDown > 2 ? 'yellow' : 'green');
+    h += demKpi('CHUTES DOWN', chutesDown + ' / ' + (chutesDownList.length > 0 ? chutesDownList.reduce((s,c)=>s+c.count,0) : 0), 'non-op / total failures', chutesDown > 5 ? 'red' : chutesDown > 2 ? 'yellow' : 'green');
     h += `</div>`;
 
-    // ═══ ZONE HEALTH — LSM / POWER (like PPU Health section) ═══
+    // Zone Health
     h += `<div class="section-panel">`;
     h += `<div class="section-title"><span class="section-dot" style="background:var(--green)"></span> ZONE HEALTH \u2014 SAFETY PLC (${zones.length} Zones)</div>`;
     h += `<div style="display:grid;grid-template-columns:repeat(${zones.length},1fr);gap:8px;">`;
@@ -366,45 +365,44 @@ const SiteDetail = (() => {
       h += `<div style="background:var(--bg-surface);border:1px solid ${color};border-radius:6px;padding:12px 8px;text-align:center;">`;
       h += `<div style="font-size:9px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">${esc(z.id.replace('zone_','Zone '))}</div>`;
       h += `<div style="font-size:14px;color:${color};font-weight:700;">${ok ? '\u2713 Running' : '\u2717 ' + (z.faults||[]).join(', ')}</div>`;
-      h += `<div style="font-size:9px;color:var(--text-secondary);margin-top:6px;">LSM: ${z.spc_ok?'\u2705':'\u274c'} &nbsp; PWR: ${z.power_ok?'\u2705':'\u274c'} &nbsp; ESTOP: ${z.estop?'\u274c':'\u2705'} &nbsp; GATE: ${z.gate_open?'\u274c':'\u2705'}</div>`;
+      h += `<div style="font-size:9px;color:var(--text-secondary);margin-top:6px;">LSM: ${z.spc_ok?'\u2713':'\u2717'} | PWR: ${z.power_ok?'\u2713':'\u2717'} | ESTOP: ${z.estop?'\u2717':'\u2713'} | GATE: ${z.gate_open?'\u2717':'\u2713'}</div>`;
       h += `</div>`;
     });
     h += `</div></div>`;
 
-    // ═══ CHUTES DOWN — Non-op detail (like WPT/CRB grid) ═══
+    // Chutes Down
     if (chutesDownList.length > 0) {
       h += `<div class="section-panel">`;
       h += `<div class="section-title"><span class="section-dot" style="background:var(--yellow)"></span> NON-OP CHUTES \u2014 S04 CODE 06 (${chutesDownList.length} chutes)</div>`;
-      h += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px;">`;
+      h += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:6px;">`;
       chutesDownList.forEach(c => {
         const severity = c.count > 100 ? 'red' : c.count > 20 ? 'yellow' : 'green';
         const borderC = severity === 'red' ? 'var(--red)' : severity === 'yellow' ? 'var(--yellow)' : 'var(--border)';
         h += `<div style="background:var(--bg-surface);border:1px solid ${borderC};border-radius:4px;padding:6px;text-align:center;">`;
         h += `<div style="font-size:10px;color:var(--text-secondary);">M01${c.chute}</div>`;
         h += `<div style="font-size:12px;color:var(--${severity});font-weight:700;">${c.count > 100 ? '\u2717' : c.count > 20 ? '\u26a0' : '\u2713'}</div>`;
-        h += `<div style="font-size:9px;color:var(--text-secondary);">${c.count} fails</div>`;
+        h += `<div style="font-size:9px;color:var(--text-secondary);">${c.count}</div>`;
         h += `</div>`;
       });
       h += `</div></div>`;
     }
 
-    // ═══ INDUCT FAULTS (like UCD Health) ═══
+    // Induct Faults
     if (inductFaults.length > 0) {
       h += `<div class="section-panel">`;
-      h += `<div class="section-title"><span class="section-dot" style="background:var(--orange,#f59e0b)"></span> INDUCT STATION FAULTS \u2014 DEVICE=60 (12h)</div>`;
+      h += `<div class="section-title"><span class="section-dot" style="background:var(--yellow)"></span> INDUCT STATION FAULTS \u2014 DEVICE=60 (12h)</div>`;
       h += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px;">`;
       inductFaults.forEach(f => {
-        const severity = f.faults > 10 ? 'red' : f.faults > 3 ? 'yellow' : 'green';
-        const borderC = severity === 'red' ? 'var(--red)' : severity === 'yellow' ? 'var(--yellow)' : 'var(--border)';
+        const borderC = f.faults > 10 ? 'var(--red)' : f.faults > 3 ? 'var(--yellow)' : 'var(--border)';
         h += `<div style="background:var(--bg-surface);border:1px solid ${borderC};border-radius:4px;padding:6px;text-align:center;">`;
         h += `<div style="font-size:10px;color:var(--text-secondary);">${f.induct}</div>`;
-        h += `<div style="font-size:12px;color:var(--${severity});font-weight:700;">${f.faults > 10 ? '\u2717 FAULT' : '\u26a0'} ${f.faults}x</div>`;
+        h += `<div style="font-size:12px;color:var(--text-primary);font-weight:700;">${f.faults}x</div>`;
         h += `</div>`;
       });
       h += `</div></div>`;
     }
 
-    // ═══ COMMUNICATIONS HEALTH (like INTL Comms section) ═══
+    // Communications Health
     h += `<div class="section-panel">`;
     h += `<div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> COMMUNICATIONS HEALTH</div>`;
     h += `<table class="data-table"><thead><tr><th>System</th><th style="text-align:right;">Status</th></tr></thead><tbody>`;
@@ -414,7 +412,7 @@ const SiteDetail = (() => {
     h += `<tr><td>48V Power Supply (${zones.filter(z=>z.power_ok).length}/${zones.length} zones)</td><td style="text-align:right;"><span style="background:${zones.every(z=>z.power_ok)?'var(--green)':'var(--red)'};color:#000;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;">${zones.every(z=>z.power_ok)?zones.length+'/'+zones.length+' OK':'FAULT'}</span></td></tr>`;
     h += `</tbody></table></div>`;
 
-    // ═══ PRIORITY ACTIONS (matches INTL style — colored severity bands) ═══
+    // Priority Actions
     if (actions.length > 0) {
       h += `<div class="section-panel">`;
       h += `<div class="section-title"><span class="section-dot" style="background:var(--red)"></span> PRIORITY ACTIONS</div>`;
@@ -423,25 +421,25 @@ const SiteDetail = (() => {
         const bg = sev === 'CRITICAL' ? 'rgba(239,68,68,0.15)' : sev === 'WARNING' ? 'rgba(234,179,8,0.1)' : 'rgba(59,130,246,0.08)';
         const border = sev === 'CRITICAL' ? 'var(--red)' : sev === 'WARNING' ? 'var(--yellow)' : 'var(--blue)';
         h += `<div style="background:${bg};border-left:3px solid ${border};border-radius:4px;padding:10px 14px;margin-bottom:8px;">`;
-        h += `<div style="font-size:12px;font-weight:700;color:var(--text-primary);">${i+1}. &nbsp;${esc(a.text)}</div>`;
+        h += `<div style="font-size:12px;font-weight:700;color:var(--text-primary);">${i+1}. ${esc(a.text)}</div>`;
         if (a.component) h += `<div style="font-size:10px;color:var(--text-secondary);margin-top:3px;">${esc(a.component)}</div>`;
         h += `</div>`;
       });
       h += `</div>`;
     }
 
-    // ═══ LIVE STATE SUMMARY (matches INTL table at bottom) ═══
+    // Live State Summary
     h += `<div class="section-panel">`;
     h += `<div class="section-title"><span class="section-dot" style="background:var(--green)"></span> LIVE STATE SUMMARY</div>`;
     h += `<table class="data-table"><thead><tr><th>Parameter</th><th>Value</th><th style="text-align:right;">Status</th></tr></thead><tbody>`;
-    h += demStateRow('Sorter State', running ? 'RUNNING' : sorter.state.toUpperCase(), running);
-    h += demStateRow('Contactor Enable', sorter.contactor_enable ? 'ENABLED' : 'OPEN', sorter.contactor_enable);
-    h += demStateRow('LSM All Zones', sorter.lsm_all_ok ? 'ALL OK' : 'FAULT', sorter.lsm_all_ok);
-    h += demStateRow('E-Stops Active', (safety.estops_active || 0).toString(), (safety.estops_active || 0) === 0);
-    h += demStateRow('Gates Open', (safety.gates_open || 0).toString(), (safety.gates_open || 0) === 0);
-    h += demStateRow('Safety Devices', safety.safdev_tripped > 0 ? 'TRIPPED' : 'OK', safety.safdev_tripped === 0);
-    h += demStateRow('Non-Op Rate', nonOpPct.toFixed(2) + '%', nonOpPct < 5);
-    h += demStateRow('Sorts/Hour', sortsHr.toLocaleString(), sortsHr > 0);
+    h += demRow('Sorter State', running ? 'RUNNING' : sorter.state.toUpperCase(), running);
+    h += demRow('Contactor Enable', sorter.contactor_enable ? 'ENABLED' : 'OPEN', sorter.contactor_enable);
+    h += demRow('LSM All Zones', sorter.lsm_all_ok ? 'ALL OK' : 'FAULT', sorter.lsm_all_ok);
+    h += demRow('E-Stops Active', (safety.estops_active || 0).toString(), (safety.estops_active || 0) === 0);
+    h += demRow('Gates Open', (safety.gates_open || 0).toString(), (safety.gates_open || 0) === 0);
+    h += demRow('Safety Devices', safety.safdev_tripped > 0 ? 'TRIPPED' : 'OK', safety.safdev_tripped === 0);
+    h += demRow('Non-Op Rate', nonOpPct.toFixed(2) + '%', nonOpPct < 5);
+    h += demRow('Sorts/Hour', sortsHr.toLocaleString(), sortsHr > 0);
     h += `</tbody></table></div>`;
 
     return h;
@@ -449,10 +447,10 @@ const SiteDetail = (() => {
 
   function demKpi(label, value, sub, color) {
     const c = color || 'green';
-    return `<div class="kpi-card"><div class="kpi-label">${label}</div><div class="kpi-value ${c}">${value}</div><div class="kpi-subtitle">${sub}</div></div>`;
+    return `<div class="kpi-card ${c}"><div class="kpi-label">${label}</div><div class="kpi-value ${c}">${value}</div><div class="kpi-subtitle">${sub}</div></div>`;
   }
 
-  function demStateRow(param, value, ok) {
+  function demRow(param, value, ok) {
     const icon = ok ? '\u2713' : '\u26a0';
     const color = ok ? 'var(--green)' : 'var(--yellow)';
     return `<tr><td>${param}</td><td>${value}</td><td style="text-align:right;color:${color};">${icon}</td></tr>`;
