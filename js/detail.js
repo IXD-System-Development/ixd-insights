@@ -575,16 +575,16 @@ const SiteDetail = (() => {
 
     boxes.forEach(box => {
       const items = jams[box.key] || [];
-      html += `<div style="background:var(--bg-card);border:1px solid var(--border);border-top:3px solid ${box.border};border-radius:8px;padding:16px;">`;
-      html += `<div style="font-size:12px;font-weight:700;color:${box.color};margin-bottom:10px;">${box.title}</div>`;
+      html += `<div style="background:var(--bg-card);border:1px solid var(--border);border-top:3px solid ${box.border};border-radius:8px;padding:24px;min-height:250px;">`;
+      html += `<div style="font-size:14px;font-weight:700;color:${box.color};margin-bottom:14px;">${box.title}</div>`;
       if (items.length > 0) {
         html += `<div style="font-size:10px;color:var(--text-secondary);margin-bottom:6px;">${items.length} active jam(s)</div>`;
         items.forEach(j => {
           const durColor = j.duration_min > 60 ? 'var(--red)' : j.duration_min > 15 ? 'var(--yellow)' : 'var(--text-primary)';
           const flash = j.duration_min > 10 ? 'animation:fault-flash 1s infinite;' : '';
-          html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 8px;margin-bottom:3px;background:${j.duration_min > 10 ? 'var(--red-bg)' : 'var(--bg-surface)'};border-radius:4px;border-left:3px solid ${durColor};${flash}">
-            <span style="font-size:10px;font-family:var(--font-mono);font-weight:600;">${j.name}</span>
-            <span style="font-size:10px;font-weight:700;color:${durColor};">${j.duration_min} min</span>
+          html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:5px;background:${j.duration_min > 10 ? 'var(--red-bg)' : 'var(--bg-surface)'};border-radius:4px;border-left:3px solid ${durColor};${flash}">
+            <span style="font-size:12px;font-family:var(--font-mono);font-weight:600;">${j.name}</span>
+            <span style="font-size:12px;font-weight:700;color:${durColor};">${j.duration_min} min</span>
           </div>`;
         });
       } else {
