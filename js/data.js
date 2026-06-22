@@ -37,7 +37,7 @@ const DataLayer = (() => {
       return { data: _siteData[siteId]?.data || null, error: 'rate_limited' };
     }
 
-    const url = `${CONFIG.DATA_BASE_URL}/${siteId}.json`;
+    const url = `${CONFIG.DATA_BASE_URL}/${siteId}.json?t=${Date.now()}`;
     try {
       const resp = await fetch(url, { cache: 'no-store' });
       if (resp.status === 403) {
