@@ -136,9 +136,9 @@ const SiteDetail = (() => {
     h += kpi('Total Diverted', diverted ? Number(diverted).toLocaleString() : '\u2014', 'this week', 'green');
     h += kpi('Max Recirc %', `${recircPct}%`, 'target <1%', recircPct > 2 ? 'red' : recircPct > 1 ? 'yellow' : 'green');
     h += kpi('Lane Full %', weekly.lane_full_pct != null ? `${weekly.lane_full_pct}%` : '\u2014', 'chutes at capacity', weekly.lane_full_pct != null ? (weekly.lane_full_pct > 5 ? 'red' : weekly.lane_full_pct > 2 ? 'yellow' : 'green') : 'yellow');
-    h += kpi('FPY', fpyPct != null ? `${fpyPct}%` : '\u2014', 'Wk25', fpyPct != null ? (fpyPct >= 95 ? 'green' : fpyPct >= 80 ? 'yellow' : 'red') : 'yellow');
-    h += kpi('Scan Defect', scanDefect != null ? `${scanDefect}%` : '\u2014', 'Wk25', scanDefect != null ? (scanDefect > 5.5 ? 'red' : scanDefect > 3 ? 'yellow' : 'green') : 'yellow');
-    h += kpi('MHE Defect', mheDefect != null ? `${mheDefect}%` : '\u2014', 'Wk25', mheDefect != null ? (mheDefect > 3 ? 'red' : mheDefect > 1.5 ? 'yellow' : 'green') : 'green');
+    h += kpi('Crossbelt FPY', fpyPct != null ? `${fpyPct}%` : '\u2014', 'Wk25', fpyPct != null ? (fpyPct >= 95 ? 'green' : fpyPct >= 80 ? 'yellow' : 'red') : 'yellow');
+    h += kpi('Crossbelt Scan NR%', scanDefect != null ? `${scanDefect}%` : '\u2014', 'Wk25', scanDefect != null ? (scanDefect > 5.5 ? 'red' : scanDefect > 3 ? 'yellow' : 'green') : 'yellow');
+    h += kpi('Sort MHE Defect', mheDefect != null ? `${mheDefect}%` : '\u2014', 'Wk25', mheDefect != null ? (mheDefect > 3 ? 'red' : mheDefect > 1.5 ? 'yellow' : 'green') : 'green');
     h += kpi('IOB Trips', weekly.iob_downtime_min != null ? `${weekly.iob_trips} / ${weekly.iob_downtime_min} min` : '\u2014', 'trips / downtime this week', weekly.iob_downtime_min != null ? (weekly.iob_downtime_min > 60 ? 'red' : weekly.iob_downtime_min > 20 ? 'yellow' : 'green') : 'yellow');
     h += kpi('E-Stop Events', weekly.estop_downtime_min != null ? `${weekly.estop_events} / ${weekly.estop_downtime_min} min` : '\u2014', 'events / downtime this week', weekly.estop_downtime_min != null ? (weekly.estop_downtime_min > 120 ? 'red' : weekly.estop_downtime_min > 30 ? 'yellow' : 'green') : 'yellow');
     h += kpi('Sorter OTE', sorterOte != null ? `${sorterOte}%` : '\u2014', 'time running / total', sorterOte != null ? (sorterOte >= 95 ? 'green' : sorterOte >= 80 ? 'yellow' : 'red') : 'yellow');
