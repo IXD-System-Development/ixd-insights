@@ -88,7 +88,7 @@ const SiteDetail = (() => {
       <button class="filter-btn" onclick="SiteDetail.showChuteJamsTab()">Chute Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showInboundTab()">Inbound Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showSorterTab()">Sorter</button>
-      <button class="filter-btn" onclick="SiteDetail.showOutboundSouth()">Outbound South</button><button class="filter-btn" onclick="SiteDetail.showOutboundNorth()">Outbound North</button><button class="filter-btn" onclick="SiteDetail.showShoeSorter()">Shoe Sorter</button>
+      <button class="filter-btn" onclick="SiteDetail.showOutboundSouth()">Outbound Southside Jam</button><button class="filter-btn" onclick="SiteDetail.showOutboundNorth()">Outbound Northside Jam</button><button class="filter-btn" onclick="SiteDetail.showShoeSorter()">Shoe Sorter</button>
     </div>`;
 
     // Header
