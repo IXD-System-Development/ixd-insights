@@ -41,26 +41,7 @@ const Overview = (() => {
   }
 
   function renderFilterBar() {
-    const sites = DataLayer.getSites();
-    const regions = ['all', ...new Set(sites.map(s => s.region).filter(Boolean).sort())];
-    const container = document.getElementById('filter-bar');
-    if (!container) return;
-
-    container.innerHTML = regions.map(r => {
-      const active = r === _currentRegion ? 'active' : '';
-      const label = r === 'all' ? 'All Regions' : r;
-      return `<button class="filter-btn ${active}" data-region="${r}">${label}</button>`;
-    }).join('');
-
-    container.addEventListener('click', (e) => {
-      const btn = e.target.closest('.filter-btn');
-      if (!btn) return;
-      _currentRegion = btn.dataset.region;
-      setRegionInURL(_currentRegion);
-      container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderGrid();
-    });
+    // Region filters removed — show all sites
   }
 
   async function refresh() {
@@ -97,7 +78,8 @@ const Overview = (() => {
     // Click handlers
     container.querySelectorAll('.site-card').forEach(card => {
       card.addEventListener('click', () => {
-        window.location.href = `site.html?id=${card.dataset.siteId}`;
+        const sid = card.dataset.siteId;
+        window.location.href = `site.html?id=${sid}`;
       });
     });
   }
@@ -113,7 +95,6 @@ const Overview = (() => {
       const carriers = data.carriers || {};
       const sorter = data.sorter || {};
       const weekly = data.weekly || {};
-      const chutes = data.chutes || {};
       metricsHtml = `
         <div class="site-card-metrics">
           <div class="site-card-metric">
@@ -128,17 +109,19 @@ const Overview = (() => {
             <span>Disabled</span>
             <span class="site-card-metric-value">${carriers.disabled ?? '—'}</span>
           </div>
+        </div>
+        <div class="site-card-metrics" style="margin-top:4px;">
           <div class="site-card-metric">
             <span>OTE</span>
-            <span class="site-card-metric-value">${weekly.sorter_ote != null ? weekly.sorter_ote + '%' : '—'}</span>
+            <span class="site-card-metric-value">${weekly.sorter_ote ? weekly.sorter_ote + '%' : '—'}</span>
           </div>
           <div class="site-card-metric">
-            <span>MHE Defect</span>
-            <span class="site-card-metric-value">${weekly.plc_mhe_defect != null ? weekly.plc_mhe_defect + '%' : '—'}</span>
+            <span>MHE</span>
+            <span class="site-card-metric-value">${weekly.mhe_defect_icw ? weekly.mhe_defect_icw + '%' : '—'}</span>
           </div>
           <div class="site-card-metric">
-            <span>Scan NR%</span>
-            <span class="site-card-metric-value">${weekly.plc_scan_defect != null ? weekly.plc_scan_defect + '%' : (weekly.scan_defect_pct != null ? weekly.scan_defect_pct + '%' : '—')}</span>
+            <span>Scan</span>
+            <span class="site-card-metric-value">${weekly.scan_defect_pct ? weekly.scan_defect_pct + '%' : '—'}</span>
           </div>
           <div class="site-card-metric">
             <span>Speed</span>
@@ -146,24 +129,25 @@ const Overview = (() => {
           </div>
           <div class="site-card-metric">
             <span>Chutes Down</span>
-            <span class="site-card-metric-value">${((chutes.locked_out || 0) + (chutes.inhibited || 0)) || '—'}</span>
+            <span class="site-card-metric-value">${data.chutes ? (data.chutes.locked_out || 0) + (data.chutes.inhibited || 0) : '—'}</span>
           </div>
         </div>`;
     } else if (data && site.oem === 'DEM') {
       const trace = data.trace || {};
+      const sorter = data.sorter || {};
       metricsHtml = `
         <div class="site-card-metrics">
           <div class="site-card-metric">
-            <span>Faults</span>
-            <span class="site-card-metric-value">${trace.active_faults ?? '—'}</span>
+            <span>Sorts/hr</span>
+            <span class="site-card-metric-value">${trace.sorts_per_hour ? trace.sorts_per_hour.toLocaleString() : '—'}</span>
           </div>
           <div class="site-card-metric">
-            <span>Jams</span>
-            <span class="site-card-metric-value">${trace.chute_jams ?? '—'}</span>
+            <span>Non-Op</span>
+            <span class="site-card-metric-value">${trace.no_read_pct != null ? trace.no_read_pct.toFixed(1) + '%' : '—'}</span>
           </div>
           <div class="site-card-metric">
-            <span>SD Trips</span>
-            <span class="site-card-metric-value">${trace.carrier_sd_trips ?? '—'}</span>
+            <span>Chutes Down</span>
+            <span class="site-card-metric-value">${trace.chutes_down_count ?? trace.chute_jams ?? '—'}</span>
           </div>
         </div>`;
     }
@@ -188,7 +172,7 @@ const Overview = (() => {
         ${statusHtml}
         ${metricsHtml}
         <div class="staleness ${staleness.status}">
-          <span>${staleness.label}</span>
+          <span>${staleness.status === 'live' ? '\u25cf CONNECTED' : staleness.status === 'nodata' ? '\u25cf DISCONNECTED' : staleness.status === 'stale' ? '\u25cf DISCONNECTED' : '\u25cf ' + staleness.label}</span>
         </div>
       </div>`;
   }
