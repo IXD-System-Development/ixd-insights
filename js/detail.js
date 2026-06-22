@@ -121,7 +121,7 @@ const SiteDetail = (() => {
       nrMax > 5 ? 'red' : nrMax > 3 ? 'yellow' : 'green');
     html += kpiCard('Faulted Carriers', String(faulted), `of ${carrierCount} fleet`,
       faulted > 50 ? 'red' : faulted > 20 ? 'yellow' : 'green');
-    html += kpiCard('Availability', `${availPct}%`, `${carriers.available || '?'}/${carrierCount}`,
+    html += kpiCard('Carrier Avail', `${availPct}%`, `${carriers.available || '?'}/${carrierCount}`,
       availPct > 95 ? 'green' : availPct > 90 ? 'yellow' : 'red');
 
     const crbOk = !crb.master_alarm && (crb.units || []).every(u => !u.connection_faulted);
