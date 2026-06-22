@@ -845,31 +845,51 @@ const SiteDetail = (() => {
     const result = DataLayer.getCachedData(_siteId);
     if (!result) return;
     const ss = result.shoe_sorter || {};
+    const icw = ss.icw_stats || {};
 
     let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>';
+    html += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">\ud83d\udc5f Shoe Sorter \u2014 CP67 / CP68 (Main Router)</div>`;
 
-    // Header
-    html += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">\ud83d\udc5f Shoe Sorter \u2014 CP67 / CP68</div>`;
+    // Induct Statistics KPIs
+    html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--green)"></span> Induct Statistics</div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">';
+    html += kpi('Total Inducted', (icw.total_inducted || 0).toLocaleString(), 'this week', 'green');
+    html += kpi('Total Diverted', (icw.total_diverted || 0).toLocaleString(), 'this week', 'green');
+    const recirc = (icw.lane_full || 0) + (icw.max_recirc || 0);
+    const recircPct2 = icw.total_inducted > 0 ? (recirc / icw.total_inducted * 100).toFixed(1) : '0';
+    html += kpi('Recirculation', recirc.toLocaleString(), `${recircPct2}%`, recirc > 100000 ? 'yellow' : 'green');
+    html += kpi('Peak CPM', String(icw.peak_cpm || 0), 'cartons/min', 'blue');
+    html += '</div></div>';
 
-    // KPI cards row
-    const nodes2 = ss.profibus_nodes || []; const totalNodes = nodes2.length;
-    const profibusColor = nodes2.filter(n => n.ok === false).length > 0 ? 'red' : 'green';
-    const gridlockColor = ss.gridlock ? 'red' : 'green';
-    const jamCount = (ss.jams || []).length;
-    const jamColor = jamCount > 0 ? 'red' : 'green';
+    // MHE Statistics KPIs
+    html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--red)"></span> MHE Statistics</div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">';
+    html += kpi('No Activation (FTD)', (icw.no_activation || 0).toLocaleString(), 'failed to divert', icw.no_activation > 1000 ? 'red' : 'yellow');
+    html += kpi('Lane Full', (icw.lane_full || 0).toLocaleString(), 'chute at capacity', icw.lane_full > 100000 ? 'red' : 'yellow');
+    html += kpi('Lane Blocked', (icw.lane_blocked || 0).toLocaleString(), 'WCS blocked', icw.lane_blocked > 50000 ? 'yellow' : 'green');
+    html += kpi('No Scanner Read', (icw.no_read || 0).toLocaleString(), 'scan defect', icw.no_read > 5000 ? 'red' : 'yellow');
+    html += kpi('Max Recirculation', (icw.max_recirc || 0).toLocaleString(), 'hit limit', icw.max_recirc > 50000 ? 'red' : 'yellow');
+    html += kpi('Speed Change', (icw.speed_change || 0).toLocaleString(), 'sorter speed issues', 'yellow');
+    html += kpi('Induct Jam', ss.induct_jam ? 'ACTIVE' : 'OK', '', ss.induct_jam ? 'red' : 'green');
+    html += kpi('AGL Enabled', ss.agl_enabled ? 'ACTIVE' : 'OFF', 'auto gridlock', ss.agl_enabled ? 'yellow' : 'green');
+    html += '</div></div>';
 
-    html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
-    html += `<div class="kpi-card ${profibusColor}"><div class="kpi-label">Profibus Nodes</div><div class="kpi-value ${profibusColor}">${nodes2.filter(n=>n.ok).length}/${totalNodes}</div><div class="kpi-subtitle">${nodes2.filter(n=>n.ok===false).length} faulted</div></div>`;
-    html += `<div class="kpi-card ${gridlockColor}"><div class="kpi-label">Gridlock Avoidance</div><div class="kpi-value ${gridlockColor}">${ss.gridlock ? 'ACTIVE' : 'OK'}</div><div class="kpi-subtitle">${ss.gridlock ? 'gridlock detected' : 'no gridlock'}</div></div>`;
-    html += `<div class="kpi-card ${jamColor}"><div class="kpi-label">Active Jams</div><div class="kpi-value ${jamColor}">${jamCount}</div><div class="kpi-subtitle">${jamCount > 0 ? (ss.jams || []).join(', ') : 'all clear'}</div></div>`;
-    html += `<div class="kpi-card green"><div class="kpi-label">Induct Count</div><div class="kpi-value green">${(ss.induct_count || 0).toLocaleString()}</div><div class="kpi-subtitle">items inducted</div></div>`;
-    html += '</div>';
+    // Live Status
+    html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> Live Jam Status</div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">';
+    const jInduct = ss.induct_jam;
+    const jMiddle = ss.middle_jam;
+    const jExit = ss.exit_jam;
+    html += `<div class="health-cell ${jInduct ? 'red' : 'green'}"><div class="health-cell-label">Induct</div><div class="health-cell-value ${jInduct ? 'red' : 'green'}">${jInduct ? '\u2717 JAM' : '\u2713 OK'}</div></div>`;
+    html += `<div class="health-cell ${jMiddle ? 'red' : 'green'}"><div class="health-cell-label">Middle</div><div class="health-cell-value ${jMiddle ? 'red' : 'green'}">${jMiddle ? '\u2717 JAM' : '\u2713 OK'}</div></div>`;
+    html += `<div class="health-cell ${jExit ? 'red' : 'green'}"><div class="health-cell-label">Exit</div><div class="health-cell-value ${jExit ? 'red' : 'green'}">${jExit ? '\u2717 JAM' : '\u2713 OK'}</div></div>`;
+    html += '</div></div>';
 
-    // Profibus Health Grid (like LSM)
+    // Profibus Health Grid
     const nodes = ss.profibus_nodes || [];
     const profiFaulted = nodes.filter(n => n.ok === false).length;
-    const profiColor2 = profiFaulted > 0 ? 'yellow' : 'green';
-    html += `<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--${profiColor2})"></span> Profibus Slave Health (CP68 Nodes)</div>`;
+    const profiColor = profiFaulted > 0 ? 'yellow' : 'green';
+    html += `<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--${profiColor})"></span> Profibus Slave Health (CP68 Nodes)</div>`;
     html += '<div style="margin-bottom:8px;font-size:10px;color:var(--text-secondary);">\u25cf Green = communicating | \u25cf Red = fault</div>';
     html += '<div class="health-grid">';
     nodes.forEach(n => {
@@ -879,10 +899,11 @@ const SiteDetail = (() => {
     });
     html += '</div></div>';
 
-    // Active Jams
-    if (jamCount > 0) {
-      html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--red)"></span> Active Shoe Sorter Jams</div>';
-      (ss.jams || []).forEach(j => {
+    // Active zone jams
+    const zoneJams = ss.jams || [];
+    if (zoneJams.length > 0) {
+      html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--red)"></span> Active Zone Jams</div>';
+      zoneJams.forEach(j => {
         html += `<div style="padding:8px 12px;margin-bottom:5px;background:var(--red-bg);border-radius:4px;border-left:3px solid var(--red);animation:fault-flash 1s infinite;font-size:12px;font-weight:600;color:var(--red);">${j}</div>`;
       });
       html += '</div>';
