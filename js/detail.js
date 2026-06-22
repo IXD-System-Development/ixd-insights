@@ -24,8 +24,13 @@ const SiteDetail = (() => {
     if (result.error === 'rate_limited') return;
     if (!result.data) { showError(`No data for ${_siteId}.`); return; }
     render(result.data);
-    const el = document.getElementById('nav-refresh-status');
-    if (el) el.textContent = 'Updated: ' + new Date().toLocaleTimeString();
+    // Update header clock
+    const clockEl = document.getElementById('header-clock');
+    if (clockEl) {
+      const now = new Date();
+      const est = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
+      clockEl.textContent = est.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit',second:'2-digit'}) + ' EST';
+    }
   }
 
   function render(data) {
@@ -92,6 +97,7 @@ const SiteDetail = (() => {
       <span class="detail-site-id">${_siteId}</span><img src="img/rdu2_logo.png" alt="" style="height:40px;border-radius:50%;margin-left:8px;">
       <span class="site-card-oem oem-intl">INTL</span>
       <span class="detail-connection ${running ? 'online' : 'offline'}">${running ? '\u25cf LIVE' : '\u25cf OFFLINE'}</span>
+      <span id="header-clock" style="color:#3fb950;font-weight:600;font-size:12px;margin-left:auto;"></span>
     </div>`;
 
     h += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">\ud83c\udfed ${_siteId} \u2014 10.8.188.183 | Wk25</div>`;
