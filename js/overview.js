@@ -117,7 +117,7 @@ const Overview = (() => {
       metricsHtml = `
         <div class="site-card-metrics">
           <div class="site-card-metric">
-            <span>Avail</span>
+            <span>Carrier Avail</span>
             <span class="site-card-metric-value">${carriers.availability_pct || '—'}%</span>
           </div>
           <div class="site-card-metric">
