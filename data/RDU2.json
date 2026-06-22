@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-22 02:51:04 EST",
+  "timestamp": "2026-06-22 02:52:12 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-22 02:51",
+  "_pushed_at": "2026-06-22 02:52",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2405,
+    "speed": 2392,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 127,
+    "faulted": 122,
     "disabled": 39,
-    "available": 2174,
+    "available": 2179,
     "occupied": 2053,
-    "empty": 121,
-    "empty_pct": 5.2,
-    "availability_pct": 92.9
+    "empty": 126,
+    "empty_pct": 5.4,
+    "availability_pct": 93.1
   },
   "config": {
     "max_recirc": 5,
@@ -37,7 +37,7 @@
     },
     {
       "label": "IND3-Scn3",
-      "nr_pct": 5.46
+      "nr_pct": 5.45
     },
     {
       "label": "IND4-Scn4",
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 992
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1631
+      "carrier": 1904
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 227,
+    "1": 228,
     "13": 1,
     "10": 15,
     "9": 2
@@ -419,7 +419,7 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 913917,
+    "sorted": 913973,
     "recirculated": 13261,
     "recirc_pct": 1.43
   },
@@ -435,29 +435,29 @@
     "inducted": 122063,
     "diverted": 120373,
     "mhe_breakdown": {
-      "ItemScanned": 5668514,
-      "LaneFull": 2176093,
-      "CodeUsed": 1299529,
-      "Ok": 1284108,
-      "TrayspacingHorizontal": 229823,
+      "ItemScanned": 5668403,
+      "LaneFull": 2176045,
+      "CodeUsed": 1299416,
+      "Ok": 1283990,
+      "TrayspacingHorizontal": 229837,
       "LaneBlocked": 185150,
-      "MaxRecirculation": 147158,
-      "LaneDisabled": 40067,
+      "MaxRecirculation": 147167,
+      "LaneDisabled": 40070,
       "SorterSpeedChange": 38704,
-      "NoActivation": 25998,
-      "ItemOnActivatedCarrier": 18095,
+      "NoActivation": 25995,
+      "ItemOnActivatedCarrier": 18099,
       "NoAnswerFromScanner": 9920,
-      "LaneJammed": 260,
+      "LaneJammed": 261,
       "NotCodeConverted": 3
     },
     "daily_defects": [
       {
         "date": "2026-06-15",
-        "ftd": 3093,
-        "good": 167722,
-        "lane_full": 241051,
+        "ftd": 3089,
+        "good": 167531,
+        "lane_full": 240743,
         "no_read": 5,
-        "utd": 1884
+        "utd": 1881
       },
       {
         "date": "2026-06-16",
@@ -510,10 +510,10 @@
       {
         "date": "2026-06-22",
         "ftd": 41,
-        "good": 20262,
-        "lane_full": 31606,
+        "good": 20338,
+        "lane_full": 31866,
         "no_read": 0,
-        "utd": 695
+        "utd": 702
       }
     ],
     "top_ftd_chutes": [
@@ -785,7 +785,7 @@
     "south_lower": [
       {
         "name": "91202 CP90 Pallet Build North Lower",
-        "duration_min": 198.6
+        "duration_min": 199.8
       }
     ],
     "north_upper": [],
@@ -798,15 +798,15 @@
   "active_outbound_south": [
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 58598.5
+      "duration_min": 58599.6
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33119_01",
-      "duration_min": 57218.9
+      "duration_min": 57220.1
     },
     {
       "name": "CP53 EACH TO SORT MDR53270_01",
-      "duration_min": 204.6
+      "duration_min": 205.7
     }
   ],
   "active_outbound_north": [],
@@ -883,7 +883,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -893,7 +893,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "127 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "122 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
