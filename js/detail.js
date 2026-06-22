@@ -173,10 +173,32 @@ const SiteDetail = (() => {
       const color = pos.error ? 'red' : 'green';
       const icon = pos.error ? '\u2717' : '\u2713';
       const label = pos.error ? 'FAULT' : 'OK';
-      const sub = pos.error && pos.carrier ? `MCB ${pos.carrier}` : (pos.error ? 'MCB null' : '');
-      h += `<div class="health-cell ${color}"><div class="health-cell-label">[${pos.index}]</div><div class="health-cell-value ${color}">${icon}</div><div class="health-cell-sub">${label}</div>${sub ? `<div class="health-cell-sub">${sub}</div>` : ''}</div>`;
+      const sub = pos.error && pos.carrier ? `MCB ${pos.carrier}` : '';
+      const fltCount = (d.wpt_fault_counts || {})[String(pos.index)] || 0;
+      let durStr = '';
+      if (pos.error && (d.wpt_fault_start || {})[String(pos.index)]) {
+        const mins = Math.round((Date.now() - new Date((d.wpt_fault_start)[String(pos.index)]).getTime()) / 60000);
+        durStr = mins >= 60 ? `${Math.floor(mins/60)}h ${mins%60}m` : `${mins}m`;
+      }
+      const extra = (fltCount > 0 || durStr) ? `<div style="font-size:9px;color:#7d8590;margin-top:2px;">${fltCount > 0 ? fltCount + 'x' : ''}${durStr ? ' \u23f1' + durStr : ''}</div>` : '';
+      h += `<div class="health-cell ${color}"><div class="health-cell-label">[${pos.index}]</div><div class="health-cell-value ${color}">${icon}</div><div class="health-cell-sub">${label}</div>${sub ? `<div class="health-cell-sub">${sub}</div>` : ''}${extra}</div>`;
     });
-    h += '</div></div>';
+    h += '</div>';
+    // CTB/CRB Fault History
+    const _fc = d.wpt_fault_counts || {};
+    const _fp = Object.entries(_fc).filter(([k,v]) => v > 0).sort((a,b) => b[1] - a[1]);
+    if (_fp.length > 0) {
+      h += '<div style="margin-top:8px;padding:10px 12px;background:#161b22;border-radius:6px;border:1px solid #21262d;">';
+      h += '<div style="font-size:10px;color:#7d8590;margin-bottom:6px;font-weight:600;">CTB/CRB Fault History</div>';
+      h += '<table style="width:100%;font-size:11px;border-collapse:collapse;"><thead><tr><th style="text-align:left;color:#7d8590;padding:4px 8px;border-bottom:1px solid #21262d;">Position</th><th style="text-align:right;color:#7d8590;padding:4px 8px;border-bottom:1px solid #21262d;">Faults</th><th style="text-align:right;color:#7d8590;padding:4px 8px;border-bottom:1px solid #21262d;">Status</th></tr></thead><tbody>';
+      _fp.forEach(([idx, count]) => {
+        const isActive = wptList[Number(idx)] && wptList[Number(idx)].error;
+        const badge = isActive ? '<span style="color:#f85149;font-weight:bold;">\u25cf ACTIVE</span>' : '<span style="color:#3fb950;">\u25cf Cleared</span>';
+        h += `<tr><td style="padding:4px 8px;color:#c9d1d9;border-bottom:1px solid #1c2128;">[${idx}]</td><td style="padding:4px 8px;text-align:right;color:#f0883e;font-weight:bold;border-bottom:1px solid #1c2128;">${count}</td><td style="padding:4px 8px;text-align:right;border-bottom:1px solid #1c2128;">${badge}</td></tr>`;
+      });
+      h += '</tbody></table></div>';
+    }
+    h += '</div>';
 
     // Discharge CRBs
     const crbUnits = crb.units || [];
