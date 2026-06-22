@@ -318,13 +318,18 @@ const SiteDetail = (() => {
     const sr = result.shift_report;
     let html = `<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>`;
 
-    // Header banner
-    html += `<div style="background:var(--bg-card);border:1px solid var(--blue);border-radius:8px;padding:16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
-      <span style="font-size:24px;">\ud83d\udccb</span>
-      <div><div style="font-size:15px;font-weight:700;color:var(--text-primary);">Shift Summary Report</div>
-      <div style="font-size:11px;color:var(--text-secondary);">${esc(sr.shift_label || '')} \u2014 Generated ${esc(sr.generated_at || '')}</div></div></div>`;
+    // Header card
+    html += `<div style="background:var(--bg-card);border:1px solid var(--blue);border-top:3px solid var(--blue);border-radius:8px;padding:20px;margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:28px;">\ud83d\udccb</span>
+        <div>
+          <div style="font-size:16px;font-weight:700;color:var(--text-primary);">Shift Summary Report</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">${esc(sr.shift_label || '')} \u2014 Generated ${esc(sr.generated_at || '')}</div>
+        </div>
+      </div>
+    </div>`;
 
-    // Parse the text into sections
+    // Parse sections
     const text = sr.text || '';
     const lines = text.split('\n');
     let sections = [];
@@ -333,13 +338,9 @@ const SiteDetail = (() => {
     lines.forEach(line => {
       const stripped = line.trim();
       if (!stripped) {
-        if (current && current.items.length > 0) {
-          sections.push(current);
-          current = null;
-        }
+        if (current && current.items.length > 0) { sections.push(current); current = null; }
         return;
       }
-      // Detect section headers
       if (stripped.includes('TOP 10 MOST FREQUENT') || stripped.includes('FREQUENT JAMS')) {
         current = {title:'Top 10 Most Frequent Jams', icon:'\ud83d\udea8', color:'var(--red)', items:[]};
       } else if (stripped.includes('IOB TRIPS')) {
@@ -352,10 +353,8 @@ const SiteDetail = (() => {
         current = {title:'Scanner Report', icon:'\ud83d\udcf7', color:'var(--blue)', items:[]};
       } else if (stripped.includes('FAULTED CARRIER')) {
         current = {title:'Top Faulted Carriers', icon:'\ud83d\ude9a', color:'var(--orange)', items:[]};
-      } else if (stripped.includes('CROSSBELT INDUCTION') || stripped.includes('INDUCTION')) {
-        if (stripped.includes('INDUCTION') && !stripped.includes('DIVERT')) {
-          current = {title:'Crossbelt Induction', icon:'\ud83d\udce6', color:'var(--green)', items:[]};
-        }
+      } else if (stripped.includes('CROSSBELT INDUCTION') || (stripped.includes('INDUCTION') && !stripped.includes('DIVERT'))) {
+        current = {title:'Crossbelt Induction', icon:'\ud83d\udce6', color:'var(--green)', items:[]};
       } else if (stripped.includes('CROSSBELT DIVERT') || stripped.includes('DIVERTS')) {
         current = {title:'Crossbelt Diverts', icon:'\ud83d\udce4', color:'var(--blue)', items:[]};
       } else if (stripped.includes('CTB/CRB FAULT COUNT')) {
@@ -367,40 +366,42 @@ const SiteDetail = (() => {
       } else if (stripped.includes('LATE STARTUP AFTER DTW')) {
         current = {title:'Late Startup After DTW', icon:'\u23f1\ufe0f', color:'var(--yellow)', items:[]};
       } else if (stripped.includes('SHIFT SUMMARY') || stripped.includes('Day Shift') || stripped.includes('Night Shift') || stripped.match(/^\d{4}-\d{2}-\d{2}/)) {
-        // Skip header lines
+        // Skip header
       } else if (current) {
         current.items.push(stripped);
       }
     });
     if (current && current.items.length > 0) sections.push(current);
 
-    // Render each section as a card
+    // Render sections as nice cards
     sections.forEach(sec => {
-      html += `<div class="section-panel">`;
-      html += `<div class="section-title"><span class="section-dot" style="background:${sec.color}"></span> ${sec.icon} ${esc(sec.title)}</div>`;
+      html += `<div style="background:var(--bg-card);border:1px solid var(--border);border-left:4px solid ${sec.color};border-radius:8px;padding:16px;margin-bottom:12px;">`;
+      html += `<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span style="font-size:16px;">${sec.icon}</span><span style="font-size:13px;font-weight:700;color:var(--text-primary);text-transform:uppercase;letter-spacing:0.03em;">${esc(sec.title)}</span></div>`;
 
-      sec.items.forEach(item => {
-        let bg = 'transparent';
-        let borderLeft = 'none';
-        let textColor = 'var(--text-primary)';
-        let weight = '400';
+      sec.items.forEach((item, idx) => {
+        let style = 'padding:5px 0;font-size:12px;font-family:var(--font-mono);border-bottom:1px solid var(--border-light);';
+        let textStyle = 'color:var(--text-primary)';
 
-        // Style based on content
+        // Style totals/summaries differently
         if (item.startsWith('\u2022') || item.includes('Total')) {
-          bg = 'var(--bg-surface)';
-          weight = '600';
-          textColor = 'var(--text-secondary)';
+          style += 'padding-top:8px;margin-top:4px;border-top:1px solid var(--border);border-bottom:none;';
+          textStyle = 'color:var(--text-secondary);font-weight:600;font-size:11px';
         }
-        if (item.includes('\u2705')) textColor = 'var(--green)';
-        if (item.includes('\u274c') || item.includes('FTD')) { textColor = 'var(--red)'; borderLeft = '3px solid var(--red)'; }
-        if (item.includes('\u26a0')) { textColor = 'var(--yellow)'; borderLeft = '3px solid var(--yellow)'; }
-        if (item.includes('\ud83d\udd04')) { textColor = 'var(--orange)'; borderLeft = '3px solid var(--orange)'; }
-        if (item.match(/^\d+\./)) borderLeft = '3px solid var(--border)';
+        // Color code specific content
+        if (item.includes('\u2705')) textStyle = 'color:var(--green);font-weight:600';
+        if (item.includes('\u274c') || item.includes('FTD')) textStyle = 'color:var(--red)';
+        if (item.includes('\u26a0')) textStyle = 'color:var(--yellow)';
+        if (item.includes('\ud83d\udd04')) textStyle = 'color:var(--orange)';
+        // Numbered items get subtle left padding
+        if (item.match(/^\d+\./)) style += 'padding-left:8px;';
 
-        html += `<div style="padding:6px 10px;margin-bottom:3px;border-radius:4px;font-size:12px;font-family:var(--font-mono);background:${bg};border-left:${borderLeft};color:${textColor};font-weight:${weight};">${esc(item)}</div>`;
+        // Last item no border
+        if (idx === sec.items.length - 1) style += 'border-bottom:none;';
+
+        html += `<div style="${style}"><span style="${textStyle}">${esc(item)}</span></div>`;
       });
 
-      html += `</div>`;
+      html += '</div>';
     });
 
     container.innerHTML = html;
