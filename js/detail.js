@@ -142,7 +142,7 @@ const SiteDetail = (() => {
     h += kpi('IOB Trips', weekly.iob_downtime_min != null ? `${weekly.iob_trips} / ${weekly.iob_downtime_min} min` : '\u2014', 'trips / downtime this week', weekly.iob_downtime_min != null ? (weekly.iob_downtime_min > 60 ? 'red' : weekly.iob_downtime_min > 20 ? 'yellow' : 'green') : 'yellow');
     h += kpi('E-Stop Events', weekly.estop_downtime_min != null ? `${weekly.estop_events} / ${weekly.estop_downtime_min} min` : '\u2014', 'events / downtime this week', weekly.estop_downtime_min != null ? (weekly.estop_downtime_min > 120 ? 'red' : weekly.estop_downtime_min > 30 ? 'yellow' : 'green') : 'yellow');
     h += kpi('Sorter OTE', sorterOte != null ? `${sorterOte}%` : '\u2014', 'time running / total', sorterOte != null ? (sorterOte >= 95 ? 'green' : sorterOte >= 80 ? 'yellow' : 'red') : 'yellow');
-    h += kpi('Sorter OEE', sorterOee != null ? `${sorterOee}%` : '\u2014', 'OTE × quality', sorterOee != null ? (sorterOee >= 95 ? 'green' : sorterOee >= 80 ? 'yellow' : 'red') : 'yellow');
+    h += kpi('Sorter OEE', sorterOee != null ? `${sorterOee}%` : '\u2014', 'OTE x Quality', sorterOee != null ? (sorterOee >= 95 ? 'green' : sorterOee >= 80 ? 'yellow' : 'red') : 'yellow');
     h += kpi('Downtime %', downtimePct != null ? `${downtimePct}%` : '\u2014', 'weekly', downtimePct != null ? (downtimePct > 5 ? 'red' : downtimePct > 2 ? 'yellow' : 'green') : 'yellow');
     // Chute Status
     const chutes = d.chutes || {};
