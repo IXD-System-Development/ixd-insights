@@ -851,10 +851,17 @@ const SiteDetail = (() => {
 
     html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--red)"></span> MHE Defect Breakdown (Weekly)</div>';
     html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
-    html += `<div class="kpi-card red"><div class="kpi-label">Failed to Divert (FTD)</div><div class="kpi-value red">${ftd.toLocaleString()}</div><div class="kpi-subtitle">${ftdPct}% of sort attempts</div></div>`;
-    html += `<div class="kpi-card yellow"><div class="kpi-label">Lane Full</div><div class="kpi-value yellow">${laneFull.toLocaleString()}</div><div class="kpi-subtitle">${lanePct}% recirculated</div></div>`;
-    html += `<div class="kpi-card yellow"><div class="kpi-label">Item On Carrier (UTD)</div><div class="kpi-value yellow">${utd.toLocaleString()}</div><div class="kpi-subtitle">${utdPct}%</div></div>`;
-    html += `<div class="kpi-card blue"><div class="kpi-label">No Scanner Read</div><div class="kpi-value blue">${noRead.toLocaleString()}</div><div class="kpi-subtitle">${nrPct}%</div></div>`;
+html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
+    html += `<div class="kpi-card red"><div class="kpi-label">MHE Defect Total</div><div class="kpi-value red">${mhePct}%</div><div class="kpi-subtitle">${mheTotal.toLocaleString()} events</div></div>`;
+    html += `<div class="kpi-card red"><div class="kpi-label">Failed to Divert</div><div class="kpi-value red">${ftd.toLocaleString()}</div><div class="kpi-subtitle">${ftdPct}%</div></div>`;
+    html += `<div class="kpi-card yellow"><div class="kpi-label">Gap Error</div><div class="kpi-value yellow">${gapError.toLocaleString()}</div><div class="kpi-subtitle">${gapPct}%</div></div>`;
+    html += `<div class="kpi-card yellow"><div class="kpi-label">Lane Non-Op</div><div class="kpi-value yellow">${laneNonOp.toLocaleString()}</div><div class="kpi-subtitle">${laneNonOpPct}%</div></div>`;
+    html += '</div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
+    html += `<div class="kpi-card yellow"><div class="kpi-label">Unable to Divert</div><div class="kpi-value yellow">${utd.toLocaleString()}</div><div class="kpi-subtitle">${utdPct}%</div></div>`;
+    html += `<div class="kpi-card blue"><div class="kpi-label">Lane Full (Ops)</div><div class="kpi-value blue">${laneFull.toLocaleString()}</div><div class="kpi-subtitle">Ops Defect</div></div>`;
+    html += `<div class="kpi-card blue"><div class="kpi-label">No Scanner Read</div><div class="kpi-value blue">${noRead.toLocaleString()}</div><div class="kpi-subtitle">Scan Defect</div></div>`;
+    html += `<div class="kpi-card grey"><div class="kpi-label">Max Recirc</div><div class="kpi-value grey">${maxRecirc.toLocaleString()}</div><div class="kpi-subtitle">Load Balance</div></div>`;
     html += '</div>';
 
     // Full breakdown table
