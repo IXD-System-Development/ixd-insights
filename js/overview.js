@@ -94,15 +94,30 @@ const Overview = (() => {
     if (data && site.oem === 'INTL') {
       const carriers = data.carriers || {};
       const sorter = data.sorter || {};
+      const weekly = data.weekly || {};
       metricsHtml = `
         <div class="site-card-metrics">
           <div class="site-card-metric">
             <span>Avail</span>
-            <span class="site-card-metric-value">${carriers.availability_pct || '—'}%</span>
+            <span class="site-card-metric-value">${carriers.empty_pct || '—'}%</span>
           </div>
           <div class="site-card-metric">
             <span>Faulted</span>
             <span class="site-card-metric-value">${carriers.faulted ?? '—'}</span>
+          </div>
+          <div class="site-card-metric">
+            <span>Disabled</span>
+            <span class="site-card-metric-value">${carriers.disabled ?? '—'}</span>
+          </div>
+        </div>
+        <div class="site-card-metrics" style="margin-top:4px;">
+          <div class="site-card-metric">
+            <span>MHE</span>
+            <span class="site-card-metric-value">${weekly.mhe_defect_icw ? weekly.mhe_defect_icw + '%' : '—'}</span>
+          </div>
+          <div class="site-card-metric">
+            <span>Scan</span>
+            <span class="site-card-metric-value">${weekly.scan_defect_pct ? weekly.scan_defect_pct + '%' : '—'}</span>
           </div>
           <div class="site-card-metric">
             <span>Speed</span>
