@@ -99,7 +99,7 @@ const Overview = (() => {
         <div class="site-card-metrics">
           <div class="site-card-metric">
             <span>Avail</span>
-            <span class="site-card-metric-value">${carriers.empty_pct || '—'}%</span>
+            <span class="site-card-metric-value">${carriers.availability_pct || '—'}%</span>
           </div>
           <div class="site-card-metric">
             <span>Faulted</span>
@@ -111,6 +111,10 @@ const Overview = (() => {
           </div>
         </div>
         <div class="site-card-metrics" style="margin-top:4px;">
+          <div class="site-card-metric">
+            <span>OTE</span>
+            <span class="site-card-metric-value">${weekly.sorter_ote ? weekly.sorter_ote + '%' : '—'}</span>
+          </div>
           <div class="site-card-metric">
             <span>MHE</span>
             <span class="site-card-metric-value">${weekly.mhe_defect_icw ? weekly.mhe_defect_icw + '%' : '—'}</span>
