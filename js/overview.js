@@ -111,19 +111,20 @@ const Overview = (() => {
         </div>`;
     } else if (data && site.oem === 'DEM') {
       const trace = data.trace || {};
+      const sorter = data.sorter || {};
       metricsHtml = `
         <div class="site-card-metrics">
           <div class="site-card-metric">
-            <span>Faults</span>
-            <span class="site-card-metric-value">${trace.active_faults ?? '—'}</span>
+            <span>Sorts/hr</span>
+            <span class="site-card-metric-value">${trace.sorts_per_hour ? trace.sorts_per_hour.toLocaleString() : '—'}</span>
           </div>
           <div class="site-card-metric">
-            <span>Jams</span>
-            <span class="site-card-metric-value">${trace.chute_jams ?? '—'}</span>
+            <span>Non-Op</span>
+            <span class="site-card-metric-value">${trace.no_read_pct != null ? trace.no_read_pct.toFixed(1) + '%' : '—'}</span>
           </div>
           <div class="site-card-metric">
-            <span>SD Trips</span>
-            <span class="site-card-metric-value">${trace.carrier_sd_trips ?? '—'}</span>
+            <span>Chutes Down</span>
+            <span class="site-card-metric-value">${trace.chutes_down_count ?? trace.chute_jams ?? '—'}</span>
           </div>
         </div>`;
     }
