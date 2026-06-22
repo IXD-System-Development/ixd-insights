@@ -173,7 +173,7 @@ const SiteDetail = (() => {
       const color = pos.error ? 'red' : 'green';
       const icon = pos.error ? '\u2717' : '\u2713';
       const label = pos.error ? 'FAULT' : 'OK';
-      const sub = pos.error && pos.carrier ? `MCB ${pos.carrier}` : '';
+      const sub = '';  // MCB carrier tracked but not displayed
       const fltCount = (d.wpt_fault_counts || {})[String(pos.index)] || 0;
       let durStr = '';
       if (pos.error && (d.wpt_fault_start || {})[String(pos.index)]) {
