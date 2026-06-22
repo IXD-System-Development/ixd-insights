@@ -123,6 +123,10 @@ const Overview = (() => {
             <span>Speed</span>
             <span class="site-card-metric-value">${sorter.speed || '—'}</span>
           </div>
+          <div class="site-card-metric">
+            <span>Chutes Down</span>
+            <span class="site-card-metric-value">${data.chutes ? (data.chutes.locked_out || 0) + (data.chutes.inhibited || 0) : '—'}</span>
+          </div>
         </div>`;
     } else if (data && site.oem === 'DEM') {
       const trace = data.trace || {};
