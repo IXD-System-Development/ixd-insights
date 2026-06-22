@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-22 03:32:11 EST",
+  "timestamp": "2026-06-22 03:33:20 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-22 03:32",
+  "_pushed_at": "2026-06-22 03:33",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2424,
+    "speed": 2387,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 101,
+    "faulted": 129,
     "disabled": 39,
-    "available": 2200,
+    "available": 2172,
     "occupied": 2053,
-    "empty": 147,
-    "empty_pct": 6.3,
-    "availability_pct": 94.0
+    "empty": 119,
+    "empty_pct": 5.1,
+    "availability_pct": 92.8
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1501
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 2140
+      "carrier": 73
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 239,
+    "1": 240,
     "13": 1,
     "10": 15,
     "9": 2
@@ -419,7 +419,7 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 916690,
+    "sorted": 916752,
     "recirculated": 13316,
     "recirc_pct": 1.43
   },
@@ -435,19 +435,19 @@
     "inducted": 129243,
     "diverted": 127435,
     "mhe_breakdown": {
-      "ItemScanned": 5670016,
-      "LaneFull": 2179594,
-      "CodeUsed": 1296607,
-      "Ok": 1281189,
-      "TrayspacingHorizontal": 230072,
-      "LaneBlocked": 185645,
-      "MaxRecirculation": 147550,
-      "LaneDisabled": 40691,
+      "ItemScanned": 5670767,
+      "LaneFull": 2179952,
+      "CodeUsed": 1296721,
+      "Ok": 1281304,
+      "TrayspacingHorizontal": 230093,
+      "LaneBlocked": 185673,
+      "MaxRecirculation": 147570,
+      "LaneDisabled": 40709,
       "SorterSpeedChange": 38444,
       "NoActivation": 25968,
-      "ItemOnActivatedCarrier": 18130,
+      "ItemOnActivatedCarrier": 18133,
       "NoAnswerFromScanner": 9920,
-      "LaneJammed": 352,
+      "LaneJammed": 358,
       "NotCodeConverted": 3
     },
     "daily_defects": [
@@ -510,10 +510,10 @@
       {
         "date": "2026-06-22",
         "ftd": 45,
-        "good": 24737,
-        "lane_full": 42373,
+        "good": 24849,
+        "lane_full": 42730,
         "no_read": 0,
-        "utd": 813
+        "utd": 816
       }
     ],
     "top_ftd_chutes": [
@@ -785,7 +785,7 @@
     "south_lower": [
       {
         "name": "91202 CP90 Pallet Build North Lower",
-        "duration_min": 239.8
+        "duration_min": 240.9
       }
     ],
     "north_upper": [],
@@ -798,19 +798,19 @@
   "active_outbound_south": [
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 58639.6
+      "duration_min": 58640.7
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33119_01",
-      "duration_min": 57260.0
+      "duration_min": 57261.2
     },
     {
       "name": "CP53 EACH TO SORT MDR53270_01",
-      "duration_min": 245.7
+      "duration_min": 246.8
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33324_02",
-      "duration_min": 1.7
+      "duration_min": 2.8
     }
   ],
   "active_outbound_north": [],
@@ -887,7 +887,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -897,7 +897,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "101 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "129 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
