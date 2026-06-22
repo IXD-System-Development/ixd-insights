@@ -81,7 +81,7 @@ const SiteDetail = (() => {
       <button class="filter-btn" onclick="SiteDetail.showShiftReport()">Shift Reports</button>
       <a href="https://w.amazon.com/bin/view/IXD-SD/SITES/RDU2" target="_blank" class="filter-btn" style="text-decoration:none;">IXD Wiki ↗</a>
       <button class="filter-btn" onclick="SiteDetail.showChuteJamsTab()">Chute Jams</button>
-      <button class="filter-btn">Inbound</button>
+      <button class="filter-btn" onclick="SiteDetail.showInboundTab()">Inbound Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showSorterTab()">Sorter</button>
       <button class="filter-btn">Induction</button>
     </div>`;
@@ -597,5 +597,47 @@ const SiteDetail = (() => {
     container.innerHTML = html;
   }
 
-  return { init, refresh, showShiftReport, showSorterTab, showMetricsTab, showChuteJamsTab };
+  function showInboundTab() {
+    const container = document.getElementById('detail-content');
+    if (!container) return;
+    const result = DataLayer.getCachedData(_siteId);
+    if (!result) { container.innerHTML = '<div class="section-panel"><p style="color:var(--text-secondary)">No data.</p></div>'; return; }
+    const jams = result.active_inbound_jams || {};
+
+    let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>';
+
+    // Side by side CP01 / CP02
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">';
+
+    const boxes = [
+      {key:'cp01', title:'CP01 Inbound Jams (Receiving South)', color:'var(--yellow)', border:'var(--yellow)'},
+      {key:'cp02', title:'CP02 Inbound Jams (Receiving North)', color:'var(--orange)', border:'var(--orange)'},
+    ];
+
+    boxes.forEach(box => {
+      const items = jams[box.key] || [];
+      html += `<div style="background:var(--bg-card);border:1px solid var(--border);border-top:3px solid ${box.border};border-radius:8px;padding:24px;min-height:250px;">`;
+      html += `<div style="font-size:14px;font-weight:700;color:${box.color};margin-bottom:14px;">${box.title}</div>`;
+      if (items.length > 0) {
+        html += `<div style="font-size:11px;color:var(--text-secondary);margin-bottom:8px;">${items.length} active jam(s)</div>`;
+        items.forEach(j => {
+          const durColor = j.duration_min > 60 ? 'var(--red)' : j.duration_min > 15 ? 'var(--yellow)' : 'var(--text-primary)';
+          const flash = j.duration_min > 10 ? 'animation:fault-flash 1s infinite;' : '';
+          html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:5px;background:${j.duration_min > 10 ? 'var(--red-bg)' : 'var(--bg-surface)'};border-radius:4px;border-left:3px solid ${durColor};${flash}">
+            <span style="font-size:12px;font-family:var(--font-mono);font-weight:600;">${j.name}</span>
+            <span style="font-size:12px;font-weight:700;color:${durColor};">${j.duration_min} min</span>
+          </div>`;
+        });
+      } else {
+        html += '<div style="text-align:center;padding:20px;color:var(--green);font-size:12px;">\u2713 No active jams</div>';
+      }
+      html += '</div>';
+    });
+
+    html += '</div>';
+    html += '<style>@keyframes fault-flash{0%,100%{opacity:1}50%{opacity:0.4}}</style>';
+    container.innerHTML = html;
+  }
+
+  return { init, refresh, showShiftReport, showSorterTab, showMetricsTab, showChuteJamsTab, showInboundTab };
 })();
