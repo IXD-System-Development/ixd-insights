@@ -94,7 +94,7 @@ const SiteDetail = (() => {
     // Header
     h += `<div class="detail-header">
       <a href="sites.html" class="back-link">\u2190 Back to Fleet</a>
-      <span class="detail-site-id">${_siteId}</span><img src="img/${_siteId.toLowerCase()}_logo.svg" onerror="this.src='img/${_siteId.toLowerCase()}_logo.png'" alt="${_siteId}" style="height:40px;border-radius:50%;margin-left:8px;">
+      <span class="detail-site-id">${_siteId}</span><img src="img/${_siteId.toLowerCase()}_logo.png" alt="${_siteId}" style="height:40px;border-radius:50%;margin-left:8px;">
       <span class="site-card-oem oem-intl">INTL</span>
       <span class="detail-connection ${running ? 'online' : 'offline'}">${running ? '\u25cf LIVE' : '\u25cf OFFLINE'}</span>
       <span id="header-clock" style="color:#3fb950;font-weight:600;font-size:12px;margin-left:auto;"></span>
