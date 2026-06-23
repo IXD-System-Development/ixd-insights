@@ -88,7 +88,7 @@ const SiteDetail = (() => {
       <button class="filter-btn" onclick="SiteDetail.showChuteJamsTab()">Chute Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showInboundTab()">Inbound Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showSorterTab()">Sorter</button>
-      <button class="filter-btn" onclick="SiteDetail.showOutboundSouth()">Outbound Southside Jam</button><button class="filter-btn" onclick="SiteDetail.showOutboundNorth()">Outbound Northside Jam</button><button class="filter-btn" onclick="SiteDetail.showShoeSorter()">Shoe Sorter</button>
+      <button class="filter-btn" onclick="SiteDetail.showOutboundSouth()">Outbound Southside Jam</button><button class="filter-btn" onclick="SiteDetail.showOutboundNorth()">Outbound Northside Jam</button><button class="filter-btn" onclick="SiteDetail.showShoeSorter()">Shoe Sorter</button><button class="filter-btn" onclick="SiteDetail.showFrontOfBuilding()">Front of Building Jams</button>
     </div>`;
 
     // Header
@@ -1117,5 +1117,33 @@ html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;ma
     container.innerHTML = html;
   }
 
-  return { init, refresh, showShiftReport, showSorterTab, showMetricsTab, showChuteJamsTab, showInboundTab, showOutboundSouth, showOutboundNorth, showShoeSorter };
+
+  function showFrontOfBuilding() {
+    const container = document.getElementById('detail-content');
+    if (!container) return;
+    const result = DataLayer.getCachedData(_siteId);
+    if (!result) return;
+    const items = result.active_front_of_building || [];
+    let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">&#8592; Back to Overview</button></div>';
+    html += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">&#127970; Front of Building Jams &mdash; Shoe Sorter / SIPS-ATAC / Jackpots</div>`;
+    html += renderJamList(items, 'Active Jams &mdash; Front of Building (Shoe Sorter + SIPS/ATAC + Jackpots)', 'var(--red)');
+    html += '<style>@keyframes fault-flash{0%,100%{opacity:1}50%{opacity:0.4}}</style>';
+    container.innerHTML = html;
+  }
+
+
+  function showFrontOfBuilding() {
+    const container = document.getElementById('detail-content');
+    if (!container) return;
+    const result = DataLayer.getCachedData(_siteId);
+    if (!result) return;
+    const items = result.active_front_of_building || [];
+    let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">&#8592; Back to Overview</button></div>';
+    html += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">&#127970; Front of Building Jams &mdash; Shoe Sorter / SIPS-ATAC / Jackpots</div>`;
+    html += renderJamList(items, 'Active Jams &mdash; Front of Building (Shoe Sorter + SIPS/ATAC + Jackpots)', 'var(--red)');
+    html += '<style>@keyframes fault-flash{0%,100%{opacity:1}50%{opacity:0.4}}</style>';
+    container.innerHTML = html;
+  }
+
+  return { init, refresh, showShiftReport, showSorterTab, showMetricsTab, showChuteJamsTab, showInboundTab, showOutboundSouth, showOutboundNorth, showFrontOfBuilding, showShoeSorter };
 })();
