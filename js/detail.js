@@ -88,7 +88,7 @@ const SiteDetail = (() => {
       <button class="filter-btn" onclick="SiteDetail.showChuteJamsTab()">Chute Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showInboundTab()">Inbound Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showSorterTab()">Sorter</button>
-      <button class="filter-btn" onclick="SiteDetail.showOutboundSouth()">Outbound Southside Jam</button><button class="filter-btn" onclick="SiteDetail.showOutboundNorth()">Outbound Northside Jam</button><button class="filter-btn" onclick="SiteDetail.showShoeSorter()">Shoe Sorter</button><button class="filter-btn" onclick="SiteDetail.showFrontOfBuilding()">Front of Building Jams</button>
+      <button class="filter-btn" onclick="SiteDetail.showOutboundSouth()">Outbound Southside Jam</button><button class="filter-btn" onclick="SiteDetail.showOutboundNorth()">Outbound Northside Jam</button><button class="filter-btn" onclick="SiteDetail.showShoeSorter()">Shoe Sorter</button><button class="filter-btn" onclick="SiteDetail.showFrontOfBuilding()">Front of Building Jams</button><button class="filter-btn" onclick="SiteDetail.showIah3LizardTab()" style="background:var(--yellow-bg);border-color:var(--yellow);color:var(--yellow);">&#128994; IAH3 Slack Chat</button>
     </div>`;
 
     // Header
@@ -1192,5 +1192,83 @@ html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;ma
     container.innerHTML = html;
   }
 
-  return { init, refresh, showShiftReport, showSorterTab, showMetricsTab, showChuteJamsTab, showInboundTab, showOutboundSouth, showOutboundNorth, showFrontOfBuilding, showShoeSorter };
+  function showIah3LizardTab() {
+    const container = document.getElementById('detail-content');
+    if (!container) return;
+    const result = DataLayer.getCachedData(_siteId) || {};
+    const lz = result.iah3_lizard || {};
+    const webhook = lz.webhook || '';
+    const alarms  = lz.alarms  || [];
+    const events  = result.collision_events || [];
+    const stops   = result.sorter_stop_causes || [];
+
+    let h = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">&#8592; Back to Overview</button></div>';
+    h += '<div style="font-size:16px;font-weight:700;color:var(--yellow);margin-bottom:14px;">&#128994; IAH3 Lizard — Slack Chat</div>';
+
+    // ── Webhook config card ───────────────────────────────────────────────
+    h += '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:14px;">';
+    h += '<div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;letter-spacing:0.05em;">SLACK WEBHOOK</div>';
+    if (webhook) {
+      h += '<div style="font-size:11px;color:var(--green);word-break:break-all;background:var(--bg-secondary);padding:8px 10px;border-radius:4px;font-family:monospace;">' + webhook + '</div>';
+      h += '<div style="font-size:11px;color:var(--text-secondary);margin-top:6px;">Posts automatically when CD/CA trips or sorter stops. Managed by iah3_fleet_push.py.</div>';
+    } else {
+      h += '<div style="font-size:12px;color:var(--text-secondary);">No webhook configured — set IAH3_LIZARD_WEBHOOK in iah3_fleet_push.py</div>';
+    }
+    h += '</div>';
+
+    // ── Active stop conditions ────────────────────────────────────────────
+    if (stops.length > 0) {
+      h += '<div style="background:rgba(248,81,73,0.08);border:1px solid var(--red);border-radius:8px;padding:14px;margin-bottom:14px;">';
+      h += '<div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:8px;">&#9940; ACTIVE SORTER STOP CONDITIONS</div>';
+      stops.forEach(s => {
+        h += '<div style="font-size:12px;color:var(--text-primary);padding:3px 0;">&#8226; ' + s + '</div>';
+      });
+      h += '</div>';
+    }
+
+    // ── Collision events table ────────────────────────────────────────────
+    h += '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:14px;">';
+    h += '<div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:10px;letter-spacing:0.05em;">COLLISION EVENTS — THIS SHIFT</div>';
+    if (events.length === 0) {
+      h += '<div style="font-size:12px;color:var(--text-secondary);">No collision events recorded this shift.</div>';
+    } else {
+      h += '<table style="width:100%;border-collapse:collapse;font-size:11px;">';
+      h += '<tr style="color:var(--text-secondary);border-bottom:1px solid var(--border);">';
+      h += '<th style="text-align:left;padding:4px 8px;">TYPE</th><th style="text-align:left;padding:4px 8px;">ZONE</th><th style="text-align:left;padding:4px 8px;">LM</th><th style="text-align:left;padding:4px 8px;">CARRIER</th><th style="text-align:left;padding:4px 8px;">TIME (UTC)</th></tr>';
+      events.slice().reverse().forEach(ev => {
+        const tc = ev.type === 'CD' ? 'var(--red)' : 'var(--yellow)';
+        h += '<tr style="border-bottom:1px solid rgba(48,54,61,0.5);">';
+        h += '<td style="padding:4px 8px;font-weight:700;color:'+tc+';">'+ev.type+'</td>';
+        h += '<td style="padding:4px 8px;">Zone '+ev.zone+'</td>';
+        h += '<td style="padding:4px 8px;">'+(ev.lm ? 'LM'+ev.lm : '&#8212;')+'</td>';
+        h += '<td style="padding:4px 8px;">CA-'+String(ev.carrier||0).padStart(4,'0')+'</td>';
+        h += '<td style="padding:4px 8px;color:var(--text-secondary);">'+(ev.time||'').slice(0,16)+'</td>';
+        h += '</tr>';
+      });
+      h += '</table>';
+    }
+    h += '</div>';
+
+    // ── Recent Slack posts log ─────────────────────────────────────────────
+    h += '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:14px;">';
+    h += '<div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:10px;letter-spacing:0.05em;">RECENT ALARMS POSTED TO SLACK</div>';
+    if (alarms.length === 0) {
+      h += '<div style="font-size:12px;color:var(--text-secondary);">No alarms posted yet this session.</div>';
+    } else {
+      alarms.slice().reverse().forEach(a => {
+        const bc = a.type === 'SORTER_STOP' ? 'var(--red)' : a.type === 'CD' ? 'var(--red)' : 'var(--yellow)';
+        h += '<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(48,54,61,0.4);">';
+        h += '<span style="font-size:18px;flex-shrink:0;">' + (a.type === 'SORTER_STOP' ? '&#9940;' : '&#9889;') + '</span>';
+        h += '<div><div style="font-size:12px;font-weight:600;color:'+bc+';">'+a.title+'</div>';
+        h += '<div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">'+a.message+'</div>';
+        h += '<div style="font-size:10px;color:var(--text-secondary);margin-top:2px;">'+a.time+'</div></div>';
+        h += '</div>';
+      });
+    }
+    h += '</div>';
+
+    container.innerHTML = h;
+  }
+
+  return { init, refresh, showShiftReport, showSorterTab, showMetricsTab, showChuteJamsTab, showInboundTab, showOutboundSouth, showOutboundNorth, showFrontOfBuilding, showShoeSorter, showIah3LizardTab };
 })();
