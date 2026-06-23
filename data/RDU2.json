@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-23 12:57:51 EST",
+  "timestamp": "2026-06-23 12:58:59 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-23 12:57",
+  "_pushed_at": "2026-06-23 12:58",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2391,
+    "speed": 2387,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 135,
+    "faulted": 123,
     "disabled": 9,
-    "available": 2196,
+    "available": 2208,
     "occupied": 2053,
-    "empty": 143,
-    "empty_pct": 6.1,
-    "availability_pct": 93.8
+    "empty": 155,
+    "empty_pct": 6.6,
+    "availability_pct": 94.4
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 483
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1121
+      "carrier": 1395
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,13 +394,15 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 559,
+    "1": 560,
     "13": 1,
     "10": 65,
     "9": 5,
     "6": 1
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "1": "2026-06-23T16:58:53.040962+00:00"
+  },
   "crb_fault_counts": {
     "1": 11,
     "2": 11,
@@ -430,18 +432,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 193481,
-    "recirculated": 2212,
+    "sorted": 193626,
+    "recirculated": 2214,
     "recirc_pct": 1.13
   },
   "weekly": {
     "scan_defect_pct": 0.23,
     "recirc_pct": 1.13,
-    "oee_good_divert": 1582867,
-    "oee_failed_divert": 1395419,
+    "oee_good_divert": 1582909,
+    "oee_failed_divert": 1395423,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1320708,
+    "oee_lane_full": 1320727,
     "oee_max_recirc": 24,
     "oee_no_read": 227318,
     "lane_full_pct": 63.3,
@@ -453,29 +455,29 @@
     "inducted": 631240,
     "diverted": 619734,
     "mhe_breakdown": {
-      "ItemScanned": 5712305,
-      "LaneFull": 2247004,
-      "CodeUsed": 1295527,
-      "Ok": 1279797,
-      "TrayspacingHorizontal": 234461,
-      "LaneBlocked": 180043,
-      "MaxRecirculation": 154194,
+      "ItemScanned": 5712168,
+      "LaneFull": 2247098,
+      "CodeUsed": 1295312,
+      "Ok": 1279584,
+      "TrayspacingHorizontal": 234464,
+      "LaneBlocked": 180034,
+      "MaxRecirculation": 154196,
       "LaneDisabled": 45348,
       "SorterSpeedChange": 35918,
-      "NoActivation": 22574,
+      "NoActivation": 22577,
       "ItemOnActivatedCarrier": 20091,
       "NoAnswerFromScanner": 9919,
-      "LaneJammed": 3555,
+      "LaneJammed": 3557,
       "NotCodeConverted": 7
     },
     "daily_defects": [
       {
         "date": "2026-06-16",
-        "ftd": 2472,
-        "good": 92544,
-        "lane_full": 167878,
+        "ftd": 2466,
+        "good": 92159,
+        "lane_full": 167602,
         "no_read": 1,
-        "utd": 1034
+        "utd": 1032
       },
       {
         "date": "2026-06-17",
@@ -527,11 +529,11 @@
       },
       {
         "date": "2026-06-23",
-        "ftd": 2032,
-        "good": 115159,
-        "lane_full": 150563,
+        "ftd": 2040,
+        "good": 115329,
+        "lane_full": 150914,
         "no_read": 4,
-        "utd": 2229
+        "utd": 2231
       }
     ],
     "top_ftd_chutes": [
@@ -799,12 +801,12 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 30.72,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 324593,
-    "plc_scan_defect": 4.65,
+    "plc_dpmo": 324589,
+    "plc_scan_defect": 4.64,
     "sorter_oee": 79.3,
-    "plc_total_units": 4299036,
-    "plc_good_diverts": 1582867,
-    "plc_total_defects": 1395437
+    "plc_total_units": 4299101,
+    "plc_good_diverts": 1582909,
+    "plc_total_defects": 1395441
   },
   "shift_report": {
     "shift_label": "Night Shift (7pm - 7am EST)",
@@ -824,29 +826,21 @@
   "active_outbound_south": [
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 60645.3
+      "duration_min": 60646.4
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33119_01",
-      "duration_min": 59265.7
-    },
-    {
-      "name": "CP60 ATR_UIS BB60212",
-      "duration_min": 3.5
+      "duration_min": 59266.8
     },
     {
       "name": "CP62_RPND MDR62450_23",
-      "duration_min": 0.1
+      "duration_min": 1.2
     }
   ],
   "active_outbound_north": [
     {
-      "name": "CP94 Robotic Palletizer North MDR94326_01",
-      "duration_min": 2.3
-    },
-    {
       "name": "CP94 Robotic Palletizer North MDR94130_01",
-      "duration_min": 2.3
+      "duration_min": 3.5
     }
   ],
   "shoe_sorter": {
@@ -960,7 +954,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -970,7 +964,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "135 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "123 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
