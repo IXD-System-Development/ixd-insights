@@ -109,7 +109,20 @@ const SiteDetail = (() => {
       <span style="font-size:14px;font-weight:700;color:${bannerColor};letter-spacing:0.05em;">\u25cf ${running ? 'SORTER RUNNING' : 'SORTER STOPPED'}</span></div>`;
 
     // DTW banner (blue flash) or fault bar (red flash)
-    const activeFaults = (d.sorter || {}).active_faults || [];
+    // Combine legacy active_faults with sorter_stop_causes + recent collision events
+    const activeFaults = [
+      ...((d.sorter || {}).active_faults || []),
+      ...(d.sorter_stop_causes || []),
+    ];
+    // Collision events that happened in the last 30 minutes flash in the banner
+    (d.collision_events || []).forEach(ev => {
+      if (!ev.time) return;
+      const evMs = new Date(ev.time.replace(' ','T')+'Z').getTime();
+      if ((Date.now() - evMs) < 30 * 60 * 1000) {
+        const lmPart = ev.lm ? ' LM'+ev.lm : '';
+        activeFaults.push(ev.type+' Zone '+ev.zone+lmPart+' CA-'+String(ev.carrier||0).padStart(4,'0')+' @ '+ev.time.slice(11,16));
+      }
+    });
     const inDtw = (d.sorter || {}).in_dtw || false;
     if (inDtw && !sorter.running) {
       h += '<div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 20px;margin-bottom:14px;border-radius:8px;background:var(--blue-bg);border:2px solid var(--blue);animation:dtw-flash 1.5s infinite;">';
@@ -658,9 +671,43 @@ const SiteDetail = (() => {
       return;
     }
     const sr = result.shift_report;
+
+    // ── Collision events block ────────────────────────────────────────────
+    const _collEvents = result.collision_events || [];
+    const _stopCauses = result.sorter_stop_causes || [];
+    let _extraHtml = '';
+
+    if (_stopCauses.length > 0) {
+      _extraHtml += '<div style="margin-bottom:12px;padding:10px 14px;background:rgba(248,81,73,0.08);border:1px solid var(--red);border-radius:8px;">';
+      _extraHtml += '<div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:6px;">&#9940; SORTER STOP CONDITIONS</div>';
+      _stopCauses.forEach(c2 => {
+        _extraHtml += '<div style="font-size:12px;color:var(--text-primary);padding:2px 0;">&#8226; '+c2+'</div>';
+      });
+      _extraHtml += '</div>';
+    }
+
+    if (_collEvents.length > 0) {
+      _extraHtml += '<div style="margin-bottom:12px;padding:10px 14px;background:rgba(248,81,73,0.06);border:1px solid var(--red);border-radius:8px;">';
+      _extraHtml += '<div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:6px;">&#9889; COLLISION EVENTS — This Shift</div>';
+      _extraHtml += '<table style="width:100%;border-collapse:collapse;font-size:11px;">';
+      _extraHtml += '<tr style="color:var(--text-secondary);border-bottom:1px solid var(--border);">';
+      _extraHtml += '<th style="text-align:left;padding:3px 6px;">TYPE</th><th style="text-align:left;padding:3px 6px;">ZONE</th><th style="text-align:left;padding:3px 6px;">LM</th><th style="text-align:left;padding:3px 6px;">CARRIER</th><th style="text-align:left;padding:3px 6px;">TIME</th></tr>';
+      _collEvents.slice(-25).forEach(ev => {
+        const typeCol = ev.type === 'CD' ? 'var(--red)' : 'var(--yellow)';
+        _extraHtml += '<tr style="border-bottom:1px solid var(--border-subtle);">';
+        _extraHtml += '<td style="padding:3px 6px;font-weight:700;color:'+typeCol+';">'+ev.type+'</td>';
+        _extraHtml += '<td style="padding:3px 6px;">Zone '+ev.zone+'</td>';
+        _extraHtml += '<td style="padding:3px 6px;">'+(ev.lm ? 'LM'+ev.lm : '—')+'</td>';
+        _extraHtml += '<td style="padding:3px 6px;">CA-'+String(ev.carrier||0).padStart(4,'0')+'</td>';
+        _extraHtml += '<td style="padding:3px 6px;color:var(--text-secondary);">'+(ev.time||'').slice(0,16)+'</td>';
+        _extraHtml += '</tr>';
+      });
+      _extraHtml += '</table></div>';
+    }
     let html = `<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>`;
 
     // Header card
+    html += _extraHtml;
     html += `<div style="background:var(--bg-card);border:1px solid var(--blue);border-top:3px solid var(--blue);border-radius:8px;padding:20px;margin-bottom:16px;">
       <div style="display:flex;align-items:center;gap:12px;">
         <span style="font-size:28px;">\ud83d\udccb</span>
