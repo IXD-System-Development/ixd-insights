@@ -1251,21 +1251,9 @@ html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;ma
   }
 
 
-  function showFrontOfBuilding() {
-    const container = document.getElementById('detail-content');
-    if (!container) return;
-    const result = DataLayer.getCachedData(_siteId);
-    if (!result) return;
-    const items = result.active_front_of_building || [];
-    let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">&#8592; Back to Overview</button></div>';
-    html += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">&#127970; Front of Building Jams &mdash; Shoe Sorter / SIPS-ATAC / Jackpots</div>`;
-    html += renderJamList(items, 'Active Jams &mdash; Front of Building (Shoe Sorter + SIPS/ATAC + Jackpots)', 'var(--red)');
-    html += '<style>@keyframes fault-flash{0%,100%{opacity:1}50%{opacity:0.4}}</style>';
-    container.innerHTML = html;
-  }
 
   function showIah3LizardTab() {
-  const d = (typeof result !== 'undefined' ? result : {});
+  const d = DataLayer.getCachedData(_siteId) || {};
   const liz = d.iah3_lizard || {};
   const webhook = liz.webhook || 'https://hooks.slack.com/triggers/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';
   const alarms  = liz.alarms || [];
