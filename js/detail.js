@@ -1373,4 +1373,4 @@ html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;ma
   h += '</div>';
   document.getElementById('tab-content').innerHTML = h;
 }
-)();
+})();
