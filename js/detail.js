@@ -1170,7 +1170,7 @@ html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;ma
       html += '</tbody></table></div>';
     }
 
-    let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>';
+    html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>';
     html += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">\ud83d\udc5f Shoe Sorter \u2014 CP67 / CP68 (Main Router)</div>`;
 
     // Induct Statistics KPIs
