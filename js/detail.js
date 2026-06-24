@@ -1265,82 +1265,42 @@ html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;ma
   }
 
   function showIah3LizardTab() {
-    const container = document.getElementById('detail-content');
-    if (!container) return;
-    const result = DataLayer.getCachedData(_siteId) || {};
-    const lz = result.iah3_lizard || {};
-    const webhook = lz.webhook || '';
-    const alarms  = lz.alarms  || [];
-    const events  = result.collision_events || [];
-    const stops   = result.sorter_stop_causes || [];
+    const d = (typeof result !== 'undefined' ? result : {});
+    const liz = d.iah3_lizard || {};
+    const webhook = liz.webhook || 'https://hooks.slack.com/triggers/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';
+    const alarms  = liz.alarms || [];
 
-    let h = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">&#8592; Back to Overview</button></div>';
-    h += '<div style="font-size:16px;font-weight:700;color:var(--yellow);margin-bottom:14px;">&#128994; IAH3 Lizard — Slack Chat</div>';
+    let h = '<div class="tab-content-inner">';
 
-    // ── Webhook config card ───────────────────────────────────────────────
-    h += '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:14px;">';
-    h += '<div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;letter-spacing:0.05em;">SLACK WEBHOOK</div>';
-    if (webhook) {
-      h += '<div style="font-size:11px;color:var(--green);word-break:break-all;background:var(--bg-secondary);padding:8px 10px;border-radius:4px;font-family:monospace;">' + webhook + '</div>';
-      h += '<div style="font-size:11px;color:var(--text-secondary);margin-top:6px;">Posts automatically when CD/CA trips or sorter stops. Managed by iah3_fleet_push.py.</div>';
-    } else {
-      h += '<div style="font-size:12px;color:var(--text-secondary);">No webhook configured — set IAH3_LIZARD_WEBHOOK in iah3_fleet_push.py</div>';
-    }
+    // ── Reference document ──────────────────────────────────────────────
+    h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--blue)"></span>IAH3 Lizard Alarm Monitor — Reference</div>';
+    h += '\n    <div style="font-family:monospace;font-size:12px;color:#c9d1d9;background:#0d1117;padding:16px;border-radius:8px;overflow-x:auto;white-space:pre-wrap;line-height:1.7;">\n<span style="color:#58a6ff;font-weight:bold;">IAH3 LIZARD ALARM MONITOR — QUICK REFERENCE</span>\n═══════════════════════════════════════════════════════════\nScript:   iah3_lizard_alarms.py\nWebhook:  https://hooks.slack.com/triggers/...06615/05e0671...\nPoll:     30 seconds   |   State file: iah3_lizard_state.json\n\n<span style="color:#f0883e;font-weight:bold;">DTW MUTE WINDOWS</span>  (no alerts for stops/E-stops/gates during these times)\n  5:30–7:00 AM/PM  |  11:00–11:30 AM/PM  |  2:30–3:00 AM/PM\n  NOT muted: PPU errors, LSM breakers/relays\n\n<span style="color:#f0883e;font-weight:bold;">ALERT PRIORITY TIERS</span>\n  Tier 1 — FIRE         Always fires, bypasses location filter\n  Tier 2 — E-Stop, CA, CD, IOB   Never suppress each other\n  Tier 3 — PPU, LSM breakers     Always fire, never suppressed\n  Tier 4 — Cascade (AutoReady, MaxFailedLM, LMError…)   Suppressed when E-stop active\n\n═══════════════════════════════════════════════════════════\n<span style="color:#58a6ff;font-weight:bold;">SECTION 1 — ICW SQL ALARMS</span>\nFilter: AlarmLocation = \'Unit Sorter\'  (CP82/83/84/85 only)\n\n  AlarmType keyword              Emoji\n  ─────────────────────────────────────\n  Emergency Stop                  🛑\n  Gates: Gate Open                🚪\n  Gates: Access Requested         🚪\n  Safety Relay                    🛑\n  JOG Station Safety Relay        🛑\n  Clockpulse Fault                🔴\n  Synchronization Fault           🔴\n  LSM Drive: Main Switch          🔴\n  WCS Communication Lost          📡\n  AWCS Communication Lost         📡\n  Fire Alarm                      🔥  (bypasses location filter)\n  Collision Guard                 🚨\n\nSuppressed tags (downstream panels — do NOT stop crossbelt):\n  COS60136-1 / COS60136-2  (CP60 RPND)\n  COS91406                  (CP91 Pallet Build)\n  COS92162                  (CP92 Robotic Palletizer)\n\n═══════════════════════════════════════════════════════════\n<span style="color:#58a6ff;font-weight:bold;">SECTION 2 — PLC DIRECT STOP CONDITIONS</span>\n\n  Tag                                           Alert                    Trigger\n  ────────────────────────────────────────────────────────────────────────────────\n  SFS_ERR_TMR.DN                               IOB Trip                  True\n  EstopRelayArmed                              E-Stop Active             <span style="color:#f85149;">False</span>\n  Safety_Gate_Open                             Safety Gate Open          True\n  AutoReady                                    AutoReady False           <span style="color:#f85149;">False</span>\n  MaxFailedLM                                  Max Failed LSM            True\n  ClockPulseError                              Clock Pulse Error         True\n  NoActiveCTBCRB                               No Active CTB/CRB         True\n  SlotFault                                    PLC Slot Fault            True\n  CollisionGaurdFault                          Collision Guard Fault     True\n  DB_Diagnoses.Sorter.LMError                  LSM Motor Error           True\n  DB_Diagnoses.Sorter.AWCS_Communication_Lost  AWCS Comms Lost           True\n\n═══════════════════════════════════════════════════════════\n<span style="color:#58a6ff;font-weight:bold;">SECTION 3 — PPU HEALTH  (Vahle vPOWER — 6 units)</span>\n\n  Tag: WPT_Prog[i].Inputs.PPU.Error_Active   (i=0–5, PPU = i+1)\n  True = ERROR → alert fires\n  Alert: 🔴 PPU 1 ERROR — power cycle 24VDC\n  (No warning alerts — error only)\n\n═══════════════════════════════════════════════════════════\n<span style="color:#58a6ff;font-weight:bold;">SECTION 4 — LSM BREAKERS / DISCONNECTS / RELAYS  (False = tripped)</span>\n\nCP82: EIP_CP82_CB_LSM01–03/11–14/21–22_POW  |  EIP_CP82_CB_MAIN_POW_LSM\n      EIP_CP82_SORTER_RUN  |  EIP_CP82_MainsRelay\n      EIP_CP82_Sorter_FaultRelay (<span style="color:#f85149;">True = fault</span> — inverted)\nCP84: EIP_CP84_CB_LSM04–10_POW  |  EIP_CP84_CB_MAIN_POW_LSM\nCP85: EIP_CP85_CB_LSM15–20_POW  |  EIP_CP85_CB_MAIN_POW_LSM\n\nSafety relay feedback (False = relay dropped):\n  CP82_ES_MASTER_RELAY  CP82_ES_SLAVE_RELAY\n  CP82_LSM_Contactors_Feedback  CP82_Induct_Contactors_Feedback\n  CP84_ES_MASTER_RELAY  CP84_LSM_Contactors_Feedback  CP84_Induct_Contactors_Feedback\n  CP85_ES_MASTER_RELAY  CP85_LSM_Contactors_Feedback  CP85_Induct_Contactors_Feedback\n  All_Safety_Relays_ON\n\nLSM Disconnects (False = open):\n  EIP_LSM01_Disc … EIP_LSM23_Disc   (alias: DCP_IO_LSM_xx:I.Data[2].10)\n\n═══════════════════════════════════════════════════════════\n<span style="color:#58a6ff;font-weight:bold;">SECTION 5 — INDUCTION E-STOP PULLCORDS  (True = activated)</span>\n\n  DB_Safety_Diagnoses.Estop[1–6, 9–18, 21].EsAct\n\n  ARMB module → E-Stop zone mapping:\n    DCP_IO_ARMB_IND_01  →  zones [1],[2],[9]\n    DCP_IO_ARMB_IND_02  →  zones [3],[4]\n    DCP_IO_ARMB_IND_03  →  zones [5],[6],[10]\n    DCP_IO_ARMB_IND_05  →  zones [11],[12],[21]\n    DCP_IO_ARMB_IND_06  →  zones [13],[14]\n    DCP_IO_ARMB_IND_07  →  zones [15],[16]\n    DCP_IO_ARMB_IND_08  →  zones [17],[18]\n\n  Alert: 🛑 INDUCT 05 E-STOP PULLCORD ACTIVATED\n  Muted during DTW windows.\n\n═══════════════════════════════════════════════════════════\n<span style="color:#58a6ff;font-weight:bold;">SECTION 6 — SAFETY GATES  (14 gates)</span>\n\n  Gate Open:    DB_Safety_Diagnoses.Gates[n].Gate_Unlocked  (True = open, n = gate# - 1)\n  Access Req:   SafetyGate{N}_AccesRequest  (True = requested)\n                ⚠ Tag name is AccesRequest — one \'s\' — typo in L5X\n  \n  Alert: 🔒 SAFETY GATE 01 IS OPEN\n         🔔 SAFETY GATE 01 REQUEST TO ENTER\n  Muted during DTW windows.\n\n═══════════════════════════════════════════════════════════\n<span style="color:#58a6ff;font-weight:bold;">SECTION 7 — LSM COLLISION AVOIDANCE (CA) &amp; DETECTION (CD)</span>\n\n  Alerting uses OTL latched bits (stay True until CommonReset):\n    DB_Diagnoses.LSMDrive[1–23].CollisionAvoidance   CA per zone\n    DB_Diagnoses.LinearMotor[1–69].CollGuard          CD per LM\n\n  Zone → LM:  Zone N = LM (N-1)×3+1 through (N-1)×3+3\n              e.g. Zone 7 = LM 19, 20, 21\n\n  Carrier proxy: ClockFaultCarrier  (not exact — LM_Bits[x].CartNo is programme-scoped)\n\n  Alert format:\n    ⚡ LSM 07 Collision Avoidance Tripped  |  IAH3\n    Carrier CA-1234\n    6/23/26 08:12 PM\n\n<span style="color:#f0883e;font-weight:bold;">Dashboard vs Lizard — Different bit sources:</span>\n  Dashboard lsm_zones: DCP_IO_LSM_xx:I.Data[2].7/.2  (live bits — True=healthy, False=fault)\n  Lizard alerts:       DB_Diagnoses OTL latched bits  (stay True after event)\n  Do NOT mix these up.\n\n═══════════════════════════════════════════════════════════\n<span style="color:#3fb950;font-weight:bold;">NOTES</span>\n  State file: iah3_lizard_state.json — delete to reset shift history\n  Downtime file: iah3_downtime_state.json — reset at shift start\n  Script runs continuously: python iah3_lizard_alarms.py\n  Remote updates: python push_update.py (site PC auto-updates within ~33s)\n    </div>\n';
     h += '</div>';
 
-    // ── Active stop conditions ────────────────────────────────────────────
-    if (stops.length > 0) {
-      h += '<div style="background:rgba(248,81,73,0.08);border:1px solid var(--red);border-radius:8px;padding:14px;margin-bottom:14px;">';
-      h += '<div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:8px;">&#9940; ACTIVE SORTER STOP CONDITIONS</div>';
-      stops.forEach(s => {
-        h += '<div style="font-size:12px;color:var(--text-primary);padding:3px 0;">&#8226; ' + s + '</div>';
-      });
-      h += '</div>';
-    }
-
-    // ── Collision events table ────────────────────────────────────────────
-    h += '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:14px;">';
-    h += '<div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:10px;letter-spacing:0.05em;">COLLISION EVENTS — THIS SHIFT</div>';
-    if (events.length === 0) {
-      h += '<div style="font-size:12px;color:var(--text-secondary);">No collision events recorded this shift.</div>';
-    } else {
-      h += '<table style="width:100%;border-collapse:collapse;font-size:11px;">';
-      h += '<tr style="color:var(--text-secondary);border-bottom:1px solid var(--border);">';
-      h += '<th style="text-align:left;padding:4px 8px;">TYPE</th><th style="text-align:left;padding:4px 8px;">ZONE</th><th style="text-align:left;padding:4px 8px;">LM</th><th style="text-align:left;padding:4px 8px;">CARRIER</th><th style="text-align:left;padding:4px 8px;">TIME (UTC)</th></tr>';
-      events.slice().reverse().forEach(ev => {
-        const tc = ev.type === 'CD' ? 'var(--red)' : 'var(--yellow)';
-        h += '<tr style="border-bottom:1px solid rgba(48,54,61,0.5);">';
-        h += '<td style="padding:4px 8px;font-weight:700;color:'+tc+';">'+ev.type+'</td>';
-        h += '<td style="padding:4px 8px;">Zone '+ev.zone+'</td>';
-        h += '<td style="padding:4px 8px;">'+(ev.lm ? 'LM'+ev.lm : '&#8212;')+'</td>';
-        h += '<td style="padding:4px 8px;">CA-'+String(ev.carrier||0).padStart(4,'0')+'</td>';
-        h += '<td style="padding:4px 8px;color:var(--text-secondary);">'+(ev.time||'').slice(0,16)+'</td>';
-        h += '</tr>';
-      });
-      h += '</table>';
-    }
+    // ── Webhook ──────────────────────────────────────────────────────────
+    h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--green)"></span>Webhook</div>';
+    h += `<div style="font-family:monospace;font-size:11px;color:#58a6ff;padding:8px;background:#161b22;border-radius:4px;word-break:break-all;">${webhook}</div>`;
     h += '</div>';
 
-    // ── Recent Slack posts log ─────────────────────────────────────────────
-    h += '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:14px;">';
-    h += '<div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:10px;letter-spacing:0.05em;">RECENT ALARMS POSTED TO SLACK</div>';
-    if (alarms.length === 0) {
-      h += '<div style="font-size:12px;color:var(--text-secondary);">No alarms posted yet this session.</div>';
-    } else {
-      alarms.slice().reverse().forEach(a => {
-        const bc = a.type === 'SORTER_STOP' ? 'var(--red)' : a.type === 'CD' ? 'var(--red)' : 'var(--yellow)';
-        h += '<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(48,54,61,0.4);">';
-        h += '<span style="font-size:18px;flex-shrink:0;">' + (a.type === 'SORTER_STOP' ? '&#9940;' : '&#9889;') + '</span>';
-        h += '<div><div style="font-size:12px;font-weight:600;color:'+bc+';">'+a.title+'</div>';
-        h += '<div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">'+a.message+'</div>';
-        h += '<div style="font-size:10px;color:var(--text-secondary);margin-top:2px;">'+a.time+'</div></div>';
-        h += '</div>';
+    // ── Recent alarms posted ─────────────────────────────────────────────
+    if (alarms.length > 0) {
+      h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--yellow)"></span>Recent Alarms Posted to Slack</div>';
+      h += '<table style="width:100%;font-size:11px;border-collapse:collapse;"><thead><tr>';
+      h += '<th style="text-align:left;color:#7d8590;padding:4px 8px;border-bottom:1px solid #21262d;">Time</th>';
+      h += '<th style="text-align:left;color:#7d8590;padding:4px 8px;border-bottom:1px solid #21262d;">Type</th>';
+      h += '<th style="text-align:left;color:#7d8590;padding:4px 8px;border-bottom:1px solid #21262d;">Title</th>';
+      h += '</tr></thead><tbody>';
+      [...alarms].reverse().slice(0, 15).forEach(a => {
+        h += `<tr>
+          <td style="padding:4px 8px;color:#7d8590;border-bottom:1px solid #1c2128;font-size:10px;">${a.time || ''}</td>
+          <td style="padding:4px 8px;border-bottom:1px solid #1c2128;">${a.type || ''}</td>
+          <td style="padding:4px 8px;color:#c9d1d9;border-bottom:1px solid #1c2128;">${a.title || a.message || ''}</td>
+        </tr>`;
       });
+      h += '</tbody></table></div>';
     }
-    h += '</div>';
 
-    container.innerHTML = h;
+    h += '</div>';
+    document.getElementById('tab-content').innerHTML = h;
   }
-
-  return { init, refresh, showShiftReport, showSorterTab, showMetricsTab, showChuteJamsTab, showInboundTab, showOutboundSouth, showOutboundNorth, showFrontOfBuilding, showShoeSorter, showIah3LizardTab };
-})();
+)();
