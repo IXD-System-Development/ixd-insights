@@ -1,25 +1,27 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-24 07:49:24 EST",
+  "timestamp": "2026-06-24 07:50:33 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-24 07:49",
+  "_pushed_at": "2026-06-24 07:50",
   "carrier_count": 2340,
   "sorter": {
-    "running": true,
-    "speed": 2394,
-    "active_faults": [],
+    "running": false,
+    "speed": 356,
+    "active_faults": [
+      "IOB-4 TRIPPED"
+    ],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 110,
+    "faulted": 104,
     "disabled": 11,
-    "available": 2219,
+    "available": 2225,
     "occupied": 2053,
-    "empty": 166,
-    "empty_pct": 7.1,
-    "availability_pct": 94.8
+    "empty": 172,
+    "empty_pct": 7.4,
+    "availability_pct": 95.1
   },
   "config": {
     "max_recirc": 5,
@@ -41,33 +43,33 @@
     },
     {
       "label": "IND4-Scn4",
-      "nr_pct": 4.8
+      "nr_pct": 4.81
     }
   ],
   "ppu": [
     {
       "index": 1,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 3,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 6,
-      "state": "RUNNING"
+      "state": "STOPPED"
     }
   ],
   "wpt": [
@@ -78,8 +80,8 @@
     },
     {
       "index": 1,
-      "error": true,
-      "carrier": 841
+      "error": false,
+      "carrier": null
     },
     {
       "index": 2,
@@ -139,7 +141,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1754
+      "carrier": 1990
     },
     {
       "index": 14,
@@ -157,19 +159,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 2,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 3,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 4,
-        "connection_faulted": false
+        "connection_faulted": true
       }
     ]
   },
@@ -182,9 +184,9 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 2
+      "faulted": 1
     },
-    "ppu_connections": 6,
+    "ppu_connections": 0,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -401,16 +403,19 @@
     "6": 2,
     "11": 5
   },
-  "wpt_fault_start": {
-    "1": "2026-06-24T11:49:17.390511+00:00"
-  },
+  "wpt_fault_start": {},
   "crb_fault_counts": {
-    "1": 22,
-    "2": 21,
-    "3": 22,
-    "4": 20
+    "1": 23,
+    "2": 22,
+    "3": 23,
+    "4": 21
   },
-  "crb_fault_start": {},
+  "crb_fault_start": {
+    "1": "2026-06-24T11:50:26.300139+00:00",
+    "2": "2026-06-24T11:50:26.300139+00:00",
+    "3": "2026-06-24T11:50:26.300139+00:00",
+    "4": "2026-06-24T11:50:26.300139+00:00"
+  },
   "strays": [
     {
       "index": 1,
@@ -431,18 +436,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 294679,
-    "recirculated": 3412,
-    "recirc_pct": 1.14
+    "sorted": 294825,
+    "recirculated": 3415,
+    "recirc_pct": 1.15
   },
   "weekly": {
     "scan_defect_pct": 0.24,
-    "recirc_pct": 1.14,
-    "oee_good_divert": 1627120,
-    "oee_failed_divert": 1399832,
+    "recirc_pct": 1.15,
+    "oee_good_divert": 1627186,
+    "oee_failed_divert": 1399839,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1328489,
+    "oee_lane_full": 1328491,
     "oee_max_recirc": 24,
     "oee_no_read": 228700,
     "lane_full_pct": 63.1,
@@ -451,32 +456,32 @@
     "sorter_fpy_icw": 30.3,
     "_sorter_stats_fpy": 97.4,
     "mhe_defect_icw": 6.61,
-    "inducted": 901060,
-    "diverted": 877196,
+    "inducted": 901805,
+    "diverted": 877916,
     "mhe_breakdown": {
-      "ItemScanned": 5673276,
-      "LaneFull": 2218003,
-      "CodeUsed": 1290296,
-      "Ok": 1274607,
-      "TrayspacingHorizontal": 234425,
-      "LaneBlocked": 188989,
-      "MaxRecirculation": 153443,
+      "ItemScanned": 5672900,
+      "LaneFull": 2217685,
+      "CodeUsed": 1290246,
+      "Ok": 1274562,
+      "TrayspacingHorizontal": 234379,
+      "LaneBlocked": 188950,
+      "MaxRecirculation": 153442,
       "LaneDisabled": 44886,
-      "SorterSpeedChange": 34745,
-      "NoActivation": 23102,
-      "ItemOnActivatedCarrier": 20766,
+      "SorterSpeedChange": 34816,
+      "NoActivation": 23103,
+      "ItemOnActivatedCarrier": 20769,
       "NoAnswerFromScanner": 9918,
-      "LaneJammed": 4725,
+      "LaneJammed": 4727,
       "NotCodeConverted": 7
     },
     "daily_defects": [
       {
         "date": "2026-06-17",
-        "ftd": 3795,
-        "good": 136647,
-        "lane_full": 235921,
+        "ftd": 3794,
+        "good": 136458,
+        "lane_full": 235463,
         "no_read": 0,
-        "utd": 1209
+        "utd": 1208
       },
       {
         "date": "2026-06-18",
@@ -528,11 +533,11 @@
       },
       {
         "date": "2026-06-24",
-        "ftd": 2031,
-        "good": 49243,
-        "lane_full": 87523,
+        "ftd": 2033,
+        "good": 49384,
+        "lane_full": 87657,
         "no_read": 0,
-        "utd": 854
+        "utd": 856
       }
     ],
     "top_ftd_chutes": [
@@ -540,69 +545,69 @@
         "name": "SWBypass",
         "icw_id": 196,
         "good": 8643,
-        "ftd": 53320,
+        "ftd": 53462,
         "fail_pct": 86.1
       },
       {
         "name": "US20_04+",
         "icw_id": 179,
         "good": 2218,
-        "ftd": 32628,
-        "fail_pct": 93.6
+        "ftd": 32755,
+        "fail_pct": 93.7
       },
       {
         "name": "RPND 1/2+",
         "icw_id": 283,
         "good": 1382,
-        "ftd": 31294,
+        "ftd": 31337,
         "fail_pct": 95.8
       },
       {
         "name": "US20_03-",
         "icw_id": 354,
         "good": 1408,
-        "ftd": 27952,
+        "ftd": 27978,
         "fail_pct": 95.2
       },
       {
         "name": "RPND 1/2-",
         "icw_id": 292,
-        "good": 7018,
-        "ftd": 25626,
-        "fail_pct": 78.5
+        "good": 7060,
+        "ftd": 25634,
+        "fail_pct": 78.4
       },
       {
         "name": "NWBypass",
         "icw_id": 368,
-        "good": 19196,
-        "ftd": 24894,
+        "good": 19238,
+        "ftd": 24965,
         "fail_pct": 56.5
       },
       {
         "name": "US_05+",
         "icw_id": 173,
-        "good": 2324,
-        "ftd": 21874,
+        "good": 2332,
+        "ftd": 21878,
         "fail_pct": 90.4
       },
       {
         "name": "US20_04-",
         "icw_id": 14,
         "good": 0,
-        "ftd": 21169,
+        "ftd": 21202,
         "fail_pct": 100.0
       },
       {
         "name": "Mansort G/H+",
         "icw_id": 137,
-        "good": 1200,
-        "ftd": 20570,
-        "fail_pct": 94.5
+        "good": 1218,
+        "ftd": 20577,
+        "fail_pct": 94.4
       },
       {
         "name": "Mansort C/D-",
         "icw_id": 50,
-        "good": 988,
+        "good": 998,
         "ftd": 20548,
         "fail_pct": 95.4
       }
@@ -647,11 +652,11 @@
       {
         "name": "CA2322",
         "comm": 0,
-        "mnr": 540,
+        "mnr": 541,
         "cal": 0,
         "clock": 0,
         "current_limit": 0,
-        "total": 540
+        "total": 541
       },
       {
         "name": "CA2173",
@@ -674,11 +679,11 @@
       {
         "name": "CA0891",
         "comm": 0,
-        "mnr": 508,
+        "mnr": 509,
         "cal": 0,
         "clock": 0,
         "current_limit": 0,
-        "total": 508
+        "total": 509
       },
       {
         "name": "CA2097",
@@ -728,20 +733,20 @@
       {
         "name": "CA2227",
         "comm": 0,
-        "mnr": 482,
+        "mnr": 483,
         "cal": 0,
         "clock": 0,
         "current_limit": 0,
-        "total": 482
+        "total": 483
       },
       {
         "name": "CA0234",
         "comm": 0,
-        "mnr": 478,
+        "mnr": 479,
         "cal": 0,
         "clock": 0,
         "current_limit": 0,
-        "total": 478
+        "total": 479
       },
       {
         "name": "CA0482",
@@ -800,12 +805,12 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 30.5,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 321399,
+    "plc_dpmo": 321396,
     "plc_scan_defect": 4.42,
     "sorter_oee": 75.8,
-    "plc_total_units": 4355483,
-    "plc_good_diverts": 1627120,
-    "plc_total_defects": 1399850
+    "plc_total_units": 4355558,
+    "plc_good_diverts": 1627186,
+    "plc_total_defects": 1399857
   },
   "shift_report": {
     "shift_label": "Night Shift (7pm - 7am EST)",
@@ -816,13 +821,13 @@
     "south_upper": [
       {
         "name": "91352 CP90 Pallet Build North Upper",
-        "duration_min": 485.0
+        "duration_min": 486.2
       }
     ],
     "south_lower": [
       {
         "name": "91202 CP90 Pallet Build North Lower",
-        "duration_min": 39.9
+        "duration_min": 41.1
       }
     ],
     "north_upper": [],
@@ -835,11 +840,11 @@
   "active_outbound_south": [
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 61776.8
+      "duration_min": 61778.0
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33119_01",
-      "duration_min": 60397.3
+      "duration_min": 60398.4
     }
   ],
   "active_outbound_north": [],
@@ -979,7 +984,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[13]",
+      "text": "Pull MCB carriers at WPT [13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -989,7 +994,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "110 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "104 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
