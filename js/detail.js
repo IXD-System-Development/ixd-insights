@@ -87,7 +87,7 @@ const SiteDetail = (() => {
       <a href="https://w.amazon.com/bin/view/IXD-SD/SITES/${_siteId}" target="_blank" class="filter-btn" style="text-decoration:none;">IXD Wiki ↗</a>
       <button class="filter-btn" onclick="SiteDetail.showChuteJamsTab()">Chute Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showInboundTab()">Inbound Jams</button>
-      <button class="filter-btn" onclick="SiteDetail.showSorterTab()">Sorter</button>
+      <button class="filter-btn" onclick="SiteDetail.showSorterTab()">🦅 MR.BOBB's Simurgh</button>
       <button class="filter-btn" onclick="SiteDetail.showOutboundSouth()">Outbound Southside Jam</button><button class="filter-btn" onclick="SiteDetail.showOutboundNorth()">Outbound Northside Jam</button><button class="filter-btn" onclick="SiteDetail.showShoeSorter()">Shoe Sorter</button><button class="filter-btn" onclick="SiteDetail.showFrontOfBuilding()">Front of Building Jams</button>${_siteId === 'IAH3' ? '<button class="filter-btn" onclick="SiteDetail.showIah3LizardTab()" style="background:var(--yellow-bg);border-color:var(--yellow);color:var(--yellow);">&#128994; IAH3 Slack Chat</button>' : ''}
     </div>`;
 
@@ -812,74 +812,93 @@ const SiteDetail = (() => {
   }
 
   function showSorterTab() {
-    const container = document.getElementById('detail-content');
-    if (!container) return;
-    const result = DataLayer.getCachedData(_siteId);
-    if (!result) { container.innerHTML = '<div class="section-panel"><p style="color:var(--text-secondary)">No data available.</p></div>'; return; }
+  var container = document.getElementById('detail-content');
+  if (!container) return;
+  var d = DataLayer.getCachedData(_siteId) || {};
+  var sim = d.simurgh || {};
+  var snap = sim.carrier_snapshot || {};
+  var reports = sim.recent_reports || [];
+  var weekly = d.weekly || {};
+  var mb = weekly.mhe_breakdown || {};
 
-    let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>';
+  var h = '<div class="tab-content-inner">';
 
-    // Faulted Carriers Table
-    const carriers = (result.weekly || {}).faulted_carriers || [];
-    html += '<div class="section-panel">';
-    html += '<div class="section-title"><span class="section-dot" style="background:var(--red)"></span> Constantly Faulted Carriers (Weekly)</div>';
-    if (carriers.length > 0) {
-      html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
-      carriers.forEach(c => {
-        const bg = c.total > 500 ? 'var(--red-bg)' : c.total > 200 ? 'var(--yellow-bg)' : 'var(--bg-surface)';
-        const border = c.total > 500 ? 'var(--red)' : c.total > 200 ? 'var(--yellow)' : 'var(--border)';
-        html += `<div style="background:${bg};border:1px solid ${border};border-radius:6px;padding:4px 8px;font-size:11px;font-family:var(--font-mono);"><span style="font-weight:700;">${c.name}</span> <span style="color:var(--text-secondary);">${c.total}</span></div>`;
-      });
-      html += '</div>';
-    } else {
-      html += '<p style="color:var(--text-secondary)">No carrier fault data available.</p>';
-    }
-    html += '</div>';
+  // Header
+  h += '<div style="font-size:15px;font-weight:700;color:var(--yellow);margin-bottom:16px;">';
+  h += '\uD83E\uDD85 MR.BOBB\'s Simurgh \u2014 IAH3 Loop Sorter Intelligence</div>';
 
-    // Top 10 Current Limit Exceeded
-    const currentLimitCarriers = carriers.filter(c => (c.current_limit || 0) > 0).sort((a,b) => (b.current_limit||0) - (a.current_limit||0)).slice(0, 10);
-    if (currentLimitCarriers.length > 0) {
-      html += '<div class="section-panel">';
-      html += '<div class="section-title"><span class="section-dot" style="background:var(--orange)"></span> Top 10 Current Limit Exceeded (Cart Regulator Fault)</div>';
-      html += '<div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Carrier</th><th>Current Limit Faults</th><th>Total Faults</th></tr></thead><tbody>';
-      currentLimitCarriers.forEach((c, i) => {
-        const color = i < 3 ? 'color:var(--red);font-weight:700' : i < 6 ? 'color:var(--yellow)' : '';
-        html += `<tr><td style="${color}">${c.name}</td><td style="${color}">${c.current_limit}</td><td>${c.total}</td></tr>`;
-      });
-      html += '</tbody></table></div></div>';
-    }
+  // Carrier snapshot KPIs
+  h += '<div class="section-panel"><div class="section-title">';
+  h += '<span class="section-dot" style="background:var(--blue)"></span>';
+  h += 'Carrier Fleet Snapshot (EDRO)</div>';
+  h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">';
+  var errCount = snap.error_count !== undefined ? snap.error_count : (d.carriers || {}).faulted || 0;
+  var disCount = snap.disabled_count !== undefined ? snap.disabled_count : (d.carriers || {}).disabled || 0;
+  var recirc   = snap.recirculating_count || 0;
+  var occupied = snap.occupied_count || 0;
+  var total    = (d.carrier_count || 2340);
+  h += kpi('Error Carriers', errCount, 'MCB / comm fault', errCount > 50 ? 'red' : errCount > 20 ? 'yellow' : 'green');
+  h += kpi('Disabled Carriers', disCount, 'manually taken out', disCount > 50 ? 'red' : disCount > 20 ? 'yellow' : 'green');
+  h += kpi('Recirculating', recirc, 'on loop right now', recirc > 500 ? 'red' : recirc > 200 ? 'yellow' : 'green');
+  h += kpi('Occupied', occupied, 'carrying items', 'blue');
+  h += '</div></div>';
 
-    // Recert — carriers needing recertification (fault count > 20)
-    const recertCarriers = carriers.filter(c => c.total > 20).sort((a,b) => b.total - a.total);
-    html += '<div class="section-panel">';
-    html += `<div class="section-title"><span class="section-dot" style="background:var(--red)"></span> Recert Required \u2014 ${recertCarriers.length} Carriers (Total Faults > 20)</div>`;
-    if (recertCarriers.length > 0) {
-      html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
-      recertCarriers.forEach(c => {
-        const bg = c.total > 500 ? 'var(--red-bg)' : c.total > 200 ? 'var(--yellow-bg)' : 'var(--bg-surface)';
-        const border = c.total > 500 ? 'var(--red)' : c.total > 200 ? 'var(--yellow)' : 'var(--border)';
-        html += `<div style="background:${bg};border:1px solid ${border};border-radius:6px;padding:4px 8px;font-size:11px;font-family:var(--font-mono);"><span style="font-weight:700;">${c.name}</span> <span style="color:var(--text-secondary);">${c.total}</span></div>`;
-      });
-      html += '</div>';
-    } else {
-      html += '<p style="color:var(--green);font-size:12px;">No carriers above recert threshold.</p>';
-    }
-    html += '</div>';
-
-    // Carrier fault legend
-    html += '<div class="section-panel">';
-    html += '<div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> Fault Type Legend</div>';
-    html += '<table class="data-table" style="font-size:11px;"><tbody>';
-    html += '<tr><td style="font-weight:600;">MNR</td><td>Motor Not Running \u2014 MCB belt motor failure (most common, needs MCB replacement)</td></tr>';
-    html += '<tr><td style="font-weight:600;">Comm</td><td>Communication Fault \u2014 MCB lost contact with CTB/CRB (IR window dirty or MCB board failure)</td></tr>';
-    html += '<tr><td style="font-weight:600;">Current Limit</td><td>Current Limit Exceeded \u2014 Cart regulator drawing too much current (brush wear or short)</td></tr>';
-    html += '';
-    html += '<tr><td style="font-weight:600;">Cal</td><td>Calibration Error \u2014 MCB calibration lost (reprogram via CCT)</td></tr>';
-    html += '<tr><td style="font-weight:600;">Clock</td><td>Clock Pulse Fault \u2014 Carrier missed clock pulse sensor (timing/position error)</td></tr>';
-    html += '</tbody></table></div>';
-
-    container.innerHTML = html;
+  // ICW MHE breakdown
+  if (Object.keys(mb).length > 0) {
+    var noAct  = mb.NoActivation || 0;
+    var laneFull = mb.LaneFull || 0;
+    var laneBlk  = mb.LaneBlocked || 0;
+    var maxRec   = mb.MaxRecirculation || 0;
+    var itemScn  = mb.ItemScanned || 0;
+    var ok       = mb.Ok || 0;
+    var total_ev = (mb.ItemScanned || 0);
+    h += '<div class="section-panel"><div class="section-title">';
+    h += '<span class="section-dot" style="background:var(--red)"></span>';
+    h += 'Simurgh \u2014 ICW Event Breakdown</div>';
+    h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">';
+    h += kpi('No Activation (FTD)', noAct.toLocaleString(), 'carrier belt didn\'t fire', noAct > 10000 ? 'red' : noAct > 3000 ? 'yellow' : 'green');
+    h += kpi('Lane Full', laneFull.toLocaleString(), 'chute at capacity', laneFull > 500000 ? 'red' : laneFull > 100000 ? 'yellow' : 'green');
+    h += kpi('Lane Blocked', laneBlk.toLocaleString(), 'jam or fault', laneBlk > 50000 ? 'red' : 'green');
+    h += kpi('Max Recirc', maxRec.toLocaleString(), 'hit limit (' + (d.config || {}).max_recirc + ')', maxRec > 100000 ? 'red' : maxRec > 30000 ? 'yellow' : 'green');
+    h += '</div></div>';
   }
+
+  // Simurgh report history
+  if (reports.length > 0) {
+    h += '<div class="section-panel"><div class="section-title">';
+    h += '<span class="section-dot" style="background:var(--green)"></span>';
+    h += 'Recent Simurgh Reports</div>';
+    h += '<table style="width:100%;font-size:11px;border-collapse:collapse;">';
+    h += '<thead><tr>';
+    h += '<th style="text-align:left;color:#7d8590;padding:4px 8px;border-bottom:1px solid #21262d;">Time</th>';
+    h += '<th style="text-align:left;color:#7d8590;padding:4px 8px;border-bottom:1px solid #21262d;">Report</th>';
+    h += '<th style="text-align:left;color:#7d8590;padding:4px 8px;border-bottom:1px solid #21262d;">Summary</th>';
+    h += '</tr></thead><tbody>';
+    reports.slice(0, 15).forEach(function(r) {
+      h += '<tr>';
+      h += '<td style="padding:4px 8px;color:#7d8590;border-bottom:1px solid #1c2128;font-size:10px;">' + (r.time || '') + '</td>';
+      h += '<td style="padding:4px 8px;font-weight:600;border-bottom:1px solid #1c2128;">' + (r.name || '') + '</td>';
+      h += '<td style="padding:4px 8px;color:#c9d1d9;border-bottom:1px solid #1c2128;">' + (r.summary || '') + '</td>';
+      h += '</tr>';
+    });
+    h += '</tbody></table></div>';
+  } else {
+    h += '<div class="section-panel" style="color:var(--text-secondary);font-size:12px;">';
+    h += '\uD83E\uDD85 Simurgh is running on the site PC.<br>';
+    h += 'Reports go to <b>#iah3-ops-simurgh-reporting</b> and <b>#iah3-rme-simurgh-reporting</b> Slack channels.<br><br>';
+    h += 'Schedule:<br>';
+    h += '&bull; Every 15 min: Carrier failed divert / max recirc / stuck item alerts<br>';
+    h += '&bull; Every 15 min: EDRO carrier snapshot (Error, Disabled, Recirculating, Occupied)<br>';
+    h += '&bull; Every 6 hours: Lost Packages Top 15<br>';
+    h += '&bull; Every 12 hours: Motor Not Running Top 15 + Manually Disabled Carriers<br>';
+    h += '&bull; 5:30 AM/PM and 7:00 AM/PM: Full EDRO carrier report<br><br>';
+    h += '<b>Alert thresholds:</b> 10 failed diverts, 10 max recircs, 50 lane blocked, 100 lane full+disabled<br>';
+    h += '</div>';
+  }
+
+  h += '</div>';
+  container.innerHTML = h;
+}
 
   function showMetricsTab() {
     const container = document.getElementById('detail-content');
