@@ -362,7 +362,7 @@ const SiteDetail = (() => {
     const pidData = d.pids || {};
     const bypassData = d.bypass || {};
 
-    const running = sorter.state === 'running';
+    const running = sorter.running || sorter.state === 'running';
     const wkNum = (() => { const d2=new Date(); const onejan=new Date(d2.getFullYear(),0,1); return Math.ceil((((d2-onejan)/86400000)+onejan.getDay()+1)/7); })();
 
     let h = '';
@@ -387,8 +387,9 @@ const SiteDetail = (() => {
     h += `<div style="font-size:11px;color:var(--text-secondary);margin:0 0 12px 0;">${_siteId} \u2014 10.225.139.140 | Wk${wkNum}</div>`;
 
     // Sorter banner
-    const bannerColor = running ? 'var(--green)' : sorter.state === 'estopped' ? 'var(--red)' : 'var(--yellow)';
-    const bannerText = running ? '\u25cf SORTER RUNNING' : sorter.state === 'estopped' ? '\u25cf SORTER E-STOPPED' : sorter.state === 'fault' ? '\u25cf SORTER FAULT' : '\u25cf SORTER STOPPED';
+    const sorterStateStr = sorter.state || (running ? 'running' : 'stopped');
+    const bannerColor = running ? 'var(--green)' : sorterStateStr === 'estopped' ? 'var(--red)' : 'var(--yellow)';
+    const bannerText = running ? '\u25cf SORTER RUNNING' : sorterStateStr === 'estopped' ? '\u25cf SORTER E-STOPPED' : sorterStateStr === 'fault' ? '\u25cf SORTER FAULT' : '\u25cf SORTER STOPPED';
     h += `<div style="background:${bannerColor}15;border:1px solid ${bannerColor};border-radius:6px;padding:10px 16px;text-align:center;font-weight:700;color:${bannerColor};font-size:13px;margin-bottom:16px;">${bannerText}</div>`;
 
     // KPI Row 1
@@ -500,7 +501,7 @@ const SiteDetail = (() => {
     h += `<div class="section-panel">`;
     h += `<div class="section-title"><span class="section-dot" style="background:var(--green)"></span> LIVE STATE SUMMARY</div>`;
     h += `<table class="data-table"><thead><tr><th>Parameter</th><th>Value</th><th style="text-align:right;">Status</th></tr></thead><tbody>`;
-    h += demRow('Sorter State', running ? 'RUNNING' : sorter.state.toUpperCase(), running);
+    h += demRow('Sorter State', running ? 'RUNNING' : (sorter.state || (sorter.running ? 'running' : 'stopped')).toUpperCase(), running);
     h += demRow('Contactor Enable', sorter.contactor_enable ? 'ENABLED' : 'OPEN', sorter.contactor_enable);
     h += demRow('LSM All Zones', sorter.lsm_all_ok ? 'ALL OK' : 'FAULT', sorter.lsm_all_ok);
     h += demRow('E-Stops Active', (safety.estops_active || 0).toString(), (safety.estops_active || 0) === 0);
