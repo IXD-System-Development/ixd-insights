@@ -1097,6 +1097,49 @@ html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;ma
     if (!result) return;
     const ss = result.shoe_sorter || {};
     const icw = ss.icw_stats || {};
+    // ── Throughput KPIs from CP67 OEE MP counters ──────────────────────────
+    const mergeTotal  = ss.merge_total  || 0;
+    const sortTotal   = ss.sort_total   || 0;
+    const inductTotal = ss.induct_total || 0;
+    const grandTotal  = ss.total        || (mergeTotal + sortTotal);
+    const mpRows      = ss.mp_rows      || [];
+    const aglOn       = ss.agl_enabled;
+    const inductJam   = ss.induct_jam;
+    const exitJam     = ss.exit_jam;
+    const gridlock    = ss.gridlock;
+    let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">← Back to Overview</button></div>';
+    html += '<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">������ Shoe Sorter — IntelliSort / IntelliMerge (CP67)</div>';
+    // Status row
+    const statusItems = [
+      {label:'AGL', ok: aglOn, okLabel:'ON', badLabel:'OFF'},
+      {label:'Induct Jam', ok: !inductJam, okLabel:'Clear', badLabel:'ACTIVE'},
+      {label:'Exit Jam',   ok: !exitJam,   okLabel:'Clear', badLabel:'ACTIVE'},
+      {label:'Gridlock',   ok: !gridlock,  okLabel:'Clear', badLabel:'ACTIVE'},
+    ];
+    html += '<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">';
+    statusItems.forEach(s => {
+      const color = s.ok ? 'var(--green)' : 'var(--red)';
+      const bg    = s.ok ? 'var(--green-bg)' : 'var(--red-bg)';
+      html += `<div style="background:${bg};border:1px solid ${color};border-radius:6px;padding:6px 12px;font-size:11px;font-weight:600;color:${color};">${s.label}: ${s.ok ? s.okLabel : s.badLabel}</div>`;
+    });
+    html += '</div>';
+    // Throughput KPI cards
+    html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
+    html += kpi('Total Through Sorter', grandTotal ? Number(grandTotal).toLocaleString() : '—', 'merge + sort lanes', grandTotal > 0 ? 'green' : 'grey');
+    html += kpi('IntelliMerge Total',   mergeTotal ? Number(mergeTotal).toLocaleString()  : '—', 'packages merged in', mergeTotal > 0 ? 'green' : 'grey');
+    html += kpi('After-Sort Output',    sortTotal  ? Number(sortTotal).toLocaleString()   : '—', 'back to sorter lanes', sortTotal > 0 ? 'green' : 'grey');
+    html += kpi('Re-Inducted CB4000',   inductTotal? Number(inductTotal).toLocaleString() : '—', 'onto crossbelt', inductTotal > 0 ? 'blue' : 'grey');
+    html += '</div>';
+    // MP detail table
+    if (mpRows.length > 0) {
+      html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--blue)"></span> Machine Point Detail (CP67)</div>';
+      html += '<table class="data-table"><thead><tr><th>Machine Point</th><th style="text-align:right;">Good Diverts</th><th style="text-align:right;">FTD</th><th style="text-align:right;">Lane Full</th></tr></thead><tbody>';
+      mpRows.forEach(row => {
+        const ftdColor = row.ftd > 100 ? 'color:var(--red)' : '';
+        html += `<tr><td style="font-family:var(--font-mono)">${row.mp}</td><td style="text-align:right;font-weight:600">${Number(row.good).toLocaleString()}</td><td style="text-align:right;${ftdColor}">${Number(row.ftd).toLocaleString()}</td><td style="text-align:right">${Number(row.lane_full).toLocaleString()}</td></tr>`;
+      });
+      html += '</tbody></table></div>';
+    }
 
     let html = '<div style="margin-bottom:12px;"><button class="filter-btn" onclick="SiteDetail.refresh()">\u2190 Back to Overview</button></div>';
     html += `<div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid var(--border);">\ud83d\udc5f Shoe Sorter \u2014 CP67 / CP68 (Main Router)</div>`;
