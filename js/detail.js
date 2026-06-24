@@ -213,19 +213,6 @@ const SiteDetail = (() => {
     }
     h += '</div>';
 
-    // Discharge CRBs
-    const crbUnits = crb.units || [];
-    if (crbUnits.length > 0) {
-      h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--green)"></span> Discharge CRBs \u2014 Belt Confirm Receivers (1\u20134)</div>';
-      h += '<div class="health-grid">';
-      crbUnits.forEach(u => {
-        const ok = !u.connection_faulted;
-        const isStopped = !running;
-        const color = isStopped ? 'grey' : ok ? 'green' : 'red';
-        h += `<div class="health-cell ${color}"><div class="health-cell-label">CRB ${u.index}</div><div class="health-cell-value ${color}">${isStopped ? '\u25a0 Stopped' : ok ? '\u2713 OK' : '\u2717 FAULT'}</div></div>`;
-      });
-      h += '</div></div>';
-    }
 
 
     // Induction CTB/CRB Health (ActiveCTBCRB)
