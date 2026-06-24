@@ -88,7 +88,7 @@ const SiteDetail = (() => {
       <button class="filter-btn" onclick="SiteDetail.showChuteJamsTab()">Chute Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showInboundTab()">Inbound Jams</button>
       <button class="filter-btn" onclick="SiteDetail.showSorterTab()">Sorter</button>
-      <button class="filter-btn" onclick="SiteDetail.showOutboundSouth()">Outbound Southside Jam</button><button class="filter-btn" onclick="SiteDetail.showOutboundNorth()">Outbound Northside Jam</button><button class="filter-btn" onclick="SiteDetail.showShoeSorter()">Shoe Sorter</button><button class="filter-btn" onclick="SiteDetail.showFrontOfBuilding()">Front of Building Jams</button><button class="filter-btn" onclick="SiteDetail.showIah3LizardTab()" style="background:var(--yellow-bg);border-color:var(--yellow);color:var(--yellow);">&#128994; IAH3 Slack Chat</button>
+      <button class="filter-btn" onclick="SiteDetail.showOutboundSouth()">Outbound Southside Jam</button><button class="filter-btn" onclick="SiteDetail.showOutboundNorth()">Outbound Northside Jam</button><button class="filter-btn" onclick="SiteDetail.showShoeSorter()">Shoe Sorter</button><button class="filter-btn" onclick="SiteDetail.showFrontOfBuilding()">Front of Building Jams</button>${_siteId === 'IAH3' ? '<button class="filter-btn" onclick="SiteDetail.showIah3LizardTab()" style="background:var(--yellow-bg);border-color:var(--yellow);color:var(--yellow);">&#128994; IAH3 Slack Chat</button>' : ''}
     </div>`;
 
     // Header
