@@ -255,6 +255,34 @@ const SiteDetail = (() => {
       h += '</div></div>';
     }
 
+    // Induction CTB/CRB Health (ActiveCTBCRB)
+    const inductCTBCRB = d.induct_ctbcrb || {};
+    const inductActive = inductCTBCRB.active !== undefined ? inductCTBCRB.active : null;
+    const inductBoards = inductCTBCRB.boards || [];
+    if (inductBoards.length > 0 || inductActive !== null) {
+      const inductFaulted = inductBoards.filter(b => b.faulted).length;
+      const inductTotal   = inductCTBCRB.total || 4;
+      const iColor = inductFaulted > 0 ? 'red' : 'green';
+      const iTitle = inductActive !== null
+        ? `Induction CTB/CRB Health (${inductActive} of ${inductTotal} active)`
+        : `Induction CTB/CRB Health`;
+      h += `<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--${iColor})"></span>${iTitle}</div>`;
+      h += '<div class="health-grid">';
+      if (inductBoards.length > 0) {
+        inductBoards.forEach(b => {
+          const color = b.faulted ? 'red' : 'green';
+          const icon  = b.faulted ? '✗ FAULT' : '✓ OK';
+          h += `<div class="health-cell ${color}"><div class="health-cell-label">${b.label}</div><div class="health-cell-value ${color}">${icon}</div></div>`;
+        });
+      } else {
+        // Fallback: just show count
+        const txt = inductActive !== null ? `${inductActive} / ${inductTotal} active` : 'No data';
+        const color = (inductActive !== null && inductActive < inductTotal) ? 'red' : 'green';
+        h += `<div class="health-cell ${color}"><div class="health-cell-label">ActiveCTBCRB</div><div class="health-cell-value ${color}">${txt}</div></div>`;
+      }
+      h += '</div></div>';
+    }
+
     // LSM Drive Health
     if (lsmZones.length > 0) {
       const lsmFaults = lsmZones.filter(z => z.collision_detect || z.collision_avoid || z.vfd_fault).length;
