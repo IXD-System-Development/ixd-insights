@@ -228,29 +228,28 @@ const SiteDetail = (() => {
     }
 
     // Induction CTB/CRB Health (ActiveCTBCRB)
-    const inductCTBCRB = d.induct_ctbcrb || {};
-    const inductActive = inductCTBCRB.active !== undefined ? inductCTBCRB.active : null;
-    const inductBoards = inductCTBCRB.boards || [];
+    var inductCTBCRB = d.induct_ctbcrb || {};
+    var inductActive = (inductCTBCRB.active !== undefined) ? inductCTBCRB.active : null;
+    var inductBoards = inductCTBCRB.boards || [];
+    var inductTotal  = inductCTBCRB.total || 4;
     if (inductBoards.length > 0 || inductActive !== null) {
-      const inductFaulted = inductBoards.filter(b => b.faulted).length;
-      const inductTotal   = inductCTBCRB.total || 4;
-      const iColor = inductFaulted > 0 ? 'red' : 'green';
-      const iTitle = inductActive !== null
-        ? `Induction CTB/CRB Health (${inductActive} of ${inductTotal} active)`
-        : `Induction CTB/CRB Health`;
-      h += `<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--${iColor})"></span>${iTitle}</div>`;
+      var inductFaulted = inductBoards.filter(function(b) { return b.faulted; }).length;
+      var iColor = inductFaulted > 0 ? 'red' : 'green';
+      var iTitle = (inductActive !== null)
+        ? ('Induction CTB/CRB Health (' + inductActive + ' of ' + inductTotal + ' active)')
+        : 'Induction CTB/CRB Health';
+      h += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--' + iColor + ')"></span>' + iTitle + '</div>';
       h += '<div class="health-grid">';
       if (inductBoards.length > 0) {
-        inductBoards.forEach(b => {
-          const color = b.faulted ? 'red' : 'green';
-          const icon  = b.faulted ? '✗ FAULT' : '✓ OK';
-          h += `<div class="health-cell ${color}"><div class="health-cell-label">${b.label}</div><div class="health-cell-value ${color}">${icon}</div></div>`;
+        inductBoards.forEach(function(b) {
+          var bColor = b.faulted ? 'red' : 'green';
+          var bIcon  = b.faulted ? '✗ FAULT' : '✓ OK';
+          h += '<div class="health-cell ' + bColor + '"><div class="health-cell-label">' + b.label + '</div><div class="health-cell-value ' + bColor + '">' + bIcon + '</div></div>';
         });
       } else {
-        // Fallback: just show count
-        const txt = inductActive !== null ? `${inductActive} / ${inductTotal} active` : 'No data';
-        const color = (inductActive !== null && inductActive < inductTotal) ? 'red' : 'green';
-        h += `<div class="health-cell ${color}"><div class="health-cell-label">ActiveCTBCRB</div><div class="health-cell-value ${color}">${txt}</div></div>`;
+        var bTxt   = (inductActive !== null) ? (inductActive + ' / ' + inductTotal + ' active') : 'No data';
+        var bColor = (inductActive !== null && inductActive < inductTotal) ? 'red' : 'green';
+        h += '<div class="health-cell ' + bColor + '"><div class="health-cell-label">ActiveCTBCRB</div><div class="health-cell-value ' + bColor + '">' + bTxt + '</div></div>';
       }
       h += '</div></div>';
     }
