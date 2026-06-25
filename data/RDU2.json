@@ -1,10 +1,10 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-25 19:05:30 EST",
+  "timestamp": "2026-06-25 19:06:39 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-25 19:05",
+  "_pushed_at": "2026-06-25 19:06",
   "carrier_count": 2340,
   "sorter": {
     "running": false,
@@ -47,15 +47,15 @@
   "ppu": [
     {
       "index": 1,
-      "state": "ERROR"
+      "state": "STOPPED"
     },
     {
       "index": 2,
-      "state": "ERROR"
+      "state": "STOPPED"
     },
     {
       "index": 3,
-      "state": "STOPPED"
+      "state": "WARNING"
     },
     {
       "index": 4,
@@ -63,11 +63,11 @@
     },
     {
       "index": 5,
-      "state": "ERROR"
+      "state": "STOPPED"
     },
     {
       "index": 6,
-      "state": "ERROR"
+      "state": "STOPPED"
     }
   ],
   "wpt": [
@@ -446,7 +446,7 @@
     "oee_failed_divert": 1409684,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1344148,
+    "oee_lane_full": 1344150,
     "oee_max_recirc": 24,
     "oee_no_read": 231952,
     "lane_full_pct": 62.5,
@@ -458,17 +458,17 @@
     "inducted": 1430836,
     "diverted": 1397306,
     "mhe_breakdown": {
-      "ItemScanned": 5720706,
-      "LaneFull": 2199761,
-      "CodeUsed": 1322100,
-      "Ok": 1305694,
-      "TrayspacingHorizontal": 240197,
+      "ItemScanned": 5720171,
+      "LaneFull": 2199445,
+      "CodeUsed": 1322076,
+      "Ok": 1305680,
+      "TrayspacingHorizontal": 240186,
       "LaneBlocked": 229501,
-      "MaxRecirculation": 146440,
-      "SorterSpeedChange": 36087,
+      "MaxRecirculation": 146391,
+      "SorterSpeedChange": 36047,
       "LaneDisabled": 31446,
-      "ItemOnActivatedCarrier": 23714,
-      "NoActivation": 16635,
+      "ItemOnActivatedCarrier": 23712,
+      "NoActivation": 16629,
       "LaneJammed": 7067,
       "NoAnswerFromScanner": 17,
       "NotCodeConverted": 4
@@ -476,11 +476,11 @@
     "daily_defects": [
       {
         "date": "2026-06-18",
-        "ftd": 1411,
-        "good": 46828,
-        "lane_full": 69506,
+        "ftd": 1405,
+        "good": 46811,
+        "lane_full": 69194,
         "no_read": 0,
-        "utd": 718
+        "utd": 716
       },
       {
         "date": "2026-06-19",
@@ -807,7 +807,7 @@
     "plc_dpmo": 329597,
     "plc_scan_defect": 4.71,
     "sorter_oee": 75.4,
-    "plc_total_units": 4277041,
+    "plc_total_units": 4277043,
     "plc_good_diverts": 1523167,
     "plc_total_defects": 1409702
   },
@@ -820,25 +820,25 @@
     "south_upper": [
       {
         "name": "91452 CP90 Pallet Build North Upper",
-        "duration_min": 185.6
+        "duration_min": 186.8
       },
       {
         "name": "91352 CP90 Pallet Build North Upper",
-        "duration_min": 165.0
+        "duration_min": 166.2
       },
       {
         "name": "91152 CP90 Pallet Build North Upper",
-        "duration_min": 158.2
+        "duration_min": 159.4
       },
       {
         "name": "91252 CP90 Pallet Build North Upper",
-        "duration_min": 0.3
+        "duration_min": 1.4
       }
     ],
     "south_lower": [
       {
         "name": "91302 CP90 Pallet Build North Lower",
-        "duration_min": 1803.5
+        "duration_min": 1804.6
       }
     ],
     "north_upper": [],
@@ -851,34 +851,39 @@
   "active_outbound_south": [
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 63892.9
+      "duration_min": 63894.1
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33119_01",
-      "duration_min": 62513.4
+      "duration_min": 62514.5
     },
     {
       "name": "CP62_RPND MDR62356_01",
-      "duration_min": 1793.2
+      "duration_min": 1794.3
     },
     {
       "name": "CP62_RPND MDR624508",
-      "duration_min": 1793.2
-    },
-    {
-      "name": "Shoe Sorter Induct Jam",
-      "duration_min": 3.7
+      "duration_min": 1794.3
     },
     {
       "name": "CP62_RPND MDR62351_28",
-      "duration_min": 3.7
+      "duration_min": 4.8
     },
     {
       "name": "CP62_RPND MDR62351_32",
-      "duration_min": 3.7
+      "duration_min": 4.8
     }
   ],
-  "active_outbound_north": [],
+  "active_outbound_north": [
+    {
+      "name": "CP94 Robotic Palletizer North MDR94164_04",
+      "duration_min": 0.2
+    },
+    {
+      "name": "CP94 Robotic Palletizer North MDR94330_01",
+      "duration_min": 0.2
+    }
+  ],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -927,7 +932,7 @@
       "CP68 Lanes"
     ],
     "induct_count": 11339,
-    "induct_jam": true,
+    "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
     "agl_enabled": false,
