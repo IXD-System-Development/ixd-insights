@@ -919,6 +919,8 @@ const SiteDetail = (() => {
     const utd = breakdown.ItemOnActivatedCarrier || 0;
     const laneFull = breakdown.LaneFull || 0;
     const noRead = breakdown.NoAnswerFromScanner || 0;
+    const scanDefectPct = weekly.scan_defect_pct || 0;
+    const scanEventCount = Math.round((scanDefectPct / 100) * (breakdown.ItemScanned || 0));
     const maxRecirc = breakdown.MaxRecirculation || 0;
     // MySPD MHE Defect = FTD + Gap Error + Lane Non-Op + UTD
     const mheTotal = ftd + gapError + laneNonOp + utd;
@@ -941,7 +943,7 @@ html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;ma
     html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
     html += `<div class="kpi-card yellow"><div class="kpi-label">Unable to Divert</div><div class="kpi-value yellow">${utd.toLocaleString()}</div><div class="kpi-subtitle">${utdPct}%</div></div>`;
     html += `<div class="kpi-card blue"><div class="kpi-label">Lane Full (Ops)</div><div class="kpi-value blue">${laneFull.toLocaleString()}</div><div class="kpi-subtitle">Ops Defect</div></div>`;
-    html += `<div class="kpi-card blue"><div class="kpi-label">No Scanner Read</div><div class="kpi-value blue">${noRead.toLocaleString()}</div><div class="kpi-subtitle">Scan Defect</div></div>`;
+    html += `<div class="kpi-card blue"><div class="kpi-label">Scan Defect</div><div class="kpi-value blue">${scanDefectPct.toFixed(1)}%</div><div class="kpi-subtitle">${scanEventCount.toLocaleString()} events</div></div>`;
     html += `<div class="kpi-card grey"><div class="kpi-label">Max Recirc</div><div class="kpi-value grey">${maxRecirc.toLocaleString()}</div><div class="kpi-subtitle">Load Balance</div></div>`;
     html += '</div>';
 
