@@ -934,7 +934,6 @@ const SiteDetail = (() => {
 
     html += '<div class="section-panel"><div class="section-title"><span class="section-dot" style="background:var(--red)"></span> MHE Defect Breakdown (Weekly)</div>';
     html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
-html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">';
     html += `<div class="kpi-card red"><div class="kpi-label">MHE Defect Total</div><div class="kpi-value red">${mhePct}%</div><div class="kpi-subtitle">${mheTotal.toLocaleString()} events</div></div>`;
     html += `<div class="kpi-card red"><div class="kpi-label">Failed to Divert</div><div class="kpi-value red">${ftd.toLocaleString()}</div><div class="kpi-subtitle">${ftdPct}%</div></div>`;
     html += `<div class="kpi-card yellow"><div class="kpi-label">Gap Error</div><div class="kpi-value yellow">${gapError.toLocaleString()}</div><div class="kpi-subtitle">${gapPct}%</div></div>`;
