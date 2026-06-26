@@ -1,15 +1,17 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-26 16:07:00 EST",
+  "timestamp": "2026-06-26 16:08:09 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-26 16:07",
+  "_pushed_at": "2026-06-26 16:08",
   "carrier_count": 2340,
   "sorter": {
-    "running": true,
-    "speed": 2406,
-    "active_faults": [],
+    "running": false,
+    "speed": 333,
+    "active_faults": [
+      "IOB-1 TRIPPED"
+    ],
     "in_dtw": false
   },
   "carriers": {
@@ -29,7 +31,7 @@
   "scanners": [
     {
       "label": "IND1-Scn1",
-      "nr_pct": 4.58
+      "nr_pct": 4.57
     },
     {
       "label": "IND2-Scn2",
@@ -47,27 +49,27 @@
   "ppu": [
     {
       "index": 1,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 3,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 6,
-      "state": "RUNNING"
+      "state": "STOPPED"
     }
   ],
   "wpt": [
@@ -139,7 +141,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 102
+      "carrier": 338
     },
     {
       "index": 14,
@@ -157,19 +159,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 2,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 3,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 4,
-        "connection_faulted": false
+        "connection_faulted": true
       }
     ]
   },
@@ -184,7 +186,7 @@
       "total": 16,
       "faulted": 1
     },
-    "ppu_connections": 6,
+    "ppu_connections": 0,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -404,12 +406,17 @@
   },
   "wpt_fault_start": {},
   "crb_fault_counts": {
-    "1": 43,
-    "2": 42,
-    "3": 43,
-    "4": 43
+    "1": 44,
+    "2": 43,
+    "3": 44,
+    "4": 44
   },
-  "crb_fault_start": {},
+  "crb_fault_start": {
+    "1": "2026-06-26T20:08:02.443689+00:00",
+    "2": "2026-06-26T20:08:02.443689+00:00",
+    "3": "2026-06-26T20:08:02.443689+00:00",
+    "4": "2026-06-26T20:08:02.443689+00:00"
+  },
   "strays": [
     {
       "index": 1,
@@ -430,18 +437,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 624453,
-    "recirculated": 7956,
+    "sorted": 624612,
+    "recirculated": 7957,
     "recirc_pct": 1.26
   },
   "weekly": {
     "scan_defect_pct": 0.0,
     "recirc_pct": 1.26,
-    "oee_good_divert": 1584674,
-    "oee_failed_divert": 1416023,
+    "oee_good_divert": 1584713,
+    "oee_failed_divert": 1416027,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1354375,
+    "oee_lane_full": 1354381,
     "oee_max_recirc": 24,
     "oee_no_read": 234211,
     "lane_full_pct": 62.2,
@@ -453,17 +460,17 @@
     "inducted": 1782584,
     "diverted": 1745188,
     "mhe_breakdown": {
-      "ItemScanned": 5779534,
-      "LaneFull": 2199781,
-      "CodeUsed": 1342182,
-      "Ok": 1325675,
-      "TrayspacingHorizontal": 244178,
-      "LaneBlocked": 243408,
-      "MaxRecirculation": 140130,
-      "LaneDisabled": 52343,
-      "SorterSpeedChange": 38037,
-      "ItemOnActivatedCarrier": 25274,
-      "NoActivation": 11063,
+      "ItemScanned": 5779538,
+      "LaneFull": 2199789,
+      "CodeUsed": 1342177,
+      "Ok": 1325662,
+      "TrayspacingHorizontal": 244177,
+      "LaneBlocked": 243404,
+      "MaxRecirculation": 140126,
+      "LaneDisabled": 52381,
+      "SorterSpeedChange": 38082,
+      "ItemOnActivatedCarrier": 25277,
+      "NoActivation": 11061,
       "LaneJammed": 7085,
       "NoAnswerFromScanner": 17,
       "NotCodeConverted": 4
@@ -471,11 +478,11 @@
     "daily_defects": [
       {
         "date": "2026-06-19",
-        "ftd": 268,
-        "good": 49405,
-        "lane_full": 95513,
+        "ftd": 265,
+        "good": 49215,
+        "lane_full": 95171,
         "no_read": 0,
-        "utd": 896
+        "utd": 894
       },
       {
         "date": "2026-06-20",
@@ -527,11 +534,11 @@
       },
       {
         "date": "2026-06-26",
-        "ftd": 233,
-        "good": 136119,
-        "lane_full": 215406,
+        "ftd": 234,
+        "good": 136290,
+        "lane_full": 215739,
         "no_read": 0,
-        "utd": 3040
+        "utd": 3045
       }
     ],
     "top_ftd_chutes": [
@@ -788,8 +795,8 @@
         "total": 496
       }
     ],
-    "iob_trips": 14,
-    "iob_downtime_min": 69.4,
+    "iob_trips": 15,
+    "iob_downtime_min": 69.6,
     "estop_events": 6,
     "estop_downtime_min": 39.2,
     "plc_fpy": 36.39,
@@ -799,12 +806,12 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 31.1,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 325144,
+    "plc_dpmo": 325142,
     "plc_scan_defect": 4.48,
     "sorter_oee": 76.4,
-    "plc_total_units": 4355114,
-    "plc_good_diverts": 1584674,
-    "plc_total_defects": 1416041
+    "plc_total_units": 4355163,
+    "plc_good_diverts": 1584713,
+    "plc_total_defects": 1416045
   },
   "shift_report": {
     "shift_label": "Night Shift (7pm - 7am EST)",
@@ -816,7 +823,7 @@
     "south_lower": [
       {
         "name": "91302 CP90 Pallet Build North Lower",
-        "duration_min": 3065.0
+        "duration_min": 3066.1
       }
     ],
     "north_upper": [],
@@ -829,21 +836,21 @@
   "active_outbound_south": [
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 65154.4
+      "duration_min": 65155.6
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33119_01",
-      "duration_min": 63774.8
+      "duration_min": 63776.0
     },
     {
       "name": "CP62_RPND MDR62356_01",
-      "duration_min": 3054.7
+      "duration_min": 3055.8
     }
   ],
   "active_outbound_north": [
     {
       "name": "CP78 Fluid Load NorthWest DD341 MDR78220_03",
-      "duration_min": 1.3
+      "duration_min": 2.4
     }
   ],
   "shoe_sorter": {
@@ -891,8 +898,7 @@
     ],
     "gridlock": false,
     "jams": [
-      "Zone 67410",
-      "Zone 67710"
+      "Zone 67410"
     ],
     "induct_count": 11339,
     "induct_jam": false,
