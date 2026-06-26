@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-26 09:01:11 EST",
+  "timestamp": "2026-06-26 09:02:21 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-26 09:01",
+  "_pushed_at": "2026-06-26 09:02",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2402,
+    "speed": 2404,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 113,
+    "faulted": 100,
     "disabled": 72,
-    "available": 2155,
+    "available": 2168,
     "occupied": 2053,
-    "empty": 102,
-    "empty_pct": 4.4,
-    "availability_pct": 92.1
+    "empty": 115,
+    "empty_pct": 4.9,
+    "availability_pct": 92.6
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": true,
-      "carrier": 2177
+      "error": false,
+      "carrier": null
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 750
+      "carrier": 1030
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 2
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -402,9 +402,7 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {
-    "1": "2026-06-26T13:01:04.452833+00:00"
-  },
+  "wpt_fault_start": {},
   "crb_fault_counts": {
     "1": 39,
     "2": 38,
@@ -432,20 +430,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 577190,
-    "recirculated": 7388,
+    "sorted": 577326,
+    "recirculated": 7389,
     "recirc_pct": 1.26
   },
   "weekly": {
     "scan_defect_pct": 0.0,
     "recirc_pct": 1.26,
-    "oee_good_divert": 1563801,
-    "oee_failed_divert": 1413732,
+    "oee_good_divert": 1563879,
+    "oee_failed_divert": 1413745,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1350884,
+    "oee_lane_full": 1350888,
     "oee_max_recirc": 24,
-    "oee_no_read": 233419,
+    "oee_no_read": 233428,
     "lane_full_pct": 62.2,
     "sorter_ote": 77.7,
     "downtime_pct": 1.44,
@@ -455,17 +453,17 @@
     "inducted": 1658240,
     "diverted": 1622192,
     "mhe_breakdown": {
-      "ItemScanned": 5769497,
+      "ItemScanned": 5769455,
       "LaneFull": 2198466,
-      "CodeUsed": 1340498,
-      "Ok": 1324019,
-      "TrayspacingHorizontal": 244102,
-      "LaneBlocked": 243011,
-      "MaxRecirculation": 142197,
-      "LaneDisabled": 42501,
+      "CodeUsed": 1340566,
+      "Ok": 1324089,
+      "TrayspacingHorizontal": 244114,
+      "LaneBlocked": 242965,
+      "MaxRecirculation": 142182,
+      "LaneDisabled": 42550,
       "SorterSpeedChange": 37485,
-      "ItemOnActivatedCarrier": 24648,
-      "NoActivation": 13030,
+      "ItemOnActivatedCarrier": 24659,
+      "NoActivation": 13023,
       "LaneJammed": 7076,
       "NoAnswerFromScanner": 17,
       "NotCodeConverted": 4
@@ -473,11 +471,11 @@
     "daily_defects": [
       {
         "date": "2026-06-19",
-        "ftd": 2340,
-        "good": 114544,
-        "lane_full": 187850,
+        "ftd": 2331,
+        "good": 114370,
+        "lane_full": 187476,
         "no_read": 0,
-        "utd": 1652
+        "utd": 1649
       },
       {
         "date": "2026-06-20",
@@ -529,11 +527,11 @@
       },
       {
         "date": "2026-06-26",
-        "ftd": 128,
-        "good": 69326,
-        "lane_full": 121753,
+        "ftd": 129,
+        "good": 69565,
+        "lane_full": 122122,
         "no_read": 0,
-        "utd": 1659
+        "utd": 1672
       }
     ],
     "top_ftd_chutes": [
@@ -801,12 +799,12 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 31.21,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 326617,
+    "plc_dpmo": 326613,
     "plc_scan_defect": 4.52,
     "sorter_oee": 76.0,
-    "plc_total_units": 4328459,
-    "plc_good_diverts": 1563801,
-    "plc_total_defects": 1413750
+    "plc_total_units": 4328554,
+    "plc_good_diverts": 1563879,
+    "plc_total_defects": 1413763
   },
   "shift_report": {
     "shift_label": "Night Shift (7pm - 7am EST)",
@@ -817,13 +815,17 @@
     "south_upper": [
       {
         "name": "91352 CP90 Pallet Build North Upper",
-        "duration_min": 4.7
+        "duration_min": 5.9
+      },
+      {
+        "name": "91252 CP90 Pallet Build North Upper",
+        "duration_min": 0.7
       }
     ],
     "south_lower": [
       {
         "name": "91302 CP90 Pallet Build North Lower",
-        "duration_min": 2639.2
+        "duration_min": 2640.3
       }
     ],
     "north_upper": [],
@@ -836,23 +838,23 @@
   "active_outbound_south": [
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 64728.6
+      "duration_min": 64729.8
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33119_01",
-      "duration_min": 63349.0
+      "duration_min": 63350.2
     },
     {
       "name": "CP62_RPND MDR62356_01",
-      "duration_min": 2628.9
+      "duration_min": 2630.0
     },
     {
       "name": "CP62_RPND MDR62450_45",
-      "duration_min": 3.0
+      "duration_min": 4.2
     },
     {
       "name": "CP62_RPND MDR62450_46",
-      "duration_min": 3.0
+      "duration_min": 4.1
     }
   ],
   "active_outbound_north": [],
@@ -900,7 +902,9 @@
       }
     ],
     "gridlock": false,
-    "jams": [],
+    "jams": [
+      "CP67 Merge"
+    ],
     "induct_count": 11339,
     "induct_jam": false,
     "middle_jam": false,
@@ -1012,7 +1016,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[13]",
+      "text": "Pull MCB carriers at WPT [13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -1022,7 +1026,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "113 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "100 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
