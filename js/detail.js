@@ -148,6 +148,11 @@ const SiteDetail = (() => {
     h += kpi('Total Inducted', inducted ? Number(inducted).toLocaleString() : '\u2014', 'this week', 'green');
     h += kpi('Total Diverted', diverted ? Number(diverted).toLocaleString() : '\u2014', 'this week', 'green');
     h += kpi('Max Recirc %', `${recircPct}%`, 'target <1%', recircPct > 2 ? 'red' : recircPct > 1 ? 'yellow' : 'green');
+    // RECIRCULATING + OCCUPIED row
+    const _recirc   = (sorter && sorter.items_recirculating != null) ? sorter.items_recirculating : null;
+    const _occupied = (sorter && sorter.items_on_sorter != null && sorter.items_on_sorter > 0) ? sorter.items_on_sorter : null;
+    h += kpi('RECIRCULATING', _recirc !== null ? String(_recirc) : '\u2014', 'on loop right now', _recirc > 50 ? 'red' : _recirc > 10 ? 'yellow' : 'green');
+    h += kpi('OCCUPIED', _occupied !== null ? String(_occupied) : '\u2014', 'carrying items', 'blue');
     h += kpi('Lane Full %', weekly.lane_full_pct != null ? `${weekly.lane_full_pct}%` : '\u2014', 'chutes at capacity', weekly.lane_full_pct != null ? (weekly.lane_full_pct > 5 ? 'red' : weekly.lane_full_pct > 2 ? 'yellow' : 'green') : 'yellow');
     h += kpi('Crossbelt FPY', fpyPct != null ? `${fpyPct}%` : '\u2014', 'Wk25', fpyPct != null ? (fpyPct >= 95 ? 'green' : fpyPct >= 80 ? 'yellow' : 'red') : 'yellow');
     h += kpi('Crossbelt Scan NR%', scanDefect != null ? `${scanDefect}%` : '\u2014', 'Wk25', scanDefect != null ? (scanDefect > 5.5 ? 'red' : scanDefect > 3 ? 'yellow' : 'green') : 'yellow');
