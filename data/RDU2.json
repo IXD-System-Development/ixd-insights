@@ -1,10 +1,10 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-28 08:17:28 EST",
+  "timestamp": "2026-06-28 08:18:37 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-28 08:17",
+  "_pushed_at": "2026-06-28 08:18",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
@@ -13,13 +13,13 @@
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 94,
+    "faulted": 99,
     "disabled": 62,
-    "available": 2184,
+    "available": 2179,
     "occupied": 2053,
-    "empty": 131,
-    "empty_pct": 5.6,
-    "availability_pct": 93.3
+    "empty": 126,
+    "empty_pct": 5.4,
+    "availability_pct": 93.1
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 281
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 918
+      "carrier": 1193
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 1377,
+    "1": 1378,
     "13": 1,
     "10": 136,
     "9": 8,
@@ -402,7 +402,9 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "1": "2026-06-28T12:18:29.792523+00:00"
+  },
   "crb_fault_counts": {
     "1": 69,
     "2": 61,
@@ -430,20 +432,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 826473,
-    "recirculated": 10622,
+    "sorted": 826661,
+    "recirculated": 10623,
     "recirc_pct": 1.27
   },
   "weekly": {
     "scan_defect_pct": 0.0,
     "recirc_pct": 1.27,
-    "oee_good_divert": 1550213,
-    "oee_failed_divert": 1426433,
+    "oee_good_divert": 1550304,
+    "oee_failed_divert": 1426441,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1370716,
+    "oee_lane_full": 1370736,
     "oee_max_recirc": 24,
-    "oee_no_read": 173676,
+    "oee_no_read": 173678,
     "lane_full_pct": 61.3,
     "sorter_ote": 76.3,
     "downtime_pct": 1.91,
@@ -453,16 +455,16 @@
     "inducted": 2335730,
     "diverted": 2288284,
     "mhe_breakdown": {
-      "ItemScanned": 5736110,
-      "LaneFull": 2134805,
-      "CodeUsed": 1350723,
-      "Ok": 1334926,
-      "TrayspacingHorizontal": 242372,
-      "LaneBlocked": 242102,
-      "MaxRecirculation": 129253,
-      "LaneDisabled": 60813,
+      "ItemScanned": 5736101,
+      "LaneFull": 2134772,
+      "CodeUsed": 1350782,
+      "Ok": 1334976,
+      "TrayspacingHorizontal": 242380,
+      "LaneBlocked": 242077,
+      "MaxRecirculation": 129257,
+      "LaneDisabled": 60815,
       "SorterSpeedChange": 36551,
-      "ItemOnActivatedCarrier": 25982,
+      "ItemOnActivatedCarrier": 25985,
       "NoActivation": 12254,
       "LaneJammed": 7100,
       "NoAnswerFromScanner": 4,
@@ -472,10 +474,10 @@
       {
         "date": "2026-06-21",
         "ftd": 270,
-        "good": 133034,
-        "lane_full": 216279,
+        "good": 132784,
+        "lane_full": 216031,
         "no_read": 0,
-        "utd": 2919
+        "utd": 2914
       },
       {
         "date": "2026-06-22",
@@ -528,10 +530,10 @@
       {
         "date": "2026-06-28",
         "ftd": 88,
-        "good": 56383,
-        "lane_full": 125519,
+        "good": 56682,
+        "lane_full": 125742,
         "no_read": 0,
-        "utd": 985
+        "utd": 992
       }
     ],
     "top_ftd_chutes": [
@@ -799,12 +801,12 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 31.53,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 328116,
+    "plc_dpmo": 328108,
     "plc_scan_defect": 4.27,
     "sorter_oee": 74.8,
-    "plc_total_units": 4347404,
-    "plc_good_diverts": 1550213,
-    "plc_total_defects": 1426451
+    "plc_total_units": 4347523,
+    "plc_good_diverts": 1550304,
+    "plc_total_defects": 1426459
   },
   "shift_report": {
     "shift_label": "Night Shift (7pm - 7am EST)",
@@ -816,40 +818,38 @@
     "south_lower": [
       {
         "name": "91202 CP90 Pallet Build North Lower",
-        "duration_min": 0.8
+        "duration_min": 2.0
       }
     ],
     "north_upper": [],
     "north_lower": []
   },
   "active_inbound_jams": {
-    "cp01": [],
-    "cp02": []
+    "cp01": [
+      {
+        "name": "CP01 Inbound MDR01022_02",
+        "duration_min": 0.3
+      }
+    ],
+    "cp02": [
+      {
+        "name": "CP02 Inbound MDR02266_02",
+        "duration_min": 0.3
+      }
+    ]
   },
   "active_outbound_south": [
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 67564.9
+      "duration_min": 67566.0
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33119_01",
-      "duration_min": 66185.3
+      "duration_min": 66186.5
     },
     {
       "name": "CP62_RPND MDR62356_01",
-      "duration_min": 5465.1
-    },
-    {
-      "name": "Shoe Sorter CP68 lane 7 MDR68307_01",
-      "duration_min": 2.5
-    },
-    {
-      "name": "CP62_RPND MDR62450_45",
-      "duration_min": 2.5
-    },
-    {
-      "name": "CP62_RPND BRB62108",
-      "duration_min": 2.5
+      "duration_min": 5466.3
     }
   ],
   "active_outbound_north": [],
@@ -898,7 +898,7 @@
     ],
     "gridlock": false,
     "jams": [
-      "Zone 67710"
+      "Zone 67110"
     ],
     "induct_count": 12229,
     "induct_jam": false,
@@ -1011,7 +1011,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
@@ -1021,7 +1021,7 @@
       "component": "Walk loop and physically remove packages."
     },
     {
-      "text": "94 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "99 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
