@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-06-28 08:52:58 EST",
+  "timestamp": "2026-06-28 08:54:07 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-06-28 08:52",
+  "_pushed_at": "2026-06-28 08:54",
   "carrier_count": 2340,
   "sorter": {
     "running": false,
-    "speed": 555,
+    "speed": 0,
     "active_faults": [],
     "in_dtw": false
   },
@@ -47,11 +47,11 @@
   "ppu": [
     {
       "index": 1,
-      "state": "WARNING"
+      "state": "ERROR"
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 3,
@@ -59,15 +59,15 @@
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "ERROR"
     },
     {
       "index": 6,
-      "state": "RUNNING"
+      "state": "STOPPED"
     }
   ],
   "wpt": [
@@ -184,7 +184,7 @@
       "total": 16,
       "faulted": 1
     },
-    "ppu_connections": 5,
+    "ppu_connections": 1,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -446,7 +446,7 @@
     "oee_failed_divert": 1426649,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1370905,
+    "oee_lane_full": 1370912,
     "oee_max_recirc": 24,
     "oee_no_read": 173766,
     "lane_full_pct": 61.3,
@@ -458,17 +458,17 @@
     "inducted": 2348244,
     "diverted": 2300700,
     "mhe_breakdown": {
-      "ItemScanned": 5729959,
-      "LaneFull": 2132153,
-      "CodeUsed": 1349207,
-      "Ok": 1333426,
-      "TrayspacingHorizontal": 242118,
-      "LaneBlocked": 240686,
-      "MaxRecirculation": 129461,
-      "LaneDisabled": 60849,
-      "SorterSpeedChange": 36793,
-      "ItemOnActivatedCarrier": 25576,
-      "NoActivation": 12267,
+      "ItemScanned": 5729046,
+      "LaneFull": 2131870,
+      "CodeUsed": 1348884,
+      "Ok": 1333101,
+      "TrayspacingHorizontal": 242077,
+      "LaneBlocked": 240623,
+      "MaxRecirculation": 129458,
+      "LaneDisabled": 60847,
+      "SorterSpeedChange": 36795,
+      "ItemOnActivatedCarrier": 25566,
+      "NoActivation": 12266,
       "LaneJammed": 7100,
       "NoAnswerFromScanner": 4,
       "NotCodeConverted": 4
@@ -476,11 +476,11 @@
     "daily_defects": [
       {
         "date": "2026-06-21",
-        "ftd": 261,
-        "good": 125028,
-        "lane_full": 207490,
+        "ftd": 260,
+        "good": 124705,
+        "lane_full": 207211,
         "no_read": 0,
-        "utd": 2342
+        "utd": 2333
       },
       {
         "date": "2026-06-22",
@@ -804,10 +804,10 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 31.52,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 328000,
+    "plc_dpmo": 327999,
     "plc_scan_defect": 4.27,
     "sorter_oee": 74.9,
-    "plc_total_units": 4349598,
+    "plc_total_units": 4349605,
     "plc_good_diverts": 1552002,
     "plc_total_defects": 1426667
   },
@@ -817,7 +817,12 @@
     "text": "\ud83d\udccb SHIFT SUMMARY REPORT\n\ud83d\udd53 Night Shift (7pm - 7am EST)\n2026-06-28 11:01 UTC\n\n\ud83d\udea8 TOP 10 MOST FREQUENT JAMS\n  1. CP62_RPND MDR62450_23 \u2014 41x\n  2. CP62_RPND MDR62450_03 \u2014 40x\n  3. 91252 CP90 Pallet Build North Upper \u2014 29x\n  4. CP33 South Jackpot and Bypass MDR33219_01 \u2014 21x\n  5. CP33 South Jackpot and Bypass MDR33218_03 \u2014 19x\n  6. CP02 Inbound MDR02464_01 \u2014 13x\n  7. CP60 ATR_UIS BB60212 \u2014 11x\n  8. CP94 Robotic Palletizer North MDR94324_01 \u2014 10x\n  9. CP94 Robotic Palletizer North MDR94124_01 \u2014 8x\n  10. CP94 Robotic Palletizer North MDR94328_01 \u2014 8x\n  \u2022 Total jams: 374 | Duration: 2004 min (33.4 hrs)\n\n\u26a0\ufe0f IOB TRIPS\n  IOB-1: 1 trip(s), 11 min\n  \u2022 Total: 1 trip(s), 11 min downtime\n\n\u2699\ufe0f SORTER FAULTS\n  No sorter faults this shift.\n\n\ud83d\uded1 ESTOP DOWNTIME\n  Sorter Estop 47: 1 event(s), 17 min\n  Sorter Estop 48: 1 event(s), 51 min\n  \u2022 Total: 2 event(s), 67 min\n\n\ud83d\udcf7 SCANNER REPORT\n  Scanner 1: 778,534 good | 35,530 noread | 13,829 multi\n  Scanner 2: 857,566 good | 35,227 noread | 14,599 multi\n  Scanner 3: 860,739 good | 35,601 noread | 13,354 multi\n  Scanner 4: 857,353 good | 44,072 noread | 15,524 multi\n  \u2022 Rate: 94.2% good | 4.2% noread | 1.6% multi\n\n\ud83d\ude9a TOP 4 FAULTED CARRIERS\n  1. CA2168 \u2014 273 (Comm:91, MNR:182)\n  2. CA2115 \u2014 270 (Comm:90, MNR:180)\n  3. CA0787 \u2014 270 (Comm:90, MNR:180)\n  4. CA1476 \u2014 267 (Comm:89, MNR:178)\n\n\ud83d\udce6 CROSSBELT INDUCTION\n  DYN-10-C: 8,129\n  DYN-11-C: 6,271\n  DYN-03-A: 5,504\n  DYN-02-A: 5,340\n  DYN-01-A: 5,017\n  Main Router Induct: 5,017\n  DYN-12-C: 3,845\n  PIDs (combined): 45,489\n  \u2022 Total inducted: 91,409\n\n\ud83d\udce4 CROSSBELT DIVERTS\n  \u2705 Successful: 90,632\n  \ud83d\udd04 Lane Full (recirculated): 169,333\n  \u274c No Activation (FTD): 159\n  \u26a0\ufe0f Item On Carrier (UTD): 1,495\n  \u2022 Total diverted: 95,674\n\n\ud83d\udd0c CTB/CRB FAULT COUNT (this shift)\n  CRB 1: +2,030 faults this shift (lifetime: 520,569)\n  CRB 2: +2,370 faults this shift (lifetime: 650,943)\n  CRB 3: +2,038 faults this shift (lifetime: 556,570)\n  CRB 4: +2,070 faults this shift (lifetime: 636,829)\n\n\ud83d\udd34 WPT CTB/CRB HEALTH CHECK [0-15]\n  FAULTED: [1] MCB 1925, [13] MCB 497\n\n\ud83d\udce1 DISCHARGE CTB COMM STATUS [1-47]\n  All 47 discharge CTBs communicating OK\n\n\u23f1\ufe0f LATE STARTUP AFTER DTW\n  DTW ended 2026-06-27T07:01 \u2192 Sorter started +5.7 min late\n  DTW ended 2026-06-27T11:00 \u2192 Sorter started +1.1 min late\n  DTW ended 2026-06-27T14:31 \u2192 Sorter started +4.6 min late\n  DTW ended 2026-06-27T19:00 \u2192 Sorter started +5.7 min late\n  DTW ended 2026-06-27T23:00 \u2192 Sorter started +3.4 min late\n  DTW ended 2026-06-28T02:30 \u2192 Sorter started +3.4 min late\n  \u2022 Total startup delay this week: 101 min"
   },
   "active_jams": {
-    "south_upper": [],
+    "south_upper": [
+      {
+        "name": "91252 CP90 Pallet Build North Upper",
+        "duration_min": 0.2
+      }
+    ],
     "south_lower": [],
     "north_upper": [],
     "north_lower": []
@@ -829,15 +834,19 @@
   "active_outbound_south": [
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 67600.4
+      "duration_min": 67601.5
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33119_01",
-      "duration_min": 66220.8
+      "duration_min": 66222.0
     },
     {
       "name": "CP62_RPND MDR62356_01",
-      "duration_min": 5500.6
+      "duration_min": 5501.8
+    },
+    {
+      "name": "Shoe Sorter Middle Jam",
+      "duration_min": 0.2
     }
   ],
   "active_outbound_north": [],
