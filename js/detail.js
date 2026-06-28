@@ -220,6 +220,26 @@ const SiteDetail = (() => {
 
 
 
+
+    // ── Discharge CRBs (Belt Confirm Receivers 1–4) ──────────────────────
+    const crbUnits = (crb.units || []);
+    const crbFaulted = crbUnits.filter(u => u.connection_faulted).length;
+    const crbColor = crb.master_alarm ? 'red' : crbFaulted > 0 ? 'yellow' : 'green';
+    h += '<div class="section-panel"><div class="section-title">';
+    h += '<span class="status-dot" style="background:var(--' + crbColor + ')"></span>';
+    h += ' Discharge CRBs — Belt Confirm Receivers (1–4)</div>';
+    h += '<div class="health-grid">';
+    if (crbUnits.length > 0) {
+      crbUnits.forEach(function(u) {
+        const c2 = u.connection_faulted ? 'red' : 'green';
+        const lbl = u.connection_faulted ? 'FAULTED' : 'OK';
+        h += '<div class="health-cell ' + c2 + '">CRB ' + u.index + '<br><small>' + lbl + '</small></div>';
+      });
+    } else {
+      h += '<div class="health-cell green">All 4 OK</div>';
+    }
+    h += '</div></div>';
+
     // Induction CTB/CRB Health (ActiveCTBCRB)
     var inductCTBCRB = d.induct_ctbcrb || {};
     var inductActive = (inductCTBCRB.active !== undefined) ? inductCTBCRB.active : null;
