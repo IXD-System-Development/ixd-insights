@@ -1,15 +1,17 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-07-22 19:53:42",
+  "timestamp": "2026-07-22 19:54:12",
   "site": "VGT2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-07-22 19:53",
+  "_pushed_at": "2026-07-22 19:54",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2387,
-    "state": "running"
+    "speed": 2427,
+    "state": "running",
+    "active_faults": [],
+    "in_dtw": false
   },
   "config": {
     "max_recirc": 5,
@@ -17,113 +19,128 @@
     "clock_fault_carrier": 2243
   },
   "carriers": {
-    "faulted": 2,
+    "faulted": 3,
     "disabled": 30,
-    "available": 2308,
+    "available": 2307,
     "availability_pct": 98.6
   },
   "strays": [],
   "scanners": [
     {
       "label": "Scn0",
-      "nr_pct": 4.36
+      "nr_pct": 4.36,
+      "good": 340574,
+      "noread": 12263
     },
     {
       "label": "Scn1",
-      "nr_pct": 3.95
+      "nr_pct": 3.95,
+      "good": 421945,
+      "noread": 12523
     },
     {
       "label": "Scn3",
-      "nr_pct": 4.63
+      "nr_pct": 4.63,
+      "good": 385636,
+      "noread": 15170
     },
     {
       "label": "Scn4",
-      "nr_pct": 3.61
+      "nr_pct": 3.61,
+      "good": 423222,
+      "noread": 11991
     }
   ],
-  "weekly": {
-    "scan_defect_pct": 4.12
+  "lifetime": {
+    "sorted": 711373,
+    "recirculated": 651,
+    "recirc_pct": 0.09
+  },
+  "chutes": {
+    "locked_out": 11,
+    "inhibited": 118,
+    "jammed": 14
   },
   "wpt": [
     {
       "index": 0,
       "error": false,
-      "carrier": null
+      "carrier": 1630
     },
     {
       "index": 1,
       "error": false,
-      "carrier": null
+      "carrier": 1239
     },
     {
       "index": 2,
       "error": false,
-      "carrier": null
+      "carrier": 1210
     },
     {
       "index": 3,
       "error": false,
-      "carrier": null
+      "carrier": 1139
     },
     {
       "index": 4,
       "error": false,
-      "carrier": null
+      "carrier": 1017
     },
     {
       "index": 5,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 985
     },
     {
       "index": 6,
       "error": false,
-      "carrier": null
+      "carrier": 591
     },
     {
       "index": 7,
       "error": false,
-      "carrier": null
+      "carrier": 528
     },
     {
       "index": 8,
       "error": false,
-      "carrier": null
+      "carrier": 436
     },
     {
       "index": 9,
       "error": false,
-      "carrier": null
+      "carrier": 63
     },
     {
       "index": 10,
       "error": false,
-      "carrier": null
+      "carrier": 18
     },
     {
       "index": 11,
       "error": false,
-      "carrier": null
+      "carrier": 2283
     },
     {
       "index": 12,
       "error": false,
-      "carrier": null
+      "carrier": 2203
     },
     {
       "index": 13,
       "error": false,
-      "carrier": null
+      "carrier": 2171
     },
     {
       "index": 14,
       "error": false,
-      "carrier": null
+      "carrier": 1786
     },
     {
       "index": 15,
       "error": false,
-      "carrier": null
+      "carrier": 1703
     }
   ],
   "induct_ctbcrb": {
@@ -199,137 +216,151 @@
       }
     ]
   },
+  "comms": {
+    "awcs_ok": true,
+    "icw_ok": true,
+    "ctb": {
+      "total": 47,
+      "faulted": 0
+    },
+    "wpt_crb": {
+      "total": 16,
+      "faulted": 1
+    },
+    "ppu_connections": 6,
+    "ppu_total": 6
+  },
   "lsm_zones": [
     {
       "zone": 1,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 2,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 3,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 4,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 5,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 6,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 7,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 8,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 9,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 10,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 11,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 12,
-      "collision_detect": true,
-      "collision_avoid": true,
-      "vfd_fault": true
+      "collision_detect": false,
+      "collision_avoid": false,
+      "vfd_fault": false
     },
     {
       "zone": 13,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 14,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 15,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 16,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 17,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 18,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 19,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 20,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 21,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
       "zone": 22,
-      "collision_detect": true,
-      "collision_avoid": true,
+      "collision_detect": false,
+      "collision_avoid": false,
       "vfd_fault": false
     },
     {
@@ -339,10 +370,115 @@
       "vfd_fault": true
     }
   ],
-  "lifetime": {
-    "sorted": 711263,
-    "recirculated": 651,
-    "recirc_pct": 0.09
+  "weekly": {
+    "scan_defect_pct": 4.12,
+    "plc_scanner_nr_pct": 4.12,
+    "recirc_pct": 0.09,
+    "plc_recirc_pct": 0.09,
+    "inducted": 0,
+    "diverted": 711373,
+    "lane_full_pct": 0.09,
+    "plc_lane_full_pct": 0.09,
+    "plc_fpy": 53.08,
+    "sorter_fpy_icw": 53.08,
+    "plc_ftd_pct": 46.92,
+    "mhe_defect_icw": 46.92,
+    "plc_mhe_defect": 46.92,
+    "plc_good_diverts": 4238168,
+    "plc_total_defects": 3746700,
+    "plc_total_units": 7984868,
+    "oee_good_divert": 4238168,
+    "oee_failed_divert": 3746700,
+    "oee_lane_full": 651,
+    "oee_no_read": 51947,
+    "iob_trips": 0,
+    "iob_downtime_min": 0.0,
+    "estop_events": 0,
+    "estop_downtime_min": 0.0,
+    "sorter_ote": 100.0,
+    "sorter_oee": 100.0,
+    "downtime_pct": 0.0,
+    "sorter_stop_events": 0,
+    "sorter_stop_min": 0.0,
+    "faulted_carriers": [],
+    "top_ftd_chutes": [
+      {
+        "icw_id": 90,
+        "good": 297,
+        "ftd": 27940,
+        "fail_pct": 98.9
+      },
+      {
+        "icw_id": 1,
+        "good": 1637,
+        "ftd": 50669,
+        "fail_pct": 96.9
+      },
+      {
+        "icw_id": 15,
+        "good": 3040,
+        "ftd": 50824,
+        "fail_pct": 94.4
+      },
+      {
+        "icw_id": 188,
+        "good": 669,
+        "ftd": 9366,
+        "fail_pct": 93.3
+      },
+      {
+        "icw_id": 47,
+        "good": 3567,
+        "ftd": 46890,
+        "fail_pct": 92.9
+      },
+      {
+        "icw_id": 74,
+        "good": 5148,
+        "ftd": 63698,
+        "fail_pct": 92.5
+      },
+      {
+        "icw_id": 273,
+        "good": 5213,
+        "ftd": 48833,
+        "fail_pct": 90.4
+      },
+      {
+        "icw_id": 69,
+        "good": 5164,
+        "ftd": 44711,
+        "fail_pct": 89.6
+      },
+      {
+        "icw_id": 154,
+        "good": 1144,
+        "ftd": 7479,
+        "fail_pct": 86.7
+      },
+      {
+        "icw_id": 240,
+        "good": 8092,
+        "ftd": 49293,
+        "fail_pct": 85.9
+      }
+    ]
   },
-  "priority_actions": []
+  "priority_actions": [
+    {
+      "text": "WPT faults (1 positions) — pull carrier MCBs",
+      "severity": "HIGH",
+      "component": "WPT CTB/CRB"
+    },
+    {
+      "text": "Clear 14 chute jam(s)",
+      "severity": "HIGH",
+      "component": "Chutes"
+    },
+    {
+      "text": "Bulk ICW alarm reset — 118 chutes inhibited",
+      "severity": "MEDIUM",
+      "component": "Chutes"
+    }
+  ]
 }
