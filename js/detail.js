@@ -167,7 +167,7 @@ const SiteDetail = (() => {
     const chutesLocked = chutes.locked_out || 0;
     const chutesInhibited = chutes.inhibited || 0;
     const chutesJammed = chutes.jammed || 0;
-    const chuteDown = chutesLocked + chutesInhibited + chutesJammed;
+    const chuteDown = chutesLocked;  // locked_out = No 24VDC (physically down lanes only)
     h += kpi('Chutes Down', `${chuteDown} / 144`, 'Lane Non Operational', chuteDown > 50 ? 'red' : chuteDown > 20 ? 'yellow' : 'green');
     h += '</div>';
 
