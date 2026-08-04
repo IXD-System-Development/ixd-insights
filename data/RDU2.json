@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-04 19:52:03 EST",
+  "timestamp": "2026-08-04 19:53:09 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-04 19:52",
+  "_pushed_at": "2026-08-04 19:53",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2405,
+    "speed": 2417,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 5,
+    "faulted": 7,
     "disabled": 92,
-    "available": 2243,
+    "available": 2241,
     "occupied": 2053,
-    "empty": 190,
-    "empty_pct": 8.1,
-    "availability_pct": 95.9
+    "empty": 188,
+    "empty_pct": 8.0,
+    "availability_pct": 95.8
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": true,
-      "carrier": 1392
+      "error": false,
+      "carrier": null
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 2304
+      "carrier": 228
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 2
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -402,9 +402,7 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {
-    "1": "2026-08-04T23:50:55.741414+00:00"
-  },
+  "wpt_fault_start": {},
   "crb_fault_counts": {
     "1": 99,
     "2": 92,
@@ -419,18 +417,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6062426,
+    "sorted": 6062676,
     "recirculated": 33780,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.34,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1455602,
-    "oee_failed_divert": 1469273,
+    "oee_good_divert": 1455667,
+    "oee_failed_divert": 1469275,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1553510,
+    "oee_lane_full": 1553524,
     "oee_max_recirc": 24,
     "oee_no_read": 199200,
     "lane_full_pct": 56.1,
@@ -443,11 +441,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 34.69,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 328082,
+    "plc_dpmo": 328076,
     "plc_scan_defect": 4.34,
-    "plc_total_units": 4478427,
-    "plc_good_diverts": 1455602,
-    "plc_total_defects": 1469291
+    "plc_total_units": 4478508,
+    "plc_good_diverts": 1455667,
+    "plc_total_defects": 1469293
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -458,17 +456,17 @@
     "south_upper": [
       {
         "name": "91352 CP90 Pallet Build North Upper",
-        "duration_min": 30.5
+        "duration_min": 31.6
       },
       {
         "name": "91452 CP90 Pallet Build North Upper",
-        "duration_min": 5.0
+        "duration_min": 6.1
       }
     ],
     "south_lower": [
       {
         "name": "91202 CP90 Pallet Build North Lower",
-        "duration_min": 6.7
+        "duration_min": 7.8
       }
     ],
     "north_upper": [],
@@ -476,24 +474,33 @@
   },
   "active_inbound_jams": {
     "cp01": [],
-    "cp02": []
+    "cp02": [
+      {
+        "name": "CP02 Inbound MDR02464_01",
+        "duration_min": 1.0
+      }
+    ]
   },
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 10124.3
+      "duration_min": 10125.4
     },
     {
       "name": "CP60 ATR_UIS BB60262",
-      "duration_min": 10119.1
+      "duration_min": 10120.2
     },
     {
       "name": "CP62_RPND MDR624509",
-      "duration_min": 10119.1
+      "duration_min": 10120.2
     },
     {
       "name": "CP56 Tote Take Away EE56802_6",
-      "duration_min": 1.6
+      "duration_min": 2.7
+    },
+    {
+      "name": "CP62_RPND MDR62351_32",
+      "duration_min": 1.0
     }
   ],
   "active_outbound_north": [],
@@ -663,7 +670,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[13]",
+      "text": "Pull MCB carriers at WPT [13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
