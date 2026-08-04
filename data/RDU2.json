@@ -1,16 +1,17 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-04 15:38:59 EST",
+  "timestamp": "2026-08-04 15:40:03 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-04 15:38",
+  "_pushed_at": "2026-08-04 15:40",
   "carrier_count": 2340,
   "sorter": {
     "running": false,
-    "speed": 632,
+    "speed": 0,
     "active_faults": [
-      "IOB-1 TRIPPED"
+      "IOB-1 TRIPPED",
+      "ESTOP: Induct 3 Scanner"
     ],
     "in_dtw": false
   },
@@ -49,11 +50,11 @@
   "ppu": [
     {
       "index": 1,
-      "state": "RUNNING"
+      "state": "WARNING"
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "ERROR"
     },
     {
       "index": 3,
@@ -61,15 +62,15 @@
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "ERROR"
     },
     {
       "index": 6,
-      "state": "RUNNING"
+      "state": "ERROR"
     }
   ],
   "wpt": [
@@ -186,7 +187,7 @@
       "total": 16,
       "faulted": 2
     },
-    "ppu_connections": 6,
+    "ppu_connections": 1,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -437,7 +438,7 @@
     "oee_failed_divert": 1469057,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1552257,
+    "oee_lane_full": 1552278,
     "oee_max_recirc": 24,
     "oee_no_read": 198786,
     "lane_full_pct": 56.3,
@@ -450,9 +451,9 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 34.73,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 328685,
+    "plc_dpmo": 328683,
     "plc_scan_defect": 4.34,
-    "plc_total_units": 4469556,
+    "plc_total_units": 4469577,
     "plc_good_diverts": 1448200,
     "plc_total_defects": 1469075
   },
@@ -465,11 +466,11 @@
     "south_upper": [
       {
         "name": "91152 CP90 Pallet Build North Upper",
-        "duration_min": 125.5
+        "duration_min": 126.6
       },
       {
         "name": "91452 CP90 Pallet Build North Upper",
-        "duration_min": 110.2
+        "duration_min": 111.3
       }
     ],
     "south_lower": [],
@@ -477,29 +478,26 @@
     "north_lower": []
   },
   "active_inbound_jams": {
-    "cp01": [],
+    "cp01": [
+      {
+        "name": "CP01 Inbound MDR01204_05",
+        "duration_min": 0.5
+      }
+    ],
     "cp02": []
   },
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 9871.2
+      "duration_min": 9872.3
     },
     {
       "name": "CP60 ATR_UIS BB60262",
-      "duration_min": 9866.1
+      "duration_min": 9867.1
     },
     {
       "name": "CP62_RPND MDR624509",
-      "duration_min": 9866.0
-    },
-    {
-      "name": "CP62_RPND MDR62351_21",
-      "duration_min": 6.2
-    },
-    {
-      "name": "CP62_RPND MDR62351_32",
-      "duration_min": 2.8
+      "duration_min": 9867.1
     }
   ],
   "active_outbound_north": [],
