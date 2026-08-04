@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-03 21:27:09 EST",
+  "timestamp": "2026-08-03 21:28:13 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-03 21:27",
+  "_pushed_at": "2026-08-03 21:28",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2410,
+    "speed": 2411,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 9,
+    "faulted": 7,
     "disabled": 99,
-    "available": 2232,
+    "available": 2234,
     "occupied": 2053,
-    "empty": 179,
-    "empty_pct": 7.6,
-    "availability_pct": 95.4
+    "empty": 181,
+    "empty_pct": 7.7,
+    "availability_pct": 95.5
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": true,
-      "carrier": 1307
+      "error": false,
+      "carrier": null
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 2220
+      "carrier": 137
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 2
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -402,9 +402,7 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {
-    "1": "2026-08-04T01:27:06.744063+00:00"
-  },
+  "wpt_fault_start": {},
   "crb_fault_counts": {
     "1": 80,
     "2": 72,
@@ -419,35 +417,35 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 5933323,
+    "sorted": 5933522,
     "recirculated": 33276,
     "recirc_pct": 0.56
   },
   "weekly": {
     "scan_defect_pct": 4.29,
     "recirc_pct": 0.56,
-    "oee_good_divert": 1468533,
-    "oee_failed_divert": 1467485,
+    "oee_good_divert": 1468608,
+    "oee_failed_divert": 1467487,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1544591,
+    "oee_lane_full": 1544602,
     "oee_max_recirc": 24,
-    "oee_no_read": 196446,
+    "oee_no_read": 196449,
     "lane_full_pct": 55.8,
     "iob_trips": null,
     "estop_events": null,
-    "plc_fpy": 32.77,
+    "plc_fpy": 32.78,
     "plc_mhe_defect": 32.75,
     "plc_ftd_pct": 32.75,
     "plc_gap_error_pct": 0.0,
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 34.47,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 327520,
+    "plc_dpmo": 327514,
     "plc_scan_defect": 4.29,
-    "plc_total_units": 4480651,
-    "plc_good_diverts": 1468533,
-    "plc_total_defects": 1467503
+    "plc_total_units": 4480739,
+    "plc_good_diverts": 1468608,
+    "plc_total_defects": 1467505
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -458,7 +456,7 @@
     "south_upper": [
       {
         "name": "91452 CP90 Pallet Build North Upper",
-        "duration_min": 4.6
+        "duration_min": 5.7
       }
     ],
     "south_lower": [],
@@ -470,28 +468,32 @@
     "cp02": [
       {
         "name": "CP02 Inbound MDR02116_01",
-        "duration_min": 4.6
+        "duration_min": 5.7
       }
     ]
   },
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 8779.4
+      "duration_min": 8780.4
     },
     {
       "name": "CP60 ATR_UIS BB60262",
-      "duration_min": 8774.2
+      "duration_min": 8775.3
     },
     {
       "name": "CP62_RPND MDR624509",
-      "duration_min": 8774.2
+      "duration_min": 8775.3
+    },
+    {
+      "name": "CP62_RPND MDR62351_32",
+      "duration_min": 0.6
     }
   ],
   "active_outbound_north": [
     {
       "name": "CP78 Fluid Load NorthWest DD340 MDR78120_03",
-      "duration_min": 0.1
+      "duration_min": 1.1
     }
   ],
   "shoe_sorter": {
@@ -538,9 +540,7 @@
       }
     ],
     "gridlock": false,
-    "jams": [
-      "Zone 67110"
-    ],
+    "jams": [],
     "induct_count": 9850,
     "induct_jam": false,
     "middle_jam": false,
@@ -662,7 +662,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[13]",
+      "text": "Pull MCB carriers at WPT [13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
