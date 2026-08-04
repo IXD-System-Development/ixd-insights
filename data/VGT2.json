@@ -1,18 +1,18 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-04 21:29:41",
+  "timestamp": "2026-08-04 21:30:35",
   "site": "VGT2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-04 21:29",
+  "_pushed_at": "2026-08-04 21:30",
   "carrier_count": 2340,
   "sorter": {
-    "running": false,
-    "speed": 0,
-    "state": "stopped",
+    "running": true,
+    "speed": 2348,
+    "state": "running",
     "active_faults": [],
     "in_dtw": false,
-    "items_recirculating": 292,
+    "items_recirculating": 308,
     "occupancy_pct": 71.5
   },
   "config": {
@@ -31,25 +31,25 @@
     {
       "label": "Scn0",
       "nr_pct": 5.44,
-      "good": 204191,
+      "good": 204194,
       "noread": 9784
     },
     {
       "label": "Scn1",
       "nr_pct": 4.58,
-      "good": 240857,
+      "good": 240865,
       "noread": 9403
     },
     {
       "label": "Scn3",
       "nr_pct": 5.25,
-      "good": 232108,
-      "noread": 11005
+      "good": 232117,
+      "noread": 11006
     },
     {
       "label": "Scn4",
       "nr_pct": 5.01,
-      "good": 246870,
+      "good": 246881,
       "noread": 11056
     }
   ],
@@ -67,82 +67,82 @@
     {
       "index": 0,
       "error": false,
-      "carrier": 1470
+      "carrier": 1913
     },
     {
       "index": 1,
       "error": false,
-      "carrier": 1079
+      "carrier": 1522
     },
     {
       "index": 2,
       "error": false,
-      "carrier": 1050
+      "carrier": 1494
     },
     {
       "index": 3,
       "error": false,
-      "carrier": 978
+      "carrier": 1422
     },
     {
       "index": 4,
       "error": false,
-      "carrier": 856
+      "carrier": 1300
     },
     {
       "index": 5,
-      "error": false,
-      "carrier": 824
+      "error": true,
+      "carrier": 1268
     },
     {
       "index": 6,
       "error": false,
-      "carrier": 430
+      "carrier": 874
     },
     {
       "index": 7,
       "error": false,
-      "carrier": 368
+      "carrier": 812
     },
     {
       "index": 8,
       "error": false,
-      "carrier": 275
+      "carrier": 719
     },
     {
       "index": 9,
       "error": false,
-      "carrier": 2242
+      "carrier": 346
     },
     {
       "index": 10,
       "error": false,
-      "carrier": 2197
+      "carrier": 301
     },
     {
       "index": 11,
       "error": false,
-      "carrier": 2122
+      "carrier": 226
     },
     {
       "index": 12,
       "error": false,
-      "carrier": 2042
+      "carrier": 146
     },
     {
       "index": 13,
       "error": false,
-      "carrier": 2010
+      "carrier": 114
     },
     {
       "index": 14,
       "error": false,
-      "carrier": 1625
+      "carrier": 2069
     },
     {
       "index": 15,
       "error": false,
-      "carrier": 1542
+      "carrier": 1986
     }
   ],
   "induct_ctbcrb": {
@@ -227,7 +227,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 0
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -380,13 +380,13 @@
     "plc_ftd_pct": 46.53,
     "mhe_defect_icw": 46.53,
     "plc_mhe_defect": 46.53,
-    "plc_good_diverts": 4248900,
+    "plc_good_diverts": 4248908,
     "plc_total_defects": 3697453,
-    "plc_total_units": 7946353,
-    "oee_good_divert": 4248900,
+    "plc_total_units": 7946361,
+    "oee_good_divert": 4248908,
     "oee_failed_divert": 3697453,
     "oee_lane_full": 412,
-    "oee_no_read": 41248,
+    "oee_no_read": 41249,
     "iob_trips": 76,
     "iob_downtime_min": 434.7,
     "estop_events": 65,
@@ -461,6 +461,11 @@
     ]
   },
   "priority_actions": [
+    {
+      "text": "WPT faults (1 positions) — pull carrier MCBs",
+      "severity": "HIGH",
+      "component": "WPT CTB/CRB"
+    },
     {
       "text": "Clear 14 chute jam(s)",
       "severity": "HIGH",
