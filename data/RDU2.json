@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-04 00:56:35 EST",
+  "timestamp": "2026-08-04 00:57:40 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-04 00:56",
+  "_pushed_at": "2026-08-04 00:57",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2392,
+    "speed": 2421,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 495,
+    "faulted": 77,
     "disabled": 97,
-    "available": 1748,
+    "available": 2166,
     "occupied": 2053,
-    "empty": 0,
-    "empty_pct": 0,
-    "availability_pct": 74.7
+    "empty": 113,
+    "empty_pct": 4.8,
+    "availability_pct": 92.6
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": true,
-      "carrier": 618
+      "error": false,
+      "carrier": null
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1531
+      "carrier": 1790
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 2
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -402,9 +402,7 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {
-    "1": "2026-08-04T04:45:48.343103+00:00"
-  },
+  "wpt_fault_start": {},
   "crb_fault_counts": {
     "1": 84,
     "2": 77,
@@ -419,18 +417,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 5958748,
+    "sorted": 5958835,
     "recirculated": 33344,
     "recirc_pct": 0.56
   },
   "weekly": {
-    "scan_defect_pct": 4.29,
+    "scan_defect_pct": 4.3,
     "recirc_pct": 0.56,
-    "oee_good_divert": 1479533,
-    "oee_failed_divert": 1467962,
+    "oee_good_divert": 1479621,
+    "oee_failed_divert": 1467970,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1545750,
+    "oee_lane_full": 1545757,
     "oee_max_recirc": 24,
     "oee_no_read": 197198,
     "lane_full_pct": 55.8,
@@ -443,11 +441,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 34.4,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 326705,
-    "plc_scan_defect": 4.29,
-    "plc_total_units": 4493287,
-    "plc_good_diverts": 1479533,
-    "plc_total_defects": 1467980
+    "plc_dpmo": 326699,
+    "plc_scan_defect": 4.3,
+    "plc_total_units": 4493390,
+    "plc_good_diverts": 1479621,
+    "plc_total_defects": 1467988
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -458,7 +456,7 @@
     "south_upper": [
       {
         "name": "91452 CP90 Pallet Build North Upper",
-        "duration_min": 214.1
+        "duration_min": 215.1
       }
     ],
     "south_lower": [],
@@ -472,23 +470,15 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 8988.8
+      "duration_min": 8989.9
     },
     {
       "name": "CP60 ATR_UIS BB60262",
-      "duration_min": 8983.7
+      "duration_min": 8984.7
     },
     {
       "name": "CP62_RPND MDR624509",
-      "duration_min": 8983.7
-    },
-    {
-      "name": "CP62_RPND MDR62351_32",
-      "duration_min": 3.5
-    },
-    {
-      "name": "CP62_RPND MDR62450_22",
-      "duration_min": 3.5
+      "duration_min": 8984.7
     }
   ],
   "active_outbound_north": [],
@@ -543,7 +533,7 @@
     "exit_jam": false,
     "agl_enabled": false,
     "icw_stats": {
-      "total_inducted": 75708,
+      "total_inducted": 75265,
       "peak_cpm": 240,
       "total_diverted": 0,
       "lane_full": 0,
@@ -658,12 +648,12 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[13]",
+      "text": "Pull MCB carriers at WPT [13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
     {
-      "text": "495 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "77 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
