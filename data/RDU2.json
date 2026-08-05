@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-05 17:41:00 EST",
+  "timestamp": "2026-08-05 17:42:05 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-05 17:41",
+  "_pushed_at": "2026-08-05 17:42",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2400,
+    "speed": 2401,
     "active_faults": [],
     "in_dtw": true
   },
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1261
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1915
+      "carrier": 2173
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 1797,
+    "1": 1798,
     "13": 1,
     "10": 136,
     "9": 8,
@@ -402,7 +402,9 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "1": "2026-08-05T21:42:02.200440+00:00"
+  },
   "crb_fault_counts": {
     "1": 113,
     "2": 101,
@@ -457,7 +459,7 @@
     "south_lower": [
       {
         "name": "91102 CP90 Pallet Build North Lower",
-        "duration_min": 772.4
+        "duration_min": 773.5
       }
     ],
     "north_upper": [],
@@ -470,33 +472,33 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 11433.2
+      "duration_min": 11434.3
     },
     {
       "name": "CP60 ATR_UIS BB60262",
-      "duration_min": 11428.1
+      "duration_min": 11429.2
     },
     {
       "name": "CP34 North Jackpot MDR34367_02",
-      "duration_min": 16.1
+      "duration_min": 17.2
     },
     {
       "name": "CP62_RPND MDR62351_32",
-      "duration_min": 4.0
+      "duration_min": 5.0
     },
     {
       "name": "CP53 EACH TO SORT MDR53216_02",
-      "duration_min": 0.9
+      "duration_min": 2.0
     },
     {
       "name": "CP53 EACH TO SORT MDR53268_01",
-      "duration_min": 0.9
+      "duration_min": 2.0
     }
   ],
   "active_outbound_north": [
     {
       "name": "CP94 Robotic Palletizer North MDR94164_04",
-      "duration_min": 1.4
+      "duration_min": 2.5
     }
   ],
   "shoe_sorter": {
@@ -665,7 +667,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
