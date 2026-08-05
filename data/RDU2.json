@@ -1,19 +1,19 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-05 04:59:23 EST",
+  "timestamp": "2026-08-05 05:00:27 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-05 04:59",
+  "_pushed_at": "2026-08-05 05:00",
   "carrier_count": 2340,
   "sorter": {
-    "running": true,
-    "speed": 2394,
+    "running": false,
+    "speed": 359,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 4,
+    "faulted": 5,
     "disabled": 92,
     "available": 2243,
     "occupied": 2053,
@@ -47,11 +47,11 @@
   "ppu": [
     {
       "index": 1,
-      "state": "RUNNING"
+      "state": "WARNING"
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "ERROR"
     },
     {
       "index": 3,
@@ -59,15 +59,15 @@
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 6,
-      "state": "RUNNING"
+      "state": "STOPPED"
     }
   ],
   "wpt": [
@@ -79,7 +79,7 @@
     {
       "index": 1,
       "error": true,
-      "carrier": 2208
+      "carrier": 87
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 781
+      "carrier": 999
     },
     {
       "index": 14,
@@ -157,19 +157,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 2,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 3,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 4,
-        "connection_faulted": false
+        "connection_faulted": true
       }
     ]
   },
@@ -184,7 +184,7 @@
       "total": 16,
       "faulted": 2
     },
-    "ppu_connections": 6,
+    "ppu_connections": 1,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -406,12 +406,17 @@
     "1": "2026-08-05T08:59:20.961841+00:00"
   },
   "crb_fault_counts": {
-    "1": 104,
-    "2": 97,
-    "3": 102,
-    "4": 103
+    "1": 105,
+    "2": 98,
+    "3": 103,
+    "4": 104
   },
-  "crb_fault_start": {},
+  "crb_fault_start": {
+    "1": "2026-08-05T09:00:25.227419+00:00",
+    "2": "2026-08-05T09:00:25.227419+00:00",
+    "3": "2026-08-05T09:00:25.227419+00:00",
+    "4": "2026-08-05T09:00:25.227419+00:00"
+  },
   "strays": [],
   "chutes": {
     "locked_out": 16,
@@ -419,18 +424,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6140206,
+    "sorted": 6140324,
     "recirculated": 33888,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.33,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1488076,
+    "oee_good_divert": 1488108,
     "oee_failed_divert": 1470114,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1559986,
+    "oee_lane_full": 1560022,
     "oee_max_recirc": 24,
     "oee_no_read": 201481,
     "lane_full_pct": 56.4,
@@ -443,10 +448,10 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 34.53,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 325379,
+    "plc_dpmo": 325374,
     "plc_scan_defect": 4.33,
-    "plc_total_units": 4518218,
-    "plc_good_diverts": 1488076,
+    "plc_total_units": 4518286,
+    "plc_good_diverts": 1488108,
     "plc_total_defects": 1470132
   },
   "shift_report": {
@@ -459,11 +464,11 @@
     "south_lower": [
       {
         "name": "91402 CP90 Pallet Build North Lower",
-        "duration_min": 416.3
+        "duration_min": 417.3
       },
       {
         "name": "91102 CP90 Pallet Build North Lower",
-        "duration_min": 10.8
+        "duration_min": 11.8
       }
     ],
     "north_upper": [],
@@ -476,27 +481,19 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 10671.6
+      "duration_min": 10672.7
     },
     {
       "name": "CP60 ATR_UIS BB60262",
-      "duration_min": 10666.5
+      "duration_min": 10667.5
     },
     {
       "name": "Shoe Sorter CP68 lane 7 MDR68307_01",
-      "duration_min": 3.9
-    },
-    {
-      "name": "CP53 EACH TO SORT MDR53216_02",
-      "duration_min": 2.2
-    },
-    {
-      "name": "CP53 EACH TO SORT MDR53268_01",
-      "duration_min": 2.2
+      "duration_min": 5.0
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33124_01",
-      "duration_min": 0.5
+      "duration_min": 1.6
     }
   ],
   "active_outbound_north": [],
@@ -549,7 +546,7 @@
     "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
-    "agl_enabled": true,
+    "agl_enabled": false,
     "icw_stats": {
       "total_inducted": 82091,
       "peak_cpm": 240,
