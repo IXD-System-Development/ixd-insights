@@ -1,19 +1,19 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-05 04:58:19 EST",
+  "timestamp": "2026-08-05 04:59:23 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-05 04:58",
+  "_pushed_at": "2026-08-05 04:59",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2414,
+    "speed": 2394,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 5,
+    "faulted": 4,
     "disabled": 92,
     "available": 2243,
     "occupied": 2053,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 2208
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 522
+      "carrier": 781
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 1789,
+    "1": 1790,
     "13": 1,
     "10": 136,
     "9": 8,
@@ -402,7 +402,9 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "1": "2026-08-05T08:59:20.961841+00:00"
+  },
   "crb_fault_counts": {
     "1": 104,
     "2": 97,
@@ -417,34 +419,34 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6140064,
+    "sorted": 6140206,
     "recirculated": 33888,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.33,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1488017,
+    "oee_good_divert": 1488076,
     "oee_failed_divert": 1470114,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1559935,
+    "oee_lane_full": 1559986,
     "oee_max_recirc": 24,
     "oee_no_read": 201481,
     "lane_full_pct": 56.4,
     "iob_trips": null,
     "estop_events": null,
-    "plc_fpy": 32.93,
+    "plc_fpy": 32.94,
     "plc_mhe_defect": 32.54,
     "plc_ftd_pct": 32.54,
     "plc_gap_error_pct": 0.0,
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 34.53,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 325387,
+    "plc_dpmo": 325379,
     "plc_scan_defect": 4.33,
-    "plc_total_units": 4518108,
-    "plc_good_diverts": 1488017,
+    "plc_total_units": 4518218,
+    "plc_good_diverts": 1488076,
     "plc_total_defects": 1470132
   },
   "shift_report": {
@@ -457,11 +459,11 @@
     "south_lower": [
       {
         "name": "91402 CP90 Pallet Build North Lower",
-        "duration_min": 415.2
+        "duration_min": 416.3
       },
       {
         "name": "91102 CP90 Pallet Build North Lower",
-        "duration_min": 9.7
+        "duration_min": 10.8
       }
     ],
     "north_upper": [],
@@ -474,27 +476,27 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 10670.5
+      "duration_min": 10671.6
     },
     {
       "name": "CP60 ATR_UIS BB60262",
-      "duration_min": 10665.4
-    },
-    {
-      "name": "CP62_RPND MDR62351_32",
-      "duration_min": 6.3
+      "duration_min": 10666.5
     },
     {
       "name": "Shoe Sorter CP68 lane 7 MDR68307_01",
-      "duration_min": 2.9
+      "duration_min": 3.9
     },
     {
       "name": "CP53 EACH TO SORT MDR53216_02",
-      "duration_min": 1.1
+      "duration_min": 2.2
     },
     {
       "name": "CP53 EACH TO SORT MDR53268_01",
-      "duration_min": 1.1
+      "duration_min": 2.2
+    },
+    {
+      "name": "CP33 South Jackpot and Bypass MDR33124_01",
+      "duration_min": 0.5
     }
   ],
   "active_outbound_north": [],
@@ -547,7 +549,7 @@
     "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
-    "agl_enabled": false,
+    "agl_enabled": true,
     "icw_stats": {
       "total_inducted": 82091,
       "peak_cpm": 240,
@@ -664,7 +666,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
