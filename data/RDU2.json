@@ -1,25 +1,27 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-04 20:08:11 EST",
+  "timestamp": "2026-08-04 20:09:16 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-04 20:08",
+  "_pushed_at": "2026-08-04 20:09",
   "carrier_count": 2340,
   "sorter": {
-    "running": true,
-    "speed": 2391,
-    "active_faults": [],
+    "running": false,
+    "speed": 344,
+    "active_faults": [
+      "IOB-4 TRIPPED"
+    ],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 5,
+    "faulted": 6,
     "disabled": 92,
-    "available": 2243,
+    "available": 2242,
     "occupied": 2053,
-    "empty": 190,
+    "empty": 189,
     "empty_pct": 8.1,
-    "availability_pct": 95.9
+    "availability_pct": 95.8
   },
   "config": {
     "max_recirc": 5,
@@ -47,27 +49,27 @@
   "ppu": [
     {
       "index": 1,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 3,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 6,
-      "state": "RUNNING"
+      "state": "STOPPED"
     }
   ],
   "wpt": [
@@ -79,7 +81,7 @@
     {
       "index": 1,
       "error": true,
-      "carrier": 585
+      "carrier": 808
     },
     {
       "index": 2,
@@ -139,7 +141,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1498
+      "carrier": 1720
     },
     {
       "index": 14,
@@ -157,19 +159,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 2,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 3,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 4,
-        "connection_faulted": false
+        "connection_faulted": true
       }
     ]
   },
@@ -184,7 +186,7 @@
       "total": 16,
       "faulted": 2
     },
-    "ppu_connections": 6,
+    "ppu_connections": 0,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -406,12 +408,17 @@
     "1": "2026-08-05T00:03:50.494662+00:00"
   },
   "crb_fault_counts": {
-    "1": 99,
-    "2": 92,
-    "3": 97,
-    "4": 98
+    "1": 100,
+    "2": 93,
+    "3": 98,
+    "4": 99
   },
-  "crb_fault_start": {},
+  "crb_fault_start": {
+    "1": "2026-08-05T00:09:13.847229+00:00",
+    "2": "2026-08-05T00:09:13.847229+00:00",
+    "3": "2026-08-05T00:09:13.847229+00:00",
+    "4": "2026-08-05T00:09:13.847229+00:00"
+  },
   "strays": [],
   "chutes": {
     "locked_out": 13,
@@ -419,20 +426,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6065357,
+    "sorted": 6065512,
     "recirculated": 33787,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.34,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1456721,
-    "oee_failed_divert": 1469295,
+    "oee_good_divert": 1456792,
+    "oee_failed_divert": 1469296,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1553684,
+    "oee_lane_full": 1553692,
     "oee_max_recirc": 24,
-    "oee_no_read": 199200,
+    "oee_no_read": 199201,
     "lane_full_pct": 56.1,
     "iob_trips": null,
     "estop_events": null,
@@ -443,11 +450,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 34.68,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 327991,
+    "plc_dpmo": 327985,
     "plc_scan_defect": 4.34,
-    "plc_total_units": 4479742,
-    "plc_good_diverts": 1456721,
-    "plc_total_defects": 1469313
+    "plc_total_units": 4479822,
+    "plc_good_diverts": 1456792,
+    "plc_total_defects": 1469314
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -458,11 +465,11 @@
     "south_upper": [
       {
         "name": "91352 CP90 Pallet Build North Upper",
-        "duration_min": 46.6
+        "duration_min": 47.7
       },
       {
         "name": "91452 CP90 Pallet Build North Upper",
-        "duration_min": 21.2
+        "duration_min": 22.2
       }
     ],
     "south_lower": [],
@@ -472,8 +479,8 @@
   "active_inbound_jams": {
     "cp01": [
       {
-        "name": "CP01 Inbound MDR01324_02",
-        "duration_min": 2.4
+        "name": "CP01 Inbound MDR01412_03",
+        "duration_min": 0.1
       }
     ],
     "cp02": []
@@ -481,23 +488,15 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 10140.4
+      "duration_min": 10141.5
     },
     {
       "name": "CP60 ATR_UIS BB60262",
-      "duration_min": 10135.3
+      "duration_min": 10136.4
     },
     {
       "name": "CP62_RPND MDR624509",
-      "duration_min": 10135.3
-    },
-    {
-      "name": "CP56 Tote Take Away EE56802_6",
-      "duration_min": 4.1
-    },
-    {
-      "name": "CP62_RPND MDR62351_32",
-      "duration_min": 2.4
+      "duration_min": 10136.3
     }
   ],
   "active_outbound_north": [],
