@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-05 18:15:34 EST",
+  "timestamp": "2026-08-05 18:16:38 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-05 18:15",
+  "_pushed_at": "2026-08-05 18:16",
   "carrier_count": 2340,
   "sorter": {
-    "running": true,
-    "speed": 2392,
+    "running": false,
+    "speed": 0,
     "active_faults": [],
     "in_dtw": true
   },
@@ -47,27 +47,27 @@
   "ppu": [
     {
       "index": 1,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 3,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 6,
-      "state": "RUNNING"
+      "state": "STOPPED"
     }
   ],
   "wpt": [
@@ -79,7 +79,7 @@
     {
       "index": 1,
       "error": true,
-      "carrier": 1488
+      "carrier": 1687
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 60
+      "carrier": 259
     },
     {
       "index": 14,
@@ -157,19 +157,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 2,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 3,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 4,
-        "connection_faulted": false
+        "connection_faulted": true
       }
     ]
   },
@@ -184,7 +184,7 @@
       "total": 16,
       "faulted": 2
     },
-    "ppu_connections": 6,
+    "ppu_connections": 0,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -406,12 +406,17 @@
     "1": "2026-08-05T22:14:24.129759+00:00"
   },
   "crb_fault_counts": {
-    "1": 114,
-    "2": 102,
-    "3": 107,
-    "4": 108
+    "1": 115,
+    "2": 103,
+    "3": 108,
+    "4": 109
   },
-  "crb_fault_start": {},
+  "crb_fault_start": {
+    "1": "2026-08-05T22:16:35.994687+00:00",
+    "2": "2026-08-05T22:16:35.994687+00:00",
+    "3": "2026-08-05T22:16:35.994687+00:00",
+    "4": "2026-08-05T22:16:35.994687+00:00"
+  },
   "strays": [],
   "chutes": {
     "locked_out": 0,
@@ -420,14 +425,14 @@
   },
   "lifetime": {
     "sorted": 6141387,
-    "recirculated": 33936,
+    "recirculated": 33937,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.33,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1488765,
-    "oee_failed_divert": 1470146,
+    "oee_good_divert": 1488766,
+    "oee_failed_divert": 1470147,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
     "oee_lane_full": 1560485,
@@ -445,9 +450,9 @@
     "plc_max_recirc_pct": 0.0,
     "plc_dpmo": 325298,
     "plc_scan_defect": 4.33,
-    "plc_total_units": 4519438,
-    "plc_good_diverts": 1488765,
-    "plc_total_defects": 1470164
+    "plc_total_units": 4519440,
+    "plc_good_diverts": 1488766,
+    "plc_total_defects": 1470165
   },
   "shift_report": {
     "shift_label": "Night Shift (7pm - 7am EST)",
@@ -459,11 +464,11 @@
     "south_lower": [
       {
         "name": "91102 CP90 Pallet Build North Lower",
-        "duration_min": 18.9
+        "duration_min": 20.0
       },
       {
         "name": "91302 CP90 Pallet Build North Lower",
-        "duration_min": 17.2
+        "duration_min": 18.3
       }
     ],
     "north_upper": [],
@@ -476,29 +481,37 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 11467.8
+      "duration_min": 11468.8
     },
     {
       "name": "CP60 ATR_UIS BB60262",
-      "duration_min": 11462.6
+      "duration_min": 11463.7
     },
     {
       "name": "CP34 North Jackpot MDR34367_02",
-      "duration_min": 4.8
+      "duration_min": 5.9
     },
     {
       "name": "CP62_RPND MDR62351_32",
-      "duration_min": 1.4
+      "duration_min": 2.5
     },
     {
       "name": "CP62_RPND MDR62450_02",
-      "duration_min": 1.4
+      "duration_min": 2.5
+    },
+    {
+      "name": "CP53 EACH TO SORT MDR53216_02",
+      "duration_min": 0.8
+    },
+    {
+      "name": "CP53 EACH TO SORT MDR53268_01",
+      "duration_min": 0.8
     }
   ],
   "active_outbound_north": [
     {
       "name": "CP94 Robotic Palletizer North MDR94164_04",
-      "duration_min": 7.1
+      "duration_min": 8.2
     }
   ],
   "shoe_sorter": {
