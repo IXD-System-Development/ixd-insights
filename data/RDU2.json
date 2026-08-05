@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-05 18:22:00 EST",
+  "timestamp": "2026-08-05 18:23:04 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-05 18:22",
+  "_pushed_at": "2026-08-05 18:23",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2397,
+    "speed": 2396,
     "active_faults": [],
     "in_dtw": true
   },
   "carriers": {
-    "faulted": 46,
+    "faulted": 58,
     "disabled": 66,
-    "available": 2228,
+    "available": 2216,
     "occupied": 2053,
-    "empty": 175,
-    "empty_pct": 7.5,
-    "availability_pct": 95.2
+    "empty": 163,
+    "empty_pct": 7.0,
+    "availability_pct": 94.7
   },
   "config": {
     "max_recirc": 5,
@@ -79,7 +79,7 @@
     {
       "index": 1,
       "error": true,
-      "carrier": 2028
+      "carrier": 2285
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 600
+      "carrier": 857
     },
     {
       "index": 14,
@@ -419,7 +419,7 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6141388,
+    "sorted": 6141390,
     "recirculated": 33937,
     "recirc_pct": 0.55
   },
@@ -459,11 +459,11 @@
     "south_lower": [
       {
         "name": "91102 CP90 Pallet Build North Lower",
-        "duration_min": 25.4
+        "duration_min": 26.4
       },
       {
         "name": "91302 CP90 Pallet Build North Lower",
-        "duration_min": 23.6
+        "duration_min": 24.7
       }
     ],
     "north_upper": [],
@@ -476,34 +476,39 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 11474.2
+      "duration_min": 11475.3
     },
     {
       "name": "CP60 ATR_UIS BB60262",
-      "duration_min": 11469.1
-    },
-    {
-      "name": "CP53 EACH TO SORT MDR53216_02",
-      "duration_min": 6.1
-    },
-    {
-      "name": "CP53 EACH TO SORT MDR53268_01",
-      "duration_min": 6.1
+      "duration_min": 11470.2
     },
     {
       "name": "CP34 North Jackpot MDR34367_02",
-      "duration_min": 2.7
+      "duration_min": 3.8
     },
     {
       "name": "CP62_RPND MDR62351_32",
-      "duration_min": 1.0
+      "duration_min": 2.1
     },
     {
       "name": "CP62_RPND MDR62450_02",
-      "duration_min": 1.0
+      "duration_min": 2.0
+    },
+    {
+      "name": "CP53 EACH TO SORT MDR53216_02",
+      "duration_min": 0.4
+    },
+    {
+      "name": "CP53 EACH TO SORT MDR53268_01",
+      "duration_min": 0.3
     }
   ],
-  "active_outbound_north": [],
+  "active_outbound_north": [
+    {
+      "name": "CP94 Robotic Palletizer North MDR94164_04",
+      "duration_min": 0.9
+    }
+  ],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -548,9 +553,7 @@
       }
     ],
     "gridlock": false,
-    "jams": [
-      "CP67 Merge"
-    ],
+    "jams": [],
     "induct_count": 9897,
     "induct_jam": false,
     "middle_jam": false,
@@ -675,6 +678,11 @@
       "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
+    },
+    {
+      "text": "58 faulted carriers \u2014 MCB fleet repair needed",
+      "severity": "CRITICAL",
+      "component": "Each faulted carrier causes FTD at every chute it passes."
     }
   ]
 }
