@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-06 04:23:15 EST",
+  "timestamp": "2026-08-06 04:24:20 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-06 04:23",
+  "_pushed_at": "2026-08-06 04:24",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2400,
+    "speed": 2396,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 314,
+    "faulted": 319,
     "disabled": 64,
-    "available": 1962,
+    "available": 1957,
     "occupied": 2053,
     "empty": 0,
     "empty_pct": 0,
-    "availability_pct": 83.8
+    "availability_pct": 83.6
   },
   "config": {
     "max_recirc": 5,
@@ -79,7 +79,7 @@
     {
       "index": 1,
       "error": true,
-      "carrier": 364
+      "carrier": 622
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1276
+      "carrier": 1535
     },
     {
       "index": 14,
@@ -419,15 +419,15 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6199232,
+    "sorted": 6199320,
     "recirculated": 34341,
     "recirc_pct": 0.55
   },
   "weekly": {
-    "scan_defect_pct": 4.37,
+    "scan_defect_pct": 4.38,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1450511,
-    "oee_failed_divert": 1471097,
+    "oee_good_divert": 1450554,
+    "oee_failed_divert": 1471100,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
     "oee_lane_full": 1499966,
@@ -436,18 +436,18 @@
     "lane_full_pct": 57.1,
     "iob_trips": null,
     "estop_events": null,
-    "plc_fpy": 32.8,
+    "plc_fpy": 32.81,
     "plc_mhe_defect": 33.27,
     "plc_ftd_pct": 33.27,
     "plc_gap_error_pct": 0.0,
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.92,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 332710,
-    "plc_scan_defect": 4.37,
-    "plc_total_units": 4421616,
-    "plc_good_diverts": 1450511,
-    "plc_total_defects": 1471115
+    "plc_dpmo": 332707,
+    "plc_scan_defect": 4.38,
+    "plc_total_units": 4421662,
+    "plc_good_diverts": 1450554,
+    "plc_total_defects": 1471118
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -459,11 +459,11 @@
     "south_lower": [
       {
         "name": "91102 CP90 Pallet Build North Lower",
-        "duration_min": 174.7
+        "duration_min": 175.8
       },
       {
         "name": "91202 CP90 Pallet Build North Lower",
-        "duration_min": 21.5
+        "duration_min": 22.6
       }
     ],
     "north_upper": [],
@@ -476,27 +476,14 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 12075.5
-    },
-    {
-      "name": "Shoe Sorter Induct Jam",
-      "duration_min": 2.8
+      "duration_min": 12076.5
     },
     {
       "name": "CP62_RPND MDR62351_32",
-      "duration_min": 2.8
+      "duration_min": 0.4
     }
   ],
-  "active_outbound_north": [
-    {
-      "name": "CP76 Fluid Load NorthEast DD334 MDR76320_03",
-      "duration_min": 8.4
-    },
-    {
-      "name": "CP76 Fluid Load NorthEast DD334 MDR76320_01",
-      "duration_min": 5.0
-    }
-  ],
+  "active_outbound_north": [],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -541,14 +528,16 @@
       }
     ],
     "gridlock": false,
-    "jams": [],
+    "jams": [
+      "CP68 Lanes"
+    ],
     "induct_count": 7379,
     "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
-    "agl_enabled": false,
+    "agl_enabled": true,
     "icw_stats": {
-      "total_inducted": 35685,
+      "total_inducted": 35925,
       "peak_cpm": 228,
       "total_diverted": 0,
       "lane_full": 0,
@@ -668,7 +657,7 @@
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
     {
-      "text": "314 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "319 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
