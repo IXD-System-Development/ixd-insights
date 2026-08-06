@@ -1,21 +1,21 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-06 07:23:03 EST",
+  "timestamp": "2026-08-06 07:24:07 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-06 07:23",
+  "_pushed_at": "2026-08-06 07:24",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2394,
+    "speed": 2400,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 305,
+    "faulted": 306,
     "disabled": 64,
-    "available": 1971,
+    "available": 1970,
     "occupied": 2053,
     "empty": 0,
     "empty_pct": 0,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 283
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 936
+      "carrier": 1195
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 1909,
+    "1": 1910,
     "13": 1,
     "10": 136,
     "9": 8,
@@ -402,7 +402,9 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "1": "2026-08-06T11:24:05.095682+00:00"
+  },
   "crb_fault_counts": {
     "1": 124,
     "2": 112,
@@ -417,20 +419,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6204336,
-    "recirculated": 34390,
+    "sorted": 6204444,
+    "recirculated": 34391,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.38,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1453158,
-    "oee_failed_divert": 1471197,
+    "oee_good_divert": 1453203,
+    "oee_failed_divert": 1471198,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1500564,
+    "oee_lane_full": 1500578,
     "oee_max_recirc": 24,
-    "oee_no_read": 203468,
+    "oee_no_read": 203472,
     "lane_full_pct": 57.1,
     "iob_trips": null,
     "estop_events": null,
@@ -441,11 +443,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.91,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 332481,
+    "plc_dpmo": 332477,
     "plc_scan_defect": 4.38,
-    "plc_total_units": 4424961,
-    "plc_good_diverts": 1453158,
-    "plc_total_defects": 1471215
+    "plc_total_units": 4425021,
+    "plc_good_diverts": 1453203,
+    "plc_total_defects": 1471216
   },
   "shift_report": {
     "shift_label": "Night Shift (7pm - 7am EST)",
@@ -457,7 +459,7 @@
     "south_lower": [
       {
         "name": "91102 CP90 Pallet Build North Lower",
-        "duration_min": 354.5
+        "duration_min": 355.6
       }
     ],
     "north_upper": [],
@@ -470,11 +472,11 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 12255.3
+      "duration_min": 12256.3
     },
     {
       "name": "CP56 Tote Take Away BRB56804",
-      "duration_min": 1.0
+      "duration_min": 2.0
     }
   ],
   "active_outbound_north": [],
@@ -522,16 +524,14 @@
       }
     ],
     "gridlock": false,
-    "jams": [
-      "Zone 67110"
-    ],
+    "jams": [],
     "induct_count": 7379,
     "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
-    "agl_enabled": false,
+    "agl_enabled": true,
     "icw_stats": {
-      "total_inducted": 35775,
+      "total_inducted": 36318,
       "peak_cpm": 228,
       "total_diverted": 0,
       "lane_full": 0,
@@ -646,12 +646,12 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
     {
-      "text": "305 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "306 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
