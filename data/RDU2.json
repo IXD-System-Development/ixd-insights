@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-06 08:20:15 EST",
+  "timestamp": "2026-08-06 08:21:20 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-06 08:20",
+  "_pushed_at": "2026-08-06 08:21",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2400,
+    "speed": 2409,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 16,
+    "faulted": 14,
     "disabled": 75,
-    "available": 2249,
+    "available": 2251,
     "occupied": 2053,
-    "empty": 196,
-    "empty_pct": 8.4,
-    "availability_pct": 96.1
+    "empty": 198,
+    "empty_pct": 8.5,
+    "availability_pct": 96.2
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 2312
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 625
+      "carrier": 884
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 1919,
+    "1": 1920,
     "13": 1,
     "10": 136,
     "9": 8,
@@ -402,7 +402,9 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "1": "2026-08-06T12:21:17.314191+00:00"
+  },
   "crb_fault_counts": {
     "1": 124,
     "2": 112,
@@ -417,20 +419,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6210804,
-    "recirculated": 34487,
+    "sorted": 6210973,
+    "recirculated": 34489,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.39,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1456184,
-    "oee_failed_divert": 1471307,
+    "oee_good_divert": 1456252,
+    "oee_failed_divert": 1471310,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1501408,
+    "oee_lane_full": 1501434,
     "oee_max_recirc": 24,
-    "oee_no_read": 203569,
+    "oee_no_read": 203576,
     "lane_full_pct": 57.2,
     "iob_trips": null,
     "estop_events": null,
@@ -441,11 +443,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.9,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 332207,
+    "plc_dpmo": 332200,
     "plc_scan_defect": 4.39,
-    "plc_total_units": 4428941,
-    "plc_good_diverts": 1456184,
-    "plc_total_defects": 1471325
+    "plc_total_units": 4429038,
+    "plc_good_diverts": 1456252,
+    "plc_total_defects": 1471328
   },
   "shift_report": {
     "shift_label": "Night Shift (7pm - 7am EST)",
@@ -456,11 +458,11 @@
     "south_upper": [
       {
         "name": "91152 CP90 Pallet Build North Upper",
-        "duration_min": 8.8
+        "duration_min": 9.9
       },
       {
         "name": "91252 CP90 Pallet Build North Upper",
-        "duration_min": 3.7
+        "duration_min": 4.8
       }
     ],
     "south_lower": [],
@@ -471,7 +473,7 @@
     "cp01": [
       {
         "name": "CP01 Inbound MDR01204_05",
-        "duration_min": 0.3
+        "duration_min": 1.4
       }
     ],
     "cp02": []
@@ -479,7 +481,7 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 12312.5
+      "duration_min": 12313.5
     }
   ],
   "active_outbound_north": [],
@@ -527,12 +529,14 @@
       }
     ],
     "gridlock": false,
-    "jams": [],
+    "jams": [
+      "Zone 67110"
+    ],
     "induct_count": 7379,
     "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
-    "agl_enabled": false,
+    "agl_enabled": true,
     "icw_stats": {
       "total_inducted": 40675,
       "peak_cpm": 228,
@@ -649,7 +653,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
