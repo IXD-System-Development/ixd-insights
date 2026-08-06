@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-06 17:23:48 EST",
+  "timestamp": "2026-08-06 17:24:53 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-06 17:23",
+  "_pushed_at": "2026-08-06 17:24",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2389,
+    "speed": 2400,
     "active_faults": [],
     "in_dtw": false
   },
@@ -29,7 +29,7 @@
   "scanners": [
     {
       "label": "IND1-Scn1",
-      "nr_pct": 4.6
+      "nr_pct": 4.61
     },
     {
       "label": "IND2-Scn2",
@@ -37,7 +37,7 @@
     },
     {
       "label": "IND3-Scn3",
-      "nr_pct": 3.99
+      "nr_pct": 4.0
     },
     {
       "label": "IND4-Scn4",
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1909
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 223
+      "carrier": 481
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 2003,
+    "1": 2004,
     "13": 1,
     "10": 136,
     "9": 8,
@@ -402,7 +402,9 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "1": "2026-08-06T21:24:50.611429+00:00"
+  },
   "crb_fault_counts": {
     "1": 131,
     "2": 119,
@@ -417,18 +419,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6272344,
-    "recirculated": 34748,
+    "sorted": 6272368,
+    "recirculated": 34749,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.44,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1415449,
-    "oee_failed_divert": 1471897,
+    "oee_good_divert": 1415472,
+    "oee_failed_divert": 1471899,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1506104,
+    "oee_lane_full": 1506105,
     "oee_max_recirc": 24,
     "oee_no_read": 204147,
     "lane_full_pct": 57.9,
@@ -441,11 +443,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 34.28,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 335022,
+    "plc_dpmo": 335020,
     "plc_scan_defect": 4.44,
-    "plc_total_units": 4393492,
-    "plc_good_diverts": 1415449,
-    "plc_total_defects": 1471915
+    "plc_total_units": 4393518,
+    "plc_good_diverts": 1415472,
+    "plc_total_defects": 1471917
   },
   "shift_report": {
     "shift_label": "Night Shift (7pm - 7am EST)",
@@ -456,7 +458,7 @@
     "south_upper": [
       {
         "name": "91352 CP90 Pallet Build North Upper",
-        "duration_min": 18.8
+        "duration_min": 19.9
       }
     ],
     "south_lower": [],
@@ -470,18 +472,23 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 12856.0
-    },
-    {
-      "name": "CP33 South Jackpot and Bypass MDR33336_02",
-      "duration_min": 1.8
+      "duration_min": 12857.1
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33114_01",
-      "duration_min": 0.1
+      "duration_min": 1.2
     }
   ],
-  "active_outbound_north": [],
+  "active_outbound_north": [
+    {
+      "name": "CP78 Fluid Load NorthWest DD340 MDR78120_03",
+      "duration_min": 0.0
+    },
+    {
+      "name": "CP94 Robotic Palletizer North MDR94228_01",
+      "duration_min": 0.0
+    }
+  ],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -531,7 +538,7 @@
     "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
-    "agl_enabled": true,
+    "agl_enabled": false,
     "icw_stats": {
       "total_inducted": 79394,
       "peak_cpm": 228,
@@ -648,7 +655,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
