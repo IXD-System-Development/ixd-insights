@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-06 01:43:48 EST",
+  "timestamp": "2026-08-06 01:44:53 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-06 01:43",
+  "_pushed_at": "2026-08-06 01:44",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2405,
+    "speed": 2395,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 157,
+    "faulted": 158,
     "disabled": 64,
-    "available": 2119,
+    "available": 2118,
     "occupied": 2053,
-    "empty": 66,
+    "empty": 65,
     "empty_pct": 2.8,
-    "availability_pct": 90.6
+    "availability_pct": 90.5
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": true,
-      "carrier": 720
+      "error": false,
+      "carrier": null
     },
     {
       "index": 2,
@@ -103,8 +103,8 @@
     },
     {
       "index": 6,
-      "error": true,
-      "carrier": 57
+      "error": false,
+      "carrier": null
     },
     {
       "index": 7,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1632
+      "carrier": 1893
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 3
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -402,10 +402,7 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {
-    "1": "2026-08-06T05:39:26.420547+00:00",
-    "6": "2026-08-06T05:43:44.957341+00:00"
-  },
+  "wpt_fault_start": {},
   "crb_fault_counts": {
     "1": 121,
     "2": 109,
@@ -420,20 +417,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6186004,
-    "recirculated": 34269,
+    "sorted": 6186165,
+    "recirculated": 34270,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.37,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1444283,
-    "oee_failed_divert": 1470830,
+    "oee_good_divert": 1444343,
+    "oee_failed_divert": 1470831,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1498970,
+    "oee_lane_full": 1499000,
     "oee_max_recirc": 24,
-    "oee_no_read": 202964,
+    "oee_no_read": 202974,
     "lane_full_pct": 57.0,
     "iob_trips": null,
     "estop_events": null,
@@ -444,11 +441,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.96,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 333214,
+    "plc_dpmo": 333207,
     "plc_scan_defect": 4.37,
-    "plc_total_units": 4414125,
-    "plc_good_diverts": 1444283,
-    "plc_total_defects": 1470848
+    "plc_total_units": 4414216,
+    "plc_good_diverts": 1444343,
+    "plc_total_defects": 1470849
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -459,17 +456,17 @@
     "south_upper": [
       {
         "name": "91352 CP90 Pallet Build North Upper",
-        "duration_min": 22.0
+        "duration_min": 23.1
       }
     ],
     "south_lower": [
       {
         "name": "91102 CP90 Pallet Build North Lower",
-        "duration_min": 15.2
+        "duration_min": 16.3
       },
       {
         "name": "91302 CP90 Pallet Build North Lower",
-        "duration_min": 3.3
+        "duration_min": 4.4
       }
     ],
     "north_upper": [],
@@ -482,17 +479,17 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 11916.0
+      "duration_min": 11917.1
     },
     {
       "name": "CP62_RPND MDR62351_32",
-      "duration_min": 1.6
+      "duration_min": 2.7
     }
   ],
   "active_outbound_north": [
     {
       "name": "CP94 Robotic Palletizer North MDR94128_01",
-      "duration_min": 0.4
+      "duration_min": 1.5
     }
   ],
   "shoe_sorter": {
@@ -663,12 +660,12 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[6]+[13]",
+      "text": "Pull MCB carriers at WPT [13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     },
     {
-      "text": "157 faulted carriers \u2014 MCB fleet repair needed",
+      "text": "158 faulted carriers \u2014 MCB fleet repair needed",
       "severity": "CRITICAL",
       "component": "Each faulted carrier causes FTD at every chute it passes."
     }
