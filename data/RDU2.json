@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-07 15:17:45 EST",
+  "timestamp": "2026-08-07 15:18:49 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-07 15:17",
+  "_pushed_at": "2026-08-07 15:18",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2391,
+    "speed": 2407,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 1,
+    "faulted": 2,
     "disabled": 75,
-    "available": 2264,
+    "available": 2034,
     "occupied": 2053,
-    "empty": 211,
-    "empty_pct": 9.0,
-    "availability_pct": 96.8
+    "empty": 0,
+    "empty_pct": 0,
+    "availability_pct": 86.9
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": true,
-      "carrier": 1435
+      "error": false,
+      "carrier": null
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 7
+      "carrier": 264
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 2
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -402,9 +402,7 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {
-    "1": "2026-08-07T19:16:37.810152+00:00"
-  },
+  "wpt_fault_start": {},
   "crb_fault_counts": {
     "1": 141,
     "2": 128,
@@ -419,20 +417,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6402518,
+    "sorted": 6402672,
     "recirculated": 35242,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.5,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1404313,
+    "oee_good_divert": 1404388,
     "oee_failed_divert": 1473056,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1514479,
+    "oee_lane_full": 1514501,
     "oee_max_recirc": 24,
-    "oee_no_read": 205387,
+    "oee_no_read": 205390,
     "lane_full_pct": 56.4,
     "iob_trips": null,
     "estop_events": null,
@@ -443,10 +441,10 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 34.48,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 335408,
+    "plc_dpmo": 335400,
     "plc_scan_defect": 4.5,
-    "plc_total_units": 4391890,
-    "plc_good_diverts": 1404313,
+    "plc_total_units": 4391987,
+    "plc_good_diverts": 1404388,
     "plc_total_defects": 1473074
   },
   "shift_report": {
@@ -467,25 +465,25 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 14170.0
+      "duration_min": 14171.0
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33326_01",
-      "duration_min": 3.2
+      "duration_min": 4.3
     },
     {
       "name": "CP60 ATR_UIS BB60212",
-      "duration_min": 1.5
+      "duration_min": 2.6
     },
     {
       "name": "CP62_RPND MDR62450_38",
-      "duration_min": 1.5
+      "duration_min": 2.6
     }
   ],
   "active_outbound_north": [
     {
       "name": "CP76 Fluid Load NorthEast DD333 MDR76220_03",
-      "duration_min": 0.3
+      "duration_min": 1.4
     }
   ],
   "shoe_sorter": {
@@ -657,7 +655,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[13]",
+      "text": "Pull MCB carriers at WPT [13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
