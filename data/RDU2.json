@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-07 00:16:15 EST",
+  "timestamp": "2026-08-07 00:17:19 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-07 00:16",
+  "_pushed_at": "2026-08-07 00:17",
   "carrier_count": 2340,
   "sorter": {
-    "running": true,
-    "speed": 2386,
+    "running": false,
+    "speed": 0,
     "active_faults": [],
     "in_dtw": false
   },
@@ -47,27 +47,27 @@
   "ppu": [
     {
       "index": 1,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 3,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 6,
-      "state": "RUNNING"
+      "state": "STOPPED"
     }
   ],
   "wpt": [
@@ -79,7 +79,7 @@
     {
       "index": 1,
       "error": true,
-      "carrier": 587
+      "carrier": 648
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1499
+      "carrier": 1560
     },
     {
       "index": 14,
@@ -157,19 +157,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 2,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 3,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 4,
-        "connection_faulted": false
+        "connection_faulted": true
       }
     ]
   },
@@ -184,7 +184,7 @@
       "total": 16,
       "faulted": 2
     },
-    "ppu_connections": 6,
+    "ppu_connections": 0,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -406,12 +406,17 @@
     "1": "2026-08-07T04:11:53.032875+00:00"
   },
   "crb_fault_counts": {
-    "1": 133,
-    "2": 121,
-    "3": 126,
-    "4": 127
+    "1": 134,
+    "2": 122,
+    "3": 127,
+    "4": 128
   },
-  "crb_fault_start": {},
+  "crb_fault_start": {
+    "1": "2026-08-07T04:17:17.170255+00:00",
+    "2": "2026-08-07T04:17:17.170255+00:00",
+    "3": "2026-08-07T04:17:17.170255+00:00",
+    "4": "2026-08-07T04:17:17.170255+00:00"
+  },
   "strays": [],
   "chutes": {
     "locked_out": 14,
@@ -419,18 +424,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6313911,
+    "sorted": 6313944,
     "recirculated": 34869,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.45,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1432477,
-    "oee_failed_divert": 1472198,
+    "oee_good_divert": 1432488,
+    "oee_failed_divert": 1472199,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1509105,
+    "oee_lane_full": 1509111,
     "oee_max_recirc": 24,
     "oee_no_read": 204595,
     "lane_full_pct": 57.5,
@@ -443,11 +448,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 34.19,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 333547,
+    "plc_dpmo": 333546,
     "plc_scan_defect": 4.45,
-    "plc_total_units": 4413822,
-    "plc_good_diverts": 1432477,
-    "plc_total_defects": 1472216
+    "plc_total_units": 4413840,
+    "plc_good_diverts": 1432488,
+    "plc_total_defects": 1472217
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -467,15 +472,11 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 13268.5
+      "duration_min": 13269.5
     },
     {
       "name": "CP34 North Jackpot MDR34316_03",
-      "duration_min": 2.1
-    },
-    {
-      "name": "CP60 ATR_UIS BB60212",
-      "duration_min": 2.1
+      "duration_min": 3.2
     }
   ],
   "active_outbound_north": [],
@@ -523,10 +524,7 @@
       }
     ],
     "gridlock": false,
-    "jams": [
-      "CP67 Merge",
-      "CP68 Lanes"
-    ],
+    "jams": [],
     "induct_count": 10741,
     "induct_jam": false,
     "middle_jam": false,
