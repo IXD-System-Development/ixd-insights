@@ -1,24 +1,24 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-07 00:38:52 EST",
+  "timestamp": "2026-08-07 00:41:02 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-07 00:38",
+  "_pushed_at": "2026-08-07 00:41",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2401,
+    "speed": 2399,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 6,
+    "faulted": 5,
     "disabled": 74,
-    "available": 2260,
+    "available": 2261,
     "occupied": 2053,
-    "empty": 207,
-    "empty_pct": 8.8,
+    "empty": 208,
+    "empty_pct": 8.9,
     "availability_pct": 96.6
   },
   "config": {
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1381
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1776
+      "carrier": 2293
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 2064,
+    "1": 2065,
     "13": 1,
     "10": 136,
     "9": 8,
@@ -402,7 +402,9 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "1": "2026-08-07T04:39:54.632728+00:00"
+  },
   "crb_fault_counts": {
     "1": 134,
     "2": 122,
@@ -417,35 +419,35 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6316253,
-    "recirculated": 34879,
+    "sorted": 6316536,
+    "recirculated": 34882,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.45,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1433590,
-    "oee_failed_divert": 1472219,
+    "oee_good_divert": 1433736,
+    "oee_failed_divert": 1472220,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1509293,
+    "oee_lane_full": 1509321,
     "oee_max_recirc": 24,
-    "oee_no_read": 204642,
+    "oee_no_read": 204647,
     "lane_full_pct": 57.6,
     "iob_trips": null,
     "estop_events": null,
     "plc_fpy": 32.47,
-    "plc_mhe_defect": 33.35,
+    "plc_mhe_defect": 33.34,
     "plc_ftd_pct": 33.34,
     "plc_gap_error_pct": 0.0,
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 34.18,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 333452,
+    "plc_dpmo": 333439,
     "plc_scan_defect": 4.45,
-    "plc_total_units": 4415144,
-    "plc_good_diverts": 1433590,
-    "plc_total_defects": 1472237
+    "plc_total_units": 4415319,
+    "plc_good_diverts": 1433736,
+    "plc_total_defects": 1472238
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -459,21 +461,26 @@
     "north_lower": []
   },
   "active_inbound_jams": {
-    "cp01": [],
+    "cp01": [
+      {
+        "name": "CP01 Inbound MDR01414_01",
+        "duration_min": 1.6
+      }
+    ],
     "cp02": []
   },
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 13291.1
+      "duration_min": 13293.2
     },
     {
-      "name": "Shoe Sorter CP68 lane 7 MDR68407_01",
-      "duration_min": 2.8
+      "name": "CP34 North Jackpot MDR34367_02",
+      "duration_min": 1.6
     },
     {
-      "name": "CP60 ATR_UIS BB60212",
-      "duration_min": 2.8
+      "name": "CP34 North Jackpot MDR34367_03",
+      "duration_min": 1.6
     }
   ],
   "active_outbound_north": [],
@@ -529,9 +536,9 @@
     "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
-    "agl_enabled": false,
+    "agl_enabled": true,
     "icw_stats": {
-      "total_inducted": 81750,
+      "total_inducted": 81700,
       "peak_cpm": 228,
       "total_diverted": 0,
       "lane_full": 0,
@@ -646,7 +653,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
