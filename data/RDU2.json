@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-06 21:52:59 EST",
+  "timestamp": "2026-08-06 21:54:04 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-06 21:52",
+  "_pushed_at": "2026-08-06 21:54",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2417,
+    "speed": 2394,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 6,
+    "faulted": 4,
     "disabled": 74,
-    "available": 2260,
+    "available": 2262,
     "occupied": 2053,
-    "empty": 207,
-    "empty_pct": 8.8,
-    "availability_pct": 96.6
+    "empty": 209,
+    "empty_pct": 8.9,
+    "availability_pct": 96.7
   },
   "config": {
     "max_recirc": 5,
@@ -79,7 +79,7 @@
     {
       "index": 1,
       "error": true,
-      "carrier": 2128
+      "carrier": 46
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 700
+      "carrier": 959
     },
     {
       "index": 14,
@@ -414,23 +414,23 @@
   "crb_fault_start": {},
   "strays": [],
   "chutes": {
-    "locked_out": 13,
+    "locked_out": 14,
     "inhibited": 2,
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6298773,
+    "sorted": 6298990,
     "recirculated": 34817,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.44,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1426196,
+    "oee_good_divert": 1426279,
     "oee_failed_divert": 1472106,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1508176,
+    "oee_lane_full": 1508189,
     "oee_max_recirc": 24,
     "oee_no_read": 204564,
     "lane_full_pct": 57.8,
@@ -443,10 +443,10 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 34.23,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 334079,
+    "plc_dpmo": 334071,
     "plc_scan_defect": 4.44,
-    "plc_total_units": 4406520,
-    "plc_good_diverts": 1426196,
+    "plc_total_units": 4406616,
+    "plc_good_diverts": 1426279,
     "plc_total_defects": 1472124
   },
   "shift_report": {
@@ -464,28 +464,36 @@
     "cp01": [
       {
         "name": "CP01 Inbound MDR01322_04",
-        "duration_min": 0.7
+        "duration_min": 1.7
       }
     ],
     "cp02": [
       {
-        "name": "CP02 Inbound MDR02116_01",
-        "duration_min": 2.4
-      },
-      {
         "name": "CP02 Inbound MDR02012_02",
-        "duration_min": 0.7
+        "duration_min": 1.7
       }
     ]
   },
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 13125.2
+      "duration_min": 13126.3
     },
     {
       "name": "CP60 ATR_UIS BB60212",
-      "duration_min": 0.7
+      "duration_min": 1.8
+    },
+    {
+      "name": "CP34 North Jackpot MDR34316_03",
+      "duration_min": 0.1
+    },
+    {
+      "name": "Shoe Sorter Induct Jam",
+      "duration_min": 0.1
+    },
+    {
+      "name": "Shoe Sorter Middle Jam",
+      "duration_min": 0.1
     }
   ],
   "active_outbound_north": [],
@@ -533,10 +541,12 @@
       }
     ],
     "gridlock": false,
-    "jams": [],
+    "jams": [
+      "CP68 Lanes"
+    ],
     "induct_count": 10741,
-    "induct_jam": false,
-    "middle_jam": false,
+    "induct_jam": true,
+    "middle_jam": true,
     "exit_jam": false,
     "agl_enabled": false,
     "icw_stats": {
