@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-07 23:45:26 EST",
+  "timestamp": "2026-08-07 23:46:31 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-07 23:45",
+  "_pushed_at": "2026-08-07 23:46",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2395,
+    "speed": 2407,
     "active_faults": [],
     "in_dtw": false
   },
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 188
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 843
+      "carrier": 1100
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 2259,
+    "1": 2260,
     "13": 1,
     "10": 136,
     "9": 8,
@@ -402,7 +402,9 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "1": "2026-08-08T03:46:28.650045+00:00"
+  },
   "crb_fault_counts": {
     "1": 146,
     "2": 133,
@@ -417,20 +419,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6459980,
-    "recirculated": 35368,
+    "sorted": 6460137,
+    "recirculated": 35369,
     "recirc_pct": 0.54
   },
   "weekly": {
     "scan_defect_pct": 4.49,
     "recirc_pct": 0.54,
-    "oee_good_divert": 1425699,
-    "oee_failed_divert": 1473464,
+    "oee_good_divert": 1425809,
+    "oee_failed_divert": 1473466,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1452612,
+    "oee_lane_full": 1452630,
     "oee_max_recirc": 24,
-    "oee_no_read": 206408,
+    "oee_no_read": 206415,
     "lane_full_pct": 55.6,
     "iob_trips": null,
     "estop_events": null,
@@ -441,11 +443,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.38,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 338590,
+    "plc_dpmo": 338580,
     "plc_scan_defect": 4.49,
-    "plc_total_units": 4351817,
-    "plc_good_diverts": 1425699,
-    "plc_total_defects": 1473482
+    "plc_total_units": 4351947,
+    "plc_good_diverts": 1425809,
+    "plc_total_defects": 1473484
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -456,13 +458,13 @@
     "south_upper": [
       {
         "name": "91452 CP90 Pallet Build North Upper",
-        "duration_min": 187.5
+        "duration_min": 188.6
       }
     ],
     "south_lower": [
       {
         "name": "91302 CP90 Pallet Build North Lower",
-        "duration_min": 13.8
+        "duration_min": 14.9
       }
     ],
     "north_upper": [],
@@ -475,26 +477,27 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 14677.7
-    },
-    {
-      "name": "CP62_RPND MDR62114_06",
-      "duration_min": 1.9
+      "duration_min": 14678.7
     },
     {
       "name": "CP62_RPND MDR62351_22",
-      "duration_min": 1.9
+      "duration_min": 3.0
     },
     {
       "name": "CP62_RPND BB62154",
-      "duration_min": 1.9
+      "duration_min": 3.0
     },
     {
       "name": "CP60 ATR_UIS BB60212",
-      "duration_min": 0.2
+      "duration_min": 1.3
     }
   ],
-  "active_outbound_north": [],
+  "active_outbound_north": [
+    {
+      "name": "CP76 Fluid Load NorthEast DD332 MDR76120_01",
+      "duration_min": 0.1
+    }
+  ],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -546,7 +549,7 @@
     "exit_jam": false,
     "agl_enabled": false,
     "icw_stats": {
-      "total_inducted": 82989,
+      "total_inducted": 82273,
       "peak_cpm": 228,
       "total_diverted": 0,
       "lane_full": 0,
@@ -661,7 +664,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
