@@ -1,24 +1,26 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-07 20:16:55 EST",
+  "timestamp": "2026-08-07 20:18:00 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-07 20:16",
+  "_pushed_at": "2026-08-07 20:18",
   "carrier_count": 2340,
   "sorter": {
-    "running": true,
-    "speed": 2395,
-    "active_faults": [],
+    "running": false,
+    "speed": 0,
+    "active_faults": [
+      "IOB-2 TRIPPED"
+    ],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 2,
+    "faulted": 1,
     "disabled": 76,
-    "available": 2262,
+    "available": 2263,
     "occupied": 2053,
-    "empty": 209,
-    "empty_pct": 8.9,
+    "empty": 210,
+    "empty_pct": 9.0,
     "availability_pct": 96.7
   },
   "config": {
@@ -47,27 +49,27 @@
   "ppu": [
     {
       "index": 1,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 3,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 6,
-      "state": "RUNNING"
+      "state": "STOPPED"
     }
   ],
   "wpt": [
@@ -139,7 +141,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 161
+      "carrier": 313
     },
     {
       "index": 14,
@@ -157,19 +159,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 2,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 3,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 4,
-        "connection_faulted": false
+        "connection_faulted": true
       }
     ]
   },
@@ -184,7 +186,7 @@
       "total": 16,
       "faulted": 1
     },
-    "ppu_connections": 6,
+    "ppu_connections": 0,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -404,12 +406,17 @@
   },
   "wpt_fault_start": {},
   "crb_fault_counts": {
-    "1": 144,
-    "2": 131,
-    "3": 136,
-    "4": 137
+    "1": 145,
+    "2": 132,
+    "3": 137,
+    "4": 138
   },
-  "crb_fault_start": {},
+  "crb_fault_start": {
+    "1": "2026-08-08T00:17:57.631287+00:00",
+    "2": "2026-08-08T00:17:57.631287+00:00",
+    "3": "2026-08-08T00:17:57.631287+00:00",
+    "4": "2026-08-08T00:17:57.631287+00:00"
+  },
   "strays": [],
   "chutes": {
     "locked_out": 10,
@@ -417,20 +424,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6430253,
-    "recirculated": 35321,
+    "sorted": 6430373,
+    "recirculated": 35322,
     "recirc_pct": 0.55
   },
   "weekly": {
     "scan_defect_pct": 4.5,
     "recirc_pct": 0.55,
-    "oee_good_divert": 1414868,
-    "oee_failed_divert": 1473307,
+    "oee_good_divert": 1414895,
+    "oee_failed_divert": 1473308,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1516377,
+    "oee_lane_full": 1516387,
     "oee_max_recirc": 24,
-    "oee_no_read": 205988,
+    "oee_no_read": 205991,
     "lane_full_pct": 55.9,
     "iob_trips": null,
     "estop_events": null,
@@ -441,11 +448,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 34.43,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 334497,
+    "plc_dpmo": 334495,
     "plc_scan_defect": 4.5,
-    "plc_total_units": 4404594,
-    "plc_good_diverts": 1414868,
-    "plc_total_defects": 1473325
+    "plc_total_units": 4404632,
+    "plc_good_diverts": 1414895,
+    "plc_total_defects": 1473326
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -459,26 +466,21 @@
     "north_lower": []
   },
   "active_inbound_jams": {
-    "cp01": [
-      {
-        "name": "CP01 Inbound MDR01014_01",
-        "duration_min": 2.5
-      }
-    ],
+    "cp01": [],
     "cp02": []
   },
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 14469.1
+      "duration_min": 14470.2
     },
     {
       "name": "CP60 ATR_UIS BB60212",
-      "duration_min": 9.3
+      "duration_min": 10.4
     },
     {
       "name": "Shoe Sorter CP68 lane 6 MDR68306_01",
-      "duration_min": 0.9
+      "duration_min": 1.9
     }
   ],
   "active_outbound_north": [],
