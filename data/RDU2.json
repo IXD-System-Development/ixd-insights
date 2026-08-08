@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-08 19:31:54 EST",
+  "timestamp": "2026-08-08 19:32:58 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-08 19:31",
+  "_pushed_at": "2026-08-08 19:32",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2404,
+    "speed": 2399,
     "active_faults": [],
     "in_dtw": false
   },
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": true,
-      "carrier": 713
+      "error": false,
+      "carrier": null
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1626
+      "carrier": 1885
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 2
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -402,9 +402,7 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {
-    "1": "2026-08-08T23:27:32.840160+00:00"
-  },
+  "wpt_fault_start": {},
   "crb_fault_counts": {
     "1": 155,
     "2": 144,
@@ -419,18 +417,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6591732,
-    "recirculated": 35689,
+    "sorted": 6591878,
+    "recirculated": 35690,
     "recirc_pct": 0.54
   },
   "weekly": {
     "scan_defect_pct": 4.53,
     "recirc_pct": 0.54,
-    "oee_good_divert": 1480115,
-    "oee_failed_divert": 1474553,
+    "oee_good_divert": 1480159,
+    "oee_failed_divert": 1474554,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1461767,
+    "oee_lane_full": 1461772,
     "oee_max_recirc": 24,
     "oee_no_read": 208929,
     "lane_full_pct": 55.4,
@@ -443,11 +441,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.1,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 333879,
+    "plc_dpmo": 333876,
     "plc_scan_defect": 4.53,
-    "plc_total_units": 4416477,
-    "plc_good_diverts": 1480115,
-    "plc_total_defects": 1474571
+    "plc_total_units": 4416527,
+    "plc_good_diverts": 1480159,
+    "plc_total_defects": 1474572
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -467,30 +465,43 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 15864.1
+      "duration_min": 15865.2
     },
     {
       "name": "CP69_cardboard_take_away EE69111_1",
-      "duration_min": 7.9
-    },
-    {
-      "name": "Shoe Sorter CP68 lane 5 MDR68305_01",
-      "duration_min": 6.2
+      "duration_min": 9.0
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33219_01",
-      "duration_min": 2.9
+      "duration_min": 3.9
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33320_04",
-      "duration_min": 2.9
+      "duration_min": 3.9
     },
     {
       "name": "CP34 North Jackpot MDR34367_02",
-      "duration_min": 1.2
+      "duration_min": 2.2
+    },
+    {
+      "name": "Shoe Sorter CP68 lane 5 MDR68305_01",
+      "duration_min": 0.5
+    },
+    {
+      "name": "CP53 EACH TO SORT BRB53260",
+      "duration_min": 0.5
+    },
+    {
+      "name": "CP56 Tote Take Away EE56702_6",
+      "duration_min": 0.5
     }
   ],
-  "active_outbound_north": [],
+  "active_outbound_north": [
+    {
+      "name": "CP91 Pallet Build North MDR91216_01",
+      "duration_min": 1.0
+    }
+  ],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -535,12 +546,14 @@
       }
     ],
     "gridlock": false,
-    "jams": [],
+    "jams": [
+      "Zone 67710"
+    ],
     "induct_count": 9931,
     "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
-    "agl_enabled": true,
+    "agl_enabled": false,
     "icw_stats": {
       "total_inducted": 84729,
       "peak_cpm": 228,
@@ -657,7 +670,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[13]",
+      "text": "Pull MCB carriers at WPT [13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
