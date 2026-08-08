@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-08 12:10:14 EST",
+  "timestamp": "2026-08-08 12:11:18 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-08 12:10",
+  "_pushed_at": "2026-08-08 12:11",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2404,
+    "speed": 2397,
     "active_faults": [],
     "in_dtw": false
   },
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1986
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 301
+      "carrier": 558
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 2367,
+    "1": 2368,
     "13": 1,
     "10": 136,
     "9": 8,
@@ -402,7 +402,9 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "1": "2026-08-08T16:11:16.076309+00:00"
+  },
   "crb_fault_counts": {
     "1": 153,
     "2": 142,
@@ -417,20 +419,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6548411,
+    "sorted": 6548675,
     "recirculated": 35557,
     "recirc_pct": 0.54
   },
   "weekly": {
     "scan_defect_pct": 4.49,
     "recirc_pct": 0.54,
-    "oee_good_divert": 1464327,
-    "oee_failed_divert": 1474252,
+    "oee_good_divert": 1464432,
+    "oee_failed_divert": 1474253,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1459052,
+    "oee_lane_full": 1459065,
     "oee_max_recirc": 24,
-    "oee_no_read": 208490,
+    "oee_no_read": 208493,
     "lane_full_pct": 55.2,
     "iob_trips": null,
     "estop_events": null,
@@ -441,11 +443,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.18,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 335239,
+    "plc_dpmo": 335230,
     "plc_scan_defect": 4.49,
-    "plc_total_units": 4397673,
-    "plc_good_diverts": 1464327,
-    "plc_total_defects": 1474270
+    "plc_total_units": 4397792,
+    "plc_good_diverts": 1464432,
+    "plc_total_defects": 1474271
   },
   "shift_report": {
     "shift_label": "Night Shift (7pm - 7am EST)",
@@ -456,7 +458,7 @@
     "south_upper": [
       {
         "name": "91252 CP90 Pallet Build North Upper",
-        "duration_min": 555.9
+        "duration_min": 557.0
       }
     ],
     "south_lower": [],
@@ -470,11 +472,7 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 15422.4
-    },
-    {
-      "name": "CP62_RPND MDR624504",
-      "duration_min": 4.5
+      "duration_min": 15423.5
     }
   ],
   "active_outbound_north": [],
@@ -644,7 +642,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
