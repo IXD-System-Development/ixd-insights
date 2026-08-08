@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-08 16:33:35 EST",
+  "timestamp": "2026-08-08 16:34:40 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-08 16:33",
+  "_pushed_at": "2026-08-08 16:34",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2410,
+    "speed": 2395,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 4,
+    "faulted": 2,
     "disabled": 76,
-    "available": 2260,
+    "available": 2262,
     "occupied": 2053,
-    "empty": 207,
-    "empty_pct": 8.8,
-    "availability_pct": 96.6
+    "empty": 209,
+    "empty_pct": 8.9,
+    "availability_pct": 96.7
   },
   "config": {
     "max_recirc": 5,
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": true,
-      "carrier": 1284
+      "error": false,
+      "carrier": null
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 2196
+      "carrier": 115
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 2
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -402,9 +402,7 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {
-    "1": "2026-08-08T20:33:33.032381+00:00"
-  },
+  "wpt_fault_start": {},
   "crb_fault_counts": {
     "1": 154,
     "2": 143,
@@ -414,23 +412,23 @@
   "crb_fault_start": {},
   "strays": [],
   "chutes": {
-    "locked_out": 11,
+    "locked_out": 10,
     "inhibited": 2,
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6584938,
+    "sorted": 6585071,
     "recirculated": 35652,
     "recirc_pct": 0.54
   },
   "weekly": {
     "scan_defect_pct": 4.52,
     "recirc_pct": 0.54,
-    "oee_good_divert": 1477619,
-    "oee_failed_divert": 1474506,
+    "oee_good_divert": 1477665,
+    "oee_failed_divert": 1474507,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1461376,
+    "oee_lane_full": 1461378,
     "oee_max_recirc": 24,
     "oee_no_read": 208901,
     "lane_full_pct": 55.3,
@@ -443,11 +441,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.11,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 334091,
+    "plc_dpmo": 334087,
     "plc_scan_defect": 4.52,
-    "plc_total_units": 4413543,
-    "plc_good_diverts": 1477619,
-    "plc_total_defects": 1474524
+    "plc_total_units": 4413592,
+    "plc_good_diverts": 1477665,
+    "plc_total_defects": 1474525
   },
   "shift_report": {
     "shift_label": "Night Shift (7pm - 7am EST)",
@@ -459,7 +457,7 @@
     "south_lower": [
       {
         "name": "91102 CP90 Pallet Build North Lower",
-        "duration_min": 2.0
+        "duration_min": 3.1
       }
     ],
     "north_upper": [],
@@ -472,23 +470,14 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 15685.8
-    },
-    {
-      "name": "CP33 South Jackpot and Bypass MDR33320_04",
-      "duration_min": 3.7
+      "duration_min": 15686.9
     },
     {
       "name": "CP62_RPND MDR624507",
-      "duration_min": 0.3
+      "duration_min": 1.4
     }
   ],
-  "active_outbound_north": [
-    {
-      "name": "CP94 Robotic Palletizer North MDR94328_01",
-      "duration_min": 2.5
-    }
-  ],
+  "active_outbound_north": [],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -533,14 +522,16 @@
       }
     ],
     "gridlock": false,
-    "jams": [],
+    "jams": [
+      "Zone 67710"
+    ],
     "induct_count": 10744,
     "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
     "agl_enabled": false,
     "icw_stats": {
-      "total_inducted": 84831,
+      "total_inducted": 84450,
       "peak_cpm": 228,
       "total_diverted": 0,
       "lane_full": 0,
@@ -655,7 +646,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[13]",
+      "text": "Pull MCB carriers at WPT [13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
