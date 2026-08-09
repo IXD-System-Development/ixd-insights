@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-08 23:06:57 EST",
+  "timestamp": "2026-08-08 23:08:01 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-08 23:06",
+  "_pushed_at": "2026-08-08 23:08",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2395,
+    "speed": 2402,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 1,
+    "faulted": 2,
     "disabled": 84,
-    "available": 2255,
+    "available": 2254,
     "occupied": 2053,
-    "empty": 202,
+    "empty": 201,
     "empty_pct": 8.6,
-    "availability_pct": 96.4
+    "availability_pct": 96.3
   },
   "config": {
     "max_recirc": 5,
@@ -79,7 +79,7 @@
     {
       "index": 1,
       "error": true,
-      "carrier": 1
+      "carrier": 258
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 913
+      "carrier": 1170
     },
     {
       "index": 14,
@@ -419,20 +419,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6617014,
+    "sorted": 6617171,
     "recirculated": 35763,
     "recirc_pct": 0.54
   },
   "weekly": {
     "scan_defect_pct": 4.55,
     "recirc_pct": 0.54,
-    "oee_good_divert": 1424053,
-    "oee_failed_divert": 1474742,
+    "oee_good_divert": 1424114,
+    "oee_failed_divert": 1474744,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1463577,
+    "oee_lane_full": 1463598,
     "oee_max_recirc": 24,
-    "oee_no_read": 209478,
+    "oee_no_read": 209479,
     "lane_full_pct": 55.3,
     "iob_trips": null,
     "estop_events": null,
@@ -443,11 +443,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.55,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 338061,
+    "plc_dpmo": 338054,
     "plc_scan_defect": 4.55,
-    "plc_total_units": 4362414,
-    "plc_good_diverts": 1424053,
-    "plc_total_defects": 1474760
+    "plc_total_units": 4362498,
+    "plc_good_diverts": 1424114,
+    "plc_total_defects": 1474762
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -467,14 +467,19 @@
   "active_outbound_south": [
     {
       "name": "CP62_RPND MDR62450_01",
-      "duration_min": 0.3
+      "duration_min": 1.4
     },
     {
       "name": "CP62_RPND BRB62108",
-      "duration_min": 0.3
+      "duration_min": 1.4
     }
   ],
-  "active_outbound_north": [],
+  "active_outbound_north": [
+    {
+      "name": "CP94 Robotic Palletizer North MDR94128_01",
+      "duration_min": 0.2
+    }
+  ],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -524,7 +529,7 @@
     "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
-    "agl_enabled": false,
+    "agl_enabled": true,
     "icw_stats": {
       "total_inducted": 81235,
       "peak_cpm": 228,
