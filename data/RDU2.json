@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-09 08:18:37 EST",
+  "timestamp": "2026-08-09 08:19:41 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-09 08:18",
+  "_pushed_at": "2026-08-09 08:19",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2390,
+    "speed": 2395,
     "active_faults": [],
     "in_dtw": false
   },
@@ -79,7 +79,7 @@
     {
       "index": 1,
       "error": true,
-      "carrier": 1217
+      "carrier": 1475
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 2130
+      "carrier": 47
     },
     {
       "index": 14,
@@ -414,25 +414,25 @@
   "crb_fault_start": {},
   "strays": [],
   "chutes": {
-    "locked_out": 0,
-    "inhibited": 0,
+    "locked_out": 14,
+    "inhibited": 3,
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6674438,
-    "recirculated": 35914,
+    "sorted": 6674649,
+    "recirculated": 35915,
     "recirc_pct": 0.54
   },
   "weekly": {
     "scan_defect_pct": 4.56,
     "recirc_pct": 0.54,
-    "oee_good_divert": 1443904,
+    "oee_good_divert": 1443964,
     "oee_failed_divert": 1475187,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1468768,
+    "oee_lane_full": 1468790,
     "oee_max_recirc": 24,
-    "oee_no_read": 210288,
+    "oee_no_read": 210290,
     "lane_full_pct": 55.4,
     "iob_trips": null,
     "estop_events": null,
@@ -443,10 +443,10 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.47,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 336198,
+    "plc_dpmo": 336192,
     "plc_scan_defect": 4.56,
-    "plc_total_units": 4387901,
-    "plc_good_diverts": 1443904,
+    "plc_total_units": 4387983,
+    "plc_good_diverts": 1443964,
     "plc_total_defects": 1475205
   },
   "shift_report": {
@@ -467,14 +467,23 @@
   "active_outbound_south": [
     {
       "name": "CP33 South Jackpot and Bypass MDR33320_04",
-      "duration_min": 0.9
+      "duration_min": 1.9
     },
     {
       "name": "CP62_RPND MDR62164_01",
-      "duration_min": 0.8
+      "duration_min": 1.9
+    },
+    {
+      "name": "CP33 South Jackpot and Bypass MDR33214_01",
+      "duration_min": 0.2
     }
   ],
-  "active_outbound_north": [],
+  "active_outbound_north": [
+    {
+      "name": "CP78 Fluid Load NorthWest DD344 MDR78566_01",
+      "duration_min": 0.7
+    }
+  ],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -519,14 +528,16 @@
       }
     ],
     "gridlock": false,
-    "jams": [],
+    "jams": [
+      "Zone 67410"
+    ],
     "induct_count": 9931,
     "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
-    "agl_enabled": true,
+    "agl_enabled": false,
     "icw_stats": {
-      "total_inducted": 79092,
+      "total_inducted": 79624,
       "peak_cpm": 228,
       "total_diverted": 0,
       "lane_full": 0,
