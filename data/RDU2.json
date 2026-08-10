@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-10 05:36:18 EST",
+  "timestamp": "2026-08-10 05:37:23 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-10 05:36",
+  "_pushed_at": "2026-08-10 05:37",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2402,
+    "speed": 2395,
     "active_faults": [],
     "in_dtw": true
   },
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1909
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 222
+      "carrier": 481
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 2724,
+    "1": 2725,
     "13": 1,
     "10": 136,
     "9": 8,
@@ -402,7 +402,9 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "1": "2026-08-10T09:37:20.140741+00:00"
+  },
   "crb_fault_counts": {
     "1": 174,
     "2": 163,
@@ -417,14 +419,14 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6832235,
+    "sorted": 6832239,
     "recirculated": 36235,
     "recirc_pct": 0.53
   },
   "weekly": {
     "scan_defect_pct": 4.58,
     "recirc_pct": 0.53,
-    "oee_good_divert": 1506644,
+    "oee_good_divert": 1506654,
     "oee_failed_divert": 1476676,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
@@ -441,10 +443,10 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.18,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 330756,
+    "plc_dpmo": 330755,
     "plc_scan_defect": 4.58,
-    "plc_total_units": 4464607,
-    "plc_good_diverts": 1506644,
+    "plc_total_units": 4464617,
+    "plc_good_diverts": 1506654,
     "plc_total_defects": 1476694
   },
   "shift_report": {
@@ -632,7 +634,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
