@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-10 11:00:15 EST",
+  "timestamp": "2026-08-10 11:02:24 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-10 11:00",
+  "_pushed_at": "2026-08-10 11:02",
   "carrier_count": 2340,
   "sorter": {
-    "running": false,
-    "speed": 0,
+    "running": true,
+    "speed": 2402,
     "active_faults": [],
     "in_dtw": false
   },
@@ -47,27 +47,27 @@
   "ppu": [
     {
       "index": 1,
-      "state": "STOPPED"
+      "state": "RUNNING"
     },
     {
       "index": 2,
-      "state": "ERROR"
+      "state": "RUNNING"
     },
     {
       "index": 3,
-      "state": "STOPPED"
+      "state": "RUNNING"
     },
     {
       "index": 4,
-      "state": "WARNING"
+      "state": "RUNNING"
     },
     {
       "index": 5,
-      "state": "ERROR"
+      "state": "RUNNING"
     },
     {
       "index": 6,
-      "state": "ERROR"
+      "state": "RUNNING"
     }
   ],
   "wpt": [
@@ -157,7 +157,7 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": true
+        "connection_faulted": false
       },
       {
         "index": 2,
@@ -184,7 +184,7 @@
       "total": 16,
       "faulted": 2
     },
-    "ppu_connections": 0,
+    "ppu_connections": 6,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -412,14 +412,13 @@
     "4": 168
   },
   "crb_fault_start": {
-    "1": "2026-08-10T14:31:06.417596+00:00",
     "2": "2026-08-10T14:31:06.417596+00:00",
     "3": "2026-08-10T14:31:06.417596+00:00",
     "4": "2026-08-10T14:31:06.417596+00:00"
   },
   "strays": [],
   "chutes": {
-    "locked_out": 20,
+    "locked_out": 29,
     "inhibited": 0,
     "jammed": 0
   },
@@ -463,13 +462,13 @@
     "south_upper": [
       {
         "name": "91452 CP90 Pallet Build North Upper",
-        "duration_min": 128.7
+        "duration_min": 130.9
       }
     ],
     "south_lower": [
       {
         "name": "91202 CP90 Pallet Build North Lower",
-        "duration_min": 221.3
+        "duration_min": 223.4
       }
     ],
     "north_upper": [],
@@ -479,7 +478,12 @@
     "cp01": [],
     "cp02": []
   },
-  "active_outbound_south": [],
+  "active_outbound_south": [
+    {
+      "name": "CP33 South Jackpot and Bypass MDR33324_02",
+      "duration_min": 1.5
+    }
+  ],
   "active_outbound_north": [],
   "shoe_sorter": {
     "profibus_nodes": [
@@ -544,11 +548,6 @@
     }
   },
   "dtw_overshoots": [
-    {
-      "dtw_ended": "2026-08-06T19:00:30.670377-04:00",
-      "sorter_started": "2026-08-06T19:02:40.211983-04:00",
-      "delay_min": 2.2
-    },
     {
       "dtw_ended": "2026-08-06T23:00:47.806723-04:00",
       "sorter_started": "2026-08-06T23:04:00.989020-04:00",
@@ -643,6 +642,11 @@
       "dtw_ended": "2026-08-10T07:00:17.490530-04:00",
       "sorter_started": "2026-08-10T07:01:22.207030-04:00",
       "delay_min": 1.1
+    },
+    {
+      "dtw_ended": "2026-08-10T11:00:15.034317-04:00",
+      "sorter_started": "2026-08-10T11:02:24.741180-04:00",
+      "delay_min": 2.2
     }
   ],
   "priority_actions": [
