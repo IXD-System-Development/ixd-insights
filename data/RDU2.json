@@ -1,23 +1,23 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-10 17:14:58 EST",
+  "timestamp": "2026-08-10 17:16:03 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-10 17:14",
+  "_pushed_at": "2026-08-10 17:16",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2393,
+    "speed": 2389,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 0,
+    "faulted": 1,
     "disabled": 88,
-    "available": 2252,
+    "available": 2251,
     "occupied": 2053,
-    "empty": 199,
+    "empty": 198,
     "empty_pct": 8.5,
     "availability_pct": 96.2
   },
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 2097
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 410
+      "carrier": 669
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 2823,
+    "1": 2824,
     "13": 1,
     "10": 136,
     "9": 8,
@@ -402,7 +402,9 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "1": "2026-08-10T21:16:00.511226+00:00"
+  },
   "crb_fault_counts": {
     "1": 178,
     "2": 167,
@@ -412,40 +414,40 @@
   "crb_fault_start": {},
   "strays": [],
   "chutes": {
-    "locked_out": 16,
+    "locked_out": 0,
     "inhibited": 0,
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6931428,
+    "sorted": 6931507,
     "recirculated": 36328,
     "recirc_pct": 0.52
   },
   "weekly": {
     "scan_defect_pct": 4.57,
     "recirc_pct": 0.52,
-    "oee_good_divert": 1545026,
-    "oee_failed_divert": 1477249,
+    "oee_good_divert": 1545058,
+    "oee_failed_divert": 1477251,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1489406,
+    "oee_lane_full": 1489412,
     "oee_max_recirc": 24,
-    "oee_no_read": 216806,
+    "oee_no_read": 216813,
     "lane_full_pct": 55.3,
     "iob_trips": null,
     "estop_events": null,
-    "plc_fpy": 34.24,
+    "plc_fpy": 34.25,
     "plc_mhe_defect": 32.74,
     "plc_ftd_pct": 32.74,
     "plc_gap_error_pct": 0.0,
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.01,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 327429,
+    "plc_dpmo": 327426,
     "plc_scan_defect": 4.57,
-    "plc_total_units": 4511723,
-    "plc_good_diverts": 1545026,
-    "plc_total_defects": 1477267
+    "plc_total_units": 4511763,
+    "plc_good_diverts": 1545058,
+    "plc_total_defects": 1477269
   },
   "shift_report": {
     "shift_label": "Night Shift (7pm - 7am EST)",
@@ -456,11 +458,11 @@
     "south_upper": [
       {
         "name": "91152 CP90 Pallet Build North Upper",
-        "duration_min": 226.3
+        "duration_min": 227.4
       },
       {
         "name": "91452 CP90 Pallet Build North Upper",
-        "duration_min": 95.4
+        "duration_min": 96.5
       }
     ],
     "south_lower": [],
@@ -474,10 +476,15 @@
   "active_outbound_south": [
     {
       "name": "CP53 EACH TO SORT MDR53216_02",
-      "duration_min": 2.8
+      "duration_min": 3.9
     }
   ],
-  "active_outbound_north": [],
+  "active_outbound_north": [
+    {
+      "name": "CP78 Fluid Load NorthWest DD342 MDR78420_03",
+      "duration_min": 1.1
+    }
+  ],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -522,16 +529,14 @@
       }
     ],
     "gridlock": false,
-    "jams": [
-      "Zone 67110"
-    ],
+    "jams": [],
     "induct_count": 11604,
     "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
     "agl_enabled": false,
     "icw_stats": {
-      "total_inducted": 94976,
+      "total_inducted": 95358,
       "peak_cpm": 234,
       "total_diverted": 0,
       "lane_full": 0,
@@ -646,7 +651,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
