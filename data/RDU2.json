@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-10 07:00:17 EST",
+  "timestamp": "2026-08-10 07:01:22 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-10 07:00",
+  "_pushed_at": "2026-08-10 07:01",
   "carrier_count": 2340,
   "sorter": {
-    "running": false,
-    "speed": 0,
+    "running": true,
+    "speed": 2410,
     "active_faults": [],
     "in_dtw": false
   },
@@ -47,27 +47,27 @@
   "ppu": [
     {
       "index": 1,
-      "state": "WARNING"
+      "state": "RUNNING"
     },
     {
       "index": 2,
-      "state": "STOPPED"
+      "state": "RUNNING"
     },
     {
       "index": 3,
-      "state": "STOPPED"
+      "state": "RUNNING"
     },
     {
       "index": 4,
-      "state": "STOPPED"
+      "state": "RUNNING"
     },
     {
       "index": 5,
-      "state": "ERROR"
+      "state": "RUNNING"
     },
     {
       "index": 6,
-      "state": "ERROR"
+      "state": "RUNNING"
     }
   ],
   "wpt": [
@@ -79,7 +79,7 @@
     {
       "index": 1,
       "error": true,
-      "carrier": 1230
+      "carrier": 848
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 2142
+      "carrier": 1760
     },
     {
       "index": 14,
@@ -157,19 +157,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": true
+        "connection_faulted": false
       },
       {
         "index": 2,
-        "connection_faulted": true
+        "connection_faulted": false
       },
       {
         "index": 3,
-        "connection_faulted": true
+        "connection_faulted": false
       },
       {
         "index": 4,
-        "connection_faulted": true
+        "connection_faulted": false
       }
     ]
   },
@@ -184,7 +184,7 @@
       "total": 16,
       "faulted": 2
     },
-    "ppu_connections": 0,
+    "ppu_connections": 6,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -411,12 +411,7 @@
     "3": 167,
     "4": 167
   },
-  "crb_fault_start": {
-    "1": "2026-08-10T09:44:53.977150+00:00",
-    "2": "2026-08-10T09:44:53.977150+00:00",
-    "3": "2026-08-10T09:44:53.977150+00:00",
-    "4": "2026-08-10T09:44:53.977150+00:00"
-  },
+  "crb_fault_start": {},
   "strays": [],
   "chutes": {
     "locked_out": 139,
@@ -435,22 +430,22 @@
     "oee_failed_divert": 1476682,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1481263,
+    "oee_lane_full": 1481330,
     "oee_max_recirc": 24,
     "oee_no_read": 214046,
     "lane_full_pct": 55.8,
     "iob_trips": null,
     "estop_events": null,
     "plc_fpy": 33.75,
-    "plc_mhe_defect": 33.08,
+    "plc_mhe_defect": 33.07,
     "plc_ftd_pct": 33.07,
     "plc_gap_error_pct": 0.0,
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.18,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 330753,
+    "plc_dpmo": 330748,
     "plc_scan_defect": 4.58,
-    "plc_total_units": 4464667,
+    "plc_total_units": 4464734,
     "plc_good_diverts": 1506680,
     "plc_total_defects": 1476700
   },
@@ -472,11 +467,11 @@
   "active_outbound_south": [
     {
       "name": "CP34 North Jackpot MDR34367_02",
-      "duration_min": 1.7
+      "duration_min": 2.7
     },
     {
       "name": "CP62_RPND MDR624509",
-      "duration_min": 1.6
+      "duration_min": 2.7
     }
   ],
   "active_outbound_north": [],
@@ -524,7 +519,10 @@
       }
     ],
     "gridlock": false,
-    "jams": [],
+    "jams": [
+      "Zone 67710",
+      "CP67 Merge"
+    ],
     "induct_count": 11604,
     "induct_jam": false,
     "middle_jam": false,
@@ -543,11 +541,6 @@
     }
   },
   "dtw_overshoots": [
-    {
-      "dtw_ended": "2026-08-06T14:30:21.897890-04:00",
-      "sorter_started": "2026-08-06T14:35:47.234993-04:00",
-      "delay_min": 5.4
-    },
     {
       "dtw_ended": "2026-08-06T19:00:30.670377-04:00",
       "sorter_started": "2026-08-06T19:02:40.211983-04:00",
@@ -642,6 +635,11 @@
       "dtw_ended": "2026-08-10T02:30:40.138646-04:00",
       "sorter_started": "2026-08-10T02:32:48.964395-04:00",
       "delay_min": 2.1
+    },
+    {
+      "dtw_ended": "2026-08-10T07:00:17.490530-04:00",
+      "sorter_started": "2026-08-10T07:01:22.207030-04:00",
+      "delay_min": 1.1
     }
   ],
   "priority_actions": [
