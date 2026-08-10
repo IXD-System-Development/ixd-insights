@@ -1,24 +1,24 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-10 05:31:58 EST",
+  "timestamp": "2026-08-10 05:33:04 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-10 05:31",
+  "_pushed_at": "2026-08-10 05:33",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2403,
+    "speed": 2402,
     "active_faults": [],
     "in_dtw": true
   },
   "carriers": {
-    "faulted": 1,
+    "faulted": 2,
     "disabled": 83,
-    "available": 2256,
+    "available": 2255,
     "occupied": 2053,
-    "empty": 203,
-    "empty_pct": 8.7,
+    "empty": 202,
+    "empty_pct": 8.6,
     "availability_pct": 96.4
   },
   "config": {
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": true,
-      "carrier": 612
+      "error": false,
+      "carrier": null
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1524
+      "carrier": 1784
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 2
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -402,9 +402,7 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {
-    "1": "2026-08-10T09:26:30.277732+00:00"
-  },
+  "wpt_fault_start": {},
   "crb_fault_counts": {
     "1": 174,
     "2": 163,
@@ -419,7 +417,7 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6832227,
+    "sorted": 6832228,
     "recirculated": 36234,
     "recirc_pct": 0.53
   },
@@ -464,7 +462,12 @@
     "cp01": [],
     "cp02": []
   },
-  "active_outbound_south": [],
+  "active_outbound_south": [
+    {
+      "name": "CP62_RPND MDR624509",
+      "duration_min": -0.0
+    }
+  ],
   "active_outbound_north": [],
   "shoe_sorter": {
     "profibus_nodes": [
@@ -634,7 +637,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [1]+[13]",
+      "text": "Pull MCB carriers at WPT [13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
