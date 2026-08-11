@@ -1,24 +1,24 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-10 21:45:14 EST",
+  "timestamp": "2026-08-10 21:46:19 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-10 21:45",
+  "_pushed_at": "2026-08-10 21:46",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2408,
+    "speed": 2404,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 2,
+    "faulted": 0,
     "disabled": 88,
-    "available": 2250,
+    "available": 2252,
     "occupied": 2053,
-    "empty": 197,
-    "empty_pct": 8.4,
+    "empty": 199,
+    "empty_pct": 8.5,
     "availability_pct": 96.2
   },
   "config": {
@@ -78,8 +78,8 @@
     },
     {
       "index": 1,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1346
     },
     {
       "index": 2,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 1999
+      "carrier": 2258
     },
     {
       "index": 14,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 2
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -394,7 +394,7 @@
     }
   ],
   "wpt_fault_counts": {
-    "1": 2853,
+    "1": 2854,
     "13": 1,
     "10": 136,
     "9": 8,
@@ -402,7 +402,9 @@
     "11": 7,
     "8": 1
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "1": "2026-08-11T01:46:16.651152+00:00"
+  },
   "crb_fault_counts": {
     "1": 181,
     "2": 170,
@@ -417,34 +419,34 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6957272,
-    "recirculated": 36360,
+    "sorted": 6957499,
+    "recirculated": 36362,
     "recirc_pct": 0.52
   },
   "weekly": {
     "scan_defect_pct": 4.57,
     "recirc_pct": 0.52,
-    "oee_good_divert": 1554701,
+    "oee_good_divert": 1554771,
     "oee_failed_divert": 1477422,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1490671,
+    "oee_lane_full": 1490673,
     "oee_max_recirc": 24,
     "oee_no_read": 217345,
-    "lane_full_pct": 55.0,
+    "lane_full_pct": 55.1,
     "iob_trips": null,
     "estop_events": null,
-    "plc_fpy": 34.37,
+    "plc_fpy": 34.38,
     "plc_mhe_defect": 32.67,
     "plc_ftd_pct": 32.67,
     "plc_gap_error_pct": 0.0,
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 32.96,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 326662,
+    "plc_dpmo": 326657,
     "plc_scan_defect": 4.57,
-    "plc_total_units": 4522836,
-    "plc_good_diverts": 1554701,
+    "plc_total_units": 4522908,
+    "plc_good_diverts": 1554771,
     "plc_total_defects": 1477440
   },
   "shift_report": {
@@ -460,20 +462,10 @@
   },
   "active_inbound_jams": {
     "cp01": [],
-    "cp02": [
-      {
-        "name": "CP02 Inbound MDR02404_01",
-        "duration_min": 2.0
-      }
-    ]
+    "cp02": []
   },
   "active_outbound_south": [],
-  "active_outbound_north": [
-    {
-      "name": "CP94 Robotic Palletizer North MDR94328_01",
-      "duration_min": 2.6
-    }
-  ],
+  "active_outbound_north": [],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -525,7 +517,7 @@
     "exit_jam": false,
     "agl_enabled": false,
     "icw_stats": {
-      "total_inducted": 94612,
+      "total_inducted": 94123,
       "peak_cpm": 234,
       "total_diverted": 0,
       "lane_full": 0,
@@ -640,7 +632,7 @@
   ],
   "priority_actions": [
     {
-      "text": "Pull MCB carriers at WPT [13]",
+      "text": "Pull MCB carriers at WPT [1]+[13]",
       "severity": "CRITICAL",
       "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
     }
