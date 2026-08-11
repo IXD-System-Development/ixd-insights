@@ -1,15 +1,17 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-10 20:22:20 EST",
+  "timestamp": "2026-08-10 20:23:25 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-10 20:22",
+  "_pushed_at": "2026-08-10 20:23",
   "carrier_count": 2340,
   "sorter": {
-    "running": true,
-    "speed": 2397,
-    "active_faults": [],
+    "running": false,
+    "speed": 0,
+    "active_faults": [
+      "IOB-1 TRIPPED"
+    ],
     "in_dtw": false
   },
   "carriers": {
@@ -47,27 +49,27 @@
   "ppu": [
     {
       "index": 1,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 3,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 6,
-      "state": "RUNNING"
+      "state": "STOPPED"
     }
   ],
   "wpt": [
@@ -79,7 +81,7 @@
     {
       "index": 1,
       "error": true,
-      "carrier": 1402
+      "carrier": 1416
     },
     {
       "index": 2,
@@ -139,7 +141,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 2314
+      "carrier": 2328
     },
     {
       "index": 14,
@@ -157,19 +159,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 2,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 3,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 4,
-        "connection_faulted": false
+        "connection_faulted": true
       }
     ]
   },
@@ -184,7 +186,7 @@
       "total": 16,
       "faulted": 2
     },
-    "ppu_connections": 6,
+    "ppu_connections": 0,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -406,12 +408,17 @@
     "1": "2026-08-11T00:21:12.344520+00:00"
   },
   "crb_fault_counts": {
-    "1": 179,
-    "2": 168,
-    "3": 171,
-    "4": 171
+    "1": 180,
+    "2": 169,
+    "3": 172,
+    "4": 172
   },
-  "crb_fault_start": {},
+  "crb_fault_start": {
+    "1": "2026-08-11T00:23:22.480690+00:00",
+    "2": "2026-08-11T00:23:22.480690+00:00",
+    "3": "2026-08-11T00:23:22.480690+00:00",
+    "4": "2026-08-11T00:23:22.480690+00:00"
+  },
   "strays": [],
   "chutes": {
     "locked_out": 11,
@@ -419,18 +426,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 6944686,
+    "sorted": 6944697,
     "recirculated": 36350,
     "recirc_pct": 0.52
   },
   "weekly": {
     "scan_defect_pct": 4.57,
     "recirc_pct": 0.52,
-    "oee_good_divert": 1550127,
+    "oee_good_divert": 1550130,
     "oee_failed_divert": 1477361,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1490335,
+    "oee_lane_full": 1490340,
     "oee_max_recirc": 24,
     "oee_no_read": 217152,
     "lane_full_pct": 55.1,
@@ -445,8 +452,8 @@
     "plc_max_recirc_pct": 0.0,
     "plc_dpmo": 327008,
     "plc_scan_defect": 4.57,
-    "plc_total_units": 4517865,
-    "plc_good_diverts": 1550127,
+    "plc_total_units": 4517873,
+    "plc_good_diverts": 1550130,
     "plc_total_defects": 1477379
   },
   "shift_report": {
@@ -455,8 +462,18 @@
     "text": "\ud83d\udccb SHIFT SUMMARY REPORT\n\ud83d\udd53 Day Shift (7am - 7pm EST)\n2026-08-10 23:00 UTC\n\n\ud83d\udea8 TOP 10 MOST FREQUENT JAMS\n  1. CP33 South Jackpot and Bypass MDR33324_02 \u2014 29x\n  2. CP33 South Jackpot and Bypass MDR33328_01 \u2014 27x\n  3. CP53 EACH TO SORT MDR53216_02 \u2014 26x\n  4. CP33 South Jackpot and Bypass MDR33336_02 \u2014 16x\n  5. CP94 Robotic Palletizer North MDR94328_01 \u2014 11x\n  6. CP33 South Jackpot and Bypass MDR33114_01 \u2014 8x\n  7. CP33 South Jackpot and Bypass MDR33219_01 \u2014 7x\n  8. 91352 CP90 Pallet Build North Upper \u2014 6x\n  9. CP78 Fluid Load NorthWest DD342 MDR78420_03 \u2014 4x\n  10. CP62_RPND MDR62351_33 \u2014 4x\n  \u2022 Total jams: 228 | Duration: 2198 min (36.6 hrs)\n\n\u26a0\ufe0f IOB TRIPS\n  No IOB trips this shift.\n\n\u2699\ufe0f SORTER FAULTS\n  No sorter faults this shift.\n\n\ud83d\uded1 ESTOP DOWNTIME\n  No estop events this shift.\n\n\ud83d\udcf7 SCANNER REPORT\n  Scanner 1: 5,815,015 good | 289,188 noread | 88,888 multi\n  Scanner 2: 6,428,953 good | 271,700 noread | 97,029 multi\n  Scanner 3: 6,278,691 good | 268,097 noread | 83,080 multi\n  Scanner 4: 6,396,400 good | 364,385 noread | 107,595 multi\n  \u2022 Rate: 94.1% good | 4.5% noread | 1.4% multi\n\n\ud83d\ude9a TOP 4 FAULTED CARRIERS\n  1. CA0951 \u2014 198 (Comm:66, MNR:132)\n  2. CA2259 \u2014 42 (Comm:42)\n  3. CA1289 \u2014 33 (Comm:11, MNR:22)\n  4. CA2257 \u2014 22 (Comm:20, MNR:2)\n\n\ud83d\udce6 CROSSBELT INDUCTION\n  DYN-10-C: 8,644\n  DYN-11-C: 8,410\n  DYN-02-A: 8,293\n  DYN-03-A: 8,245\n  DYN-12-C: 8,106\n  DYN-01-A: 7,790\n  Main Router Induct: 7,790\n  PIDs (combined): 60,391\n  \u2022 Total inducted: 118,163\n\n\ud83d\udce4 CROSSBELT DIVERTS\n  \u2705 Successful: 118,093\n  \ud83d\udd04 Lane Full (recirculated): 116,774\n  \u274c No Activation (FTD): 65\n  \u26a0\ufe0f Item On Carrier (UTD): 1,364\n  \u2022 Total diverted: 122,488\n\n\ud83d\udd0c CTB/CRB FAULT COUNT (this shift)\n  CRB 1: +4 faults this shift (lifetime: 587,219)\n  CRB 2: +94 faults this shift (lifetime: 736,973)\n  CRB 3: 0 faults this shift (lifetime: 624,493)\n  CRB 4: +2 faults this shift (lifetime: 703,513)\n\n\ud83d\udd34 WPT CTB/CRB HEALTH CHECK [0-15]\n  FAULTED: [13] MCB 1875\n\n\ud83d\udce1 DISCHARGE CTB COMM STATUS [1-47]\n  COMM FAILED: CTB 01, CTB 02, CTB 03, CTB 04\n  Total: 4 of 47 faulted\n\n\u23f1\ufe0f LATE STARTUP AFTER DTW\n  DTW ended 2026-08-09T19:00 \u2192 Sorter started +2.2 min late\n  DTW ended 2026-08-09T23:00 \u2192 Sorter started +5.4 min late\n  DTW ended 2026-08-10T02:30 \u2192 Sorter started +2.1 min late\n  DTW ended 2026-08-10T07:00 \u2192 Sorter started +1.1 min late\n  DTW ended 2026-08-10T11:00 \u2192 Sorter started +2.2 min late\n  DTW ended 2026-08-10T14:30 \u2192 Sorter started +5.4 min late\n  \u2022 Total startup delay this week: 66 min"
   },
   "active_jams": {
-    "south_upper": [],
-    "south_lower": [],
+    "south_upper": [
+      {
+        "name": "91152 CP90 Pallet Build North Upper",
+        "duration_min": 1.0
+      }
+    ],
+    "south_lower": [
+      {
+        "name": "91202 CP90 Pallet Build North Lower",
+        "duration_min": 1.1
+      }
+    ],
     "north_upper": [],
     "north_lower": []
   },
