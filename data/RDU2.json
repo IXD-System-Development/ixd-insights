@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-11 20:16:05 EST",
+  "timestamp": "2026-08-11 20:17:09 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-11 20:16",
+  "_pushed_at": "2026-08-11 20:17",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2423,
+    "speed": 2399,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 7,
+    "faulted": 3,
     "disabled": 91,
-    "available": 2242,
+    "available": 2246,
     "occupied": 2053,
-    "empty": 189,
-    "empty_pct": 8.1,
-    "availability_pct": 95.8
+    "empty": 193,
+    "empty_pct": 8.2,
+    "availability_pct": 96.0
   },
   "config": {
     "max_recirc": 5,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 2053
+      "carrier": 2312
     },
     {
       "index": 14,
@@ -417,20 +417,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 7112007,
+    "sorted": 7112179,
     "recirculated": 36587,
     "recirc_pct": 0.51
   },
   "weekly": {
     "scan_defect_pct": 4.58,
     "recirc_pct": 0.51,
-    "oee_good_divert": 1548969,
+    "oee_good_divert": 1549044,
     "oee_failed_divert": 1478450,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1502033,
+    "oee_lane_full": 1502040,
     "oee_max_recirc": 24,
-    "oee_no_read": 219618,
+    "oee_no_read": 219621,
     "lane_full_pct": 55.4,
     "iob_trips": null,
     "estop_events": null,
@@ -441,10 +441,10 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.16,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 326409,
+    "plc_dpmo": 326403,
     "plc_scan_defect": 4.58,
-    "plc_total_units": 4529494,
-    "plc_good_diverts": 1548969,
+    "plc_total_units": 4529576,
+    "plc_good_diverts": 1549044,
     "plc_total_defects": 1478468
   },
   "shift_report": {
@@ -463,7 +463,12 @@
     "cp02": []
   },
   "active_outbound_south": [],
-  "active_outbound_north": [],
+  "active_outbound_north": [
+    {
+      "name": "CP94 Robotic Palletizer North MDR94328_01",
+      "duration_min": 0.2
+    }
+  ],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -508,7 +513,9 @@
       }
     ],
     "gridlock": false,
-    "jams": [],
+    "jams": [
+      "Zone 67710"
+    ],
     "induct_count": 11568,
     "induct_jam": false,
     "middle_jam": false,
