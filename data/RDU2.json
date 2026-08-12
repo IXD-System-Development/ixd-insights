@@ -1,25 +1,25 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-08-12 04:41:59 EST",
+  "timestamp": "2026-08-12 04:43:03 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-08-12 04:41",
+  "_pushed_at": "2026-08-12 04:43",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2400,
+    "speed": 2402,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 3,
+    "faulted": 4,
     "disabled": 91,
-    "available": 2246,
+    "available": 2245,
     "occupied": 2053,
-    "empty": 193,
+    "empty": 192,
     "empty_pct": 8.2,
-    "availability_pct": 96.0
+    "availability_pct": 95.9
   },
   "config": {
     "max_recirc": 5,
@@ -139,7 +139,7 @@
     {
       "index": 13,
       "error": true,
-      "carrier": 606
+      "carrier": 864
     },
     {
       "index": 14,
@@ -417,18 +417,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 7190593,
-    "recirculated": 36675,
+    "sorted": 7190721,
+    "recirculated": 36677,
     "recirc_pct": 0.51
   },
   "weekly": {
     "scan_defect_pct": 4.58,
     "recirc_pct": 0.51,
-    "oee_good_divert": 1513004,
-    "oee_failed_divert": 1479138,
+    "oee_good_divert": 1513044,
+    "oee_failed_divert": 1479139,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1505318,
+    "oee_lane_full": 1505333,
     "oee_max_recirc": 24,
     "oee_no_read": 221546,
     "lane_full_pct": 54.8,
@@ -441,11 +441,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 33.47,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 328884,
+    "plc_dpmo": 328880,
     "plc_scan_defect": 4.58,
-    "plc_total_units": 4497502,
-    "plc_good_diverts": 1513004,
-    "plc_total_defects": 1479156
+    "plc_total_units": 4497558,
+    "plc_good_diverts": 1513044,
+    "plc_total_defects": 1479157
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -456,7 +456,7 @@
     "south_upper": [
       {
         "name": "91452 CP90 Pallet Build North Upper",
-        "duration_min": 470.8
+        "duration_min": 471.9
       }
     ],
     "south_lower": [],
@@ -469,15 +469,16 @@
   },
   "active_outbound_south": [
     {
-      "name": "CP33 South Jackpot and Bypass MDR33219_01",
-      "duration_min": 7.3
-    },
-    {
       "name": "CP56 Tote Take Away MDR56420_01",
-      "duration_min": 0.6
+      "duration_min": 1.7
     }
   ],
-  "active_outbound_north": [],
+  "active_outbound_north": [
+    {
+      "name": "CP94 Robotic Palletizer North MDR94128_01",
+      "duration_min": 0.5
+    }
+  ],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -522,7 +523,9 @@
       }
     ],
     "gridlock": false,
-    "jams": [],
+    "jams": [
+      "Zone 67710"
+    ],
     "induct_count": 11568,
     "induct_jam": false,
     "middle_jam": false,
