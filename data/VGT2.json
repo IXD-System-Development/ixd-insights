@@ -1,10 +1,10 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-09-17 07:33:17",
+  "timestamp": "2026-09-17 07:34:08",
   "site": "VGT2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-09-17 07:33",
+  "_pushed_at": "2026-09-17 07:34",
   "carrier_count": 2340,
   "sorter": {
     "running": false,
@@ -21,7 +21,7 @@
     "clock_fault_carrier": 1776
   },
   "carriers": {
-    "faulted": 0,
+    "faulted": 15,
     "disabled": 0,
     "available": 2325,
     "availability_pct": 99.4
@@ -178,19 +178,19 @@
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "ERROR"
     },
     {
       "index": 3,
-      "state": "RUNNING"
+      "state": "ERROR"
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "ERROR"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "ERROR"
     },
     {
       "index": 6,
@@ -461,6 +461,11 @@
     ]
   },
   "priority_actions": [
+    {
+      "text": "Pull 15 faulted MCB carriers",
+      "severity": "CRITICAL",
+      "component": "Carrier Fleet"
+    },
     {
       "text": "WPT faults (1 positions) — pull carrier MCBs",
       "severity": "HIGH",
