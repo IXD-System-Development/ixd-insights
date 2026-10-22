@@ -45,6 +45,7 @@ const SiteDetail = (() => {
 
 
 
+
   // === LAX9 custom board (brush site) — only LAX9 uses this ===
   function renderLAX9Board(d) {
     const s=d.sorter||{}, c=d.carriers||{}, cfg=d.config||{}, comms=d.comms||{}, w=d.weekly||{};
@@ -102,11 +103,19 @@ const SiteDetail = (() => {
         node('Failed count',(br.counter||0)+' / '+(br.max_failed||0),(br.counter||0)<=(br.max_failed||0))+
         node('Brushes',fmt(br.n_brushes),true)+
         node('Rails in error',fmt(br.rails_in_error),(br.rails_in_error||0)===0)+'</div>';
-    // LSM grid
+    // LSM grid — bigger cells, labeled CG/TOL/DISC chips
     const lsm=d.lsm_zones||[];
-    ov+=`<div style="font-size:12px;font-weight:700;color:var(--blue);margin:6px 0">LSM drive health (1\u201324)</div><div style="display:grid;grid-template-columns:repeat(12,1fr);gap:6px">`+
-        lsm.map(l=>{const bad=l.ok===false;const dot=v=>`<span style="display:inline-block;width:7px;height:7px;border-radius:2px;background:${v===false?C.r:v===true?C.g:C.mut}"></span>`;
-          return `<div style="background:var(--bg-card);border:1px solid ${bad?C.r:C.ln};border-radius:7px;padding:6px 4px;font-size:8px;text-align:center"><div style="font-weight:800;color:var(--text-primary)">LSM ${String(l.zone).padStart(2,'0')}</div><div style="margin-top:3px">${dot(l.colguard_ok)} ${dot(l.thermal_ok)} ${dot(l.connected)}</div></div>`;}).join('')+'</div>';
+    const lsmBad=lsm.filter(l=>l.ok===false).length;
+    const chip=(lab,v)=>{const col=v===false?C.r:v===true?C.g:C.mut; const bg=v===false?'var(--red-bg)':v===true?'var(--green-bg)':'transparent';
+      return `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;color:${col};background:${bg};border:1px solid ${col};border-radius:5px;padding:2px 6px">${lab}</span>`;};
+    ov+=`<div style="display:flex;align-items:center;gap:10px;margin:14px 0 8px"><span style="font-size:12px;font-weight:700;color:var(--blue)">LSM Drive Health</span>`+
+        `<span style="font-size:9px;color:var(--text-secondary)">1\u201324 \u00b7 CG collision-guard \u00b7 TOL thermal \u00b7 DISC connect</span>`+
+        `<span style="margin-left:auto;font-size:10px;font-weight:700;color:${lsmBad?C.r:C.g}">${lsmBad?lsmBad+' fault(s)':'all 24 OK'}</span></div>`;
+    ov+=`<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px">`+
+        lsm.map(l=>{const bad=l.ok===false;
+          return `<div style="background:var(--bg-card);border:1px solid ${bad?C.r:C.ln};border-left:4px solid ${bad?C.r:C.g};border-radius:9px;padding:10px 11px">`+
+            `<div style="font-weight:800;font-size:12px;color:var(--text-primary);margin-bottom:7px">LSM ${String(l.zone).padStart(2,'0')}</div>`+
+            `<div style="display:flex;gap:5px;flex-wrap:wrap">${chip('CG',l.colguard_ok)}${chip('TOL',l.thermal_ok)}${chip('DISC',l.connected)}</div></div>`;}).join('')+'</div>';
     // ---- Scan pane ----
     const scn=d.scanners||[];
     const defCls=p=>p>5.5?C.r:p>3?C.y:C.g;
