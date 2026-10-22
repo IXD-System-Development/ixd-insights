@@ -46,6 +46,7 @@ const SiteDetail = (() => {
 
 
 
+
   // === LAX9 custom board (brush site) — only LAX9 uses this ===
   function renderLAX9Board(d) {
     const s=d.sorter||{}, c=d.carriers||{}, cfg=d.config||{}, comms=d.comms||{}, w=d.weekly||{};
@@ -94,6 +95,27 @@ const SiteDetail = (() => {
     ov+=tile(comms.active_ctbcrb>=1?C.g:C.r,'CTB/CRB Active',fmt(comms.active_ctbcrb)+' / 4',comms.no_active_ctbcrb?'NONE ACTIVE':'carrier comm boards');
     ov+=tile(comms.sorter_error?C.r:C.g,'Sorter Fault',comms.sorter_error?'FAULT':'CLEAR','clk '+(comms.clock_pulse_error?'ERR':'ok')+' \u00b7 rdy '+(comms.auto_ready?'Y':'N'));
     ov+='</div>';
+    // CTB/CRB carrier-health check [0-15]
+    const cc=d.ctbcrb||[];
+    if(cc.length){
+      const ccBad=cc.filter(x=>x.fault===true).length;
+      ov+=`<div style="display:flex;align-items:center;gap:10px;margin:18px 0 10px"><span style="font-size:14px;font-weight:800;color:var(--blue)">CTB / CRB Carrier-Health Check</span>`+
+          `<span style="font-size:10px;color:var(--text-secondary)">units 0\u201315</span>`+
+          `<span style="margin-left:auto;font-size:12px;font-weight:800;color:${ccBad?C.r:C.g}">${ccBad?ccBad+' FAULT(S)':'ALL CLEAR'}</span></div>`;
+      ov+=`<div style="display:grid;grid-template-columns:repeat(8,1fr);gap:8px">`+
+          cc.map(x=>{const bad=x.fault===true;const col=bad?C.r:C.g;
+            return `<div style="background:var(--bg-card);border:1px solid ${col};border-radius:9px;padding:10px 4px;text-align:center"><div style="font-size:9px;color:var(--text-secondary)">[${x.idx}]</div><div style="font-size:18px;font-weight:800;color:${col};margin-top:2px">${bad?'\u2715':'\u2713'}</div></div>`;}).join('')+'</div>';
+    }
+    // Induction CTB/CRB
+    const indb=(d.induct_ctbcrb&&d.induct_ctbcrb.boards)||[];
+    if(indb.length){
+      const indAct=(d.induct_ctbcrb&&d.induct_ctbcrb.active)||indb.length;
+      ov+=`<div style="display:flex;align-items:center;gap:10px;margin:18px 0 10px"><span style="font-size:14px;font-weight:800;color:var(--blue)">Induction CTB / CRB</span>`+
+          `<span style="margin-left:auto;font-size:12px;font-weight:800;color:${C.g}">${indAct} ACTIVE</span></div>`;
+      ov+=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">`+
+          indb.map(x=>{const bad=x.faulted===true;const col=bad?C.r:C.g;
+            return `<div style="background:var(--bg-card);border:1px solid ${col};border-left:5px solid ${col};border-radius:11px;padding:14px 16px"><div style="font-weight:800;font-size:14px;color:var(--text-primary)">${x.label||('Induction '+(x.adj_idx))}</div><div style="font-size:14px;font-weight:800;color:${col};margin-top:6px">${bad?'FAULT':'\u2713 OK'}</div></div>`;}).join('')+'</div>';
+    }
     // brush row
     const br=d.brush||{};
     const node=(nm,v,ok)=>`<div style="flex:1 1 150px;background:var(--bg-card);border:1px solid ${ok?C.g:C.r};border-radius:10px;padding:11px;text-align:center"><div style="font-size:9px;text-transform:uppercase;color:var(--text-secondary);font-weight:700">${nm}</div><div style="font-size:13px;font-weight:800;margin-top:5px;color:${ok?C.g:C.r}">${v}</div></div>`;
