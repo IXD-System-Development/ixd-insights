@@ -37,9 +37,109 @@ const SiteDetail = (() => {
     const container = document.getElementById('detail-content');
     if (!container) return;
     const oem = (_siteMeta.oem || data.oem || '').toUpperCase();
-    if (oem === 'INTL') container.innerHTML = renderINTL(data);
+    if (_siteId === 'LAX9') container.innerHTML = renderLAX9Board(data);
+    else if (oem === 'INTL') container.innerHTML = renderINTL(data);
     else if (oem === 'DEM') container.innerHTML = renderDEM(data);
     else container.innerHTML = '<div class="error-banner">Unknown OEM.</div>';
+  }
+
+
+  // === LAX9 custom board (brush site) — only LAX9 uses this ===
+  function renderLAX9Board(d) {
+    const s=d.sorter||{}, c=d.carriers||{}, cfg=d.config||{}, comms=d.comms||{}, w=d.weekly||{};
+    const mhe=w.mhe_breakdown||{}; const rg=n=>mhe[n]||0;
+    const run=s.running===true;
+    const fmt=n=>(n==null?'\u2014':Number(n).toLocaleString());
+    const C={bg:'var(--bg-card)',ln:'var(--border)',g:'var(--green)',y:'var(--yellow)',r:'var(--red)',b:'var(--blue)',mut:'var(--text-secondary)',ink:'var(--text-primary)'};
+    function tile(col,lab,val,sub){return `<div style="position:relative;background:var(--bg-card);border:1px solid var(--border);border-left:4px solid ${col};border-radius:10px;padding:13px 15px;min-height:92px;">`+
+      `<div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-secondary);font-weight:700">${lab}</div>`+
+      `<div style="font-size:26px;font-weight:800;line-height:1.1;margin-top:5px;color:var(--text-primary)">${val}</div>`+
+      `<div style="font-size:9px;color:var(--text-secondary);margin-top:3px">${sub||''}</div></div>`;}
+    const availPct=c.availability_pct;
+    const blocked=rg('LaneBlocked'), noact=rg('NoActivation'), ioac=rg('ItemOnActivatedCarrier'), maxrec=rg('MaxRecirculation');
+    let h='';
+    // header
+    h+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">`+
+       `<a href="sites.html" class="back-link">\u2190 Back to Fleet</a>`+
+       `<img src="img/lax9_logo.png" onerror="this.style.display='none'" style="height:46px;width:46px;border-radius:50%;border:2px solid var(--blue);box-shadow:0 0 16px rgba(88,166,255,.5)">`+
+       `<span style="font-size:20px;font-weight:800;color:var(--text-primary)">LAX9</span>`+
+       `<span class="site-card-oem oem-intl">INTL</span>`+
+       `<span style="font-size:10px;color:var(--text-secondary)">Fontana CA \u00b7 BRUSH</span>`+
+       `<span class="detail-connection ${run?'online':'offline'}" style="margin-left:auto">${run?'\u25cf LIVE':'\u25cf OFFLINE'}</span></div>`;
+    // run banner
+    h+=`<div style="text-align:center;padding:11px;margin-bottom:12px;border-radius:8px;font-weight:800;letter-spacing:.12em;`+
+       `background:${run?'var(--green-bg)':'var(--red-bg)'};border:1px solid ${run?C.g:C.r};color:${run?C.g:C.r}">`+
+       `\u25cf ${run?('SORTER RUNNING \u00b7 '+fmt(s.speed)+' mm/s'):'SORTER STOPPED'}</div>`;
+    // tabs
+    h+=`<div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">`+
+       `<button class="filter-btn active" onclick="SiteDetail.lax9Tab('ov',this)">Overview</button>`+
+       `<button class="filter-btn" onclick="SiteDetail.lax9Tab('scan',this)">Scan Defect</button>`+
+       `<button class="filter-btn" onclick="SiteDetail.lax9Tab('ftd',this)">FTD / Lane Health</button></div>`;
+    // ---- Overview pane ----
+    let ov='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px">';
+    ov+=tile(availPct==null?C.b:availPct>=97?C.g:availPct>=90?C.y:C.r,'Carrier Avail',(availPct==null?'\u2014':availPct+'%'),fmt(c.available)+' / '+fmt(d.carrier_count));
+    ov+=tile(c.faulted?C.r:C.g,'Faulted Carriers',fmt(c.faulted),'MCB / carrier faults');
+    ov+=tile(c.disabled>60?C.r:c.disabled>30?C.y:C.g,'Disabled Carriers',fmt(c.disabled),'out of service');
+    ov+=tile(C.b,'Total Diverted (24h)',fmt(w.diverted_24h),'confirmed diverts');
+    ov+=tile(C.b,'Recirculating',fmt(s.items_recirculating),'loop recirc counter');
+    ov+=tile(blocked>noact?C.y:C.b,'Lane-Blocked (24h)',fmt(blocked),'hit a blocked lane \u2014 FLOW');
+    ov+=tile(noact>1000?C.r:C.g,'True FTD (NoActivation)',fmt(noact),'carrier didn\u2019t discharge 24h');
+    ov+=tile(maxrec>5000?C.y:C.b,'Max Recirc (24h)',fmt(maxrec),'looped past MaxRecirc');
+    ov+=tile(w.reject_pct_8h==null?C.b:w.reject_pct_8h>40?C.y:C.g,'Site Reject % (8h)',(w.reject_pct_8h==null?'\u2014':w.reject_pct_8h+'%'),'lane confirm vs reject');
+    ov+=tile(comms.active_ctbcrb>=1?C.g:C.r,'CTB/CRB Active',fmt(comms.active_ctbcrb)+' / 4',comms.no_active_ctbcrb?'NONE ACTIVE':'carrier comm boards');
+    ov+=tile(cfg.mdr_75_full_bit6?C.g:C.r,'ChuteBlockMask bit-6',cfg.mdr_75_full_bit6?'SET':'MISSING','MDR_75_FULL \u00b7 mask '+fmt(cfg.chute_block_mask));
+    ov+=tile(comms.sorter_error?C.r:C.g,'Sorter Fault',comms.sorter_error?'FAULT':'clear','clk '+(comms.clock_pulse_error?'ERR':'ok')+' \u00b7 rdy '+(comms.auto_ready?'Y':'N'));
+    ov+='</div>';
+    // brush row
+    const br=d.brush||{};
+    const node=(nm,v,ok)=>`<div style="flex:1 1 150px;background:var(--bg-card);border:1px solid ${ok?C.g:C.r};border-radius:10px;padding:11px;text-align:center"><div style="font-size:9px;text-transform:uppercase;color:var(--text-secondary);font-weight:700">${nm}</div><div style="font-size:13px;font-weight:800;margin-top:5px;color:${ok?C.g:C.r}">${v}</div></div>`;
+    ov+=`<div style="font-size:12px;font-weight:700;color:var(--blue);margin:6px 0">Brush / Conductor-Rail power</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">`+
+        node('Brush Fault',br.too_many_failed?'FAULT':'OK',!br.too_many_failed)+
+        node('Failed count',(br.counter||0)+' / '+(br.max_failed||0),(br.counter||0)<=(br.max_failed||0))+
+        node('Brushes',fmt(br.n_brushes),true)+
+        node('Rails in error',fmt(br.rails_in_error),(br.rails_in_error||0)===0)+'</div>';
+    // LSM grid
+    const lsm=d.lsm_zones||[];
+    ov+=`<div style="font-size:12px;font-weight:700;color:var(--blue);margin:6px 0">LSM drive health (1\u201324)</div><div style="display:grid;grid-template-columns:repeat(12,1fr);gap:6px">`+
+        lsm.map(l=>{const bad=l.ok===false;const dot=v=>`<span style="display:inline-block;width:7px;height:7px;border-radius:2px;background:${v===false?C.r:v===true?C.g:C.mut}"></span>`;
+          return `<div style="background:var(--bg-card);border:1px solid ${bad?C.r:C.ln};border-radius:7px;padding:6px 4px;font-size:8px;text-align:center"><div style="font-weight:800;color:var(--text-primary)">LSM ${String(l.zone).padStart(2,'0')}</div><div style="margin-top:3px">${dot(l.colguard_ok)} ${dot(l.thermal_ok)} ${dot(l.connected)}</div></div>`;}).join('')+'</div>';
+    // ---- Scan pane ----
+    const scn=d.scanners||[];
+    const defCls=p=>p>5.5?C.r:p>3?C.y:C.g;
+    let sc='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">';
+    scn.forEach(x=>sc+=tile(defCls(x.nr_pct||0),x.label||'Scanner',(x.nr_pct==null?'\u2014':x.nr_pct.toFixed(1))+'% NR',fmt(x.good)+' good \u00b7 '+fmt(x.noread)+' nr'));
+    sc+=tile(C.b,'Weekly Scan Defect',(w.scan_defect_pct==null?'\u2014':w.scan_defect_pct+'%'),'all active scanners');
+    sc+='</div>';
+    // ---- FTD pane ----
+    let ft='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">';
+    ft+=tile(blocked>noact?C.y:C.b,'Lane-Blocked (24h)',fmt(blocked),'FLOW');
+    ft+=tile(noact>1000?C.r:C.g,'True FTD (NoActivation)',fmt(noact),'carrier didn\u2019t discharge');
+    ft+=tile(ioac>3000?C.y:C.b,'Item On Activated Carrier',fmt(ioac),'discharge mis-timed');
+    ft+=tile(maxrec>5000?C.y:C.b,'Max Recirc (24h)',fmt(maxrec),'looped past MaxRecirc');
+    ft+='</div>';
+    const bad=(d.chutes&&d.chutes.bad)||[];
+    ft+=`<div style="font-size:12px;font-weight:700;color:var(--blue);margin:6px 0">Chutes in trouble right now</div>`;
+    ft+='<table style="width:100%;border-collapse:collapse;font-size:12px"><tr style="color:var(--text-secondary);text-align:left"><th style="padding:5px">Chute</th><th>State</th><th>Alarm</th></tr>';
+    const SN={127:'Faulted',131:'Blocked',129:'Running'};
+    ft+=bad.length?bad.map(x=>`<tr style="border-top:1px solid var(--border)"><td style="padding:5px;font-weight:700">${x.chute_id||'?'}</td><td style="color:${(SN[x.state]||'')==='Faulted'?C.r:C.y}">${SN[x.state]||x.state}</td><td>${x.alarm_name||x.alarm||'\u2014'}</td></tr>`).join(''):'<tr><td colspan="3" style="padding:5px;color:var(--green)">all real chutes running</td></tr>';
+    ft+='</table>';
+    const lanes=d.top_reject_lanes||[];
+    ft+=`<div style="font-size:12px;font-weight:700;color:var(--blue);margin:14px 0 6px">Worst lanes by reject % (8h)</div>`;
+    ft+='<table style="width:100%;border-collapse:collapse;font-size:12px"><tr style="color:var(--text-secondary);text-align:left"><th style="padding:5px">Lane</th><th>ccsID</th><th>conf</th><th>rej</th><th>reject%</th></tr>';
+    ft+=lanes.length?lanes.map(l=>`<tr style="border-top:1px solid var(--border)"><td style="padding:5px;font-weight:700">${l.name||'?'}</td><td style="color:var(--text-secondary)">${l.ccsID}</td><td>${fmt(l.confirmed)}</td><td>${fmt(l.rejected)}</td><td style="color:${(l.reject_pct||0)>=60?C.r:C.y};font-weight:700">${(l.reject_pct||0).toFixed(1)}%</td></tr>`).join(''):'<tr><td colspan="5" style="padding:5px;color:var(--text-secondary)">no lane data</td></tr>';
+    ft+='</table>';
+    // findings
+    const acts=d.priority_actions||[];
+    if(acts.length){ ft+=`<div style="font-size:12px;font-weight:700;color:var(--blue);margin:14px 0 6px">Findings</div>`;
+      acts.forEach(a=>{const col=a.severity==='HIGH'?C.r:a.severity==='MEDIUM'?C.y:C.mut; ft+=`<div style="border-left:3px solid ${col};background:var(--bg-card);padding:8px 10px;margin-bottom:6px;font-size:11px;border-radius:0 6px 6px 0"><b style="color:${col}">[${a.severity}] ${a.component}</b> \u2014 ${a.text}</div>`;}); }
+    // stash panes + show overview
+    h+=`<div id="lax9-ov">${ov}</div><div id="lax9-scan" style="display:none">${sc}</div><div id="lax9-ftd" style="display:none">${ft}</div>`;
+    h+=`<div style="color:var(--text-muted);font-size:9px;margin-top:16px">LAX9 crossbelt \u00b7 live read-only PLC + ICW \u00b7 pushed ${d._pushed_at||''} by ${d._enriched_by||'lax9_fleet_push'}</div>`;
+    return h;
+  }
+  function lax9Tab(which, btn){
+    ['ov','scan','ftd'].forEach(p=>{const el=document.getElementById('lax9-'+p); if(el) el.style.display=(p===which?'block':'none');});
+    if(btn){ btn.parentNode.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
   }
 
   function renderINTL(d) {
@@ -1361,5 +1461,5 @@ const SiteDetail = (() => {
     container.innerHTML = h;
   }
 
-  return { init, refresh, showShiftReport, showSorterTab, showMetricsTab, showChuteJamsTab, showInboundTab, showOutboundSouth, showOutboundNorth, showFrontOfBuilding, showShoeSorter, showIah3LizardTab };
+  return { init, refresh, lax9Tab, showShiftReport, showSorterTab, showMetricsTab, showChuteJamsTab, showInboundTab, showOutboundSouth, showOutboundNorth, showFrontOfBuilding, showShoeSorter, showIah3LizardTab };
 })();
