@@ -106,16 +106,16 @@ const SiteDetail = (() => {
     // LSM grid — bigger cells, labeled CG/TOL/DISC chips
     const lsm=d.lsm_zones||[];
     const lsmBad=lsm.filter(l=>l.ok===false).length;
-    const chip=(lab,v)=>{const col=v===false?C.r:v===true?C.g:C.mut; const bg=v===false?'var(--red-bg)':v===true?'var(--green-bg)':'transparent';
-      return `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;color:${col};background:${bg};border:1px solid ${col};border-radius:5px;padding:2px 6px">${lab}</span>`;};
-    ov+=`<div style="display:flex;align-items:center;gap:10px;margin:14px 0 8px"><span style="font-size:12px;font-weight:700;color:var(--blue)">LSM Drive Health</span>`+
-        `<span style="font-size:9px;color:var(--text-secondary)">1\u201324 \u00b7 CG collision-guard \u00b7 TOL thermal \u00b7 DISC connect</span>`+
-        `<span style="margin-left:auto;font-size:10px;font-weight:700;color:${lsmBad?C.r:C.g}">${lsmBad?lsmBad+' fault(s)':'all 24 OK'}</span></div>`;
-    ov+=`<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px">`+
+    const chip=(lab,v)=>{const col=v===false?C.r:v===true?C.g:C.mut; const bg=v===false?'var(--red-bg)':v===true?'var(--green-bg)':'transparent'; const txt=v===false?'FAULT':v===true?'OK':'\u2014';
+      return `<span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:${col};background:${bg};border:1px solid ${col};border-radius:6px;padding:4px 9px"><span style="width:7px;height:7px;border-radius:50%;background:${col};display:inline-block"></span>${lab} ${txt}</span>`;};
+    ov+=`<div style="display:flex;align-items:center;gap:10px;margin:18px 0 10px"><span style="font-size:14px;font-weight:800;color:var(--blue)">LSM Drive Health</span>`+
+        `<span style="font-size:10px;color:var(--text-secondary)">1\u201324 \u00b7 CG collision-guard \u00b7 TOL thermal \u00b7 DISC connect</span>`+
+        `<span style="margin-left:auto;font-size:12px;font-weight:800;color:${lsmBad?C.r:C.g}">${lsmBad?lsmBad+' FAULT(S)':'ALL 24 OK'}</span></div>`;
+    ov+=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">`+
         lsm.map(l=>{const bad=l.ok===false;
-          return `<div style="background:var(--bg-card);border:1px solid ${bad?C.r:C.ln};border-left:4px solid ${bad?C.r:C.g};border-radius:9px;padding:10px 11px">`+
-            `<div style="font-weight:800;font-size:12px;color:var(--text-primary);margin-bottom:7px">LSM ${String(l.zone).padStart(2,'0')}</div>`+
-            `<div style="display:flex;gap:5px;flex-wrap:wrap">${chip('CG',l.colguard_ok)}${chip('TOL',l.thermal_ok)}${chip('DISC',l.connected)}</div></div>`;}).join('')+'</div>';
+          return `<div style="background:var(--bg-card);border:1px solid ${bad?C.r:C.ln};border-left:5px solid ${bad?C.r:C.g};border-radius:11px;padding:14px 16px">`+
+            `<div style="font-weight:800;font-size:16px;color:var(--text-primary);margin-bottom:11px;letter-spacing:.02em">LSM ${String(l.zone).padStart(2,'0')}</div>`+
+            `<div style="display:flex;gap:7px;flex-wrap:wrap">${chip('CG',l.colguard_ok)}${chip('TOL',l.thermal_ok)}${chip('DISC',l.connected)}</div></div>`;}).join('')+'</div>';
     // ---- Scan pane ----
     const scn=d.scanners||[];
     const defCls=p=>p>5.5?C.r:p>3?C.y:C.g;
