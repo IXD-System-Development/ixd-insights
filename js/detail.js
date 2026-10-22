@@ -92,8 +92,7 @@ const SiteDetail = (() => {
     ov+=tile(maxrec>5000?C.y:C.b,'Max Recirc (24h)',fmt(maxrec),'looped past MaxRecirc');
     ov+=tile(w.reject_pct_8h==null?C.b:w.reject_pct_8h>40?C.y:C.g,'Site Reject % (8h)',(w.reject_pct_8h==null?'\u2014':w.reject_pct_8h+'%'),'lane confirm vs reject');
     ov+=tile(comms.active_ctbcrb>=1?C.g:C.r,'CTB/CRB Active',fmt(comms.active_ctbcrb)+' / 4',comms.no_active_ctbcrb?'NONE ACTIVE':'carrier comm boards');
-    ov+=tile(cfg.mdr_75_full_bit6?C.g:C.r,'ChuteBlockMask bit-6',cfg.mdr_75_full_bit6?'SET':'MISSING','MDR_75_FULL \u00b7 mask '+fmt(cfg.chute_block_mask));
-    ov+=tile(comms.sorter_error?C.r:C.g,'Sorter Fault',comms.sorter_error?'FAULT':'clear','clk '+(comms.clock_pulse_error?'ERR':'ok')+' \u00b7 rdy '+(comms.auto_ready?'Y':'N'));
+    ov+=tile(comms.sorter_error?C.r:C.g,'Sorter Fault',comms.sorter_error?'FAULT':'CLEAR','clk '+(comms.clock_pulse_error?'ERR':'ok')+' \u00b7 rdy '+(comms.auto_ready?'Y':'N'));
     ov+='</div>';
     // brush row
     const br=d.brush||{};
