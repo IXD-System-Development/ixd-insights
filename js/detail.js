@@ -44,6 +44,7 @@ const SiteDetail = (() => {
   }
 
 
+
   // === LAX9 custom board (brush site) — only LAX9 uses this ===
   function renderLAX9Board(d) {
     const s=d.sorter||{}, c=d.carriers||{}, cfg=d.config||{}, comms=d.comms||{}, w=d.weekly||{};
@@ -58,6 +59,9 @@ const SiteDetail = (() => {
     const availPct=c.availability_pct;
     const blocked=rg('LaneBlocked'), noact=rg('NoActivation'), ioac=rg('ItemOnActivatedCarrier'), maxrec=rg('MaxRecirculation');
     let h='';
+    // faint LAX9 crest watermark behind the whole board
+    h+=`<div style="position:fixed;inset:0;z-index:0;pointer-events:none;background:url('img/lax9_logo.png') center 46% no-repeat;background-size:min(60vw,640px);opacity:.06;filter:saturate(1.1) brightness(1.15);mix-blend-mode:screen"></div>`;
+    h+=`<div style="position:relative;z-index:1">`;
     // header
     h+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">`+
        `<a href="sites.html" class="back-link">\u2190 Back to Fleet</a>`+
@@ -134,7 +138,8 @@ const SiteDetail = (() => {
       acts.forEach(a=>{const col=a.severity==='HIGH'?C.r:a.severity==='MEDIUM'?C.y:C.mut; ft+=`<div style="border-left:3px solid ${col};background:var(--bg-card);padding:8px 10px;margin-bottom:6px;font-size:11px;border-radius:0 6px 6px 0"><b style="color:${col}">[${a.severity}] ${a.component}</b> \u2014 ${a.text}</div>`;}); }
     // stash panes + show overview
     h+=`<div id="lax9-ov">${ov}</div><div id="lax9-scan" style="display:none">${sc}</div><div id="lax9-ftd" style="display:none">${ft}</div>`;
-    h+=`<div style="color:var(--text-muted);font-size:9px;margin-top:16px">LAX9 crossbelt \u00b7 live read-only PLC + ICW \u00b7 pushed ${d._pushed_at||''} by ${d._enriched_by||'lax9_fleet_push'}</div>`;
+    h+=`<div style="color:var(--text-muted);font-size:9px;margin-top:16px;padding-top:10px;border-top:1px solid var(--border)">LAX9 crossbelt (brush) \u00b7 live read-only PLC + ICW \u00b7 pushed ${d._pushed_at||''} by ${d._enriched_by||'lax9_fleet_push'}</div>`;
+    h+=`</div>`; // close z-index wrapper
     return h;
   }
   function lax9Tab(which, btn){
