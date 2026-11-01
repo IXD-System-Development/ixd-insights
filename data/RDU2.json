@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-11-01 08:39:43 EST",
+  "timestamp": "2026-11-01 08:40:53 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-11-01 08:39",
+  "_pushed_at": "2026-11-01 08:40",
   "carrier_count": 2340,
   "sorter": {
-    "running": true,
-    "speed": 2438,
+    "running": false,
+    "speed": 0,
     "active_faults": [],
     "in_dtw": false
   },
@@ -51,7 +51,7 @@
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "ERROR"
     },
     {
       "index": 3,
@@ -59,15 +59,15 @@
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "WARNING"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "ERROR"
     },
     {
       "index": 6,
-      "state": "RUNNING"
+      "state": "ERROR"
     }
   ],
   "wpt": [
@@ -134,7 +134,7 @@
     {
       "index": 12,
       "error": true,
-      "carrier": 2306
+      "carrier": 53
     },
     {
       "index": 13,
@@ -157,19 +157,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 2,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 3,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 4,
-        "connection_faulted": false
+        "connection_faulted": true
       }
     ]
   },
@@ -184,7 +184,7 @@
       "total": 16,
       "faulted": 1
     },
-    "ppu_connections": 6,
+    "ppu_connections": 2,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -407,12 +407,17 @@
     "12": "2026-11-01T08:27:42.342240+00:00"
   },
   "crb_fault_counts": {
-    "1": 236,
-    "2": 223,
-    "3": 227,
-    "4": 227
+    "1": 237,
+    "2": 224,
+    "3": 228,
+    "4": 228
   },
-  "crb_fault_start": {},
+  "crb_fault_start": {
+    "1": "2026-11-01T13:40:45.965616+00:00",
+    "2": "2026-11-01T13:40:45.965616+00:00",
+    "3": "2026-11-01T13:40:45.965616+00:00",
+    "4": "2026-11-01T13:40:45.965616+00:00"
+  },
   "strays": [],
   "chutes": {
     "locked_out": 12,
@@ -420,18 +425,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 21659389,
-    "recirculated": 49795,
+    "sorted": 21659419,
+    "recirculated": 49796,
     "recirc_pct": 0.23
   },
   "weekly": {
     "scan_defect_pct": 0.0,
     "recirc_pct": 0.23,
-    "oee_good_divert": 1448107,
+    "oee_good_divert": 1448123,
     "oee_failed_divert": 1478908,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1771485,
+    "oee_lane_full": 1771499,
     "oee_max_recirc": 24,
     "oee_no_read": 223224,
     "lane_full_pct": 50.3,
@@ -443,14 +448,14 @@
     "inducted": 107472,
     "diverted": 107342,
     "mhe_breakdown": {
-      "ItemScanned": 3830231,
-      "LaneFull": 1349997,
-      "CodeUsed": 1336843,
-      "Ok": 1334891,
-      "TrayspacingHorizontal": 197875,
-      "LaneBlocked": 76800,
-      "MaxRecirculation": 22527,
-      "LaneDisabled": 18753,
+      "ItemScanned": 3829748,
+      "LaneFull": 1349905,
+      "CodeUsed": 1336668,
+      "Ok": 1334718,
+      "TrayspacingHorizontal": 197885,
+      "LaneBlocked": 76792,
+      "MaxRecirculation": 22525,
+      "LaneDisabled": 18752,
       "ItemOnActivatedCarrier": 7443,
       "NoActivation": 418,
       "NoAnswerFromScanner": 11,
@@ -461,10 +466,10 @@
       {
         "date": "2026-10-25",
         "ftd": 56,
-        "good": 128333,
-        "lane_full": 93873,
+        "good": 128127,
+        "lane_full": 93665,
         "no_read": 0,
-        "utd": 956
+        "utd": 955
       },
       {
         "date": "2026-10-26",
@@ -517,8 +522,8 @@
       {
         "date": "2026-11-01",
         "ftd": 11,
-        "good": 54451,
-        "lane_full": 91268,
+        "good": 54479,
+        "lane_full": 91369,
         "no_read": 0,
         "utd": 455
       }
@@ -707,11 +712,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 37.7,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 314763,
+    "plc_dpmo": 314761,
     "plc_scan_defect": 3.55,
     "sorter_oee": 99.1,
-    "plc_total_units": 4698542,
-    "plc_good_diverts": 1448107,
+    "plc_total_units": 4698572,
+    "plc_good_diverts": 1448123,
     "plc_total_defects": 1478926
   },
   "shift_report": {
@@ -724,7 +729,7 @@
     "south_lower": [
       {
         "name": "91202 CP90 Pallet Build North Lower",
-        "duration_min": 41.4
+        "duration_min": 42.5
       }
     ],
     "north_upper": [],
@@ -734,118 +739,122 @@
     "cp01": [
       {
         "name": "CP01 Inbound MDR01232_02",
-        "duration_min": 10774.9
+        "duration_min": 10776.1
       },
       {
         "name": "CP01 Inbound MDR01404_05",
-        "duration_min": 10194.5
+        "duration_min": 10195.6
       },
       {
         "name": "CP01 Inbound MDR01404_06",
-        "duration_min": 4.1
+        "duration_min": 5.3
       }
     ],
     "cp02": [
       {
         "name": "CP02 Inbound MDR02206_05",
-        "duration_min": 11394.7
+        "duration_min": 11395.9
       }
     ]
   },
   "active_outbound_south": [
     {
       "name": "CP56 Tote Take Away MDR56618_05",
-      "duration_min": 61939.7
+      "duration_min": 61940.9
     },
     {
       "name": "CP62_RPND MDR62351_37",
-      "duration_min": 61768.1
+      "duration_min": 61769.2
     },
     {
       "name": "CP62_RPND MDR62351_08",
-      "duration_min": 36408.9
+      "duration_min": 36410.0
     },
     {
       "name": "CP34 North Jackpot MDR34218_02",
-      "duration_min": 12846.3
+      "duration_min": 12847.5
     },
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 12748.4
+      "duration_min": 12749.5
     },
     {
       "name": "CP62_RPND MDR62356_02",
-      "duration_min": 12619.9
+      "duration_min": 12621.1
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33214_01",
-      "duration_min": 12549.3
+      "duration_min": 12550.4
     },
     {
       "name": "CP62_RPND BRB62108",
-      "duration_min": 11650.3
+      "duration_min": 11651.5
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33117_03",
-      "duration_min": 11512.7
+      "duration_min": 11513.9
     },
     {
       "name": "CP56 Tote Take Away EE56702_5",
-      "duration_min": 11426.9
+      "duration_min": 11428.0
     },
     {
       "name": "CP56 Tote Take Away EE56702_3",
-      "duration_min": 11400.5
+      "duration_min": 11401.7
     },
     {
       "name": "CP53 EACH TO SORT MDR53442_01",
-      "duration_min": 11362.0
+      "duration_min": 11363.2
     },
     {
       "name": "CP53 EACH TO SORT MDR53448_01",
-      "duration_min": 11343.1
+      "duration_min": 11344.3
     },
     {
       "name": "CP56 Tote Take Away EE56702_4",
-      "duration_min": 11338.0
+      "duration_min": 11339.2
     },
     {
       "name": "CP56 Tote Take Away EE56608_5",
-      "duration_min": 11316.1
+      "duration_min": 11317.3
     },
     {
       "name": "CP53 EACH TO SORT MDR53450_01",
-      "duration_min": 11309.7
+      "duration_min": 11310.9
     },
     {
       "name": "CP60 ATR_UIS BRB60208",
-      "duration_min": 11120.2
+      "duration_min": 11121.4
     },
     {
       "name": "CP53 EACH TO SORT BRB53260",
-      "duration_min": 10471.5
+      "duration_min": 10472.7
     },
     {
       "name": "CP62_RPND MDR62450_41",
-      "duration_min": 10163.8
+      "duration_min": 10164.9
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33130_01",
-      "duration_min": 10132.4
+      "duration_min": 10133.5
+    },
+    {
+      "name": "Shoe Sorter CP68 lane 4 MDR68304_04",
+      "duration_min": 0.2
     }
   ],
   "active_outbound_north": [
     {
       "name": "CP78 Fluid Load NorthWest DD344 MDR78568_01",
-      "duration_min": 12919.8
+      "duration_min": 12921.0
     },
     {
       "name": "CP77 Fluid Load NorthEast DD339 MDR77566_01",
-      "duration_min": 10650.2
+      "duration_min": 10651.4
     },
     {
       "name": "CP77 Fluid Load NorthEast DD334 MDR77120_03",
-      "duration_min": 1.3
+      "duration_min": 2.4
     }
   ],
   "shoe_sorter": {
