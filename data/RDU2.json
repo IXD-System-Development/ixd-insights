@@ -1,16 +1,16 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-11-08 13:59:38 EST",
+  "timestamp": "2026-11-08 14:00:47 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-11-08 13:59",
+  "_pushed_at": "2026-11-08 14:00",
   "carrier_count": 2340,
   "sorter": {
-    "running": true,
-    "speed": 2379,
+    "running": false,
+    "speed": 0,
     "active_faults": [],
-    "in_dtw": false
+    "in_dtw": true
   },
   "carriers": {
     "faulted": 1,
@@ -133,8 +133,8 @@
     },
     {
       "index": 12,
-      "error": true,
-      "carrier": 2115
+      "error": false,
+      "carrier": null
     },
     {
       "index": 13,
@@ -157,19 +157,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 2,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 3,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 4,
-        "connection_faulted": false
+        "connection_faulted": true
       }
     ]
   },
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 0
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -403,16 +403,19 @@
     "8": 1,
     "12": 604
   },
-  "wpt_fault_start": {
-    "12": "2026-11-08T18:57:13.006750+00:00"
-  },
+  "wpt_fault_start": {},
   "crb_fault_counts": {
-    "1": 300,
-    "2": 291,
-    "3": 293,
-    "4": 293
+    "1": 301,
+    "2": 292,
+    "3": 294,
+    "4": 294
   },
-  "crb_fault_start": {},
+  "crb_fault_start": {
+    "1": "2026-11-08T19:00:41.036118+00:00",
+    "2": "2026-11-08T19:00:41.036118+00:00",
+    "3": "2026-11-08T19:00:41.036118+00:00",
+    "4": "2026-11-08T19:00:41.036118+00:00"
+  },
   "strays": [],
   "chutes": {
     "locked_out": 4,
@@ -420,20 +423,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 22892288,
+    "sorted": 22892389,
     "recirculated": 50417,
     "recirc_pct": 0.22
   },
   "weekly": {
     "scan_defect_pct": 0.0,
     "recirc_pct": 0.22,
-    "oee_good_divert": 1664136,
+    "oee_good_divert": 1664152,
     "oee_failed_divert": 1482306,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1771835,
+    "oee_lane_full": 1771837,
     "oee_max_recirc": 24,
-    "oee_no_read": 235393,
+    "oee_no_read": 235394,
     "lane_full_pct": 48.1,
     "sorter_ote": 84.2,
     "downtime_pct": 0.0,
@@ -443,15 +446,15 @@
     "inducted": 236616,
     "diverted": 236460,
     "mhe_breakdown": {
-      "ItemScanned": 3967734,
-      "CodeUsed": 1397415,
-      "Ok": 1396016,
-      "LaneFull": 1294937,
-      "TrayspacingHorizontal": 197652,
-      "LaneBlocked": 86052,
-      "LaneDisabled": 23601,
-      "MaxRecirculation": 20192,
-      "ItemOnActivatedCarrier": 8232,
+      "ItemScanned": 3967483,
+      "CodeUsed": 1397324,
+      "Ok": 1395924,
+      "LaneFull": 1294874,
+      "TrayspacingHorizontal": 197648,
+      "LaneBlocked": 86042,
+      "LaneDisabled": 23598,
+      "MaxRecirculation": 20191,
+      "ItemOnActivatedCarrier": 8228,
       "NoActivation": 503,
       "NotCodeConverted": 8,
       "LaneJammed": 3,
@@ -461,10 +464,10 @@
       {
         "date": "2026-11-01",
         "ftd": 22,
-        "good": 69691,
-        "lane_full": 52079,
+        "good": 69547,
+        "lane_full": 51938,
         "no_read": 0,
-        "utd": 261
+        "utd": 257
       },
       {
         "date": "2026-11-02",
@@ -517,8 +520,8 @@
       {
         "date": "2026-11-08",
         "ftd": 47,
-        "good": 116737,
-        "lane_full": 77900,
+        "good": 116791,
+        "lane_full": 77978,
         "no_read": 0,
         "utd": 659
       }
@@ -788,11 +791,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 36.03,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 301388,
+    "plc_dpmo": 301387,
     "plc_scan_defect": 3.49,
     "sorter_oee": 84.1,
-    "plc_total_units": 4918319,
-    "plc_good_diverts": 1664136,
+    "plc_total_units": 4918337,
+    "plc_good_diverts": 1664152,
     "plc_total_defects": 1482324
   },
   "shift_report": {
@@ -810,54 +813,54 @@
     "cp01": [
       {
         "name": "CP01 Inbound MDR01232_02",
-        "duration_min": 21174.8
+        "duration_min": 21176.0
       },
       {
         "name": "CP01 Inbound MDR01404_05",
-        "duration_min": 20594.4
+        "duration_min": 20595.5
       }
     ],
     "cp02": [
       {
         "name": "CP02 Inbound MDR02206_05",
-        "duration_min": 21794.6
+        "duration_min": 21795.8
       }
     ]
   },
   "active_outbound_south": [
     {
       "name": "CP56 Tote Take Away MDR56618_05",
-      "duration_min": 72339.6
+      "duration_min": 72340.8
     },
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 23148.3
+      "duration_min": 23149.5
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33117_03",
-      "duration_min": 21912.6
+      "duration_min": 21913.8
     },
     {
       "name": "CP56 Tote Take Away EE56702_3",
-      "duration_min": 21800.4
+      "duration_min": 21801.6
     },
     {
       "name": "CP53 EACH TO SORT MDR53442_01",
-      "duration_min": 21761.9
+      "duration_min": 21763.1
     },
     {
       "name": "CP53 EACH TO SORT MDR53448_01",
-      "duration_min": 21743.1
+      "duration_min": 21744.2
     },
     {
       "name": "CP56 Tote Take Away EE56608_5",
-      "duration_min": 21716.0
+      "duration_min": 21717.2
     }
   ],
   "active_outbound_north": [
     {
       "name": "CP78 Fluid Load NorthWest DD344 MDR78568_01",
-      "duration_min": 23319.7
+      "duration_min": 23320.9
     }
   ],
   "shoe_sorter": {
@@ -1014,11 +1017,5 @@
       "delay_min": 1.2
     }
   ],
-  "priority_actions": [
-    {
-      "text": "Pull MCB carriers at WPT [12]",
-      "severity": "CRITICAL",
-      "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
-    }
-  ]
+  "priority_actions": []
 }
