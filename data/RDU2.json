@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-11-11 19:36:22 EST",
+  "timestamp": "2026-11-11 19:37:32 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-11-11 19:36",
+  "_pushed_at": "2026-11-11 19:37",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2384,
+    "speed": 2401,
     "active_faults": [],
     "in_dtw": false
   },
@@ -133,8 +133,8 @@
     },
     {
       "index": 12,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 1355
     },
     {
       "index": 13,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 0
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -401,9 +401,11 @@
     "6": 113,
     "11": 7,
     "8": 1,
-    "12": 1078
+    "12": 1079
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "12": "2026-11-12T00:37:25.202547+00:00"
+  },
   "crb_fault_counts": {
     "1": 326,
     "2": 316,
@@ -418,18 +420,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 23402269,
+    "sorted": 23402422,
     "recirculated": 50628,
     "recirc_pct": 0.22
   },
   "weekly": {
     "scan_defect_pct": 0.0,
     "recirc_pct": 0.22,
-    "oee_good_divert": 1769242,
-    "oee_failed_divert": 1483661,
+    "oee_good_divert": 1769302,
+    "oee_failed_divert": 1483662,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1801247,
+    "oee_lane_full": 1801251,
     "oee_max_recirc": 24,
     "oee_no_read": 240733,
     "lane_full_pct": 47.8,
@@ -437,19 +439,19 @@
     "downtime_pct": 0.17,
     "sorter_fpy_icw": 46.3,
     "_sorter_stats_fpy": 99.9,
-    "mhe_defect_icw": 7.21,
+    "mhe_defect_icw": 7.2,
     "inducted": 1453268,
     "diverted": 1452270,
     "mhe_breakdown": {
-      "ItemScanned": 3857233,
-      "CodeUsed": 1367982,
-      "Ok": 1366645,
-      "LaneFull": 1249704,
-      "TrayspacingHorizontal": 203738,
-      "LaneBlocked": 79258,
+      "ItemScanned": 3857137,
+      "CodeUsed": 1367915,
+      "Ok": 1366582,
+      "LaneFull": 1249743,
+      "TrayspacingHorizontal": 203716,
+      "LaneBlocked": 79261,
       "LaneDisabled": 25633,
-      "MaxRecirculation": 17943,
-      "ItemOnActivatedCarrier": 8472,
+      "MaxRecirculation": 17948,
+      "ItemOnActivatedCarrier": 8475,
       "NoActivation": 486,
       "NotCodeConverted": 8,
       "LaneJammed": 3,
@@ -459,10 +461,10 @@
       {
         "date": "2026-11-04",
         "ftd": 10,
-        "good": 41830,
-        "lane_full": 21841,
+        "good": 41615,
+        "lane_full": 21666,
         "no_read": 0,
-        "utd": 174
+        "utd": 172
       },
       {
         "date": "2026-11-05",
@@ -515,10 +517,10 @@
       {
         "date": "2026-11-11",
         "ftd": 59,
-        "good": 147811,
-        "lane_full": 134109,
+        "good": 147961,
+        "lane_full": 134321,
         "no_read": 0,
-        "utd": 1015
+        "utd": 1019
       }
     ],
     "top_ftd_chutes": [
@@ -646,17 +648,17 @@
     "estop_downtime_min": 0.0,
     "plc_fpy": 35.01,
     "plc_mhe_defect": 29.36,
-    "plc_ftd_pct": 29.36,
+    "plc_ftd_pct": 29.35,
     "plc_gap_error_pct": 0.0,
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 35.64,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 293554,
+    "plc_dpmo": 293551,
     "plc_scan_defect": 3.46,
     "sorter_oee": 79.2,
-    "plc_total_units": 5054192,
-    "plc_good_diverts": 1769242,
-    "plc_total_defects": 1483679
+    "plc_total_units": 5054257,
+    "plc_good_diverts": 1769302,
+    "plc_total_defects": 1483680
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -664,7 +666,12 @@
     "text": "\ud83d\udccb SHIFT SUMMARY REPORT\n\ud83d\udd53 Day Shift (7am - 7pm EST)\n2026-11-12 00:00 UTC\n\n\ud83d\udea8 TOP 10 MOST FREQUENT JAMS\n  1. CP62_RPND MDR62450_01 \u2014 97x\n  2. CP33 South Jackpot and Bypass MDR33216_01 \u2014 36x\n  3. CP33 South Jackpot and Bypass MDR33342_01 \u2014 28x\n  4. CP60 ATR_UIS BB60212 \u2014 23x\n  5. CP62_RPND MDR62351_40 \u2014 19x\n  6. CP62_RPND MDR62450_42 \u2014 17x\n  7. CP33 South Jackpot and Bypass MDR33320_04 \u2014 16x\n  8. CP01 Inbound MDR01412_03 \u2014 14x\n  9. CP56 Tote Take Away EE56802_6 \u2014 10x\n  10. CP34 North Jackpot MDR34367_03 \u2014 6x\n  \u2022 Total jams: 354 | Duration: 1560 min (26.0 hrs)\n\n\u26a0\ufe0f IOB TRIPS\n  No IOB trips this shift.\n\n\u2699\ufe0f SORTER FAULTS\n  No sorter faults this shift.\n\n\ud83d\uded1 ESTOP DOWNTIME\n  No estop events this shift.\n\n\ud83d\udcf7 SCANNER REPORT\n  Scanner 1: 16,221,631 good | 624,831 noread | 180,575 multi\n  Scanner 2: 18,274,261 good | 565,684 noread | 188,748 multi\n  Scanner 3: 17,851,603 good | 579,150 noread | 164,859 multi\n  Scanner 4: 18,575,129 good | 774,548 noread | 230,315 multi\n  \u2022 Rate: 95.5% good | 3.4% noread | 1.0% multi\n\n\ud83d\ude9a TOP 4 FAULTED CARRIERS\n  1. CA2142 \u2014 3 (Comm:1, MNR:2)\n  2. CA1474 \u2014 1 (Comm:1)\n  3. CA1091 \u2014 1 (Comm:1)\n\n\ud83d\udce6 CROSSBELT INDUCTION\n  DYN-10-C: 8,546\n  DYN-12-C: 8,517\n  DYN-11-C: 7,932\n  DYN-03-A: 7,313\n  DYN-02-A: 6,511\n  DYN-01-A: 6,369\n  Main Router Induct: 6,369\n  PIDs (combined): 46,735\n  \u2022 Total inducted: 94,499\n\n\ud83d\udce4 CROSSBELT DIVERTS\n  \u2705 Successful: 94,490\n  \ud83d\udd04 Lane Full (recirculated): 90,861\n  \u274c No Activation (FTD): 40\n  \u26a0\ufe0f Item On Carrier (UTD): 636\n  \u2022 Total diverted: 95,178\n\n\ud83d\udd0c CTB/CRB FAULT COUNT (this shift)\n  CRB 1: +9 faults this shift (lifetime: 608,572)\n  CRB 2: +9 faults this shift (lifetime: 765,478)\n  CRB 3: +9 faults this shift (lifetime: 663,245)\n  CRB 4: +8 faults this shift (lifetime: 725,125)\n\n\ud83d\udd34 WPT CTB/CRB HEALTH CHECK [0-15]\n  All 16 positions OK\n\n\ud83d\udce1 DISCHARGE CTB COMM STATUS [1-47]\n  COMM FAILED: CTB 01, CTB 02, CTB 03, CTB 04\n  Total: 4 of 47 faulted\n\n\u23f1\ufe0f LATE STARTUP AFTER DTW\n  DTW ended 2026-11-10T19:00 \u2192 Sorter started +1.2 min late\n  DTW ended 2026-11-10T23:00 \u2192 Sorter started +4.7 min late\n  DTW ended 2026-11-11T02:30 \u2192 Sorter started +4.6 min late\n  DTW ended 2026-11-11T07:00 \u2192 Sorter started +3.5 min late\n  DTW ended 2026-11-11T11:01 \u2192 Sorter started +5.8 min late\n  DTW ended 2026-11-11T14:30 \u2192 Sorter started +10.4 min late\n  \u2022 Total startup delay this week: 61 min"
   },
   "active_jams": {
-    "south_upper": [],
+    "south_upper": [
+      {
+        "name": "77152 CP77 Fluid Load NE Center Northside DD336 Upper",
+        "duration_min": 0.8
+      }
+    ],
     "south_lower": [],
     "north_upper": [],
     "north_lower": []
@@ -673,62 +680,66 @@
     "cp01": [
       {
         "name": "CP01 Inbound MDR01232_02",
-        "duration_min": 25831.6
+        "duration_min": 25832.7
       }
     ],
     "cp02": [
       {
         "name": "CP02 Inbound MDR02206_05",
-        "duration_min": 26451.4
+        "duration_min": 26452.5
       }
     ]
   },
   "active_outbound_south": [
     {
       "name": "CP56 Tote Take Away MDR56618_05",
-      "duration_min": 76996.4
+      "duration_min": 76997.5
     },
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 27805.0
+      "duration_min": 27806.2
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33117_03",
-      "duration_min": 26569.4
+      "duration_min": 26570.5
     },
     {
       "name": "CP56 Tote Take Away EE56702_3",
-      "duration_min": 26457.2
+      "duration_min": 26458.3
     },
     {
       "name": "CP53 EACH TO SORT MDR53442_01",
-      "duration_min": 26418.7
+      "duration_min": 26419.8
     },
     {
       "name": "CP53 EACH TO SORT MDR53448_01",
-      "duration_min": 26399.8
+      "duration_min": 26400.9
     },
     {
       "name": "CP56 Tote Take Away EE56608_5",
-      "duration_min": 26372.8
+      "duration_min": 26373.9
     },
     {
       "name": "CP62_RPND MDR624500",
-      "duration_min": 4.7
+      "duration_min": 5.9
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33342_01",
-      "duration_min": 3.1
+      "duration_min": 4.2
     },
     {
       "name": "CP56 Tote Take Away EE56702_6",
-      "duration_min": 1.4
+      "duration_min": 2.5
+    },
+    {
+      "name": "CP62_RPND MDR62450_01",
+      "duration_min": 0.8
     }
   ],
   "active_outbound_north": [
     {
       "name": "CP78 Fluid Load NorthWest DD344 MDR78568_01",
-      "duration_min": 27976.4
+      "duration_min": 27977.6
     }
   ],
   "shoe_sorter": {
@@ -885,5 +896,11 @@
       "delay_min": 1.2
     }
   ],
-  "priority_actions": []
+  "priority_actions": [
+    {
+      "text": "Pull MCB carriers at WPT [12]",
+      "severity": "CRITICAL",
+      "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
+    }
+  ]
 }
