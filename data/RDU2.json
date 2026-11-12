@@ -1,10 +1,10 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-11-12 14:11:17 EST",
+  "timestamp": "2026-11-12 14:12:26 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-11-12 14:11",
+  "_pushed_at": "2026-11-12 14:12",
   "carrier_count": 2340,
   "sorter": {
     "running": false,
@@ -51,7 +51,7 @@
     },
     {
       "index": 2,
-      "state": "STOPPED"
+      "state": "ERROR"
     },
     {
       "index": 3,
@@ -59,15 +59,15 @@
     },
     {
       "index": 4,
-      "state": "STOPPED"
+      "state": "WARNING"
     },
     {
       "index": 5,
-      "state": "STOPPED"
+      "state": "ERROR"
     },
     {
       "index": 6,
-      "state": "STOPPED"
+      "state": "ERROR"
     }
   ],
   "wpt": [
@@ -436,7 +436,7 @@
     "oee_failed_divert": 1483950,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1809028,
+    "oee_lane_full": 1809030,
     "oee_max_recirc": 24,
     "oee_no_read": 241619,
     "lane_full_pct": 46.7,
@@ -659,7 +659,7 @@
     "plc_dpmo": 293885,
     "plc_scan_defect": 3.46,
     "sorter_oee": 80.1,
-    "plc_total_units": 5049487,
+    "plc_total_units": 5049489,
     "plc_good_diverts": 1756467,
     "plc_total_defects": 1483968
   },
@@ -678,50 +678,54 @@
     "cp01": [
       {
         "name": "CP01 Inbound MDR01232_02",
-        "duration_min": 26946.5
+        "duration_min": 26947.6
       }
     ],
     "cp02": [
       {
         "name": "CP02 Inbound MDR02206_05",
-        "duration_min": 27566.3
+        "duration_min": 27567.4
       }
     ]
   },
   "active_outbound_south": [
     {
       "name": "CP56 Tote Take Away MDR56618_05",
-      "duration_min": 78111.3
+      "duration_min": 78112.4
     },
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 28919.9
+      "duration_min": 28921.1
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33117_03",
-      "duration_min": 27684.3
+      "duration_min": 27685.4
     },
     {
       "name": "CP56 Tote Take Away EE56702_3",
-      "duration_min": 27572.1
+      "duration_min": 27573.2
     },
     {
       "name": "CP53 EACH TO SORT MDR53442_01",
-      "duration_min": 27533.6
+      "duration_min": 27534.7
     },
     {
       "name": "CP53 EACH TO SORT MDR53448_01",
-      "duration_min": 27514.7
+      "duration_min": 27515.9
     },
     {
       "name": "CP56 Tote Take Away EE56608_5",
-      "duration_min": 27487.7
+      "duration_min": 27488.8
+    },
+    {
+      "name": "CP62_RPND MDR62450_01",
+      "duration_min": 0.8
     }
   ],
   "active_outbound_north": [
     {
       "name": "CP78 Fluid Load NorthWest DD344 MDR78568_01",
-      "duration_min": 29091.3
+      "duration_min": 29092.5
     }
   ],
   "shoe_sorter": {
@@ -768,9 +772,11 @@
       }
     ],
     "gridlock": false,
-    "jams": [],
+    "jams": [
+      "CP68 Lanes"
+    ],
     "induct_count": 14763,
-    "induct_jam": false,
+    "induct_jam": true,
     "middle_jam": false,
     "exit_jam": false,
     "agl_enabled": false,
