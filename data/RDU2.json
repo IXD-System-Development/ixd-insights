@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-11-13 01:40:22 EST",
+  "timestamp": "2026-11-13 01:41:32 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-11-13 01:40",
+  "_pushed_at": "2026-11-13 01:41",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2410,
+    "speed": 2412,
     "active_faults": [],
     "in_dtw": false
   },
@@ -133,8 +133,8 @@
     },
     {
       "index": 12,
-      "error": false,
-      "carrier": null
+      "error": true,
+      "carrier": 810
     },
     {
       "index": 13,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 0
+      "faulted": 1
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -401,9 +401,11 @@
     "6": 113,
     "11": 7,
     "8": 1,
-    "12": 1259
+    "12": 1260
   },
-  "wpt_fault_start": {},
+  "wpt_fault_start": {
+    "12": "2026-11-13T06:41:24.976530+00:00"
+  },
   "crb_fault_counts": {
     "1": 335,
     "2": 326,
@@ -418,20 +420,20 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 23625637,
+    "sorted": 23625901,
     "recirculated": 50694,
     "recirc_pct": 0.21
   },
   "weekly": {
     "scan_defect_pct": 0.0,
     "recirc_pct": 0.21,
-    "oee_good_divert": 1787734,
-    "oee_failed_divert": 1484092,
+    "oee_good_divert": 1787828,
+    "oee_failed_divert": 1484094,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1813553,
+    "oee_lane_full": 1813583,
     "oee_max_recirc": 24,
-    "oee_no_read": 242298,
+    "oee_no_read": 242301,
     "lane_full_pct": 45.8,
     "sorter_ote": 80.1,
     "downtime_pct": 0.23,
@@ -441,15 +443,15 @@
     "inducted": 1988454,
     "diverted": 1987170,
     "mhe_breakdown": {
-      "ItemScanned": 3721702,
-      "CodeUsed": 1367915,
-      "Ok": 1366676,
-      "LaneFull": 1156346,
-      "TrayspacingHorizontal": 198024,
-      "LaneBlocked": 61858,
-      "LaneDisabled": 32718,
-      "MaxRecirculation": 13301,
-      "ItemOnActivatedCarrier": 8435,
+      "ItemScanned": 3722305,
+      "CodeUsed": 1368077,
+      "Ok": 1366841,
+      "LaneFull": 1156627,
+      "TrayspacingHorizontal": 198084,
+      "LaneBlocked": 61908,
+      "LaneDisabled": 32743,
+      "MaxRecirculation": 13309,
+      "ItemOnActivatedCarrier": 8439,
       "NoActivation": 486,
       "NoAnswerFromScanner": 3
     },
@@ -457,10 +459,10 @@
       {
         "date": "2026-11-06",
         "ftd": 80,
-        "good": 185170,
-        "lane_full": 148099,
+        "good": 185041,
+        "lane_full": 148048,
         "no_read": 0,
-        "utd": 1372
+        "utd": 1371
       },
       {
         "date": "2026-11-07",
@@ -513,10 +515,10 @@
       {
         "date": "2026-11-13",
         "ftd": 8,
-        "good": 22909,
-        "lane_full": 26443,
+        "good": 23208,
+        "lane_full": 26777,
         "no_read": 0,
-        "utd": 86
+        "utd": 91
       }
     ],
     "top_ftd_chutes": [
@@ -642,19 +644,19 @@
     "iob_downtime_min": 17.0,
     "estop_events": 0,
     "estop_downtime_min": 0.0,
-    "plc_fpy": 35.15,
+    "plc_fpy": 35.16,
     "plc_mhe_defect": 29.18,
     "plc_ftd_pct": 29.18,
     "plc_gap_error_pct": 0.0,
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 35.66,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 291836,
+    "plc_dpmo": 291829,
     "plc_scan_defect": 3.45,
     "sorter_oee": 80.0,
-    "plc_total_units": 5085421,
-    "plc_good_diverts": 1787734,
-    "plc_total_defects": 1484110
+    "plc_total_units": 5085547,
+    "plc_good_diverts": 1787828,
+    "plc_total_defects": 1484112
   },
   "shift_report": {
     "shift_label": "Day Shift (7am - 7pm EST)",
@@ -666,7 +668,7 @@
     "south_lower": [
       {
         "name": "91202 CP90 Pallet Build North Lower",
-        "duration_min": 14.4
+        "duration_min": 15.5
       }
     ],
     "north_upper": [],
@@ -676,66 +678,58 @@
     "cp01": [
       {
         "name": "CP01 Inbound MDR01232_02",
-        "duration_min": 27635.6
+        "duration_min": 27636.7
       }
     ],
     "cp02": [
       {
         "name": "CP02 Inbound MDR02206_05",
-        "duration_min": 28255.3
+        "duration_min": 28256.5
       }
     ]
   },
   "active_outbound_south": [
     {
       "name": "CP56 Tote Take Away MDR56618_05",
-      "duration_min": 78800.4
+      "duration_min": 78801.5
     },
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 29609.0
+      "duration_min": 29610.2
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33117_03",
-      "duration_min": 28373.4
+      "duration_min": 28374.5
     },
     {
       "name": "CP56 Tote Take Away EE56702_3",
-      "duration_min": 28261.2
+      "duration_min": 28262.3
     },
     {
       "name": "CP53 EACH TO SORT MDR53442_01",
-      "duration_min": 28222.7
+      "duration_min": 28223.8
     },
     {
       "name": "CP53 EACH TO SORT MDR53448_01",
-      "duration_min": 28203.8
+      "duration_min": 28205.0
     },
     {
       "name": "CP56 Tote Take Away EE56608_5",
-      "duration_min": 28176.8
-    },
-    {
-      "name": "CP33 South Jackpot and Bypass MDR33328_01",
-      "duration_min": 4.2
+      "duration_min": 28177.9
     },
     {
       "name": "CP56 Tote Take Away EE56802_6",
-      "duration_min": 0.9
+      "duration_min": 2.0
     }
   ],
   "active_outbound_north": [
     {
       "name": "CP78 Fluid Load NorthWest DD344 MDR78568_01",
-      "duration_min": 29780.4
+      "duration_min": 29781.6
     },
     {
       "name": "CP76 Fluid Load NorthEast DD332 MDR76116_03",
-      "duration_min": 4.8
-    },
-    {
-      "name": "CP76 Fluid Load NorthEast DD334 MDR76368_01",
-      "duration_min": 4.8
+      "duration_min": 5.9
     }
   ],
   "shoe_sorter": {
@@ -892,5 +886,11 @@
       "delay_min": 1.2
     }
   ],
-  "priority_actions": []
+  "priority_actions": [
+    {
+      "text": "Pull MCB carriers at WPT [12]",
+      "severity": "CRITICAL",
+      "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
+    }
+  ]
 }
