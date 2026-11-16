@@ -1,14 +1,14 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-11-16 02:36:37 EST",
+  "timestamp": "2026-11-16 02:37:49 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-11-16 02:36",
+  "_pushed_at": "2026-11-16 02:37",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2406,
+    "speed": 2396,
     "active_faults": [],
     "in_dtw": false
   },
@@ -133,8 +133,8 @@
     },
     {
       "index": 12,
-      "error": true,
-      "carrier": 2213
+      "error": false,
+      "carrier": null
     },
     {
       "index": 13,
@@ -182,7 +182,7 @@
     },
     "wpt_crb": {
       "total": 16,
-      "faulted": 1
+      "faulted": 0
     },
     "ppu_connections": 6,
     "ppu_total": 6
@@ -403,9 +403,7 @@
     "8": 1,
     "12": 1667
   },
-  "wpt_fault_start": {
-    "12": "2026-11-16T07:26:02.545448+00:00"
-  },
+  "wpt_fault_start": {},
   "crb_fault_counts": {
     "1": 363,
     "2": 355,
@@ -420,7 +418,7 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 24092433,
+    "sorted": 24092434,
     "recirculated": 50923,
     "recirc_pct": 0.21
   },
@@ -443,14 +441,14 @@
     "inducted": 402816,
     "diverted": 402532,
     "mhe_breakdown": {
-      "ItemScanned": 3861892,
-      "CodeUsed": 1343247,
-      "Ok": 1341857,
-      "LaneFull": 1244317,
-      "TrayspacingHorizontal": 198848,
+      "ItemScanned": 3861704,
+      "CodeUsed": 1343221,
+      "Ok": 1341828,
+      "LaneFull": 1244204,
+      "TrayspacingHorizontal": 198833,
       "LaneBlocked": 56106,
-      "LaneDisabled": 27429,
-      "MaxRecirculation": 14251,
+      "LaneDisabled": 27409,
+      "MaxRecirculation": 14258,
       "ItemOnActivatedCarrier": 7416,
       "NoActivation": 428,
       "LaneJammed": 66,
@@ -460,8 +458,8 @@
       {
         "date": "2026-11-09",
         "ftd": 68,
-        "good": 177116,
-        "lane_full": 221280,
+        "good": 177088,
+        "lane_full": 220988,
         "no_read": 0,
         "utd": 970
       },
@@ -516,8 +514,8 @@
       {
         "date": "2026-11-16",
         "ftd": 10,
-        "good": 17160,
-        "lane_full": 16668,
+        "good": 17162,
+        "lane_full": 16857,
         "no_read": 0,
         "utd": 206
       }
@@ -692,7 +690,7 @@
     "cp01": [
       {
         "name": "CP01 Inbound MDR01232_02",
-        "duration_min": 32011.8
+        "duration_min": 32013.0
       }
     ],
     "cp02": []
@@ -700,39 +698,35 @@
   "active_outbound_south": [
     {
       "name": "CP56 Tote Take Away MDR56618_05",
-      "duration_min": 83176.6
+      "duration_min": 83177.8
     },
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 33985.3
+      "duration_min": 33986.5
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33117_03",
-      "duration_min": 32749.6
+      "duration_min": 32750.8
     },
     {
       "name": "CP56 Tote Take Away EE56702_3",
-      "duration_min": 32637.4
+      "duration_min": 32638.6
     },
     {
       "name": "CP53 EACH TO SORT MDR53442_01",
-      "duration_min": 32598.9
+      "duration_min": 32600.1
     },
     {
       "name": "CP53 EACH TO SORT MDR53448_01",
-      "duration_min": 32580.0
+      "duration_min": 32581.2
     },
     {
       "name": "CP56 Tote Take Away EE56608_5",
-      "duration_min": 32553.0
-    },
-    {
-      "name": "CP33 South Jackpot and Bypass MDR33320_04",
-      "duration_min": 3.6
+      "duration_min": 32554.2
     },
     {
       "name": "Shoe Sorter Exit Jam",
-      "duration_min": 0.2
+      "duration_min": 1.4
     }
   ],
   "active_outbound_north": [],
@@ -785,8 +779,8 @@
     ],
     "induct_count": 12196,
     "induct_jam": false,
-    "middle_jam": false,
-    "exit_jam": true,
+    "middle_jam": true,
+    "exit_jam": false,
     "agl_enabled": true,
     "icw_stats": {}
   },
@@ -892,11 +886,5 @@
       "delay_min": 2.3
     }
   ],
-  "priority_actions": [
-    {
-      "text": "Pull MCB carriers at WPT [12]",
-      "severity": "CRITICAL",
-      "component": "Jog to service in TEST mode. Inspect IR window, brushes, belt tension."
-    }
-  ]
+  "priority_actions": []
 }
