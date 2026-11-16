@@ -1,24 +1,24 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-11-16 14:41:23 EST",
+  "timestamp": "2026-11-16 14:42:33 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-11-16 14:41",
+  "_pushed_at": "2026-11-16 14:42",
   "carrier_count": 2340,
   "sorter": {
     "running": true,
-    "speed": 2401,
+    "speed": 2408,
     "active_faults": [],
     "in_dtw": false
   },
   "carriers": {
-    "faulted": 4,
+    "faulted": 3,
     "disabled": 13,
-    "available": 2323,
+    "available": 2324,
     "occupied": 2053,
-    "empty": 270,
-    "empty_pct": 11.5,
+    "empty": 271,
+    "empty_pct": 11.6,
     "availability_pct": 99.3
   },
   "config": {
@@ -134,7 +134,7 @@
     {
       "index": 12,
       "error": true,
-      "carrier": 285
+      "carrier": 564
     },
     {
       "index": 13,
@@ -420,18 +420,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 24182174,
+    "sorted": 24182203,
     "recirculated": 50999,
     "recirc_pct": 0.21
   },
   "weekly": {
     "scan_defect_pct": 0.0,
     "recirc_pct": 0.21,
-    "oee_good_divert": 1717684,
+    "oee_good_divert": 1717685,
     "oee_failed_divert": 1485245,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1852520,
+    "oee_lane_full": 1852526,
     "oee_max_recirc": 24,
     "oee_no_read": 181762,
     "lane_full_pct": 47.4,
@@ -443,15 +443,15 @@
     "inducted": 611811,
     "diverted": 611293,
     "mhe_breakdown": {
-      "ItemScanned": 3832738,
-      "CodeUsed": 1347921,
-      "Ok": 1346583,
-      "LaneFull": 1215522,
-      "TrayspacingHorizontal": 197772,
+      "ItemScanned": 3832861,
+      "CodeUsed": 1347806,
+      "Ok": 1346471,
+      "LaneFull": 1215584,
+      "TrayspacingHorizontal": 197769,
       "LaneBlocked": 55498,
       "LaneDisabled": 26980,
-      "MaxRecirculation": 13603,
-      "ItemOnActivatedCarrier": 7606,
+      "MaxRecirculation": 13599,
+      "ItemOnActivatedCarrier": 7605,
       "NoActivation": 432,
       "LaneJammed": 66,
       "NoAnswerFromScanner": 1
@@ -460,10 +460,10 @@
       {
         "date": "2026-11-09",
         "ftd": 33,
-        "good": 77318,
-        "lane_full": 72125,
+        "good": 77190,
+        "lane_full": 72050,
         "no_read": 0,
-        "utd": 390
+        "utd": 389
       },
       {
         "date": "2026-11-10",
@@ -516,8 +516,8 @@
       {
         "date": "2026-11-16",
         "ftd": 49,
-        "good": 121687,
-        "lane_full": 137035,
+        "good": 121700,
+        "lane_full": 137169,
         "no_read": 0,
         "utd": 976
       }
@@ -664,8 +664,8 @@
     "plc_dpmo": 293792,
     "plc_scan_defect": 3.43,
     "sorter_oee": 79.2,
-    "plc_total_units": 5055491,
-    "plc_good_diverts": 1717684,
+    "plc_total_units": 5055498,
+    "plc_good_diverts": 1717685,
     "plc_total_defects": 1485263
   },
   "shift_report": {
@@ -683,7 +683,7 @@
     "cp01": [
       {
         "name": "CP01 Inbound MDR01232_02",
-        "duration_min": 32736.6
+        "duration_min": 32737.7
       }
     ],
     "cp02": []
@@ -691,34 +691,39 @@
   "active_outbound_south": [
     {
       "name": "CP56 Tote Take Away MDR56618_05",
-      "duration_min": 83901.4
+      "duration_min": 83902.5
     },
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 34710.1
+      "duration_min": 34711.2
     },
     {
       "name": "CP56 Tote Take Away EE56702_3",
-      "duration_min": 33362.2
+      "duration_min": 33363.3
     },
     {
       "name": "CP53 EACH TO SORT MDR53442_01",
-      "duration_min": 33323.7
+      "duration_min": 33324.8
     },
     {
       "name": "CP53 EACH TO SORT MDR53448_01",
-      "duration_min": 33304.8
+      "duration_min": 33306.0
     },
     {
       "name": "CP56 Tote Take Away EE56608_5",
-      "duration_min": 33277.8
+      "duration_min": 33279.0
     },
     {
       "name": "CP62_RPND MDR62450_39",
-      "duration_min": 2.8
+      "duration_min": 3.9
     }
   ],
-  "active_outbound_north": [],
+  "active_outbound_north": [
+    {
+      "name": "CP77 Fluid Load NorthEast DD334 MDR77120_03",
+      "duration_min": 1.0
+    }
+  ],
   "shoe_sorter": {
     "profibus_nodes": [
       {
@@ -763,11 +768,9 @@
       }
     ],
     "gridlock": false,
-    "jams": [
-      "CP68 Lanes"
-    ],
+    "jams": [],
     "induct_count": 12196,
-    "induct_jam": true,
+    "induct_jam": false,
     "middle_jam": false,
     "exit_jam": false,
     "agl_enabled": false,
