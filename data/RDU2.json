@@ -1,16 +1,16 @@
 {
   "connection_status": "online",
-  "timestamp": "2026-11-20 22:29:33 EST",
+  "timestamp": "2026-11-20 22:30:42 EST",
   "site": "RDU2",
   "oem": "INTL",
   "supported": true,
-  "_pushed_at": "2026-11-20 22:29",
+  "_pushed_at": "2026-11-20 22:30",
   "carrier_count": 2340,
   "sorter": {
-    "running": true,
-    "speed": 2391,
+    "running": false,
+    "speed": 0,
     "active_faults": [],
-    "in_dtw": false
+    "in_dtw": true
   },
   "carriers": {
     "faulted": 0,
@@ -47,27 +47,27 @@
   "ppu": [
     {
       "index": 1,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 2,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 3,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 4,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 5,
-      "state": "RUNNING"
+      "state": "STOPPED"
     },
     {
       "index": 6,
-      "state": "RUNNING"
+      "state": "STOPPED"
     }
   ],
   "wpt": [
@@ -134,7 +134,7 @@
     {
       "index": 12,
       "error": true,
-      "carrier": 683
+      "carrier": 860
     },
     {
       "index": 13,
@@ -157,19 +157,19 @@
     "units": [
       {
         "index": 1,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 2,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 3,
-        "connection_faulted": false
+        "connection_faulted": true
       },
       {
         "index": 4,
-        "connection_faulted": false
+        "connection_faulted": true
       }
     ]
   },
@@ -184,7 +184,7 @@
       "total": 16,
       "faulted": 1
     },
-    "ppu_connections": 6,
+    "ppu_connections": 0,
     "ppu_total": 6
   },
   "lsm_zones": [
@@ -407,12 +407,17 @@
     "12": "2026-11-21T03:22:29.547695+00:00"
   },
   "crb_fault_counts": {
-    "1": 386,
-    "2": 374,
-    "3": 380,
-    "4": 378
+    "1": 387,
+    "2": 375,
+    "3": 381,
+    "4": 379
   },
-  "crb_fault_start": {},
+  "crb_fault_start": {
+    "1": "2026-11-21T03:30:35.482765+00:00",
+    "2": "2026-11-21T03:30:35.482765+00:00",
+    "3": "2026-11-21T03:30:35.482765+00:00",
+    "4": "2026-11-21T03:30:35.482765+00:00"
+  },
   "strays": [],
   "chutes": {
     "locked_out": 4,
@@ -420,18 +425,18 @@
     "jammed": 0
   },
   "lifetime": {
-    "sorted": 24904958,
+    "sorted": 24904996,
     "recirculated": 51334,
     "recirc_pct": 0.21
   },
   "weekly": {
     "scan_defect_pct": 0.0,
     "recirc_pct": 0.21,
-    "oee_good_divert": 1484471,
+    "oee_good_divert": 1484489,
     "oee_failed_divert": 1486820,
     "oee_gap_error": 10,
     "oee_tracking_error": 8,
-    "oee_lane_full": 1821575,
+    "oee_lane_full": 1821576,
     "oee_max_recirc": 24,
     "oee_no_read": 187906,
     "lane_full_pct": 47.7,
@@ -440,18 +445,18 @@
     "sorter_fpy_icw": 47.0,
     "_sorter_stats_fpy": 99.9,
     "mhe_defect_icw": 7.03,
-    "inducted": 2309410,
-    "diverted": 2307720,
+    "inducted": 2310610,
+    "diverted": 2308920,
     "mhe_breakdown": {
-      "ItemScanned": 3798016,
-      "CodeUsed": 1350895,
-      "Ok": 1349638,
-      "LaneFull": 1229156,
-      "TrayspacingHorizontal": 193892,
-      "LaneBlocked": 55505,
-      "MaxRecirculation": 19216,
-      "LaneDisabled": 14496,
-      "ItemOnActivatedCarrier": 7503,
+      "ItemScanned": 3797737,
+      "CodeUsed": 1350788,
+      "Ok": 1349529,
+      "LaneFull": 1228992,
+      "TrayspacingHorizontal": 193876,
+      "LaneBlocked": 55501,
+      "MaxRecirculation": 19214,
+      "LaneDisabled": 14497,
+      "ItemOnActivatedCarrier": 7502,
       "NoActivation": 425,
       "LaneJammed": 332,
       "NotCodeConverted": 1
@@ -460,10 +465,10 @@
       {
         "date": "2026-11-13",
         "ftd": 0,
-        "good": 8748,
-        "lane_full": 6715,
+        "good": 8584,
+        "lane_full": 6475,
         "no_read": 0,
-        "utd": 23
+        "utd": 22
       },
       {
         "date": "2026-11-14",
@@ -516,8 +521,8 @@
       {
         "date": "2026-11-20",
         "ftd": 38,
-        "good": 182953,
-        "lane_full": 260684,
+        "good": 183013,
+        "lane_full": 260764,
         "no_read": 0,
         "utd": 729
       }
@@ -526,50 +531,50 @@
       {
         "name": "NWBypass",
         "icw_id": 368,
-        "good": 32434,
-        "ftd": 48814,
+        "good": 32464,
+        "ftd": 48890,
         "fail_pct": 60.1
       },
       {
         "name": "SWBypass",
         "icw_id": 196,
         "good": 8072,
-        "ftd": 31266,
+        "ftd": 31338,
         "fail_pct": 79.5
       },
       {
         "name": "Mansort E/F-",
         "icw_id": 320,
-        "good": 1974,
-        "ftd": 29228,
+        "good": 1976,
+        "ftd": 29236,
         "fail_pct": 93.7
       },
       {
         "name": "Mansort G/H+",
         "icw_id": 137,
         "good": 1376,
-        "ftd": 26792,
+        "ftd": 26912,
         "fail_pct": 95.1
       },
       {
         "name": "Mansort A/B+",
         "icw_id": 257,
-        "good": 1304,
-        "ftd": 25638,
-        "fail_pct": 95.2
+        "good": 1326,
+        "ftd": 25686,
+        "fail_pct": 95.1
       },
       {
         "name": "Mansort C/D-",
         "icw_id": 50,
         "good": 1608,
-        "ftd": 23856,
+        "ftd": 23898,
         "fail_pct": 93.7
       },
       {
         "name": "US_02-",
         "icw_id": 350,
         "good": 142,
-        "ftd": 20506,
+        "ftd": 20542,
         "fail_pct": 99.3
       },
       {
@@ -582,14 +587,14 @@
       {
         "name": "SWJP-",
         "icw_id": 1,
-        "good": 3596,
+        "good": 3604,
         "ftd": 18028,
-        "fail_pct": 83.4
+        "fail_pct": 83.3
       },
       {
         "name": "RPND 11/12-",
         "icw_id": 306,
-        "good": 1574,
+        "good": 1578,
         "ftd": 17450,
         "fail_pct": 91.7
       }
@@ -679,11 +684,11 @@
     "plc_tracking_error_pct": 0.0,
     "plc_lane_full_pct": 38.01,
     "plc_max_recirc_pct": 0.0,
-    "plc_dpmo": 310216,
+    "plc_dpmo": 310215,
     "plc_scan_defect": 3.39,
     "sorter_oee": 79.5,
-    "plc_total_units": 4792908,
-    "plc_good_diverts": 1484471,
+    "plc_total_units": 4792927,
+    "plc_good_diverts": 1484489,
     "plc_total_defects": 1486838
   },
   "shift_report": {
@@ -701,11 +706,11 @@
     "cp01": [
       {
         "name": "CP01 Inbound MDR01232_02",
-        "duration_min": 38964.7
+        "duration_min": 38965.9
       },
       {
         "name": "CP01 Inbound MDR01422_05",
-        "duration_min": 3682.2
+        "duration_min": 3683.4
       }
     ],
     "cp02": []
@@ -713,41 +718,41 @@
   "active_outbound_south": [
     {
       "name": "CP56 Tote Take Away MDR56618_05",
-      "duration_min": 90129.5
+      "duration_min": 90130.7
     },
     {
       "name": "CP34 North Jackpot MDR34364_04",
-      "duration_min": 40938.2
+      "duration_min": 40939.4
     },
     {
       "name": "CP56 Tote Take Away EE56702_3",
-      "duration_min": 39590.3
+      "duration_min": 39591.5
     },
     {
       "name": "CP53 EACH TO SORT MDR53442_01",
-      "duration_min": 39551.8
+      "duration_min": 39553.0
     },
     {
       "name": "CP53 EACH TO SORT MDR53448_01",
-      "duration_min": 39533.0
+      "duration_min": 39534.1
     },
     {
       "name": "CP56 Tote Take Away EE56608_5",
-      "duration_min": 39506.0
+      "duration_min": 39507.1
     },
     {
       "name": "CP34 North Jackpot MDR34367_03",
-      "duration_min": 3680.6
+      "duration_min": 3681.7
     },
     {
       "name": "CP33 South Jackpot and Bypass MDR33324_02",
-      "duration_min": 6.4
+      "duration_min": 7.5
     }
   ],
   "active_outbound_north": [
     {
       "name": "CP94 Robotic Palletizer North MDR94228_01",
-      "duration_min": 8.6
+      "duration_min": 9.7
     }
   ],
   "shoe_sorter": {
@@ -794,7 +799,9 @@
       }
     ],
     "gridlock": false,
-    "jams": [],
+    "jams": [
+      "Zone 67810"
+    ],
     "induct_count": 11470,
     "induct_jam": false,
     "middle_jam": false,
